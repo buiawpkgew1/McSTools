@@ -1,0 +1,193 @@
+use std::collections::HashMap;
+use std::fs::File;
+use std::io::BufReader;
+use std::sync::Arc;
+use fastnbt::{ByteArray, Value};
+use fastnbt::Value::Compound;
+use flate2::read::GzDecoder;
+use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockStatePosList};
+use crate::utils::extend_value::NbtExt;
+use crate::utils::schematic_data::{SchematicData, SchematicError};
+use crate::utils::tile_entities::TileEntitiesList;
+use crate::word_edit::var_int_iterator::VarIntIterator;
+use crate::word_edit::we_schematic_data::{WeSchematicData, WeSize};
+
+#[derive(Debug)]
+pub struct WeSchematic {
+    pub nbt: Value,
+}
+
+impl WeSchematic {
+    pub fn new(file_path: &str) -> Result<Self, SchematicError> {
+        let file = File::open(file_path)?;
+        let reader = BufReader::new(file);
+        let decoder = GzDecoder::new(reader);
+
+        let nbt: Value = fastnbt::from_reader(decoder)?;
+        let Compound(root) = &nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+
+        if let Compound(_) = &nbt {
+            Ok(Self { nbt })
+        } else {
+            Err(SchematicError::InvalidFormat("Root is not a Compound"))
+        }
+    }
+
+    pub fn get_metadata(&self) -> Result<&HashMap<String, Value>, SchematicError> {
+        if let Compound(root) = &self.nbt {
+            root.get("Metadata")
+                .and_then(|v| match v {
+                    Compound(list) => Some(list),
+                    _ => None
+                })
+                .ok_or(SchematicError::InvalidFormat("NotFound Metadata"))
+        } else {
+            Err(SchematicError::InvalidFormat("Root is not a Compound"))
+        }
+    }
+
+    pub fn get_palette(&self) -> Result<&HashMap<String, Value>, SchematicError> {
+        if let Compound(root) = &self.nbt {
+            root.get("Palette")
+                .and_then(|v| match v {
+                    Compound(list) => Some(list),
+                    _ => None
+                })
+                .ok_or(SchematicError::InvalidFormat("NotFound Palette"))
+        } else {
+            Err(SchematicError::InvalidFormat("Root is not a Compound"))
+        }
+    }
+    pub fn get_size(&self) -> Result<WeSize, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+
+        let length = root.get_i16("Length")? as i32;
+        let width = root.get_i16("Width")? as i32;
+        let height = root.get_i16("Height")? as i32;
+
+        Ok(WeSize {
+            length,
+            width,
+            height,
+        })
+    }
+
+    pub fn get_block_data(&self) -> Result<&ByteArray, SchematicError> {
+        if let Compound(root) = &self.nbt {
+            root.get("BlockData")
+                .and_then(|v| match v {
+                    Value::ByteArray(list) => Some(list),
+                    _ => None
+                })
+                .ok_or(SchematicError::InvalidFormat("NotFound BlockData"))
+        } else {
+            Err(SchematicError::InvalidFormat("Root is not a Compound"))
+        }
+    }
+
+    pub fn get_block_entities(&self) -> Result<&Vec<Value>, SchematicError> {
+        if let Compound(root) = &self.nbt {
+            root.get("BlockEntities")
+                .and_then(|v| match v {
+                    Value::List(list) => Some(list),
+                    _ => None
+                })
+                .ok_or(SchematicError::InvalidFormat("NotFound BlockEntities"))
+        } else {
+            Err(SchematicError::InvalidFormat("Root is not a Compound"))
+        }
+    }
+
+    pub fn parse_palette(&self) -> Result<HashMap<i32, Arc<BlockData>>, SchematicError> {
+        let palette = self.get_palette()?;
+        let mut result = HashMap::with_capacity(palette.len());
+
+        for (block_state_str, value) in palette {
+            let block_data = Self::parse_block_state(block_state_str);
+
+            let id = match value {
+                Value::Int(n) => *n as i32,
+                _ => return Err(SchematicError::InvalidFormat("Palette value should be Int")),
+            };
+
+            result.insert(id, Arc::new(block_data));
+        }
+
+        Ok(result)
+    }
+
+    fn parse_block_state(input: &str) -> BlockData {
+        let (head_part, props_part) = input.split_once('[')
+            .map(|(h, p)| (h, p.trim_end_matches(']')))
+            .unwrap_or((input, ""));
+        let full_id = Arc::from(head_part);
+        let properties = if props_part.is_empty() {
+            HashMap::new()
+        } else {
+            props_part.split(',')
+                .map(|prop| {
+                    let mut parts = prop.splitn(2, '=');
+                    let key = parts.next()
+                        .expect("Property missing key").trim();
+                    let value = parts.next()
+                        .expect("Property missing value").trim();
+                    (Arc::<str>::from(key.to_string()), Arc::<str>::from(value.to_string()))
+                })
+                .collect()
+        };
+
+        BlockData {
+            id: BlockId{ name: full_id },
+            properties,
+        }
+    }
+
+    pub fn get_we_data(&self) -> Result<WeSchematicData, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+        let palette_max = root.get_i32("PaletteMax")?;
+        let block_entities = self.get_block_entities()?;
+        let palette = self.parse_palette()?;
+        Ok(WeSchematicData {
+            size: self.get_size()?,
+            palette,
+            palette_max,
+            block_data: self.get_block_data()?.to_vec(),
+            block_entities: block_entities.to_vec(),
+        })
+    }
+
+    pub fn get_blocks_pos(&self) -> Result<SchematicData, SchematicError> {
+        let mut tile_entities = TileEntitiesList::default();
+        let mut block_list = BlockStatePosList::default();
+        let data = self.get_we_data()?;
+        let palette = self.parse_palette()?;
+        let block_data_i8 = data.block_data;
+        let size = self.get_size()?;
+        let width = size.width;
+        let height = size.height;
+        let length = size.length;
+        let iter = VarIntIterator::new(&block_data_i8);
+        for (i, value) in iter.enumerate() {
+            let unsigned_state_id = (value & 0xFF) as i32;
+            let y = (i + 1) as i32 / (width * length);
+            let z = ((i + 1) as i32 % (width * length)) / width;
+            let x = (i + 1) as i32 % width;
+            let block_data = palette
+                .get(&unsigned_state_id)
+                .ok_or(SchematicError::InvalidFormat("miss unsigned_state_id"))?;
+            block_list.add_by_pos(
+                x ,
+                y ,
+                z,
+                block_data.clone()
+            );
+        }
+        Ok(SchematicData::new(block_list, tile_entities))
+    }
+}
