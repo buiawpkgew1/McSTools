@@ -5,6 +5,7 @@ use crate::utils::schematic_data::SchematicError;
 use std::time::Instant;
 use sysinfo::{System, Pid, Process, ProcessesToUpdate};
 use crate::building_gadges::bg_schematic::BgSchematic;
+use crate::litematica::lm_schematic::LmSchematic;
 use crate::word_edit::var_int_iterator::VarIntIterator;
 use crate::word_edit::we_schematic::WeSchematic;
 
@@ -32,7 +33,7 @@ fn main() -> Result<(), SchematicError> {
     //println!("{:?}", schem3);
     //println!("{:?}", schem2);
     let schematic4 = BgSchematic::new("./schematic/384046fd-ac85-4d97-bfca-0d2d41482cab_type2.json")?;
-    let json = schematic4.get_type();
+    let json = schematic4.get_blocks_pos();
     println!("{:?}", json);
     sys.refresh_processes(ProcessesToUpdate::All, false);
     let end_mem = sys.process(pid)

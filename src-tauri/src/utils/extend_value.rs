@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use fastnbt::{LongArray, Value};
+use fastnbt::{IntArray, LongArray, Value};
 use crate::utils::block_state_pos_list::BlockPos;
 use crate::utils::schematic_data::SchematicError;
 
@@ -11,7 +11,9 @@ pub trait NbtExt {
     fn get_i32(&self, key: &str) -> Result<i32, SchematicError>;
     fn get_i64(&self, key: &str) -> Result<i64, SchematicError>;
     fn get_long_array(&self, key: &str) -> Result<&LongArray, SchematicError>;
+    fn get_i32_array(&self, key: &str) -> Result<&IntArray, SchematicError>;
     fn get_pos(&self, key: &str) -> Result<BlockPos, SchematicError>;
+    fn get_pos_t2(&self, key: &str) -> Result<BlockPos, SchematicError>;
 }
 
 impl NbtExt for HashMap<String, Value> {
@@ -76,12 +78,30 @@ impl NbtExt for HashMap<String, Value> {
             .ok_or_else(|| SchematicError::MissingField(key.into()))
     }
 
+    fn get_i32_array(&self, key: &str) -> Result<&IntArray, SchematicError> {
+        self.get(key)
+            .and_then(|v| match v {
+                Value::IntArray(n) => Some(n),
+                _ => None
+            })
+            .ok_or_else(|| SchematicError::MissingField(key.into()))
+    }
+
     fn get_pos(&self, key: &str) -> Result<BlockPos, SchematicError> {
         let compound = self.get_compound(key)?;
         Ok(BlockPos {
             x: compound.get_i32("x")?,
             y: compound.get_i32("y")?,
             z: compound.get_i32("z")?,
+        })
+    }
+
+    fn get_pos_t2(&self, key: &str) -> Result<BlockPos, SchematicError> {
+        let compound = self.get_compound(key)?;
+        Ok(BlockPos {
+            x: compound.get_i32("X")?,
+            y: compound.get_i32("Y")?,
+            z: compound.get_i32("Z")?,
         })
     }
 }

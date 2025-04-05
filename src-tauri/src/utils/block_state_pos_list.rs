@@ -10,6 +10,7 @@ pub struct BlockPos {
     pub(crate) y: i32,
     pub(crate) z: i32,
 }
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct BlockId {
     pub(crate) name: Arc<str>,

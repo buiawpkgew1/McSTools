@@ -18,8 +18,5 @@ pub struct JsonData {
 #[derive(Debug, Clone, PartialEq)]
 pub struct BgSchematicData {
     pub type_version: i32,
-    pub size: BlockPos,
-    pub state_list: Vec<i32>,
-    pub block_state_map: Vec<Value>,
-    pub required_items: Vec<Requirements>,
+    pub data: Value,
 }

@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use std::fs::File;
 use flate2::read::GzDecoder;
 use fastnbt::{Value};
-use std::io::{BufReader, Error};
+use std::io::{BufReader, Error, Read};
 use std::sync::{Arc, Mutex};
 use fastnbt::Value::Compound;
 use crate::litematica::lm_schematic_data::{LmMetadata, RegionData, RegionList, RegionNameList};
@@ -21,7 +21,6 @@ impl LmSchematic {
         let file = File::open(file_path)?;
         let reader = BufReader::new(file);
         let decoder = GzDecoder::new(reader);
-
         let nbt: Value = fastnbt::from_reader(decoder)?;
 
         if let Compound(_) = &nbt {

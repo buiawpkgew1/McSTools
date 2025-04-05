@@ -3,6 +3,11 @@ use thiserror::Error;
 use std::io::{Error as IoError};
 use crate::utils::block_state_pos_list::{BlockId, BlockStatePosList};
 use crate::utils::tile_entities::TileEntitiesList;
+use serde_json::{Error as JsonError};
+use regex::Error as RegexError;
+use flate2::CompressError;
+use flate2::DecompressError;
+use valence_nbt::binary::Error as BinaryError;
 
 #[derive(Debug, Error)]
 pub enum SchematicError {
@@ -10,10 +15,22 @@ pub enum SchematicError {
     RootNotCompound,
     #[error("IO error: {0}")]
     Io(#[from] IoError),
+    #[error("JsonError error: {0}")]
+    Json(#[from] JsonError),
     #[error("NBT error: {0}")]
     Nbt(#[from] fastnbt::error::Error),
+    #[error("Binary error: {0}")]
+    BinaryError(#[from] BinaryError),
     #[error("Invalid data format: {0}")]
     InvalidFormat(&'static str),
+    #[error("Base64 err: {0}")]
+    Base64(#[from] base64::DecodeError),
+    #[error("GZIP err: {0}")]
+    GzipCompress(#[from] CompressError),
+    #[error("GZIP err: {0}")]
+    GzipDecompress(#[from] DecompressError),
+    #[error("regex err: {0}")]
+    Regex(#[from] RegexError),
     #[error("Type")]
     TypeMismatch {
         expected: &'static str,
