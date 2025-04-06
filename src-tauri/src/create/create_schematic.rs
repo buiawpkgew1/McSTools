@@ -1,10 +1,9 @@
-use std::collections::HashMap;
+use std::collections::{BTreeMap};
 use std::fs::File;
-use std::io::{BufReader, Error as IoError};
+use std::io::{BufReader};
 use std::sync::Arc;
 use flate2::read::GzDecoder;
-use fastnbt::{self, IntArray, Value, Value::Compound};
-use thiserror::Error;
+use fastnbt::{self, Value, Value::Compound};
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
 use crate::utils::schematic_data::{SchematicData, SchematicError};
 use crate::utils::tile_entities::TileEntitiesList;
@@ -93,7 +92,7 @@ impl CreateSchematic {
                 .unwrap_or_else(|| Arc::from("minecraft:air"));
 
 
-            let mut properties = HashMap::with_capacity(4);
+            let mut properties = BTreeMap::new();
             if let Some(Compound(prop_map)) = root.get("Properties") {
                 for (k, v) in prop_map {
                     if let Value::String(s) = v {

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use std::io::{Error as IoError};
-use crate::utils::block_state_pos_list::{BlockId, BlockStatePosList};
+use crate::utils::block_state_pos_list::{BlockStatePosList};
 use crate::utils::tile_entities::TileEntitiesList;
 use serde_json::{Error as JsonError};
 use regex::Error as RegexError;
@@ -41,8 +41,8 @@ pub enum SchematicError {
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SchematicData {
-    blocks: BlockStatePosList,
-    tile_entities_list: TileEntitiesList,
+    pub blocks: BlockStatePosList,
+    pub tile_entities_list: TileEntitiesList,
 }
 
 impl SchematicData {

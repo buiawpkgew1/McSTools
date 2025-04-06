@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{BTreeMap};
 use std::fs;
 use std::io::Read;
 use std::sync::Arc;
@@ -10,7 +10,6 @@ use fastnbt::Value::Compound;
 use fastsnbt::from_str;
 use flate2::read::GzDecoder;
 use crate::building_gadges::bg_schematic_data::{BgSchematicData};
-use regex::Regex;
 use crate::building_gadges::template_json_representation::{deserialize, int_to_rel_pos};
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
 use crate::utils::extend_value::NbtExt;
@@ -118,7 +117,7 @@ impl BgSchematic {
                 .and_then(Value::as_str)
                 .map(|s| Arc::<str>::from(s))
                 .unwrap_or_else(|| Arc::from("minecraft:air"));
-            let mut properties = HashMap::with_capacity(4);
+            let mut properties = BTreeMap::new();
             if let Some(Compound(prop_map)) = root.get("Properties") {
                 for (k, v) in prop_map {
                     if let Value::String(s) = v {
@@ -229,7 +228,6 @@ impl BgSchematic {
                 let Compound(root) = data else {
                     return Err(SchematicError::InvalidFormat("Root is not a Compound"));
                 };
-                println!("{:?}", root);
                 let start_pos = root.get_pos_t2("startPos")?;
                 let blocks = root.get_i32_array("stateIntArray")?;
                 let block_list_i32 = blocks.clone().into_inner();
@@ -260,7 +258,7 @@ impl BgSchematic {
                         .map(|s| Arc::from(s))
                         .unwrap_or_else(|| Arc::from("minecraft:air"));
 
-                    let mut properties = HashMap::with_capacity(4);
+                    let mut properties = BTreeMap::new();
                     if let Some(Compound(prop_map)) = map_state.get("Properties") {
                         for (k, v) in prop_map {
                             if let Value::String(s) = v {

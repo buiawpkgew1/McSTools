@@ -1,7 +1,5 @@
-use std::collections::HashMap;
+use std::collections::{BTreeMap};
 use serde::{Serialize, Deserialize};
-use serde_json::to_string;
-use std::fmt;
 use std::sync::Arc;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
@@ -10,26 +8,25 @@ pub struct BlockPos {
     pub(crate) y: i32,
     pub(crate) z: i32,
 }
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct BlockId {
     pub(crate) name: Arc<str>,
 }
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct BlockData {
     pub(crate) id: BlockId,
-    pub(crate) properties: HashMap<Arc<str>, Arc<str>>,
+    pub(crate) properties: BTreeMap<Arc<str>, Arc<str>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct BlockStatePos {
-    pos: BlockPos,
-    block: Arc<BlockData>,
+    pub pos: BlockPos,
+    pub block: Arc<BlockData>,
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct BlockStatePosList {
-    elements: Vec<BlockStatePos>,
+    pub elements: Vec<BlockStatePos>,
 }
 
 impl BlockStatePos {

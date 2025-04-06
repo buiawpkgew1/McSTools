@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::File;
 use std::io::BufReader;
 use std::sync::Arc;
@@ -140,7 +140,7 @@ impl WeSchematic {
             .unwrap_or((input, ""));
         let full_id = Arc::from(head_part);
         let properties = if props_part.is_empty() {
-            HashMap::new()
+            BTreeMap::new()
         } else {
             props_part.split(',')
                 .map(|prop| {

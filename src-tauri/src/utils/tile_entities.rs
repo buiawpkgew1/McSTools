@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use crate::utils::block_state_pos_list::{BlockPos, BlockStatePos};
+use crate::utils::block_state_pos_list::{BlockPos};
 use fastnbt::{Value};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

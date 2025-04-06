@@ -1,14 +1,14 @@
 use crate::utils::extend_value::NbtExt;
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::File;
 use flate2::read::GzDecoder;
 use fastnbt::{Value};
-use std::io::{BufReader, Error, Read};
-use std::sync::{Arc, Mutex};
+use std::io::{BufReader, Read};
+use std::sync::{Arc};
 use fastnbt::Value::Compound;
 use crate::litematica::lm_schematic_data::{LmMetadata, RegionData, RegionList, RegionNameList};
 use crate::utils::schematic_data::{SchematicData, SchematicError};
-use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos, BlockStatePosList};
+use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
 use crate::utils::tile_entities::TileEntitiesList;
 use rayon::prelude::*;
 #[derive(Debug)]
@@ -122,7 +122,7 @@ impl LmSchematic {
                 .and_then(Value::as_str)
                 .map(|s| Arc::<str>::from(s))
                 .unwrap_or_else(|| Arc::from("minecraft:air"));
-            let mut properties = HashMap::with_capacity(4);
+            let mut properties = BTreeMap::new();
             if let Some(Compound(prop_map)) = root.get("Properties") {
                 for (k, v) in prop_map {
                     if let Value::String(s) = v {

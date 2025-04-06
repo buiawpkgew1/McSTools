@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::sync::Arc;
 use fastnbt::Value;
 use fastnbt::Value::Compound;
@@ -38,7 +38,7 @@ pub fn deserialize(
             .map(|s| Arc::from(s))
             .unwrap_or_else(|| Arc::from("minecraft:air"));
 
-        let mut properties = HashMap::with_capacity(4);
+        let mut properties = BTreeMap::new();
         if let Some(Compound(prop_map)) = block_state.get("Properties") {
             for (k, v) in prop_map {
                 if let Value::String(s) = v {
