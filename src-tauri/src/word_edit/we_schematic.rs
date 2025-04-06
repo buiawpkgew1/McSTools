@@ -35,6 +35,18 @@ impl WeSchematic {
         }
     }
 
+    pub fn get_type(&self) -> Result<i32, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+        let via_schematic = root.get_compound("Schematic");
+
+        match via_schematic {
+            Ok(_) => Ok(1),
+            Err(_) => Ok(0),
+        }
+    }
+
     pub fn get_metadata(&self) -> Result<&HashMap<String, Value>, SchematicError> {
         if let Compound(root) = &self.nbt {
             root.get("Metadata")
@@ -48,26 +60,30 @@ impl WeSchematic {
         }
     }
 
-    pub fn get_palette(&self) -> Result<&HashMap<String, Value>, SchematicError> {
-        if let Compound(root) = &self.nbt {
-            root.get("Palette")
-                .and_then(|v| match v {
-                    Compound(list) => Some(list),
-                    _ => None
-                })
-                .ok_or(SchematicError::InvalidFormat("NotFound Palette"))
-        } else {
-            Err(SchematicError::InvalidFormat("Root is not a Compound"))
-        }
-    }
-    pub fn get_size(&self) -> Result<WeSize, SchematicError> {
+    pub fn get_palette(&self, type_version: i32) -> Result<&HashMap<String, Value>, SchematicError> {
         let Compound(root) = &self.nbt else {
             return Err(SchematicError::InvalidFormat("Root is not a Compound"));
         };
+        let palette = match type_version {
+            0 => root.get_compound("Palette"),
+            1 => root.get_compound("Schematic")?.get_compound("Blocks")?.get_compound("Palette"),
+            _ => {Err(SchematicError::InvalidFormat("Root is not a Compound"))?}
+        };
+        Ok(palette?)
+    }
+    pub fn get_size(&self, type_version: i32) -> Result<WeSize, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+        let new_root = match type_version {
+            0 => root,
+            1 => root.get_compound("Schematic")?,
+            _ => {Err(SchematicError::InvalidFormat("Root is not a Compound"))?}
+        };
 
-        let length = root.get_i16("Length")? as i32;
-        let width = root.get_i16("Width")? as i32;
-        let height = root.get_i16("Height")? as i32;
+        let length = new_root.get_i16("Length")? as i32;
+        let width = new_root.get_i16("Width")? as i32;
+        let height = new_root.get_i16("Height")? as i32;
 
         Ok(WeSize {
             length,
@@ -76,34 +92,32 @@ impl WeSchematic {
         })
     }
 
-    pub fn get_block_data(&self) -> Result<&ByteArray, SchematicError> {
-        if let Compound(root) = &self.nbt {
-            root.get("BlockData")
-                .and_then(|v| match v {
-                    Value::ByteArray(list) => Some(list),
-                    _ => None
-                })
-                .ok_or(SchematicError::InvalidFormat("NotFound BlockData"))
-        } else {
-            Err(SchematicError::InvalidFormat("Root is not a Compound"))
-        }
+    pub fn get_block_data(&self, type_version: i32) -> Result<&ByteArray, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+        let data = match type_version {
+            0 => root.get_i8_array("BlockData"),
+            1 => root.get_compound("Schematic")?.get_compound("Blocks")?.get_i8_array("Data"),
+            _ => {Err(SchematicError::InvalidFormat("Root is not a Compound"))?}
+        };
+        Ok(data?)
     }
 
-    pub fn get_block_entities(&self) -> Result<&Vec<Value>, SchematicError> {
-        if let Compound(root) = &self.nbt {
-            root.get("BlockEntities")
-                .and_then(|v| match v {
-                    Value::List(list) => Some(list),
-                    _ => None
-                })
-                .ok_or(SchematicError::InvalidFormat("NotFound BlockEntities"))
-        } else {
-            Err(SchematicError::InvalidFormat("Root is not a Compound"))
-        }
+    pub fn get_block_entities(&self, type_version: i32) -> Result<&Vec<Value>, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+        let entities = match type_version {
+            0 => root.get_list("BlockEntities"),
+            1 => root.get_compound("Schematic")?.get_compound("Blocks")?.get_list("BlockEntities"),
+            _ => {Err(SchematicError::InvalidFormat("Root is not a Compound"))?}
+        };
+        Ok(entities?)
     }
 
-    pub fn parse_palette(&self) -> Result<HashMap<i32, Arc<BlockData>>, SchematicError> {
-        let palette = self.get_palette()?;
+    pub fn parse_palette(&self, type_version: i32) -> Result<HashMap<i32, Arc<BlockData>>, SchematicError> {
+        let palette = self.get_palette(type_version)?;
         let mut result = HashMap::with_capacity(palette.len());
 
         for (block_state_str, value) in palette {
@@ -146,18 +160,19 @@ impl WeSchematic {
         }
     }
 
-    pub fn get_we_data(&self) -> Result<WeSchematicData, SchematicError> {
+    pub fn get_we_data(&self, type_version: i32) -> Result<WeSchematicData, SchematicError> {
         let Compound(root) = &self.nbt else {
             return Err(SchematicError::InvalidFormat("Root is not a Compound"));
         };
         let palette_max = root.get_i32("PaletteMax")?;
-        let block_entities = self.get_block_entities()?;
-        let palette = self.parse_palette()?;
+        let block_entities = self.get_block_entities(type_version)?;
+        let palette = self.parse_palette(type_version)?;
         Ok(WeSchematicData {
-            size: self.get_size()?,
+            type_version,
+            size: self.get_size(type_version)?,
             palette,
             palette_max,
-            block_data: self.get_block_data()?.to_vec(),
+            block_data: self.get_block_data(type_version)?.to_vec(),
             block_entities: block_entities.to_vec(),
         })
     }
@@ -165,10 +180,11 @@ impl WeSchematic {
     pub fn get_blocks_pos(&self) -> Result<SchematicData, SchematicError> {
         let mut tile_entities = TileEntitiesList::default();
         let mut block_list = BlockStatePosList::default();
-        let data = self.get_we_data()?;
-        let palette = self.parse_palette()?;
+        let type_version = self.get_type()?;
+        let data = self.get_we_data(type_version)?;
+        let palette = self.parse_palette(type_version)?;
         let block_data_i8 = data.block_data;
-        let size = self.get_size()?;
+        let size = self.get_size(type_version)?;
         let width = size.width;
         let height = size.height;
         let length = size.length;

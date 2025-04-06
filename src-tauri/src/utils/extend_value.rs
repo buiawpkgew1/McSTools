@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use fastnbt::{IntArray, LongArray, Value};
+use fastnbt::{ByteArray, IntArray, LongArray, Value};
 use crate::utils::block_state_pos_list::BlockPos;
 use crate::utils::schematic_data::SchematicError;
 
@@ -12,6 +12,7 @@ pub trait NbtExt {
     fn get_i64(&self, key: &str) -> Result<i64, SchematicError>;
     fn get_long_array(&self, key: &str) -> Result<&LongArray, SchematicError>;
     fn get_i32_array(&self, key: &str) -> Result<&IntArray, SchematicError>;
+    fn get_i8_array(&self, key: &str) -> Result<&ByteArray, SchematicError>;
     fn get_pos(&self, key: &str) -> Result<BlockPos, SchematicError>;
     fn get_pos_t2(&self, key: &str) -> Result<BlockPos, SchematicError>;
 }
@@ -82,6 +83,15 @@ impl NbtExt for HashMap<String, Value> {
         self.get(key)
             .and_then(|v| match v {
                 Value::IntArray(n) => Some(n),
+                _ => None
+            })
+            .ok_or_else(|| SchematicError::MissingField(key.into()))
+    }
+
+    fn get_i8_array(&self, key: &str) -> Result<&ByteArray, SchematicError> {
+        self.get(key)
+            .and_then(|v| match v {
+                Value::ByteArray(n) => Some(n),
                 _ => None
             })
             .ok_or_else(|| SchematicError::MissingField(key.into()))

@@ -35,6 +35,7 @@ pub struct WeOffset {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct WeSchematicData {
+    pub type_version: i32,
     pub size: WeSize,
     pub palette: HashMap<i32, Arc<BlockData>>,
     pub palette_max: i32,
