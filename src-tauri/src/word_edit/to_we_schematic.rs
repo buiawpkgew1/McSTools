@@ -5,7 +5,7 @@ use fastnbt::Value;
 use fastnbt::Value::Compound;
 use rayon::iter::ParallelIterator;
 use crate::utils::block_state_pos_list::{BlockData, BlockPos, BlockStatePos};
-use crate::utils::schematic_data::SchematicData;
+use crate::utils::schematic_data::{SchematicData, SchematicError};
 use rayon::iter::{IntoParallelRefIterator};
 #[derive(Debug)]
 pub struct ToWeSchematic {
@@ -160,7 +160,7 @@ impl ToWeSchematic {
         output
     }
 
-    pub fn lm_palette(&self) -> Value {
+    pub fn we_palette(&self) -> Value {
         let mut palette = HashMap::new();
         for (block, index) in &self.block_state_to_index {
             let str = ToWeSchematic::block_to_string(block);
@@ -169,17 +169,42 @@ impl ToWeSchematic {
         Compound(palette)
     }
 
-    pub fn we_schematic(&self) -> Value {
-        let mut nbt = HashMap::new();
-        nbt.insert("PaletteMax".to_string(), Value::Int(self.unique_block_states.len() as i32));
-        nbt.insert("Version".to_string(), Value::Int(2));
-        nbt.insert("Length".to_string(), Value::Int(self.length));
-        nbt.insert("Height".to_string(), Value::Int(self.height));
-        nbt.insert("Width".to_string(), Value::Int(self.width));
-        nbt.insert("DataVersion".to_string(), Value::Int(3465));
-        nbt.insert("Palette".to_string(), self.lm_palette());
-        let bytes_array = self.decode_to_bytes();
-        nbt.insert("BlockData".to_string(), Value::ByteArray(fastnbt::ByteArray::new(bytes_array)));
-        Compound(nbt)
+    pub fn we_schematic(&self, type_version: i32) -> Result<Value, SchematicError> {
+        match type_version {
+            0 => {
+                let mut nbt = HashMap::new();
+                nbt.insert("PaletteMax".to_string(), Value::Int(self.unique_block_states.len() as i32));
+                nbt.insert("Version".to_string(), Value::Int(2));
+                nbt.insert("Length".to_string(), Value::Short(self.length as i16));
+                nbt.insert("Height".to_string(), Value::Short(self.height as i16));
+                nbt.insert("Width".to_string(), Value::Short(self.width as i16));
+                nbt.insert("DataVersion".to_string(), Value::Int(3465));
+                nbt.insert("Palette".to_string(), self.we_palette());
+                let bytes_array = self.decode_to_bytes();
+                nbt.insert("BlockData".to_string(), Value::ByteArray(fastnbt::ByteArray::new(bytes_array)));
+                nbt.insert("BlockEntities".to_string(), Value::List(Vec::new()));
+                Ok(Compound(nbt))
+            },
+            1 => {
+                let mut nbt = HashMap::new();
+                let mut schematic = HashMap::new();
+                let mut blocks = HashMap::new();
+                blocks.insert("Palette".to_string(), self.we_palette());
+                let bytes_array = self.decode_to_bytes();
+                blocks.insert("BlockData".to_string(), Value::ByteArray(fastnbt::ByteArray::new(bytes_array)));
+                blocks.insert("BlockEntities".to_string(), Value::List(Vec::new()));
+                schematic.insert("Blocks".to_string(), Compound(blocks));
+                schematic.insert("Version".to_string(), Value::Int(3));
+                schematic.insert("Length".to_string(), Value::Short(self.length as i16));
+                schematic.insert("Height".to_string(), Value::Short(self.height as i16));
+                schematic.insert("Width".to_string(), Value::Short(self.width as i16));
+                schematic.insert("DataVersion".to_string(), Value::Int(3465));
+                nbt.insert("Schematic".to_string(), Compound(schematic));
+                Ok(Compound(nbt))
+
+            }
+            _ => {Err(SchematicError::InvalidFormat("?"))}
+        }
+
     }
 }
