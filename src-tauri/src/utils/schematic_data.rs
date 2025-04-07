@@ -19,6 +19,8 @@ pub enum SchematicError {
     Json(#[from] JsonError),
     #[error("NBT error: {0}")]
     Nbt(#[from] fastnbt::error::Error),
+    #[error("SNBT error: {0}")]
+    SNbt(#[from] fastsnbt::error::Error),
     #[error("Binary error: {0}")]
     BinaryError(#[from] BinaryError),
     #[error("Invalid data format: {0}")]
@@ -39,14 +41,22 @@ pub enum SchematicError {
     #[error("Missing required field: {0}")]
     MissingField(String),
 }
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
+pub struct Size {
+    pub(crate) width: i32,
+    pub(crate) height: i32,
+    pub(crate) length: i32,
+}
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SchematicData {
     pub blocks: BlockStatePosList,
     pub tile_entities_list: TileEntitiesList,
+    pub size: Size
 }
 
 impl SchematicData {
-    pub fn new(blocks: BlockStatePosList, tile_entities_list: TileEntitiesList) -> Self {
-        Self { blocks, tile_entities_list }
+    pub fn new(blocks: BlockStatePosList, tile_entities_list: TileEntitiesList, size: Size) -> Self {
+        Self { blocks, tile_entities_list, size }
     }
 }

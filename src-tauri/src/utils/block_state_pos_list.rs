@@ -48,6 +48,10 @@ impl BlockStatePosList {
         self.elements.push(BlockStatePos::new(BlockPos{x, y, z}, block));
     }
 
+    pub fn add_to_first(&mut self, x: i32, y: i32, z: i32, block: &Arc<BlockData>) {
+        self.elements.insert(0, BlockStatePos::new(BlockPos { x, y, z }, block.clone()));
+    }
+
     pub fn remove(&mut self, target: &BlockStatePos) -> bool {
         if let Some(index) = self.elements.iter().position(|x| x == target) {
             self.elements.remove(index);

@@ -3,11 +3,11 @@ use std::collections::{BTreeMap, HashMap};
 use std::fs::File;
 use flate2::read::GzDecoder;
 use fastnbt::{Value};
-use std::io::{BufReader, Read};
+use std::io::{BufReader};
 use std::sync::{Arc};
 use fastnbt::Value::Compound;
 use crate::litematica::lm_schematic_data::{LmMetadata, RegionData, RegionList, RegionNameList};
-use crate::utils::schematic_data::{SchematicData, SchematicError};
+use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
 use crate::utils::tile_entities::TileEntitiesList;
 use rayon::prelude::*;
@@ -86,6 +86,7 @@ impl LmSchematic {
         let regions = self.get_regions()?;
         let mut regions_list = RegionList::default();
         let mut regions_name_list = RegionNameList::default();
+
         for (name, region_value) in regions {
             let region = match region_value {
                 Compound(r) => r,
@@ -97,7 +98,14 @@ impl LmSchematic {
             let block_state_palette = region.get_list("BlockStatePalette")?;
             let tile_entities = region.get_list("TileEntities")?;
             let palette_size = block_state_palette.len();
-            let bits = (32u32.saturating_sub((palette_size.saturating_sub(1)).leading_zeros()) as f64).max(2.0) as i32;
+            let adjusted = if palette_size == 0 {
+                u32::MAX
+            } else {
+                palette_size.saturating_sub(1) as u32
+            };
+            let leading_zeros = adjusted.leading_zeros();
+            let bits_unclamped = 32u32.saturating_sub(leading_zeros);
+            let bits = (bits_unclamped as f64).max(2.0) as i32;
             regions_list.add(RegionData {
                 region_name: name.to_string(),
                 block_states: block_states.clone().into_inner(),
@@ -112,7 +120,7 @@ impl LmSchematic {
         Ok((regions_list, regions_name_list))
     }
 
-    fn parse_palette(&self, palette_list: &[Value]) -> Result<Vec<Arc<BlockData>>, SchematicError> {
+    pub fn parse_palette(&self, palette_list: &[Value]) -> Result<Vec<Arc<BlockData>>, SchematicError> {
         let mut palette = Vec::with_capacity(palette_list.len());
         for entry in palette_list {
             let Compound(root) = entry else {
@@ -149,17 +157,15 @@ impl LmSchematic {
         let end_arr_index = (((index + 1).wrapping_mul(bits as i64) - 1) as u64 >> 6) as usize;
 
         let start_bit_offset = (start_offset as u64 & 0x3F) as i32;
-        let max_entry_value = (1u64.wrapping_shl(bits as u32)).wrapping_sub(1);
+        let max_entry_value = u64::MAX >> (64 - bits as u32);
 
         if start_arr_index == end_arr_index {
             let value = long_array[start_arr_index] as u64;
             ((value >> start_bit_offset) & max_entry_value) as i32
         } else {
             let end_bit_offset = 64 - start_bit_offset;
-
             let first_part = long_array[start_arr_index] as u64;
             let second_part = long_array[end_arr_index] as u64;
-
             let combined = (first_part >> start_bit_offset) | (second_part << end_bit_offset);
             (combined & max_entry_value) as i32
         }
@@ -167,7 +173,7 @@ impl LmSchematic {
 
     pub fn get_index(&self, x: i32, y: i32, z: i32, size: BlockPos) -> i32 {
         let x_size: i32 = size.x.abs();
-        let z_size: i32 = size.y.abs();
+        let z_size: i32 = size.z.abs();
         y * (x_size * z_size) + z * x_size + x
     }
 
@@ -178,8 +184,9 @@ impl LmSchematic {
 
     pub fn get_blocks_pos(&self) -> Result<SchematicData, SchematicError> {
         let (regions_list, regions_name_list) = self.process_regions()?;
-        let mut tile_entities = TileEntitiesList::default();
-
+        let tile_entities = TileEntitiesList::default();
+        let metadata = self.read_metadata()?;
+        let size = metadata.enclosing_size;
         let region_blocks: Vec<BlockStatePosList> = regions_name_list.names
             .par_iter()
             .map(|name| {
@@ -195,7 +202,6 @@ impl LmSchematic {
                 let width = size.x.unsigned_abs() as usize;
                 let height = size.y.unsigned_abs() as usize;
                 let length = size.z.unsigned_abs() as usize;
-
                 let y_blocks: Vec<BlockStatePosList> = (0..height)
                     .into_par_iter()
                     .map(|y| {
@@ -211,7 +217,6 @@ impl LmSchematic {
                                     bits,
                                     &block_states
                                 ) as usize;
-
                                 let block_data = &palette[state_id];
                                 local_blocks.add_by_pos(
                                     x as i32 + position.x,
@@ -240,6 +245,6 @@ impl LmSchematic {
             }
         );
 
-        Ok(SchematicData::new(final_block_list, tile_entities))
+        Ok(SchematicData::new(final_block_list, tile_entities, Size{width:size.x, height:size.y, length:size.z}))
     }
 }

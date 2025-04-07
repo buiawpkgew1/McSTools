@@ -3,7 +3,7 @@ use std::fs;
 use std::io::Read;
 use std::sync::Arc;
 use serde_json::Value as JsonValue;
-use crate::utils::schematic_data::{SchematicData, SchematicError};
+use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
 use base64::Engine;
 use fastnbt::{from_bytes, Value as FastNbtValue, Value};
 use fastnbt::Value::Compound;
@@ -175,14 +175,31 @@ impl BgSchematic {
                     z: length,
                 })
             }
+            2 => {
+                let data = original_data.data;
+                let Compound(root) = data else {
+                    return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+                };
+                let start_pos = root.get_pos_t2("startPos")?;
+                let end_pos = root.get_pos_t2("endPos")?;
+                let height = ((end_pos.y - start_pos.y) + 1).abs();
+                let width = ((end_pos.x - start_pos.x) + 1).abs();
+                let length = ((end_pos.z - start_pos.z) + 1).abs();
+                Ok(BlockPos{
+                    x: width,
+                    y: height,
+                    z: length,
+                })
+            }
             _ => Err(SchematicError::InvalidFormat("get size err"))?,
         }
     }
     pub fn get_blocks_pos(&self) -> Result<SchematicData, SchematicError> {
-        let mut tile_entities = TileEntitiesList::default();
+        let tile_entities = TileEntitiesList::default();
         let mut block_list = BlockStatePosList::default();
         let original_data = self.decode_schematic()?;
         let type_version = original_data.type_version;
+        let size = self.get_size()?;
         match type_version {
             0 => {
                 let data = original_data.data;
@@ -277,6 +294,6 @@ impl BgSchematic {
             }
             _ => {}
         }
-        Ok(SchematicData::new(block_list, tile_entities))
+        Ok(SchematicData::new(block_list, tile_entities, Size{width: size.x, height: size.y, length:size.z}))
     }
 }

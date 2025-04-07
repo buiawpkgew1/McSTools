@@ -5,7 +5,7 @@ use std::sync::Arc;
 use flate2::read::GzDecoder;
 use fastnbt::{self, Value, Value::Compound};
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
-use crate::utils::schematic_data::{SchematicData, SchematicError};
+use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
 use crate::utils::tile_entities::TileEntitiesList;
 #[derive(Debug)]
 pub struct CreateSchematic {
@@ -118,6 +118,17 @@ impl CreateSchematic {
         let tile_entities = TileEntitiesList::default();
         let blocks = self.get_pos_list()?;
         let palette = self.parse_palette()?;
+        let size = self.get_size()?;
+        let sizes = match size {
+            list => list.iter()
+                .filter_map(|v| {
+                    match v {
+                        Value::Int(n) => Some(*n as i32),
+                        _ => None
+                    }
+                })
+                .collect::<Vec<i32>>(),
+        };
         for block in blocks.iter() {
 
             let pos = if let Compound(compound) = block {
@@ -136,6 +147,8 @@ impl CreateSchematic {
                     Value::IntArray(arr) => arr.to_vec(),
                     _ => return Err(SchematicError::InvalidFormat("Invalid pos type"))
                 };
+
+
 
                 if coords.len() != 3 {
                     return Err(SchematicError::InvalidFormat("Position requires 3 coordinates"));
@@ -164,7 +177,7 @@ impl CreateSchematic {
             block_list.add(pos, Arc::clone(block_data))
         }
 
-        Ok(SchematicData::new(block_list, tile_entities))
+        Ok(SchematicData::new(block_list, tile_entities, Size{width:sizes[0], height:sizes[1], length:sizes[2]}))
     }
 }
 

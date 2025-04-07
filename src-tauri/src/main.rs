@@ -1,11 +1,17 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::fs::File;
+use std::io::BufWriter;
 use crate::utils::schematic_data::SchematicError;
 use std::time::Instant;
 use sysinfo::{System, Pid, ProcessesToUpdate};
-use crate::create::to_create_schematic::ToCreateSchematic;
+use crate::building_gadges::to_bg_schematic::ToBgSchematic;
+use crate::create::create_schematic::CreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
+use crate::litematica::to_lm_schematic::ToLmSchematic;
+use utils::extend_write::{to_writer_gzip};
+use crate::word_edit::we_schematic::WeSchematic;
 
 pub mod utils;
 pub mod litematica;
@@ -13,8 +19,12 @@ pub mod word_edit;
 pub mod create;
 pub mod building_gadges;
 
-fn main() -> Result<(), SchematicError> {
+fn main() {
     //rust_lib::run()
+}
+
+#[test]
+fn test_lm_schematic() -> Result<(), SchematicError> {
     let mut sys = System::new_all();
     let pid = Pid::from(std::process::id() as usize);
 
@@ -23,19 +33,9 @@ fn main() -> Result<(), SchematicError> {
         .map(|p| p.memory())
         .unwrap_or(0);
     let start_time = Instant::now();
-
     let schematic2 = LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
     let schem2 = schematic2.get_blocks_pos()?;
-    //let mut schematic3 = WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
-    //let schem3 = schematic3.get_blocks_pos();
-    //println!("{:?}", schem3);
-    //println!("{:?}", schem2);
-    //let schematic4 = BgSchematic::new("./schematic/384046fd-ac85-4d97-bfca-0d2d41482cab_type2.json")?;
-    //let json = schematic4.get_blocks_pos()?;
-    let create = ToCreateSchematic::new(&schem2);
-    let paleet = create.create_schematic();
-    //println!("{:?}", paleet);
-
+    print!("{:?}", schem2);
     sys.refresh_processes(ProcessesToUpdate::All, false);
     let end_mem = sys.process(pid)
         .map(|p| p.memory())
@@ -48,6 +48,99 @@ fn main() -> Result<(), SchematicError> {
              end_mem / 1024,
              (end_mem - start_mem) / 1024
     );
+    Ok(())
+}
+#[test]
+fn test_create_schematic() -> Result<(), SchematicError> {
+    let mut sys = System::new_all();
+    let pid = Pid::from(std::process::id() as usize);
 
+    sys.refresh_processes(ProcessesToUpdate::All, false);
+    let start_mem = sys.process(pid)
+        .map(|p| p.memory())
+        .unwrap_or(0);
+    let start_time = Instant::now();
+    let sichematic = CreateSchematic::new("./schematic/test.nbt")?;
+    let schem = sichematic.get_blocks_pos()?;
+    print!("{:?}", schem);
+    sys.refresh_processes(ProcessesToUpdate::All, false);
+    let end_mem = sys.process(pid)
+        .map(|p| p.memory())
+        .unwrap_or(0);
+    let duration = start_time.elapsed();
+
+    println!("执行时间: {:.2} 秒", duration.as_secs_f64());
+    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
+             start_mem / 1024,
+             end_mem / 1024,
+             (end_mem - start_mem) / 1024
+    );
+    Ok(())
+}
+
+#[test]
+fn bg_schematic_write() -> Result<(), SchematicError> {
+    let mut sys = System::new_all();
+    let pid = Pid::from(std::process::id() as usize);
+
+    sys.refresh_processes(ProcessesToUpdate::All, false);
+    let start_mem = sys.process(pid)
+        .map(|p| p.memory())
+        .unwrap_or(0);
+    let start_time = Instant::now();
+    let mut schematic3 = WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
+    let schem3 = schematic3.get_blocks_pos()?;
+
+    let bg = ToBgSchematic::new(&schem3);
+    let data = bg.bg_schematic()?;
+    let output_path = "./schematic/out.json";
+    let file = File::create(output_path)?;
+    let writer = BufWriter::new(file);
+
+    serde_json::to_writer_pretty(writer, &data)?;
+    sys.refresh_processes(ProcessesToUpdate::All, false);
+    let end_mem = sys.process(pid)
+        .map(|p| p.memory())
+        .unwrap_or(0);
+    let duration = start_time.elapsed();
+
+    println!("执行时间: {:.2} 秒", duration.as_secs_f64());
+    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
+             start_mem / 1024,
+             end_mem / 1024,
+             (end_mem - start_mem) / 1024
+    );
+    Ok(())
+}
+
+#[test]
+fn lm_schematic_write() -> Result<(), SchematicError> {
+    let mut sys = System::new_all();
+    let pid = Pid::from(std::process::id() as usize);
+
+    sys.refresh_processes(ProcessesToUpdate::All, false);
+    let start_mem = sys.process(pid)
+        .map(|p| p.memory())
+        .unwrap_or(0);
+    let start_time = Instant::now();
+    let mut schematic3 = WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
+    let schem3 = schematic3.get_blocks_pos()?;
+
+    let bg = ToLmSchematic::new(&schem3);
+    let data = bg.lm_schematic(6);
+    let output_path = "./schematic/out.litematic";
+    to_writer_gzip(&data, output_path)?;
+
+    let end_mem = sys.process(pid)
+        .map(|p| p.memory())
+        .unwrap_or(0);
+    let duration = start_time.elapsed();
+
+    println!("执行时间: {:.2} 秒", duration.as_secs_f64());
+    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
+             start_mem / 1024,
+             end_mem / 1024,
+             (end_mem - start_mem) / 1024
+    );
     Ok(())
 }

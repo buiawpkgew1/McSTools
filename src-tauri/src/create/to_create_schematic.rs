@@ -2,10 +2,11 @@ use std::collections::HashMap;
 use std::sync::Arc;
 use fastnbt::Value;
 use fastnbt::Value::Compound;
-use rayon::iter::{ParallelIterator, IntoParallelIterator};
-use rayon::prelude::IntoParallelRefIterator;
+use rayon::iter::IntoParallelRefIterator;
+use rayon::iter::ParallelIterator;
 use crate::utils::block_state_pos_list::{BlockData, BlockPos, BlockStatePos};
 use crate::utils::schematic_data::SchematicData;
+
 #[derive(Debug)]
 pub struct ToCreateSchematic {
     blocks: Vec<BlockStatePos>,
@@ -14,8 +15,8 @@ pub struct ToCreateSchematic {
     width: i32,
     height: i32,
     length: i32,
-    unique_block_states: Vec<BlockData>,
-    block_state_to_index: HashMap<BlockData, usize>, // 新增哈希表用于快速查找索引
+    pub unique_block_states: Vec<Arc<BlockData>>,
+    pub block_state_to_index: HashMap<Arc<BlockData>, usize>,
 }
 
 impl ToCreateSchematic {
@@ -51,7 +52,7 @@ impl ToCreateSchematic {
             let mut index_map = HashMap::new();
 
             for block_pos in &blocks {
-                let block_data = Arc::as_ref(&block_pos.block).clone(); // 克隆 BlockData
+                let block_data = block_pos.block.clone();
 
                 if !seen.contains_key(&block_data) {
                     let index = unique.len();
@@ -72,7 +73,7 @@ impl ToCreateSchematic {
             height,
             length,
             unique_block_states,
-            block_state_to_index, // 初始化哈希表
+            block_state_to_index,
         }
     }
 
@@ -86,7 +87,7 @@ impl ToCreateSchematic {
             if !block.properties.is_empty() {
                 let mut props = HashMap::new();
                 for (k, v) in &block.properties {
-                    props.insert(k.to_string(), Value::String(v.to_string())); // 修正此处应为v的值
+                    props.insert(k.to_string(), Value::String(v.to_string()));
                 }
                 compound.insert("Properties".to_string(), Compound(props));
             }
@@ -102,7 +103,6 @@ impl ToCreateSchematic {
             .par_iter()
             .filter_map(|block_pos| {
                 let data = (*block_pos.block).clone();
-
                 if data.id.name.to_string() == "minecraft:air" {
                     return None;
                 }

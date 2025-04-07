@@ -7,7 +7,7 @@ use fastnbt::Value::Compound;
 use flate2::read::GzDecoder;
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockStatePosList};
 use crate::utils::extend_value::NbtExt;
-use crate::utils::schematic_data::{SchematicData, SchematicError};
+use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
 use crate::utils::tile_entities::TileEntitiesList;
 use crate::word_edit::var_int_iterator::VarIntIterator;
 use crate::word_edit::we_schematic_data::{WeSchematicData, WeSize};
@@ -24,9 +24,6 @@ impl WeSchematic {
         let decoder = GzDecoder::new(reader);
 
         let nbt: Value = fastnbt::from_reader(decoder)?;
-        let Compound(root) = &nbt else {
-            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
-        };
 
         if let Compound(_) = &nbt {
             Ok(Self { nbt })
@@ -178,7 +175,7 @@ impl WeSchematic {
     }
 
     pub fn get_blocks_pos(&self) -> Result<SchematicData, SchematicError> {
-        let mut tile_entities = TileEntitiesList::default();
+        let tile_entities = TileEntitiesList::default();
         let mut block_list = BlockStatePosList::default();
         let type_version = self.get_type()?;
         let data = self.get_we_data(type_version)?;
@@ -204,6 +201,6 @@ impl WeSchematic {
                 block_data.clone()
             );
         }
-        Ok(SchematicData::new(block_list, tile_entities))
+        Ok(SchematicData::new(block_list, tile_entities, Size{width, height, length}))
     }
 }
