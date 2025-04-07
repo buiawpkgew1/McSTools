@@ -7,7 +7,6 @@ use serde_json::{Error as JsonError};
 use regex::Error as RegexError;
 use flate2::CompressError;
 use flate2::DecompressError;
-use valence_nbt::binary::Error as BinaryError;
 
 #[derive(Debug, Error)]
 pub enum SchematicError {
@@ -21,8 +20,6 @@ pub enum SchematicError {
     Nbt(#[from] fastnbt::error::Error),
     #[error("SNBT error: {0}")]
     SNbt(#[from] fastsnbt::error::Error),
-    #[error("Binary error: {0}")]
-    BinaryError(#[from] BinaryError),
     #[error("Invalid data format: {0}")]
     InvalidFormat(&'static str),
     #[error("Base64 err: {0}")]
