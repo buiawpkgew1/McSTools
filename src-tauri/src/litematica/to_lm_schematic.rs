@@ -1,18 +1,19 @@
-use std::collections::{BTreeMap, HashMap};
+use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI32, AtomicU64, Ordering};
 use fastnbt::{Value};
 use fastnbt::Value::Compound;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
-use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos};
+use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos, BlockStatePosList};
 use crate::utils::schematic_data::SchematicData;
 use rayon::iter::IndexedParallelIterator;
+use rayon::prelude::*;
 #[derive(Debug)]
 pub struct ToLmSchematic {
-    blocks: Vec<BlockStatePos>,
+    blocks: VecDeque<BlockStatePos>,
     pub start_pos: BlockPos,
-    end_pos: BlockPos,
+    pub end_pos: BlockPos,
     width: i32,
     height: i32,
     length: i32,
@@ -25,91 +26,105 @@ impl ToLmSchematic {
     pub fn new(schematic: &SchematicData) -> Self {
         let mut block_list = schematic.blocks.clone();
 
-        let (min, max) = {
+        let min = {
             let elements = &block_list.elements;
             if elements.is_empty() {
                 panic!("Block list cannot be empty");
             }
 
-            let init = (
-                BlockPos { x: i32::MAX, y: i32::MAX, z: i32::MAX },
-                BlockPos { x: i32::MIN, y: i32::MIN, z: i32::MIN },
-            );
-
-            let local_pairs: Vec<(BlockPos, BlockPos)> = elements.par_iter()
+            let global_min = elements.par_iter()
+                .with_min_len(1_000_000)
                 .fold(
-                    || init,
-                    |(mut min, mut max), bp| {
-                        min.x = min.x.min(bp.pos.x);
-                        min.y = min.y.min(bp.pos.y);
-                        min.z = min.z.min(bp.pos.z);
-                        max.x = max.x.max(bp.pos.x);
-                        max.y = max.y.max(bp.pos.y);
-                        max.z = max.z.max(bp.pos.z);
-                        (min, max)
+                    || BlockPos {
+                        x: i32::MAX,
+                        y: i32::MAX,
+                        z: i32::MAX,
+                    },
+                    |mut acc, bp| {
+                        acc.x = std::cmp::min(acc.x, bp.pos.x);
+                        acc.y = std::cmp::min(acc.y, bp.pos.y);
+                        acc.z = std::cmp::min(acc.z, bp.pos.z);
+                        acc
                     },
                 )
-                .collect();
+                .reduce(
+                    || BlockPos {
+                        x: i32::MAX,
+                        y: i32::MAX,
+                        z: i32::MAX,
+                    },
+                    |mut rel, tem| {
+                        rel.x = std::cmp::min(rel.x, tem.x);
+                        rel.y = std::cmp::min(rel.y, tem.y);
+                        rel.z = std::cmp::min(rel.z, tem.z);
+                        rel
+                    },
+                );
 
-            let (global_min, global_max) = local_pairs.into_iter().fold(
-                init,
-                |(mut global_min, mut global_max), (local_min, local_max)| {
-                    global_min.x = global_min.x.min(local_min.x);
-                    global_min.y = global_min.y.min(local_min.y);
-                    global_min.z = global_min.z.min(local_min.z);
-                    global_max.x = global_max.x.max(local_max.x);
-                    global_max.y = global_max.y.max(local_max.y);
-                    global_max.z = global_max.z.max(local_max.z);
-                    (global_min, global_max)
-                },
-            );
-
-            (
-                BlockPos {
-                    x: global_min.x.saturating_sub(1),
-                    y: global_min.y,
-                    z: global_min.z.saturating_sub(1),
-                },
-                BlockPos {
-                    x: global_max.x.saturating_add(1),
-                    y: global_max.y,
-                    z: global_max.z.saturating_add(1),
-                },
-            )
+            BlockPos {
+                x: global_min.x.saturating_sub(1),
+                y: global_min.y,
+                z: global_min.z.saturating_sub(1),
+            }
+        };
+        let size = schematic.size;
+        let max = BlockPos{
+            x: min.x + size.width + 1,
+            y: min.y + size.height,
+            z: min.z + size.length + 1,
         };
 
         let air = Arc::new(BlockData {
             id: BlockId { name: Arc::from("minecraft:air") },
             properties: BTreeMap::new(),
         });
-        for y in min.y..max.y {
-            for z in min.z..max.z {
-                block_list.add_to_first(min.x - 1, y, z, &air);
-                block_list.add_to_first(max.x + 1, y, z, &air);
-            }
-        }
-        for x in min.x..max.x {
-            for y in min.y..max.y {
-                block_list.add_to_first(x, y, min.z - 1, &air);
-                block_list.add_to_first(x, y, max.z + 1, &air);
-            }
-        }
-        for y in min.y..max.y {
-            block_list.add_to_first(min.x - 1, y, min.z - 1, &air);
-            block_list.add_to_first(min.x - 1, y, max.z + 1, &air);
-            block_list.add_to_first(max.x + 1, y, min.z - 1, &air);
-            block_list.add_to_first(max.x + 1, y, max.z + 1, &air);
-        }
+        let capacity = ((max.y - min.y) as usize) * (
+            ((max.z - min.z) * 2) +
+                ((max.x - min.x) * 2) +
+                4
+        ) as usize;
 
-        let width = (max.x + 1) - (min.x - 1) + 1;
-        let height = max.y - min.y + 1;
-        let length = (max.z + 1) - (min.z - 1) + 1;
+        block_list.reserve_front(capacity);
 
+        let positions: Vec<_> = (min.y..max.y)
+            .into_par_iter()
+            .flat_map(|y| {
+                let mut positions = Vec::with_capacity(
+                    (max.z - min.z) as usize * 2 +
+                        (max.x - min.x) as usize * 2 + 4
+                );
+
+                for z in min.z..max.z {
+                    positions.push((min.x - 1, y, z));
+                    positions.push((max.x + 1, y, z));
+                }
+
+                for x in min.x..max.x {
+                    positions.push((x, y, min.z - 1));
+                    positions.push((x, y, max.z + 1));
+                }
+
+                positions.push((min.x - 1, y, min.z - 1));
+                positions.push((min.x - 1, y, max.z + 1));
+                positions.push((max.x + 1, y, min.z - 1));
+                positions.push((max.x + 1, y, max.z + 1));
+
+                positions
+            })
+            .collect();
+        let air_blocks: VecDeque<_> = positions
+            .into_par_iter()
+            .map(|(x, y, z)| BlockStatePos::new(BlockPos { x, y, z }, Arc::clone(&air)))
+            .collect();
+
+        block_list.bulk_prepend(air_blocks);
+        let width = max.x - min.x + 1;
+        let height = max.y - min.y;
+        let length = max.z - min.z + 1;
         let (unique_block_states, block_state_to_index) = {
             let mut seen = HashMap::new();
             let mut unique = Vec::new();
             let mut index_map = HashMap::new();
-
             for block_pos in &block_list.elements {
                 let block_data = block_pos.block.clone();
 
@@ -145,7 +160,6 @@ impl ToLmSchematic {
             block_state_to_index,
         }
     }
-
     pub fn get_block_id_list(&self) -> Vec<i32> {
         let total_blocks = (self.length * self.width * self.height) as usize;
 
@@ -180,7 +194,6 @@ impl ToLmSchematic {
             .map(|atomic| atomic.into_inner())
             .collect()
     }
-
     pub fn encode_block_states(&self) -> Vec<u64> {
         let state_ids = self.get_block_id_list();
         let bits = self.bits as usize;
@@ -226,7 +239,6 @@ impl ToLmSchematic {
             .map(|a| a.into_inner())
             .collect()
     }
-
     pub fn lm_palette(&self) -> Value {
         let mut palette = Vec::new();
 
@@ -247,7 +259,6 @@ impl ToLmSchematic {
 
         Value::List(palette)
     }
-
     pub fn lm_metadata(&self) -> Value {
         let mut metadata = HashMap::new();
 
@@ -266,7 +277,6 @@ impl ToLmSchematic {
 
         Compound(metadata)
     }
-
     pub fn lm_regions(&self) -> Value {
         let mut regions = HashMap::new();
         let mut region:HashMap<String, Value> = HashMap::new();
@@ -292,7 +302,6 @@ impl ToLmSchematic {
         regions.insert("null".to_string(), Compound(region));
         Compound(regions)
     }
-
     pub fn lm_schematic(&self, version:i32) -> Value {
         let mut nbt = HashMap::new();
         nbt.insert("MinecraftDataVersion".to_string(), Value::Int(3465));

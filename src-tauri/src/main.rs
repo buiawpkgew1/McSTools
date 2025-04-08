@@ -6,6 +6,7 @@ use std::io::BufWriter;
 use crate::utils::schematic_data::SchematicError;
 use std::time::Instant;
 use sysinfo::{System, Pid, ProcessesToUpdate};
+use utils::requirements::get_requirements;
 use crate::building_gadges::to_bg_schematic::ToBgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -33,9 +34,12 @@ fn test_lm_schematic() -> Result<(), SchematicError> {
         .map(|p| p.memory())
         .unwrap_or(0);
     let start_time = Instant::now();
-    let schematic2 = LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
+    let schematic2 = LmSchematic::new("./schematic/08baa20e-264d-41d4-8205-4611029936b0.litematic")?;
     let schem2 = schematic2.get_blocks_pos()?;
-    print!("{:?}", schem2);
+    let to = ToLmSchematic::new(&schem2);
+    println!("{:?},{:?}", to.start_pos,to.end_pos);
+    //let requirements = get_requirements(&schem2.blocks);
+    //print!("{:?}", requirements);
     sys.refresh_processes(ProcessesToUpdate::All, false);
     let end_mem = sys.process(pid)
         .map(|p| p.memory())
@@ -128,8 +132,40 @@ fn lm_schematic_write() -> Result<(), SchematicError> {
 
     let bg = ToLmSchematic::new(&schem3);
     let data = bg.lm_schematic(6);
-    let output_path = "./schematic/out.litematic";
+    let output_path = "./schematic/out2.litematic";
     to_writer_gzip(&data, output_path)?;
+
+    let end_mem = sys.process(pid)
+        .map(|p| p.memory())
+        .unwrap_or(0);
+    let duration = start_time.elapsed();
+
+    println!("执行时间: {:.2} 秒", duration.as_secs_f64());
+    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
+             start_mem / 1024,
+             end_mem / 1024,
+             (end_mem - start_mem) / 1024
+    );
+    Ok(())
+}
+
+#[test]
+fn lm_big_schematic_write() -> Result<(), SchematicError> {
+    let mut sys = System::new_all();
+    let pid = Pid::from(std::process::id() as usize);
+
+    sys.refresh_processes(ProcessesToUpdate::All, false);
+    let start_mem = sys.process(pid)
+        .map(|p| p.memory())
+        .unwrap_or(0);
+    let start_time = Instant::now();
+    let mut schematic3 = LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
+    let schem3 = schematic3.get_blocks_pos()?;
+
+    let bg = ToLmSchematic::new(&schem3);
+    let data = bg.lm_schematic(6);
+    //let output_path = "./schematic/out.litematic";
+    //to_writer_gzip(&data, output_path)?;
 
     let end_mem = sys.process(pid)
         .map(|p| p.memory())

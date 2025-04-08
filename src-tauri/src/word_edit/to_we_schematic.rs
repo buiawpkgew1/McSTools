@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI32, Ordering};
 use fastnbt::Value;
@@ -9,7 +9,7 @@ use crate::utils::schematic_data::{SchematicData, SchematicError};
 use rayon::iter::{IntoParallelRefIterator};
 #[derive(Debug)]
 pub struct ToWeSchematic {
-    blocks: Vec<BlockStatePos>,
+    blocks: VecDeque<BlockStatePos>,
     start_pos: BlockPos,
     end_pos: BlockPos,
     width: i32,

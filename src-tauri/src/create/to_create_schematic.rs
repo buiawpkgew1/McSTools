@@ -1,15 +1,16 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 use std::sync::Arc;
 use fastnbt::Value;
 use fastnbt::Value::Compound;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
+use rayon::iter::IndexedParallelIterator;
 use crate::utils::block_state_pos_list::{BlockData, BlockPos, BlockStatePos};
 use crate::utils::schematic_data::SchematicData;
 
 #[derive(Debug)]
 pub struct ToCreateSchematic {
-    blocks: Vec<BlockStatePos>,
+    blocks: VecDeque<BlockStatePos>,
     start_pos: BlockPos,
     end_pos: BlockPos,
     width: i32,
@@ -25,23 +26,48 @@ impl ToCreateSchematic {
         if blocks.is_empty() {
             panic!("Block list cannot be empty");
         }
+        let min = {
+            let global_min = blocks.par_iter()
+                .with_min_len(1_000_000)
+                .fold(
+                    || BlockPos {
+                        x: i32::MAX,
+                        y: i32::MAX,
+                        z: i32::MAX,
+                    },
+                    |mut acc, bp| {
+                        acc.x = std::cmp::min(acc.x, bp.pos.x);
+                        acc.y = std::cmp::min(acc.y, bp.pos.y);
+                        acc.z = std::cmp::min(acc.z, bp.pos.z);
+                        acc
+                    },
+                )
+                .reduce(
+                    || BlockPos {
+                        x: i32::MAX,
+                        y: i32::MAX,
+                        z: i32::MAX,
+                    },
+                    |mut rel, tem| {
+                        rel.x = std::cmp::min(rel.x, tem.x);
+                        rel.y = std::cmp::min(rel.y, tem.y);
+                        rel.z = std::cmp::min(rel.z, tem.z);
+                        rel
+                    },
+                );
 
-        let (min, max) = blocks.iter().fold(
-            (
-                BlockPos { x: i32::MAX, y: i32::MAX, z: i32::MAX },
-                BlockPos { x: i32::MIN, y: i32::MIN, z: i32::MIN },
-            ),
-            |(mut min, mut max), bp| {
-                min.x = min.x.min(bp.pos.x);
-                min.y = min.y.min(bp.pos.y);
-                min.z = min.z.min(bp.pos.z);
-                max.x = max.x.max(bp.pos.x);
-                max.y = max.y.max(bp.pos.y);
-                max.z = max.z.max(bp.pos.z);
-                (min, max)
-            },
-        );
-
+            BlockPos {
+                x: global_min.x,
+                y: global_min.y,
+                z: global_min.z,
+            }
+        };
+        let size = schematic.size;
+        let max = BlockPos{
+            x: min.x + size.width,
+            y: min.y + size.height,
+            z: min.z + size.length,
+        };
         let width = max.x - min.x + 1;
         let height = max.y - min.y + 1;
         let length = max.z - min.z + 1;

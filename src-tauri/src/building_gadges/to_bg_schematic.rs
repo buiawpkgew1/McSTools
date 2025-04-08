@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI32, Ordering};
 use fastnbt::Value;
@@ -11,7 +11,7 @@ use rayon::iter::ParallelIterator;
 use serde_json::{json, Value as JsonValue};
 #[derive(Debug)]
 pub struct ToBgSchematic {
-    blocks: Vec<BlockStatePos>,
+    blocks: VecDeque<BlockStatePos>,
     start_pos: BlockPos,
     end_pos: BlockPos,
     width: i32,

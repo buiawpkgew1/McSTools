@@ -2,7 +2,7 @@ use fastnbt::Value;
 use serde::{Deserialize, Serialize};
 use crate::utils::block_state_pos_list::{BlockId};
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
-pub struct Requirements {
+struct Requirements {
     pub id: BlockId,
     pub nums: i32,
 }

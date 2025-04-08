@@ -1,12 +1,14 @@
 use std::collections::{BTreeMap};
 use serde::{Serialize, Deserialize};
 use std::sync::Arc;
+use std::collections::VecDeque;
+use rayon::iter::IntoParallelRefIterator;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
 pub struct BlockPos {
-    pub(crate) x: i32,
-    pub(crate) y: i32,
-    pub(crate) z: i32,
+    pub x: i32,
+    pub y: i32,
+    pub z: i32,
 }
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct BlockId {
@@ -26,7 +28,7 @@ pub struct BlockStatePos {
 
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct BlockStatePosList {
-    pub elements: Vec<BlockStatePos>,
+    pub elements: VecDeque<BlockStatePos>,
 }
 
 impl BlockStatePos {
@@ -37,19 +39,31 @@ impl BlockStatePos {
 
 impl BlockStatePosList {
     pub fn add(&mut self, pos: BlockPos, block: Arc<BlockData>) {
-        self.elements.push(BlockStatePos::new(pos, block));
+        self.elements.push_back(BlockStatePos::new(pos, block));
     }
 
     pub fn merge(&mut self, other: Self) {
         self.elements.extend(other.elements);
     }
 
+    pub fn reserve_front(&mut self, capacity: usize) {
+        self.elements.reserve(capacity);
+    }
+
+    pub fn bulk_prepend(&mut self, mut other: VecDeque<BlockStatePos>) {
+        other.append(&mut self.elements);
+        self.elements = other;
+    }
+
     pub fn add_by_pos(&mut self, x: i32, y:i32, z:i32, block: Arc<BlockData>) {
-        self.elements.push(BlockStatePos::new(BlockPos{x, y, z}, block));
+        self.elements.push_back(BlockStatePos::new(BlockPos{x, y, z}, block));
     }
 
     pub fn add_to_first(&mut self, x: i32, y: i32, z: i32, block: &Arc<BlockData>) {
-        self.elements.insert(0, BlockStatePos::new(BlockPos { x, y, z }, block.clone()));
+        self.elements.push_front(BlockStatePos::new(
+            BlockPos { x, y, z },
+            block.clone()
+        ));
     }
 
     pub fn remove(&mut self, target: &BlockStatePos) -> bool {
@@ -60,10 +74,13 @@ impl BlockStatePosList {
             false
         }
     }
+    pub fn par_iter(&self) -> rayon::collections::vec_deque::Iter<BlockStatePos> {
+        self.elements.par_iter()
+    }
 
     pub fn remove_by_index(&mut self, index: usize) -> Option<BlockStatePos> {
         if index < self.elements.len() {
-            Some(self.elements.remove(index))
+            Some(self.elements.remove(index)?)
         } else {
             None
         }
