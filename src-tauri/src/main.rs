@@ -12,6 +12,7 @@ use crate::create::create_schematic::CreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
 use crate::litematica::to_lm_schematic::ToLmSchematic;
 use utils::extend_write::{to_writer_gzip};
+use crate::create::to_create_schematic::ToCreateSchematic;
 use crate::word_edit::we_schematic::WeSchematic;
 
 pub mod utils;
@@ -162,10 +163,10 @@ fn lm_big_schematic_write() -> Result<(), SchematicError> {
     let mut schematic3 = LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
     let schem3 = schematic3.get_blocks_pos()?;
 
-    let bg = ToLmSchematic::new(&schem3);
-    let data = bg.lm_schematic(6);
-    //let output_path = "./schematic/out.litematic";
-    //to_writer_gzip(&data, output_path)?;
+    let bg = ToCreateSchematic::new(&schem3);
+    let data = bg.create_schematic(false);
+    let output_path = "./schematic/out.nbt";
+    to_writer_gzip(&data, output_path)?;
 
     let end_mem = sys.process(pid)
         .map(|p| p.memory())

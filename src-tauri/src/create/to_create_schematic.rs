@@ -124,12 +124,12 @@ impl ToCreateSchematic {
         Value::List(palette)
     }
 
-    pub fn create_blocks(&self) -> Value {
+    pub fn create_blocks(&self, air: bool) -> Value {
         let block_list: Vec<Value> = self.blocks
             .par_iter()
             .filter_map(|block_pos| {
                 let data = (*block_pos.block).clone();
-                if data.id.name.to_string() == "minecraft:air" {
+                if data.id.name.to_string() == "minecraft:air" && !air {
                     return None;
                 }
 
@@ -153,7 +153,7 @@ impl ToCreateSchematic {
         Value::List(block_list)
     }
 
-    pub fn create_schematic(&self) -> Value {
+    pub fn create_schematic(&self, air: bool) -> Value {
         let mut tag = HashMap::new();
 
         let size = Value::List(vec![
@@ -162,7 +162,7 @@ impl ToCreateSchematic {
             Value::Int(self.end_pos.z - self.start_pos.z + 1),
         ]);
         tag.insert("size".to_string(), size);
-        tag.insert("blocks".to_string(), self.create_blocks());
+        tag.insert("blocks".to_string(), self.create_blocks(air));
         tag.insert("palette".to_string(), self.create_palette());
         tag.insert("DataVersion".to_string(), Value::Int(3465));
 
