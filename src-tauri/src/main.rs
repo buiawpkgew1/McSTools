@@ -22,7 +22,7 @@ pub mod create;
 pub mod building_gadges;
 
 fn main() {
-    //rust_lib::run()
+    rust_lib::run()
 }
 
 #[test]
@@ -101,6 +101,7 @@ fn bg_schematic_write() -> Result<(), SchematicError> {
     let output_path = "./schematic/out.json";
     let file = File::create(output_path)?;
     let writer = BufWriter::new(file);
+
 
     serde_json::to_writer_pretty(writer, &data)?;
     sys.refresh_processes(ProcessesToUpdate::All, false);
