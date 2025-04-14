@@ -1,27 +1,48 @@
 use anyhow::{Context, Result};
+use r2d2::Pool;
+use r2d2_sqlite::SqliteConnectionManager;
 use tauri::{AppHandle, Manager};
-use rusqlite::{Connection, params};
 use std::path::PathBuf;
 
-fn get_db_path(app: &AppHandle) -> Result<PathBuf> {
+type SqlitePool = Pool<SqliteConnectionManager>;
 
-    let data_dir = app.path_resolver()
+#[derive(Clone)]
+pub struct DatabaseState(pub SqlitePool);
+
+fn get_db_path(app: &AppHandle) -> Result<PathBuf> {
+    let data_dir = app.path()
         .app_data_dir()
-        .context("无法获取应用数据目录")?;
+        .context("无法获取应用数据目录")?
+        .join("data");
 
     if !data_dir.exists() {
         std::fs::create_dir_all(&data_dir)
             .context("创建数据目录失败")?;
     }
 
-    Ok(data_dir.join("mcs_tools.db"))
+    Ok(data_dir)
 }
 
-pub fn init_db(app_handle: &AppHandle) -> Result<Connection> {
-    let db_path = get_db_path(app_handle)?;
-    let conn = Connection::open(&db_path)
-        .context("打开数据库连接失败")?;
+pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
+    let db_path = get_db_path(app_handle)?.join("mcs_tools.db");
+    let manager = SqliteConnectionManager::file(db_path)
+        .with_flags(
+            rusqlite::OpenFlags::SQLITE_OPEN_READ_WRITE |
+                rusqlite::OpenFlags::SQLITE_OPEN_CREATE
+        )
+        .with_init(|conn| {
+            conn.execute_batch(
+                "PRAGMA journal_mode = WAL;
+                 PRAGMA synchronous = NORMAL;"
+            )
+        });
 
+    let pool = Pool::builder()
+        .max_size(5)
+        .build(manager)
+        .context("创建连接池失败")?;
+
+    let conn = pool.get()?;
     conn.execute_batch(
         r#"
         CREATE TABLE IF NOT EXISTS schematics (
@@ -32,43 +53,29 @@ pub fn init_db(app_handle: &AppHandle) -> Result<Connection> {
             bg_type INTEGER DEFAULT -1,
             we_type INTEGER DEFAULT -1,
             is_deleted BLOB DEFAULT FALSE,
-            sizes Text,
+            sizes TEXT,
+            user TEXT,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
 
-        CREATE INDEX idx_schematic_search
+        CREATE INDEX IF NOT EXISTS idx_schematic_search
         ON schematics(created_at DESC, name, description);
 
-        CREATE TABLE app_logs (
+        CREATE TABLE IF NOT EXISTS app_logs (
             id INTEGER PRIMARY KEY,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, --定时情理日志表 config配置具体时间
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
             level TEXT CHECK(level IN ('TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR')),
-            target TEXT,  -- 日志来源模块
+            target TEXT,
             message TEXT,
             context TEXT
         );
 
-        CREATE INDEX idx_logs_search
+        CREATE INDEX IF NOT EXISTS idx_logs_search
         ON app_logs(timestamp DESC, level, target);
         "#
     )?;
 
-    Ok(conn)
+    Ok(DatabaseState(pool))
 }
 
-#[tauri::command]
-async fn save_blueprint(
-    app_handle: AppHandle,
-    name: String,
-    data: Vec<u8>
-) -> Result<usize, String> {
-    let conn = init_db(&app_handle)
-        .map_err(|e| e.to_string())?;
-
-    conn.execute(
-        "INSERT INTO blueprints (name, data) VALUES (?1, ?2)",
-        params![name, data],
-    )
-        .map_err(|e| e.to_string())
-}

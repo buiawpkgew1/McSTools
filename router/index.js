@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeViews from "../src/views/homeViews.vue";
 import ToolsViews from "../src/views/toolsViews.vue";
+import SchematicViews from "../src/views/schematicsViews.vue"
 const routes = [
     {
         path: '/',
@@ -23,6 +24,15 @@ const routes = [
             keywords: ''
         },
         component: ToolsViews
+    },{
+        path: '/schematic',
+        name: 'schematic',
+        meta: {
+            title: 'Schematic',
+            description: '',
+            keywords: ''
+        },
+        component: SchematicViews
     }
 ]
 

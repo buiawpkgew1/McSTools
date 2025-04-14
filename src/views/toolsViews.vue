@@ -17,7 +17,7 @@ const sampleMaterials = [
   <v-row no-gutters class="mb-4 animate-row"
   >
     <v-col>
-      <v-card class="mx-auto" elevation="4" style="height: 90vh">
+      <v-card class="mx-auto" elevation="4" style="height: 99vh">
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
           <v-toolbar-title>
             <v-icon icon="mdi-tools" class="mr-2"></v-icon>
@@ -102,7 +102,6 @@ const sampleMaterials = [
             </v-row>
           </v-window-item>
 
-          <!-- 源数据查看 -->
           <v-window-item value="data">
             <v-card class="ma-4" elevation="2">
               <v-card-text>
@@ -117,7 +116,6 @@ const sampleMaterials = [
             </v-card>
           </v-window-item>
 
-          <!-- 材料统计 -->
           <v-window-item value="stats">
             <v-card class="ma-4" elevation="2">
               <v-table density="compact">

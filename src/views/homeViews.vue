@@ -51,9 +51,10 @@
     </v-col>
   </v-row>
   <v-row
-      class="fill-height animate-row"
+      class="animate-row"
+      style="height: 500px"
   >
-    <v-col cols="8" class="h-75">
+    <v-col cols="8" class="h-100">
       <v-card class="d-flex flex-column h-100" elevation="4">
         <v-card-title class="text-h6 bg-blue-lighten-5">
           <v-icon icon="mdi-cloud-upload" class="mr-2"></v-icon>
@@ -68,7 +69,7 @@
       </v-card>
     </v-col>
 
-    <v-col cols="4" class="h-75">
+    <v-col cols="4" class="h-100">
       <v-card class="h-100" elevation="4">
         <v-card-title class="text-h6 bg-green-lighten-5">
           <v-icon icon="mdi-format-list-checks" class="mr-2"></v-icon>
@@ -186,7 +187,7 @@
 }
 
 .fill-height {
-  height: 100%;
+  height: 900px;
 }
 .page-wrapper {
   overflow-x: hidden;

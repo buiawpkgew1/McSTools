@@ -68,8 +68,9 @@ const router = useRouter()
 const navItems = [
   { icon: 'mdi-home-outline', title: '主页', value: 'home' },
   { icon: 'mdi-tools', title: '蓝图工具', value: 'tools' },
-  { icon: 'mdi-palette', title: '样式库', value: 'styles' },
-  { icon: 'mdi-cog-outline', title: '设置', value: 'settings' },
+  { icon: 'mdi-warehouse', title: '蓝图库', value: 'schematic' },
+  { icon: 'mdi-palette', title: '个性化', value: 'styles' },
+  { icon: 'mdi-message-alert-outline', title: '问题反馈', value: 'alert' },
   { icon: 'mdi-information-outline', title: '关于', value: 'about' },
 ]
 </script>

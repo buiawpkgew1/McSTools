@@ -11,12 +11,16 @@ mod word_edit;
 mod data_files;
 mod datebase;
 
+use tauri::Manager;
 use data_files::{config, config::get_config, config::update_config};
+use crate::datebase::db_control;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
+            let db_state = db_control::init_db(app.handle())?;
+            app.manage(db_state);
             config::init_config(app.handle())
                 .expect("配置系统初始化失败");
             Ok(())
