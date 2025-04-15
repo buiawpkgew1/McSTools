@@ -31,21 +31,8 @@ pub fn add_schematic(
 ) -> Result<i64, String> {
     let conn = db.0.get()?;
 
-    conn.execute(
-        r#"INSERT INTO schematics (
-            name, description, type, sub_type,
-            sizes, user
-        ) VALUES (?1, ?2, ?3, ?4, ?5, ?6)"#,
-        params![
-            schematic.name,
-            schematic.description,
-            schematic.schematic_type,
-            schematic.sub_type,
-            schematic.sizes,
-            schematic.user
-        ],
-    ).map_err(|e| e.to_string())?;
-    Ok(conn.last_insert_rowid())
+    let new = new_schematic(conn, schematic)?;
+    Ok(new)
 }
 #[tauri::command]
 pub fn get_schematic(

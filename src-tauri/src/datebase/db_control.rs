@@ -53,7 +53,7 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
             sub_type INTEGER DEFAULT -1, -- SUB Schem 0 新 1 旧 json 0 1.20+ 1 1.16+ 2 1.12+
             is_deleted BLOB DEFAULT FALSE,
             sizes TEXT,
-            user TEXT,
+            user TEXT, -- 简单的记录用户名，个人存储应该不太需要详细记录
             version INTEGER DEFAULT 0,
             is_upload BLOB DEFAULT FALSE,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
