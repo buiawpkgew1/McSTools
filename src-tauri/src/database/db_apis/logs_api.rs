@@ -1,7 +1,7 @@
 use rusqlite::params;
 use tauri::State;
-use crate::datebase::db_control::DatabaseState;
-use crate::datebase::db_data::LogEntry;
+use crate::database::db_control::DatabaseState;
+use crate::database::db_data::LogEntry;
 
 #[tauri::command]
 pub fn get_logs(
@@ -56,7 +56,7 @@ pub fn get_logs(
 pub fn add_logs(
     db: State<'_, DatabaseState>,
     log: LogEntry
-) -> anyhow::Result<i64, String> {
+) -> anyhow::Result<i64> {
     let conn = db.0.get()?;
 
     conn.execute(
@@ -68,6 +68,6 @@ pub fn add_logs(
                 log.message,
                 log.context
             ],
-    ).map_err(|e| e.to_string())?;
+    )?;
     Ok(conn.last_insert_rowid())
 }

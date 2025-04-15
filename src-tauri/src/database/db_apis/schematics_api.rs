@@ -3,15 +3,15 @@ use r2d2::PooledConnection;
 use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::{params, OptionalExtension};
 use tauri::{State};
-use crate::datebase::db_control::DatabaseState;
-use crate::datebase::db_data::{LogEntry, Schematic};
+use crate::database::db_control::DatabaseState;
+use crate::database::db_data::{LogEntry, Schematic};
 
 
 pub fn new_schematic(
     mut conn: PooledConnection<SqliteConnectionManager>,
     schematic: Schematic,
-) -> Result<i64, String> {
-    let tx = conn.transaction().map_err(|e| e.to_string())?;
+) -> Result<i64> {
+    let tx = conn.transaction()?;
     tx.execute(
         r#"INSERT INTO schematics (
             name, description, type, sub_type,
@@ -25,9 +25,9 @@ pub fn new_schematic(
             schematic.sizes,
             schematic.user
         ],
-    ).map_err(|e| e.to_string())?;
+    )?;
     let rowid = tx.last_insert_rowid();
-    tx.commit().map_err(|e| e.to_string())?;
+    tx.commit()?;
 
     Ok(rowid)
 }
@@ -35,7 +35,7 @@ pub fn new_schematic(
 pub fn add_schematic(
     db: State<'_, DatabaseState>,
     schematic: Schematic
-) -> Result<i64, String> {
+) -> Result<i64> {
     let conn = db.0.get()?;
 
     let new = new_schematic(conn, schematic)?;

@@ -30,7 +30,6 @@ sysinfo = "0.34.2"
 base64 = "0.22.1"
 regex = "1.11.1"
 fastsnbt = "0.2.0"
-dashmap = "6.1.0"
 anyhow = "1.0.97"
 rusqlite = { version = "0.34.0", features = ["bundled"] }
 r2d2 = "0.8.10"

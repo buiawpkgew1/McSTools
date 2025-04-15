@@ -9,12 +9,13 @@ mod building_gadges;
 mod be_schematic;
 mod word_edit;
 mod data_files;
-mod datebase;
+mod database;
 mod modules;
 
 use tauri::Manager;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
-use crate::datebase::db_control;
+use crate::database::db_control;
+use modules::schematic::encode_uploaded_schematic;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -33,7 +34,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             greet,
             get_config,
-            update_config
+            update_config,
+            encode_uploaded_schematic
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

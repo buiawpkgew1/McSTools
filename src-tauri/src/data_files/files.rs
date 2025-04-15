@@ -88,7 +88,7 @@ impl FileManager {
                 .with_context(|| format!("创建临时文件失败: {}", temp_file.display()))?;
 
             temp_file.write_all(&data)
-                .with_context(|e| format!("文件写入失败: {}", e))?;
+                .with_context(|| "文件写入失败".to_string())?;
         }
 
         let final_filename = format!(
