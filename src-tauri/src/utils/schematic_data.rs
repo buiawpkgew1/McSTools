@@ -18,6 +18,8 @@ pub enum SchematicError {
     Json(#[from] JsonError),
     #[error("NBT error: {0}")]
     Nbt(#[from] fastnbt::error::Error),
+    #[error("UTF8 error: {0}")]
+    UTF8(#[from] std::string::FromUtf8Error),
     #[error("SNBT error: {0}")]
     SNbt(#[from] fastsnbt::error::Error),
     #[error("Invalid data format: {0}")]

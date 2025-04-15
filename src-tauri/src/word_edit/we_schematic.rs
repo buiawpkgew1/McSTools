@@ -1,6 +1,6 @@
 use std::collections::{BTreeMap, HashMap};
 use std::fs::File;
-use std::io::BufReader;
+use std::io::{BufReader, Cursor};
 use std::sync::Arc;
 use fastnbt::{ByteArray, Value};
 use fastnbt::Value::Compound;
@@ -24,6 +24,19 @@ impl WeSchematic {
         let decoder = GzDecoder::new(reader);
 
         let nbt: Value = fastnbt::from_reader(decoder)?;
+
+        if let Compound(_) = &nbt {
+            Ok(Self { nbt })
+        } else {
+            Err(SchematicError::InvalidFormat("Root is not a Compound"))
+        }
+    }
+
+    pub fn new_from_bytes(data: Vec<u8>) -> Result<Self, SchematicError> {
+        let cursor = Cursor::new(data);
+        let mut decoder = GzDecoder::new(cursor);
+
+        let nbt: Value = fastnbt::from_reader(&mut decoder)?;
 
         if let Compound(_) = &nbt {
             Ok(Self { nbt })

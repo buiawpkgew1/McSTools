@@ -21,6 +21,11 @@ pub struct WeSize {
     pub width: i32,
     pub height: i32,
 }
+impl WeSize {
+    pub fn to_string(&self) -> String {
+        format!("{},{},{}", self.width, self.height, self.length)
+    }
+}
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct WeVersion {

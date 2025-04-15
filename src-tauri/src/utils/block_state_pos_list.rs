@@ -10,6 +10,12 @@ pub struct BlockPos {
     pub y: i32,
     pub z: i32,
 }
+
+impl BlockPos {
+    pub fn to_string(&self) -> String {
+        format!("{},{},{}", self.x, self.y, self.z)
+    }
+}
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct BlockId {
     pub(crate) name: Arc<str>,

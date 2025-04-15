@@ -1,6 +1,6 @@
 use std::collections::{BTreeMap};
 use std::fs;
-use std::io::Read;
+use std::io::{Cursor, Read};
 use std::sync::Arc;
 use serde_json::Value as JsonValue;
 use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
@@ -39,6 +39,13 @@ impl BgSchematic {
     pub fn new(file_path: &str) -> Result<Self, SchematicError> {
         let json_str = fs::read_to_string(file_path)
             .map_err(|e| SchematicError::Io(e))?;
+        Ok(Self { json: json_str })
+    }
+
+    pub fn new_from_data(data: Vec<u8>) -> Result<Self, SchematicError> {
+        let json_str = String::from_utf8(data)
+            .map_err(|e| SchematicError::UTF8(e))?;
+
         Ok(Self { json: json_str })
     }
 

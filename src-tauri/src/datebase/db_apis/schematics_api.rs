@@ -7,8 +7,12 @@ use crate::datebase::db_control::DatabaseState;
 use crate::datebase::db_data::{LogEntry, Schematic};
 
 
-pub fn new_schematic(conn: PooledConnection<SqliteConnectionManager>, schematic: Schematic) -> Result<i64, String> {
-    conn.execute(
+pub fn new_schematic(
+    mut conn: PooledConnection<SqliteConnectionManager>,
+    schematic: Schematic,
+) -> Result<i64, String> {
+    let tx = conn.transaction().map_err(|e| e.to_string())?;
+    tx.execute(
         r#"INSERT INTO schematics (
             name, description, type, sub_type,
             sizes, user
@@ -22,7 +26,10 @@ pub fn new_schematic(conn: PooledConnection<SqliteConnectionManager>, schematic:
             schematic.user
         ],
     ).map_err(|e| e.to_string())?;
-    Ok(conn.last_insert_rowid())
+    let rowid = tx.last_insert_rowid();
+    tx.commit().map_err(|e| e.to_string())?;
+
+    Ok(rowid)
 }
 #[tauri::command]
 pub fn add_schematic(

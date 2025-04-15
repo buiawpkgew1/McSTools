@@ -32,7 +32,7 @@ impl FileManager {
         }
         Ok(Self { data_dir })
     }
-    pub fn schematic_dir(&self, id: i32) -> Result<PathBuf> {
+    pub fn schematic_dir(&self, id: i64) -> Result<PathBuf> {
         let schematic_dir = self.data_dir.join(format!("schematic-{}", id));
         if !schematic_dir.exists() {
             fs::create_dir_all(&schematic_dir)
@@ -40,13 +40,14 @@ impl FileManager {
         }
         Ok(schematic_dir)
     }
-    pub fn save_schematic(&self, id: i32, mut file: File, version: i32, sub_version: i32, v_type: i32) -> Result<PathBuf> {
+    pub fn save_schematic(&self, id: i64, mut file: File, version: i32, sub_version: i32, v_type: i32, file_ext: String) -> Result<PathBuf> {
         let schematic_dir = self.schematic_dir(id)?;
         let temp_file = schematic_dir.join(format!(
-            "temp_{}_{}_{}",
+            "temp_{}_{}_{}.{}",
             version,
             sub_version,
-            v_type
+            v_type,
+            file_ext
         ));
 
         {
@@ -58,10 +59,11 @@ impl FileManager {
         }
 
         let final_filename = format!(
-            "schematic_{}.{}.{}",
+            "schematic_{}.{}.{}.{}",
             version,
             sub_version,
-            v_type
+            v_type,
+            file_ext
         );
         let final_path = schematic_dir.join(final_filename);
 
@@ -71,13 +73,14 @@ impl FileManager {
         Ok(final_path)
     }
 
-    pub fn save_schematic_data(&self, id: i32, mut data: Vec<u8>, version: i32, sub_version: i32, v_type: i32) -> Result<PathBuf> {
+    pub fn save_schematic_data(&self, id: i64, mut data: Vec<u8>, version: i32, sub_version: i32, v_type: i32, file_ext: String) -> Result<PathBuf> {
         let schematic_dir = self.schematic_dir(id)?;
         let temp_file = schematic_dir.join(format!(
-            "temp_{}_{}_{}",
+            "temp_{}_{}_{}.{}",
             version,
             sub_version,
-            v_type
+            v_type,
+            file_ext
         ));
 
         {
@@ -89,10 +92,11 @@ impl FileManager {
         }
 
         let final_filename = format!(
-            "schematic_{}.{}.{}",
+            "schematic_{}.{}.{}.{}",
             version,
             sub_version,
-            v_type
+            v_type,
+            file_ext
         );
         let final_path = schematic_dir.join(final_filename);
 
