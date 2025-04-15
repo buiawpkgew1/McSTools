@@ -18,7 +18,7 @@ pub fn get_config_dir(app: &AppHandle) -> Result<PathBuf> {
     Ok(config_dir)
 }
 
-pub fn init_config(app: &AppHandle) -> Result<()> {
+pub fn init_config(app: &AppHandle) -> Result<Value> {
     let config_file = get_config_dir(app)?.join("config.json");
 
     if !config_file.exists() {
@@ -36,9 +36,11 @@ pub fn init_config(app: &AppHandle) -> Result<()> {
             &config_file,
             serde_json::to_string_pretty(&default_config)?
         ).context("写入默认配置失败")?;
+        Ok(default_config)
+    }else {
+        let config = read_config(app)?;
+        Ok(config)
     }
-
-    Ok(())
 }
 
 pub fn read_config(app: &AppHandle) -> Result<Value> {

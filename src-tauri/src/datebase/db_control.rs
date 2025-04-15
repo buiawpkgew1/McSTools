@@ -49,12 +49,13 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             description TEXT,
-            type INTEGER DEFAULT -1,
-            bg_type INTEGER DEFAULT -1,
-            we_type INTEGER DEFAULT -1,
+            type INTEGER DEFAULT -1, -- TYPE-> nbt 1 litematic 2 schem 3 json 4 mcstruct 5
+            sub_type INTEGER DEFAULT -1, -- SUB Schem 0 新 1 旧 json 0 1.20+ 1 1.16+ 2 1.12+
             is_deleted BLOB DEFAULT FALSE,
             sizes TEXT,
             user TEXT,
+            version INTEGER DEFAULT 0,
+            is_upload BLOB DEFAULT FALSE,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );

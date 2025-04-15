@@ -1,54 +1,52 @@
 use anyhow::{Context, Result};
+use r2d2::PooledConnection;
+use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::{params, OptionalExtension};
 use tauri::{State};
 use crate::datebase::db_control::DatabaseState;
 use crate::datebase::db_data::{LogEntry, Schematic};
 
+
+pub fn new_schematic(conn: PooledConnection<SqliteConnectionManager>, schematic: Schematic) -> Result<i64, String> {
+    conn.execute(
+        r#"INSERT INTO schematics (
+            name, description, type, sub_type,
+            sizes, user
+        ) VALUES (?1, ?2, ?3, ?4, ?5, ?6)"#,
+        params![
+            schematic.name,
+            schematic.description,
+            schematic.schematic_type,
+            schematic.sub_type,
+            schematic.sizes,
+            schematic.user
+        ],
+    ).map_err(|e| e.to_string())?;
+    Ok(conn.last_insert_rowid())
+}
 #[tauri::command]
 pub fn add_schematic(
     db: State<'_, DatabaseState>,
     schematic: Schematic
 ) -> Result<i64, String> {
-    let conn = db.0.get().map_err(|e| e.to_string())?;
+    let conn = db.0.get()?;
 
     conn.execute(
         r#"INSERT INTO schematics (
-            name, description, type, bg_type,
-            we_type, is_deleted, sizes
-        ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)"#,
+            name, description, type, sub_type,
+            sizes, user
+        ) VALUES (?1, ?2, ?3, ?4, ?5, ?6)"#,
         params![
             schematic.name,
             schematic.description,
             schematic.schematic_type,
-            schematic.bg_type,
-            schematic.we_type,
-            schematic.is_deleted,
-            schematic.sizes
+            schematic.sub_type,
+            schematic.sizes,
+            schematic.user
         ],
     ).map_err(|e| e.to_string())?;
     Ok(conn.last_insert_rowid())
 }
-
-#[tauri::command]
-pub fn add_logs(
-    db: State<'_, DatabaseState>,
-    log: LogEntry
-) -> Result<i64, String> {
-    let conn = db.0.get().map_err(|e| e.to_string())?;
-
-    conn.execute(
-        "INSERT INTO app_logs (level, target, message, context)
-            VALUES (?1, ?2, ?3, ?4)",
-        params![
-                log.level,
-                log.target,
-                log.message,
-                log.context
-            ],
-    ).map_err(|e| e.to_string())?;
-    Ok(conn.last_insert_rowid())
-}
-
 #[tauri::command]
 pub fn get_schematic(
     db: State<'_, DatabaseState>,
@@ -64,10 +62,12 @@ pub fn get_schematic(
                 name: row.get("name")?,
                 description: row.get("description")?,
                 schematic_type: row.get("type")?,
-                bg_type: row.get("bg_type")?,
-                we_type: row.get("we_type")?,
+                sub_type: row.get("sub_type")?,
                 is_deleted: row.get("is_deleted")?,
                 sizes: row.get("sizes")?,
+                user: row.get("user")?,
+                is_upload: row.get("is_upload")?,
+                version: row.get("version")?,
             })
         }
     ).optional().context("查询失败")
@@ -115,10 +115,12 @@ pub fn get_schematics(
                     name: row.get("name")?,
                     description: row.get("description")?,
                     schematic_type: row.get("type")?,
-                    bg_type: row.get("bg_type")?,
-                    we_type: row.get("we_type")?,
+                    sub_type: row.get("sub_type")?,
                     is_deleted: row.get("is_deleted")?,
                     sizes: row.get("sizes")?,
+                    user: row.get("user")?,
+                    is_upload: row.get("is_upload")?,
+                    version: row.get("version")?,
                 })
             },
         )?
@@ -127,51 +129,3 @@ pub fn get_schematics(
     Ok(schematics)
 }
 
-#[tauri::command]
-pub fn get_logs(
-    db: State<'_, DatabaseState>,
-    filter: &str,
-    page: i32,
-    page_size: i32
-) -> Result<Vec<LogEntry>> {
-    let conn = db.0.get()?;
-    let page = page.max(1);
-    let page_size = page_size.clamp(1, 100);
-
-    let offset = (page - 1) * page_size;
-    let search_pattern = if filter.is_empty() {
-        "".to_string()
-    } else {
-        format!("%{}%", filter)
-    };
-    let mut stmt = conn.prepare(
-        r#"
-        SELECT * FROM app_logs
-        WHERE
-            (?1 = '' OR
-            message LIKE ?1)
-        ORDER BY timestamp DESC
-        LIMIT ?2 OFFSET ?3
-        "#
-    )?;
-
-    let logs = stmt
-        .query_map(
-            rusqlite::params![
-                search_pattern,
-                page_size,
-                offset
-            ],
-            |row| {
-                Ok(LogEntry {
-                    level: row.get("level")?,
-                    target: row.get("target")?,
-                    message: row.get("message")?,
-                    context: row.get("context")?,
-                })
-            },
-        )?
-        .collect::<Result<Vec<_>, _>>()?;
-
-    Ok(logs)
-}

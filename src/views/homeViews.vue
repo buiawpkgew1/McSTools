@@ -4,6 +4,9 @@
   import lmImg from '../static/img/Litematica.jpg'
   import weImg from '../static/img/wordEdit.png'
   import beImg from '../static/img/grass_block.png'
+  import {ref} from "vue";
+  const files = ref([])
+
 </script>
 
 <template class="page-wrapper">
@@ -61,10 +64,61 @@
           蓝图处理
         </v-card-title>
 
-        <v-card-text class="flex-grow-1 d-flex flex-column align-center justify-center upload-area">
-          <v-icon icon="mdi-file-cloud" size="80" class="text-blue-grey"></v-icon>
-          <div class="text-body-1 my-4">拖放文件或点击上传蓝图</div>
+        <v-card-text class="upload-area pa-8">
+          <div class="text-center mb-4">
+            <v-icon
+                icon="mdi-cloud-upload"
+                size="80"
+                color="primary"
+                class="mb-2"
+            ></v-icon>
+            <div class="text-h6 text-primary">拖放文件或点击上传</div>
+            <div class="text-caption text-medium-emphasis mt-1">
+              支持格式：PDF、JPG、PNG（最大50MB）
+            </div>
+          </div>
 
+          <v-file-input
+              v-model="files"
+              class="custom-file-input"
+              variant="solo-filled"
+              color="primary"
+              bg-color="grey-lighten-3"
+              prepend-icon=""
+              label="选择文件"
+              multiple
+              accept=".pdf,.jpg,.png"
+              :show-size="1000"
+              :max-file-size="50 * 1024 * 1024"
+              rounded="lg"
+              hide-details
+              :density="$vuetify.display.mobile ? 'compact' : 'comfortable'"
+          >
+            <template v-slot:selection="{ fileNames }">
+              <div class="d-flex flex-wrap gap-2 pa-2">
+                <template v-for="(fileName, index) in fileNames" :key="fileName">
+                  <v-chip
+                      v-if="index < 2"
+                      color="success"
+                      size="small"
+                      closable
+                      @click:close=""
+                  >
+                    <template v-slot:prepend>
+                      <v-icon icon="mdi-file-check" size="16"></v-icon>
+                    </template>
+                    {{ fileName }}
+                  </v-chip>
+                </template>
+                <span
+                    v-if="files.length > 2"
+                    class="text-caption text-grey align-self-center"
+                >
+          +{{ files.length - 2 }}个文件
+        </span>
+              </div>
+            </template>
+          </v-file-input>
         </v-card-text>
       </v-card>
     </v-col>
@@ -207,5 +261,15 @@
     opacity: 1;
     transform: translateX(0);
   }
+}
+.custom-file-input {
+  transition: all 0.3s ease;
+}
+.custom-file-input:hover {
+  border-color: var(--v-primary-base) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.custom-file-input .v-field__outline {
+  border-width: 2px;
 }
 </style>

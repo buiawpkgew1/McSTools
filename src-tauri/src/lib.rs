@@ -10,9 +10,10 @@ mod be_schematic;
 mod word_edit;
 mod data_files;
 mod datebase;
+mod modules;
 
 use tauri::Manager;
-use data_files::{config, config::get_config, config::update_config};
+use data_files::{config, config::get_config, config::update_config, files::FileManager};
 use crate::datebase::db_control;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -21,8 +22,11 @@ pub fn run() {
         .setup(|app| {
             let db_state = db_control::init_db(app.handle())?;
             app.manage(db_state);
-            config::init_config(app.handle())
+            let config = config::init_config(app.handle())
                 .expect("配置系统初始化失败");
+            app.manage(config);
+            let file_manager = FileManager::new(app.handle())?;
+            app.manage(file_manager);
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
