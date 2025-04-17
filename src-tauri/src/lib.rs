@@ -16,6 +16,9 @@ use tauri::Manager;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
 use crate::database::db_control;
 use modules::schematic::encode_uploaded_schematic;
+use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics};
+use database::db_apis::logs_api::{add_logs, get_logs};
+use database::db_apis::user_api::{get_user_data};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -35,7 +38,13 @@ pub fn run() {
             greet,
             get_config,
             update_config,
-            encode_uploaded_schematic
+            encode_uploaded_schematic,
+            get_user_data,
+            add_logs,
+            get_logs,
+            add_schematic,
+            get_schematic,
+            get_schematics
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

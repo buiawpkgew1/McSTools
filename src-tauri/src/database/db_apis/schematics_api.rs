@@ -35,19 +35,19 @@ pub fn new_schematic(
 pub fn add_schematic(
     db: State<'_, DatabaseState>,
     schematic: Schematic
-) -> Result<i64> {
-    let conn = db.0.get()?;
+) -> Result<i64, String> {
+    let conn = db.0.get().map_err(|e| e.to_string())?;
 
-    let new = new_schematic(conn, schematic)?;
+    let new = new_schematic(conn, schematic).map_err(|e| e.to_string())?;
     Ok(new)
 }
 #[tauri::command]
 pub fn get_schematic(
     db: State<'_, DatabaseState>,
     id: i64
-) -> Result<Option<Schematic>> {
-    let conn = db.0.get()?;
-    conn.query_row(
+) -> Result<Schematic, String> {
+    let conn = db.0.get().map_err(|e| e.to_string())?;
+    Ok(conn.query_row(
         "SELECT * FROM schematics WHERE id = ? AND is_deleted = FALSE",
         [id],
         |row| {
@@ -62,9 +62,10 @@ pub fn get_schematic(
                 user: row.get("user")?,
                 is_upload: row.get("is_upload")?,
                 version: row.get("version")?,
+                version_list: row.get("version_list")?,
             })
         }
-    ).optional().context("查询失败")
+    ).map_err(|e| e.to_string())?)
 }
 
 #[tauri::command]
@@ -73,8 +74,8 @@ pub fn get_schematics(
     filter: &str,
     page: i32,
     page_size: i32
-) -> Result<Vec<Schematic>> {
-    let conn = db.0.get()?;
+) -> Result<Vec<Schematic>, String> {
+    let conn = db.0.get().map_err(|e| e.to_string())?;
     let page = page.max(1);
     let page_size = page_size.clamp(1, 100);
 
@@ -94,7 +95,7 @@ pub fn get_schematics(
         ORDER BY created_at DESC
         LIMIT ?2 OFFSET ?3
         "#
-    )?;
+    ).map_err(|e| e.to_string())?;
 
     let schematics = stmt
         .query_map(
@@ -115,10 +116,12 @@ pub fn get_schematics(
                     user: row.get("user")?,
                     is_upload: row.get("is_upload")?,
                     version: row.get("version")?,
+                    version_list: row.get("version_list")?,
                 })
             },
-        )?
-        .collect::<Result<Vec<_>, _>>()?;
+        ).map_err(|e| e.to_string())?
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(|e| e.to_string())?;
 
     Ok(schematics)
 }

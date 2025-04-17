@@ -48,13 +48,14 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
         CREATE TABLE IF NOT EXISTS schematics (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            description TEXT,
+            description TEXT DEFAULT '',
             type INTEGER DEFAULT -1, -- TYPE-> nbt 1 litematic 2 schem 3 json 4 mcstruct 5
             sub_type INTEGER DEFAULT -1, -- SUB Schem 0 新 1 旧 json 0 1.20+ 1 1.16+ 2 1.12+
             is_deleted BLOB DEFAULT FALSE,
-            sizes TEXT,
-            user TEXT, -- 简单的记录用户名，个人存储应该不太需要详细记录
+            sizes TEXT DEFAULT '',
+            user TEXT DEFAULT '', -- 简单的记录用户名，个人存储应该不太需要详细记录
             version INTEGER DEFAULT 0,
+            version_list TEXT DEFAULT '', -- 版本控制器记录版本号id
             is_upload BLOB DEFAULT FALSE,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -64,16 +65,31 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
         ON schematics(created_at DESC, name, description);
 
         CREATE TABLE IF NOT EXISTS app_logs (
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-            level TEXT CHECK(level IN ('TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR')),
-            target TEXT,
-            message TEXT,
-            context TEXT
+            level TEXT DEFAULT 'INFO' CHECK(level IN ('TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR')),
+            target TEXT DEFAULT '',
+            message TEXT DEFAULT '',
+            context TEXT DEFAULT ''
         );
 
         CREATE INDEX IF NOT EXISTS idx_logs_search
         ON app_logs(timestamp DESC, level, target);
+
+        CREATE TABLE IF NOT EXISTS user_data (
+            id INTEGER PRIMARY KEY,
+            nickname TEXT DEFAULT '',
+            avatar TEXT DEFAULT '',
+            qq TEXT DEFAULT '',
+            accessToken TEXT DEFAULT '', -- qq登录凭证
+            openid TEXT DEFAULT '',-- qq登录唯一身份码
+            schematics INTEGER DEFAULT 0,
+            cloud INTEGER DEFAULT 0
+        );
+
+        INSERT INTO user_data (id, nickname, avatar, qq, accessToken, openid, schematics, cloud)
+        SELECT 1, '', '', '', '', '', 0, 0
+        WHERE NOT EXISTS (SELECT 1 FROM user_data WHERE id = 1);
         "#
     )?;
 

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import {NavigationGuard, onBeforeRouteLeave} from "vue-router";
 
 const activeTab = ref(0)
 const blueprintData = ref({})
 const materialStats = ref([])
+const leaveTimer = ref<number>(0)
+const isLeaving = ref(false)
 const replacementRules = ref([])
 
 const sampleMaterials = [
@@ -11,10 +14,28 @@ const sampleMaterials = [
   { name: '圆石', id: 'minecraft:cobblestone', count: 845 },
   { name: '红石粉', id: 'minecraft:redstone', count: 328 }
 ]
+const navigationGuard: NavigationGuard = (to, from, next) => {
+  isLeaving.value = true
+
+  leaveTimer.value = window.setTimeout(() => {
+    next()
+  }, 200)
+
+  const handler = () => {
+    window.clearTimeout(leaveTimer.value)
+    next()
+  }
+
+  document.addEventListener('animationend', handler, { once: true })
+}
+
+onBeforeRouteLeave(navigationGuard)
 </script>
 
 <template class="page-wrapper">
-  <v-row no-gutters class="mb-4 animate-row"
+  <v-row no-gutters
+         class="mb-4 animate-row"
+         :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col>
       <v-card class="mx-auto" elevation="4" style="height: 99vh">
@@ -165,7 +186,20 @@ const sampleMaterials = [
 .animate-row {
   animation: rowEntrance 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.animate-row-out {
+  animation: rowOut 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+@keyframes rowOut{
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+}
 @keyframes rowEntrance {
   from {
     opacity: 0;

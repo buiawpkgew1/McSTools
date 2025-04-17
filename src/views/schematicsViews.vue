@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import dayjs from 'dayjs'
+import {NavigationGuard, onBeforeRouteLeave} from "vue-router";
+const leaveTimer = ref<number>(0)
+const isLeaving = ref(false)
 
 const minecraftBlueprints = ref([
   {
@@ -37,14 +40,31 @@ const minecraftBlueprints = ref([
     thumbnail: 'https://example.com/path/to/thumbnail2.jpg'
   }
 ])
+const navigationGuard: NavigationGuard = (to, from, next) => {
+  isLeaving.value = true
 
+  leaveTimer.value = window.setTimeout(() => {
+    next()
+  }, 200)
+
+  const handler = () => {
+    window.clearTimeout(leaveTimer.value)
+    next()
+  }
+
+  document.addEventListener('animationend', handler, { once: true })
+}
+
+onBeforeRouteLeave(navigationGuard)
 const formatTime = (time) => {
   return dayjs(time).format('YYYY/MM/DD HH:mm')
 }
 </script>
 
 <template class="page-wrapper">
-  <v-row no-gutters class="mb-4 animate-row"
+  <v-row no-gutters
+         class="mb-4 animate-row"
+         :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col>
       <v-card class="mx-auto" elevation="4" style="height: 99vh">
@@ -168,7 +188,20 @@ const formatTime = (time) => {
 .animate-row {
   animation: rowEntrance 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.animate-row-out {
+  animation: rowOut 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+@keyframes rowOut{
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+}
 @keyframes rowEntrance {
   from {
     opacity: 0;

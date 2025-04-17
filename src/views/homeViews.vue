@@ -1,16 +1,140 @@
 <script setup lang="ts">
-  import bgImg from '../static/img/bg.jpg'
-  import createImg from '../static/img/create.jpg'
-  import lmImg from '../static/img/Litematica.jpg'
-  import weImg from '../static/img/wordEdit.png'
-  import beImg from '../static/img/grass_block.png'
-  import {ref} from "vue";
-  const files = ref([])
+import bgImg from '../static/img/bg.jpg'
+import createImg from '../static/img/create.jpg'
+import lmImg from '../static/img/Litematica.jpg'
+import weImg from '../static/img/wordEdit.png'
+import beImg from '../static/img/grass_block.png'
+import {onMounted, ref, onBeforeUnmount, watch} from "vue";
+import {invoke} from '@tauri-apps/api/core';
+import { onBeforeRouteLeave } from 'vue-router'
+import type { NavigationGuard } from 'vue-router'
 
+const loading = ref(true)
+const error = ref<string | null>(null)
+const currentTime = ref('')
+const currentDate = ref('')
+let timer: number = 0
+const hours = ref('')
+const minutes = ref('')
+const seconds = ref('')
+const rowOut = ref(false)
+const leaveTimer = ref<number>(0)
+const isLeaving = ref(false)
+const isNewSecond = ref(false)
+const files = ref<File[]>([]);
+const uploadStatus = ref<'idle' | 'uploading' | 'success' | 'error'>('idle');
+const uploadError = ref<string | null>(null);
+
+const handleUpload = async () => {
+  if (files.value.length === 0) return;
+
+  uploadStatus.value = 'uploading';
+  uploadError.value = null;
+
+  try {
+    for (const file of files.value) {
+      const arrayBuffer = await file.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
+
+      await invoke('encode_uploaded_schematic', {
+        fileName: file.name,
+        data: Array.from(uint8Array)
+      });
+    }
+
+    uploadStatus.value = 'success';
+    files.value = [];
+  } catch (err) {
+    uploadStatus.value = 'error';
+    uploadError.value = err instanceof Error ? err.message : '文件上传失败';
+    console.error('上传错误:', err);
+  }
+};
+
+interface UserData {
+    id: number,
+    nickname: string;
+    avatar: string;
+    qq: string;
+    access_token: string;
+    openid: string;
+    schematics: number;
+    cloud: number;
+}
+const updateTime = () => {
+  const now = new Date()
+  const newHours = now.getHours().toString().padStart(2, '0')
+  const newMinutes = now.getMinutes().toString().padStart(2, '0')
+  const newSeconds = now.getSeconds().toString().padStart(2, '0')
+
+  isNewSecond.value = true
+  setTimeout(() => isNewSecond.value = false, 300)
+
+  if (hours.value !== newHours) hours.value = newHours
+  if (minutes.value !== newMinutes) minutes.value = newMinutes
+  seconds.value = newSeconds
+
+  currentTime.value = now.toLocaleTimeString('zh-CN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  })
+
+  currentDate.value = now.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+
+const userData = ref<Partial<UserData> | null>(null)
+const fetchUserData = async () => {
+  try {
+      loading.value = true
+      error.value = null
+      let data = await invoke<UserData>('get_user_data')
+      console.log(data)
+      userData.value = data
+
+    } catch (err) {
+      error.value = typeof err === 'string' ? err : '获取用户数据失败'
+      console.error('API Error:', err)
+    } finally {
+      loading.value = false
+    }
+}
+
+const navigationGuard: NavigationGuard = (to, from, next) => {
+  isLeaving.value = true
+
+  leaveTimer.value = window.setTimeout(() => {
+    next()
+  }, 200)
+
+  const handler = () => {
+    window.clearTimeout(leaveTimer.value)
+    next()
+  }
+
+  document.addEventListener('animationend', handler, { once: true })
+}
+
+onBeforeRouteLeave(navigationGuard)
+
+onMounted(async() => {
+    await fetchUserData()
+    updateTime()
+    timer = window.setInterval(updateTime, 1000)
+})
+onBeforeUnmount(() => {
+    window.clearInterval(timer)
+    rowOut.value = true
+})
 </script>
 
 <template class="page-wrapper">
   <v-row no-gutters class="mb-4 animate-row"
+         :class="{ 'animate-row-out': isLeaving }"
          transition="scroll-x-transition"
   >
     <v-col>
@@ -27,18 +151,96 @@
                 <v-icon icon="mdi-folder-multiple" color="deep-purple" class="mr-2"></v-icon>
                 <div>
                   <div class="text-caption text-grey">本地蓝图总数</div>
-                  <div class="text-h4">11</div>
+                  <div class="text-h4">{{ userData?.schematics ?? 0 }}</div>
                 </div>
               </div>
             </v-col>
+
             <v-col cols="2">
               <div class="d-flex align-center">
-                <v-icon icon="mdi-cloud-upload" size="32" color="teal" class="mr-2"></v-icon>
+                <v-icon icon="mdi-cloud-upload" size="28" color="teal" class="mr-2"></v-icon>
                 <div>
                   <div class="text-caption text-grey">云端蓝图总数</div>
-                  <div class="text-h4">20</div>
+                  <div class="text-h4">{{ userData?.cloud ?? 0 }}</div>
                 </div>
               </div>
+            </v-col>
+            <v-col cols="3">
+
+            </v-col>
+            <v-col cols="5">
+              <v-row class="mb-4 justify-md-end" dense>
+                <v-col cols="6" md="4">
+                  <div class="d-flex align-start">
+                    <v-avatar size="56" class="mr-3">
+                      <v-img
+                          :src="userData?.avatar || '/default-avatar.png'"
+                          aspect-ratio="1"
+                      >
+                        <template v-slot:placeholder>
+                          <v-progress-circular indeterminate />
+                        </template>
+                        <template v-slot:error>
+                          <v-icon size="45">
+                            mdi-account-circle
+                          </v-icon>
+                        </template>
+                      </v-img>
+                    </v-avatar>
+                    <div>
+                      <div class="text-caption text-grey-darken-1 mb-1">
+                        <v-icon small left>mdi-login</v-icon>
+                        欢迎回来
+                      </div>
+                      <div class="text-h6 text-primary font-weight-medium">
+                        {{ userData?.nickname || '用户' }}
+                      </div>
+                    </div>
+                  </div>
+                </v-col>
+
+                <v-col cols="6" md="4">
+                  <div class="d-flex align-center justify-end">
+                    <v-icon
+                        color="teal"
+                        size="26"
+                        class="mr-2 animate-icon"
+                        :class="{ 'icon-pulse': isNewSecond }"
+                    >
+                      mdi-clock-outline
+                    </v-icon>
+                    <div class="text-right">
+                      <div class="text-h5 font-weight-bold text-teal-darken-2 time-digits">
+                        <transition name="digit" mode="out-in">
+                          <span :key="hours" class="time-part">{{ hours }}</span>
+                        </transition>
+                        <span class="time-colon">:</span>
+
+                        <transition name="digit" mode="out-in">
+                          <span :key="minutes" class="time-part">{{ minutes }}</span>
+                        </transition>
+                        <span class="time-colon">:</span>
+
+                        <transition name="digit" mode="out-in">
+                          <span :key="seconds" class="time-part">{{ seconds }}</span>
+                        </transition>
+
+                        <span class="text-body-2 ml-1">24H</span>
+                      </div>
+
+                      <transition name="fade-slide">
+                        <div
+                            :key="currentDate"
+                            class="text-caption text-grey-darken-1 date-display"
+                        >
+                          <v-icon x-small>mdi-calendar</v-icon>
+                          {{ currentDate }}
+                        </div>
+                      </transition>
+                    </div>
+                  </div>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
           <v-alert
@@ -55,6 +257,7 @@
   </v-row>
   <v-row
       class="animate-row"
+      :class="{ 'animate-row-out': isLeaving }"
       style="height: 500px"
   >
     <v-col cols="8" class="h-100">
@@ -78,47 +281,44 @@
             </div>
           </div>
 
-          <v-file-input
-              v-model="files"
-              class="custom-file-input"
-              variant="solo-filled"
-              color="primary"
-              bg-color="grey-lighten-3"
-              prepend-icon=""
-              label="选择文件"
-              multiple
-              accept=".pdf,.jpg,.png"
-              :show-size="1000"
-              :max-file-size="50 * 1024 * 1024"
-              rounded="lg"
-              hide-details
-              :density="$vuetify.display.mobile ? 'compact' : 'comfortable'"
-          >
-            <template v-slot:selection="{ fileNames }">
-              <div class="d-flex flex-wrap gap-2 pa-2">
-                <template v-for="(fileName, index) in fileNames" :key="fileName">
-                  <v-chip
-                      v-if="index < 2"
-                      color="success"
-                      size="small"
-                      closable
-                      @click:close=""
-                  >
-                    <template v-slot:prepend>
-                      <v-icon icon="mdi-file-check" size="16"></v-icon>
-                    </template>
-                    {{ fileName }}
-                  </v-chip>
-                </template>
-                <span
-                    v-if="files.length > 2"
-                    class="text-caption text-grey align-self-center"
-                >
-          +{{ files.length - 2 }}个文件
-        </span>
-              </div>
-            </template>
-          </v-file-input>
+          <div class="upload-container">
+            <v-file-input
+                v-model="files"
+                class="custom-file-input"
+                variant="solo-filled"
+                color="primary"
+                bg-color="grey-lighten-3"
+                label="选择文件"
+                multiple
+                accept=".nbt, .json, .schem, .litematic"
+                :max-file-size="100 * 1024 * 1024"
+                :loading="uploadStatus === 'uploading'"
+                :error-messages="uploadError"
+                :disabled="uploadStatus === 'uploading'"
+                @update:model-value="handleUpload"
+            >
+              <template v-slot:selection="{ fileNames }">
+              </template>
+            </v-file-input>
+
+            <v-alert
+                v-if="uploadStatus === 'success'"
+                type="success"
+                variant="tonal"
+                class="mt-2"
+            >
+              成功上传 {{ files.length + 1 }} 个文件
+            </v-alert>
+
+            <v-alert
+                v-if="uploadStatus === 'error'"
+                type="error"
+                variant="tonal"
+                class="mt-2"
+            >
+              {{ uploadError }}
+            </v-alert>
+          </div>
         </v-card-text>
       </v-card>
     </v-col>
@@ -240,9 +440,6 @@
   height: 100%;
 }
 
-.fill-height {
-  height: 900px;
-}
 .page-wrapper {
   overflow-x: hidden;
   overflow-y: hidden;
@@ -262,14 +459,89 @@
     transform: translateX(0);
   }
 }
+
+.animate-row-out {
+  animation: rowOut 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes rowOut{
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+}
 .custom-file-input {
   transition: all 0.3s ease;
 }
 .custom-file-input:hover {
-  border-color: var(--v-primary-base) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.custom-file-input .v-field__outline {
+.custom-file-input {
   border-width: 2px;
+}
+
+.time-part {
+  display: inline-block;
+  min-width: 1.2em;
+  text-align: center;
+}
+
+.time-colon {
+  animation: colon-pulse 1s infinite;
+}
+
+@keyframes colon-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.icon-pulse {
+  animation: icon-pulse 0.6s ease;
+}
+
+.digit-enter-active {
+  animation: digitIn 0.3s ease-out;
+}
+.digit-leave-active {
+  animation: digitOut 0.3s ease-in;
+}
+
+@keyframes digitIn {
+  from {
+    transform: translateY(0.8em);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes digitOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-0.8em);
+    opacity: 0;
+  }
+}
+
+@keyframes colon-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.fade-slide-enter-active {
+  transition: all 0.3s ease;
+}
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(10px);
 }
 </style>

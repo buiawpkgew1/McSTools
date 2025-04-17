@@ -58,7 +58,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = Schematic {
                     id: None,
                     name: file_name_str,
-                    description: None,
+                    description: "".parse()?,
                     schematic_type: 1,
                     sub_type: -1,
                     is_deleted: false,
@@ -66,10 +66,11 @@ pub async fn encode_uploaded_schematic(
                     user: "your".parse()?,
                     is_upload: false,
                     version: 0,
+                    version_list: "0".parse()?,
                 };
 
                 let schematic_id = new_schematic(conn, schematic)?;
-
+                println!("{}", schematic_id);
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,
@@ -90,7 +91,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = Schematic {
                     id: None,
                     name: file_name_str,
-                    description: None,
+                    description: "".parse()?,
                     schematic_type: 4,
                     sub_type: schematic_type,
                     is_deleted: false,
@@ -98,6 +99,7 @@ pub async fn encode_uploaded_schematic(
                     user: "your".parse()?,
                     is_upload: false,
                     version: 0,
+                    version_list: "0".parse()?,
                 };
 
                 let schematic_id = new_schematic(conn, schematic)?;
@@ -121,7 +123,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = Schematic {
                     id: None,
                     name: file_name_str,
-                    description: None,
+                    description: "".parse()?,
                     schematic_type: 2,
                     sub_type: type_version,
                     is_deleted: false,
@@ -129,6 +131,7 @@ pub async fn encode_uploaded_schematic(
                     user: "your".parse()?,
                     is_upload: false,
                     version: 0,
+                    version_list: "0".parse()?,
                 };
                 let schematic_id = new_schematic(conn, schematic)?;
                 file_manager.save_schematic_data(
@@ -156,7 +159,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = Schematic {
                     id: None,
                     name,
-                    description: Some(description),
+                    description,
                     schematic_type: 2,
                     sub_type: -1,
                     is_deleted: false,
@@ -164,6 +167,7 @@ pub async fn encode_uploaded_schematic(
                     user: author,
                     is_upload: false,
                     version: 0,
+                    version_list: "0".parse()?,
                 };
                 let schematic_id = new_schematic(conn, schematic)?;
                 file_manager.save_schematic_data(
@@ -181,7 +185,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = Schematic {
                     id: None,
                     name: "未解析".parse()?,
-                    description: None,
+                    description: "".parse()?,
                     schematic_type: 2,
                     sub_type: -1,
                     is_deleted: false,
@@ -189,6 +193,7 @@ pub async fn encode_uploaded_schematic(
                     user: "your".parse()?,
                     is_upload: false,
                     version: 0,
+                    version_list: "0".parse()?,
                 };
                 let schematic_id = new_schematic(conn, schematic)?;
                 file_manager.save_schematic_data(
