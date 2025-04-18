@@ -1,7 +1,6 @@
 use std::path::Path;
 use fastnbt::Value;
 use anyhow::Result;
-use rusqlite::fallible_iterator::FallibleIterator;
 use tauri::{State};
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
@@ -42,7 +41,7 @@ pub async fn encode_uploaded_schematic(
                 let sizes = match size {
                     list => list.iter()
                         .filter_map(|v| match v {
-                            Value::Int(n) => Some(*n as i32),
+                            Value::Int(n) => Some(*n),
                             _ => None
                         })
                         .collect::<Vec<i32>>(),
@@ -56,7 +55,7 @@ pub async fn encode_uploaded_schematic(
                 let conn = db.0.get()?;
 
                 let schematic = Schematic {
-                    id: None,
+                    id: 0,
                     name: file_name_str,
                     description: "".parse()?,
                     schematic_type: 1,
@@ -67,6 +66,9 @@ pub async fn encode_uploaded_schematic(
                     is_upload: false,
                     version: 0,
                     version_list: "0".parse()?,
+                    created_at: "".parse()?,
+                    updated_at: "".parse()?,
+                    game_version: "".parse()?,
                 };
 
                 let schematic_id = new_schematic(conn, schematic)?;
@@ -89,7 +91,7 @@ pub async fn encode_uploaded_schematic(
                 let conn = db.0.get()?;
 
                 let schematic = Schematic {
-                    id: None,
+                    id: 0,
                     name: file_name_str,
                     description: "".parse()?,
                     schematic_type: 4,
@@ -100,6 +102,9 @@ pub async fn encode_uploaded_schematic(
                     is_upload: false,
                     version: 0,
                     version_list: "0".parse()?,
+                    created_at: "".parse()?,
+                    updated_at: "".parse()?,
+                    game_version: "".parse()?,
                 };
 
                 let schematic_id = new_schematic(conn, schematic)?;
@@ -121,7 +126,7 @@ pub async fn encode_uploaded_schematic(
                 let sizes_str = sizes.to_string();
                 let conn = db.0.get()?;
                 let schematic = Schematic {
-                    id: None,
+                    id: 0,
                     name: file_name_str,
                     description: "".parse()?,
                     schematic_type: 2,
@@ -132,6 +137,9 @@ pub async fn encode_uploaded_schematic(
                     is_upload: false,
                     version: 0,
                     version_list: "0".parse()?,
+                    created_at: "".parse()?,
+                    updated_at: "".parse()?,
+                    game_version: "".parse()?,
                 };
                 let schematic_id = new_schematic(conn, schematic)?;
                 file_manager.save_schematic_data(
@@ -157,7 +165,7 @@ pub async fn encode_uploaded_schematic(
                     metadata.name
                 };
                 let schematic = Schematic {
-                    id: None,
+                    id: 0,
                     name,
                     description,
                     schematic_type: 2,
@@ -168,6 +176,9 @@ pub async fn encode_uploaded_schematic(
                     is_upload: false,
                     version: 0,
                     version_list: "0".parse()?,
+                    created_at: "".parse()?,
+                    updated_at: "".parse()?,
+                    game_version: "".parse()?,
                 };
                 let schematic_id = new_schematic(conn, schematic)?;
                 file_manager.save_schematic_data(
@@ -183,10 +194,10 @@ pub async fn encode_uploaded_schematic(
                 let conn = db.0.get()?;
                 let original_data = data.clone();
                 let schematic = Schematic {
-                    id: None,
+                    id: 0,
                     name: "未解析".parse()?,
                     description: "".parse()?,
-                    schematic_type: 2,
+                    schematic_type: -1,
                     sub_type: -1,
                     is_deleted: false,
                     sizes: "".to_string(),
@@ -194,6 +205,9 @@ pub async fn encode_uploaded_schematic(
                     is_upload: false,
                     version: 0,
                     version_list: "0".parse()?,
+                    created_at: "".parse()?,
+                    updated_at: "".parse()?,
+                    game_version: "".parse()?,
                 };
                 let schematic_id = new_schematic(conn, schematic)?;
                 file_manager.save_schematic_data(

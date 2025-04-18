@@ -55,6 +55,7 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
             sizes TEXT DEFAULT '',
             user TEXT DEFAULT '', -- 简单的记录用户名，个人存储应该不太需要详细记录
             version INTEGER DEFAULT 0,
+            game_version TEXT DEFAULT '',
             version_list TEXT DEFAULT '', -- 版本控制器记录版本号id
             is_upload BLOB DEFAULT FALSE,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

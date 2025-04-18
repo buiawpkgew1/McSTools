@@ -4,7 +4,7 @@ use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::{params, OptionalExtension};
 use tauri::{State};
 use crate::database::db_control::DatabaseState;
-use crate::database::db_data::{LogEntry, Schematic};
+use crate::database::db_data::{LogEntry, PaginatedResponse, Schematic};
 
 
 pub fn new_schematic(
@@ -15,15 +15,16 @@ pub fn new_schematic(
     tx.execute(
         r#"INSERT INTO schematics (
             name, description, type, sub_type,
-            sizes, user
-        ) VALUES (?1, ?2, ?3, ?4, ?5, ?6)"#,
+            sizes, user, version_list
+        ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)"#,
         params![
             schematic.name,
             schematic.description,
             schematic.schematic_type,
             schematic.sub_type,
             schematic.sizes,
-            schematic.user
+            schematic.user,
+            schematic.version_list
         ],
     )?;
     let rowid = tx.last_insert_rowid();
@@ -52,7 +53,7 @@ pub fn get_schematic(
         [id],
         |row| {
             Ok(Schematic {
-                id: Some(row.get("id")?),
+                id: row.get("id")?,
                 name: row.get("name")?,
                 description: row.get("description")?,
                 schematic_type: row.get("type")?,
@@ -63,6 +64,9 @@ pub fn get_schematic(
                 is_upload: row.get("is_upload")?,
                 version: row.get("version")?,
                 version_list: row.get("version_list")?,
+                created_at: row.get("created_at")?,
+                updated_at: row.get("updated_at")?,
+                game_version: row.get("game_version")?,
             })
         }
     ).map_err(|e| e.to_string())?)
@@ -74,7 +78,7 @@ pub fn get_schematics(
     filter: &str,
     page: i32,
     page_size: i32
-) -> Result<Vec<Schematic>, String> {
+) -> Result<PaginatedResponse<Schematic>, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
     let page = page.max(1);
     let page_size = page_size.clamp(1, 100);
@@ -106,7 +110,7 @@ pub fn get_schematics(
             ],
             |row| {
                 Ok(Schematic {
-                    id: Some(row.get("id")?),
+                    id: row.get("id")?,
                     name: row.get("name")?,
                     description: row.get("description")?,
                     schematic_type: row.get("type")?,
@@ -117,12 +121,19 @@ pub fn get_schematics(
                     is_upload: row.get("is_upload")?,
                     version: row.get("version")?,
                     version_list: row.get("version_list")?,
+                    created_at: row.get("created_at")?,
+                    updated_at: row.get("updated_at")?,
+                    game_version: row.get("game_version")?,
                 })
             },
         ).map_err(|e| e.to_string())?
         .collect::<Result<Vec<_>, _>>()
         .map_err(|e| e.to_string())?;
 
-    Ok(schematics)
+    Ok(PaginatedResponse {
+        data: schematics,
+        page,
+        page_size,
+    })
 }
 

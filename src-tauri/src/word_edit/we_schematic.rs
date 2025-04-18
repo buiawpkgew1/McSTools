@@ -81,6 +81,13 @@ impl WeSchematic {
         };
         Ok(palette?)
     }
+    pub fn get_data_version(&self) -> Result<i32, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+        let data_version = root.get_i32("DataVersion")?;
+        Ok(data_version)
+    }
     pub fn get_size(&self, type_version: i32) -> Result<WeSize, SchematicError> {
         let Compound(root) = &self.nbt else {
             return Err(SchematicError::InvalidFormat("Root is not a Compound"));

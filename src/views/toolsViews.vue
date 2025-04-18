@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {NavigationGuard, onBeforeRouteLeave} from "vue-router";
-
+import {onBeforeRouteLeave} from "vue-router";
+import {isLeaving, navigationGuard} from "../moduels/navigation.ts";
 const activeTab = ref(0)
 const blueprintData = ref({})
 const materialStats = ref([])
-const leaveTimer = ref<number>(0)
-const isLeaving = ref(false)
 const replacementRules = ref([])
 
 const sampleMaterials = [
@@ -14,22 +12,8 @@ const sampleMaterials = [
   { name: '圆石', id: 'minecraft:cobblestone', count: 845 },
   { name: '红石粉', id: 'minecraft:redstone', count: 328 }
 ]
-const navigationGuard: NavigationGuard = (to, from, next) => {
-  isLeaving.value = true
-
-  leaveTimer.value = window.setTimeout(() => {
-    next()
-  }, 200)
-
-  const handler = () => {
-    window.clearTimeout(leaveTimer.value)
-    next()
-  }
-
-  document.addEventListener('animationend', handler, { once: true })
-}
-
 onBeforeRouteLeave(navigationGuard)
+
 </script>
 
 <template class="page-wrapper">

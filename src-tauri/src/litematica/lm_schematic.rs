@@ -11,6 +11,8 @@ use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
 use crate::utils::tile_entities::TileEntitiesList;
 use rayon::prelude::*;
+use tauri::http::Version;
+
 #[derive(Debug)]
 pub struct LmSchematic {
     nbt: Value,
@@ -41,6 +43,14 @@ impl LmSchematic {
         } else {
             Err(SchematicError::InvalidFormat("Root is not a Compound"))
         }
+    }
+    
+    pub fn get_data_version(&self) -> Result<i32, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+        let data_version = root.get_i32("MinecraftDataVersion")?;
+        Ok(data_version)
     }
 
     pub fn get_metadata(&self) -> Result<&HashMap<String, Value>, SchematicError> {

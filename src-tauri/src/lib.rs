@@ -11,7 +11,7 @@ mod word_edit;
 mod data_files;
 mod database;
 mod modules;
-
+use utils::minecraft_data::versions_data::VersionData;
 use tauri::Manager;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
 use crate::database::db_control;
@@ -31,6 +31,8 @@ pub fn run() {
             app.manage(config);
             let file_manager = FileManager::new(app.handle())?;
             app.manage(file_manager);
+            let version_data = VersionData::new();
+            app.manage(version_data);
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())

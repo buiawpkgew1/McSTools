@@ -1,61 +1,31 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import dayjs from 'dayjs'
-import {NavigationGuard, onBeforeRouteLeave} from "vue-router";
-const leaveTimer = ref<number>(0)
-const isLeaving = ref(false)
+import {onBeforeRouteLeave} from "vue-router";
+import {isLeaving, navigationGuard} from "../moduels/navigation.ts";
+import {fetchSchematics, SchematicsData, schematicTypeList} from "../moduels/schematics_data.ts";
 
-const minecraftBlueprints = ref([
-  {
-    id: 'BP001',
-    title: '自动南瓜农场',
-    description: '全自动收割系统，支持1.20+版本',
-    author: 'guapi',
-    type: '创世神',
-    gameVersion: '1.20.1',
-    modDependencies: [],
-    uploadTime: '2024-03-15T14:30:00',
-    thumbnail: 'https://example.com/path/to/thumbnail1.jpg'
-  },
-  {
-    id: 'BP002',
-    title: '小黑塔',
-    description: '测试内容',
-    author: 'guapi',
-    type: '小帮手',
-    gameVersion: '1.19.4',
-    modDependencies: ['OptiFine', 'WorldEdit'],
-    uploadTime: '2024-03-14T09:45:00',
-    thumbnail: 'https://example.com/path/to/thumbnail2.jpg'
-  },
-  {
-    id: 'BP002',
-    title: '',
-    description: '',
-    author: 'guapi',
-    type: '',
-    gameVersion: '',
-    modDependencies: [],
-    uploadTime: '2024-03-14T09:45:00',
-    thumbnail: 'https://example.com/path/to/thumbnail2.jpg'
-  }
-])
-const navigationGuard: NavigationGuard = (to, from, next) => {
-  isLeaving.value = true
+let schematics = ref<SchematicsData[]>([])
+const parseDimensions = (sizeStr: string) => {
+  const [length, width, height] = sizeStr.split(',').map(Number);
+  return [`X${length}`, `Y${width}`, `Z${height}`]
+};
 
-  leaveTimer.value = window.setTimeout(() => {
-    next()
-  }, 200)
-
-  const handler = () => {
-    window.clearTimeout(leaveTimer.value)
-    next()
-  }
-
-  document.addEventListener('animationend', handler, { once: true })
-}
+const parseVersions  = (versionStr: string) => {
+  return versionStr.split(',').map(Number);
+};
+onMounted(async() => {
+  const { data, page, page_size} = await fetchSchematics({
+    filter: '',
+    page: 1,
+    page_size: 20
+  });
+  console.log(data)
+  schematics.value = data
+})
 
 onBeforeRouteLeave(navigationGuard)
+
 const formatTime = (time) => {
   return dayjs(time).format('YYYY/MM/DD HH:mm')
 }
@@ -78,12 +48,11 @@ const formatTime = (time) => {
 
         <v-list class="mc-blueprint-list">
           <v-list-item
-              v-for="(bp, index) in minecraftBlueprints"
+              v-for="(bp) in schematics"
               :key="bp.id"
               class="py-2"
-              :title="bp.title"
+              :title="bp.name"
           >
-            <!-- 左侧缩略图 -->
             <template v-slot:prepend>
               <v-icon
                   icon="mdi-cube-scan"
@@ -94,9 +63,9 @@ const formatTime = (time) => {
 
             <template #title>
               <div class="d-flex align-center flex-wrap">
-                <span v-if="bp.type.length == 0" class="text-h6 text-red-lighten-1">未解析</span>
-                <span class="text-h6 text-blue-darken-4">{{ bp.title }}</span>
-                <div class="ms-3 d-flex align-center">
+                <span v-if="bp.schematic_type == -1" class="text-h6 text-red-lighten-1">未解析</span>
+                <span class="text-h6 text-blue-darken-4">{{ bp.name }}</span>
+                <div class="ms-3 d-flex align-center ga-1">
                   <v-chip
                       variant="outlined"
                       color="green-darken-2"
@@ -104,15 +73,23 @@ const formatTime = (time) => {
                       class="me-2"
                   >
                     <v-icon start icon="mdi-account"></v-icon>
-                    {{ bp.author }}
+                    {{ bp.user }}
                   </v-chip>
                   <v-chip
-                      color="orange-lighten-4"
+                      color="deep-purple"
+                      variant="outlined"
                       size="small"
-                      class="text-orange-darken-4"
+                      class="dimension-chip"
                   >
-                    <v-icon start icon="mdi-cube"></v-icon>
-                    {{ bp.gameVersion }}
+                    <div class="d-flex align-center">
+                      <v-icon icon="mdi-axis-arrow" class="mr-1"></v-icon>
+                      <div class="dimension-values">
+                        <span v-for="(dim, index) in parseDimensions(bp.sizes)" :key="index">
+                          {{ dim }}
+                          <v-icon v-if="index < 2" icon="mdi-close" size="x-small" class="mx-1"></v-icon>
+                        </span>
+                      </div>
+                    </div>
                   </v-chip>
                 </div>
               </div>
@@ -127,19 +104,54 @@ const formatTime = (time) => {
                 <div class="d-flex align-center flex-wrap gap-3">
                   <div class="d-flex align-center">
                     <v-icon icon="mdi-format-list-bulleted-type" size="small" class="me-1"></v-icon>
-                    <span class="text-caption">{{ bp.type }}</span>
+                    <span class="text-caption">{{ schematicTypeList[bp.schematic_type as 1 | 2 | 3 | 4] }}</span>
                   </div>
 
-                  <div v-if="bp.modDependencies" class="d-flex align-center">
-                    <v-icon icon="mdi-puzzle" size="small" class="me-1"></v-icon>
-                    <span class="text-caption">
-                      {{ bp.modDependencies.join(', ') }}
-                    </span>
+                  <div class="d-flex align-center flex-wrap gap-3">
+                    <div class="d-flex align-center">
+                      <v-icon icon="mdi-tag" size="small" class="me-1"></v-icon>
+                      <span class="text-caption">
+              v{{ bp.version }}
+              <v-chip size="x-small" color="green" class="ms-1">当前版本</v-chip>
+            </span>
+                    </div>
+
+                    <v-menu v-if="parseVersions(bp.version_list).length > 0">
+                      <template v-slot:activator="{ props }">
+                        <v-btn
+                            variant="text"
+                            color="primary"
+                            size="small"
+                            v-bind="props"
+                        >
+                          <v-icon icon="mdi-history" class="me-1"></v-icon>
+                          历史版本 ({{ parseVersions(bp.version_list).length }})
+                        </v-btn>
+                      </template>
+
+                      <v-list density="compact">
+                        <v-list-item
+                            v-for="(version, index) in parseVersions(bp.version_list)"
+                            :key="index"
+                        >
+                          <v-list-item-title>
+                            v{{ version }}
+                            <v-icon
+                                v-if="version === bp.version"
+                                icon="mdi-tag"
+                                color="green"
+                                size="small"
+                                class="ms-1"
+                            />
+                          </v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
                   </div>
 
                   <div class="d-flex align-center">
                     <v-icon icon="mdi-clock-outline" size="small" class="me-1"></v-icon>
-                    <span class="text-caption">{{ formatTime(bp.uploadTime) }}</span>
+                    <span class="text-caption">{{ formatTime(bp.updated_at) }}</span>
                   </div>
                 </div>
               </div>

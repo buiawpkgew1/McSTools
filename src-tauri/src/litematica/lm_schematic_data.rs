@@ -5,15 +5,15 @@ use crate::utils::block_state_pos_list::BlockPos;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct LmMetadata {
-    pub(crate) time_created: i64,
-    pub(crate) time_modified: i64,
-    pub(crate) description: String,
-    pub(crate) region_count: i32,
-    pub(crate) total_blocks: i32,
-    pub(crate) author: String,
-    pub(crate) total_volume: i32,
-    pub(crate) enclosing_size: BlockPos,
-    pub(crate) name: String,
+    pub time_created: i64,
+    pub time_modified: i64,
+    pub description: String,
+    pub region_count: i32,
+    pub total_blocks: i32,
+    pub author: String,
+    pub total_volume: i32,
+    pub enclosing_size: BlockPos,
+    pub name: String,
 }
 #[derive(Debug, Clone)]
 pub struct RegionData {

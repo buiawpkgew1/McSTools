@@ -4,90 +4,34 @@ import createImg from '../static/img/create.jpg'
 import lmImg from '../static/img/Litematica.jpg'
 import weImg from '../static/img/wordEdit.png'
 import beImg from '../static/img/grass_block.png'
-import {onMounted, ref, onBeforeUnmount, watch} from "vue";
+import {onMounted, ref, onBeforeUnmount} from "vue";
 import {invoke} from '@tauri-apps/api/core';
-import { onBeforeRouteLeave } from 'vue-router'
-import type { NavigationGuard } from 'vue-router'
+import {onBeforeRouteLeave} from 'vue-router'
+import {
+  files,
+  handleUpload,
+  progressTimer,
+  progressValue,
+  uploadError,
+  uploadStatus
+} from "../moduels/upload_schematic.ts";
+import {UserData} from "../moduels/user_data.ts";
+import {isLeaving, navigationGuard} from "../moduels/navigation.ts";
+import { createTimeManager } from '../moduels/time_data.ts'
+
+const timeManager = createTimeManager()
+const {
+  currentDate,
+  hours,
+  minutes,
+  seconds,
+  isNewSecond,
+} = timeManager.useInComponent()
 
 const loading = ref(true)
 const error = ref<string | null>(null)
-const currentTime = ref('')
-const currentDate = ref('')
-let timer: number = 0
-const hours = ref('')
-const minutes = ref('')
-const seconds = ref('')
-const rowOut = ref(false)
-const leaveTimer = ref<number>(0)
-const isLeaving = ref(false)
-const isNewSecond = ref(false)
-const files = ref<File[]>([]);
-const uploadStatus = ref<'idle' | 'uploading' | 'success' | 'error'>('idle');
-const uploadError = ref<string | null>(null);
-
-const handleUpload = async () => {
-  if (files.value.length === 0) return;
-
-  uploadStatus.value = 'uploading';
-  uploadError.value = null;
-
-  try {
-    for (const file of files.value) {
-      const arrayBuffer = await file.arrayBuffer();
-      const uint8Array = new Uint8Array(arrayBuffer);
-
-      await invoke('encode_uploaded_schematic', {
-        fileName: file.name,
-        data: Array.from(uint8Array)
-      });
-    }
-
-    uploadStatus.value = 'success';
-    files.value = [];
-  } catch (err) {
-    uploadStatus.value = 'error';
-    uploadError.value = err instanceof Error ? err.message : '文件上传失败';
-    console.error('上传错误:', err);
-  }
-};
-
-interface UserData {
-    id: number,
-    nickname: string;
-    avatar: string;
-    qq: string;
-    access_token: string;
-    openid: string;
-    schematics: number;
-    cloud: number;
-}
-const updateTime = () => {
-  const now = new Date()
-  const newHours = now.getHours().toString().padStart(2, '0')
-  const newMinutes = now.getMinutes().toString().padStart(2, '0')
-  const newSeconds = now.getSeconds().toString().padStart(2, '0')
-
-  isNewSecond.value = true
-  setTimeout(() => isNewSecond.value = false, 300)
-
-  if (hours.value !== newHours) hours.value = newHours
-  if (minutes.value !== newMinutes) minutes.value = newMinutes
-  seconds.value = newSeconds
-
-  currentTime.value = now.toLocaleTimeString('zh-CN', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  })
-
-  currentDate.value = now.toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-}
-
 const userData = ref<Partial<UserData> | null>(null)
+
 const fetchUserData = async () => {
   try {
       loading.value = true
@@ -103,32 +47,15 @@ const fetchUserData = async () => {
       loading.value = false
     }
 }
-
-const navigationGuard: NavigationGuard = (to, from, next) => {
-  isLeaving.value = true
-
-  leaveTimer.value = window.setTimeout(() => {
-    next()
-  }, 200)
-
-  const handler = () => {
-    window.clearTimeout(leaveTimer.value)
-    next()
-  }
-
-  document.addEventListener('animationend', handler, { once: true })
-}
-
 onBeforeRouteLeave(navigationGuard)
 
 onMounted(async() => {
     await fetchUserData()
-    updateTime()
-    timer = window.setInterval(updateTime, 1000)
 })
 onBeforeUnmount(() => {
-    window.clearInterval(timer)
-    rowOut.value = true
+    if (progressTimer.value) {
+      window.clearInterval(progressTimer.value)
+    }
 })
 </script>
 
@@ -297,8 +224,6 @@ onBeforeUnmount(() => {
                 :disabled="uploadStatus === 'uploading'"
                 @update:model-value="handleUpload"
             >
-              <template v-slot:selection="{ fileNames }">
-              </template>
             </v-file-input>
 
             <v-alert
@@ -307,7 +232,35 @@ onBeforeUnmount(() => {
                 variant="tonal"
                 class="mt-2"
             >
-              成功上传 {{ files.length + 1 }} 个文件
+              <template #prepend>
+                <v-icon icon="mdi-check-circle" class="mr-2"></v-icon>
+              </template>
+
+              <div class="d-flex align-center">
+                <span class="mr-2">成功上传 {{ files.length }} 个文件</span>
+                <v-spacer></v-spacer>
+                <v-btn
+                    icon
+                    variant="text"
+                    size="x-small"
+                    @click="uploadStatus = 'idle'"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </div>
+
+              <v-progress-linear
+                  :model-value="progressValue"
+                  color="success"
+                  height="8"
+                  class="mt-2"
+                  stream
+                  rounded
+              >
+                <template #default>
+                  <span class="text-caption">{{ Math.ceil(progressValue) }}%</span>
+                </template>
+              </v-progress-linear>
             </v-alert>
 
             <v-alert
@@ -316,7 +269,35 @@ onBeforeUnmount(() => {
                 variant="tonal"
                 class="mt-2"
             >
-              {{ uploadError }}
+              <template #prepend>
+                <v-icon icon="mdi-check-circle" class="mr-2"></v-icon>
+              </template>
+
+              <div class="d-flex align-center">
+                <span class="mr-2">发生错误:{{ uploadError }}</span>
+                <v-spacer></v-spacer>
+                <v-btn
+                    icon
+                    variant="text"
+                    size="x-small"
+                    @click="uploadStatus = 'idle'"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </div>
+
+              <v-progress-linear
+                  :model-value="progressValue"
+                  color="error"
+                  height="8"
+                  class="mt-2"
+                  stream
+                  rounded
+              >
+                <template #default>
+                  <span class="text-caption">{{ Math.ceil(progressValue) }}%</span>
+                </template>
+              </v-progress-linear>
             </v-alert>
           </div>
         </v-card-text>
@@ -543,5 +524,20 @@ onBeforeUnmount(() => {
 .fade-slide-enter-from {
   opacity: 0;
   transform: translateX(10px);
+}
+.v-progress-linear {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.v-progress-linear::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: currentColor;
+  opacity: 0.1;
 }
 </style>

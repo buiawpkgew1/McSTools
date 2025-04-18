@@ -5,6 +5,7 @@ use std::sync::Arc;
 use flate2::read::GzDecoder;
 use fastnbt::{self, Value, Value::Compound};
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
+use crate::utils::extend_value::NbtExt;
 use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
 use crate::utils::tile_entities::TileEntitiesList;
 #[derive(Debug)]
@@ -51,6 +52,14 @@ impl CreateSchematic {
         } else {
             Err(SchematicError::InvalidFormat("Root is not a Compound"))
         }
+    }
+
+    pub fn get_data_version(&self) -> Result<i32, SchematicError> {
+        let Compound(root) = &self.nbt else {
+            return Err(SchematicError::InvalidFormat("Root is not a Compound"));
+        };
+        let data_version = root.get_i32("DataVersion")?;
+        Ok(data_version)
     }
 
     pub fn get_size(&self) -> Result<&Vec<Value>, SchematicError> {
