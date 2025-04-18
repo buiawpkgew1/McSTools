@@ -14,6 +14,7 @@ export interface SchematicsData {
     version_list: string,
     created_at: string,
     updated_at: string,
+    game_version: string
 }
 
 export let schematicTypeList = {

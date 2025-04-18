@@ -15,8 +15,8 @@ pub fn new_schematic(
     tx.execute(
         r#"INSERT INTO schematics (
             name, description, type, sub_type,
-            sizes, user, version_list
-        ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)"#,
+            sizes, user, version_list, game_version
+        ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)"#,
         params![
             schematic.name,
             schematic.description,
@@ -24,7 +24,8 @@ pub fn new_schematic(
             schematic.sub_type,
             schematic.sizes,
             schematic.user,
-            schematic.version_list
+            schematic.version_list,
+            schematic.game_version
         ],
     )?;
     let rowid = tx.last_insert_rowid();

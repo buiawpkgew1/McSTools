@@ -5,9 +5,24 @@ use crate::utils::block_state_pos_list::{BlockId, BlockStatePosList};
 use crate::utils::schematic_data::SchematicError;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
+use tauri::{State};
+use crate::utils::minecraft_data::je_blocks_data::BlocksData;
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Requirements {
     requirements: HashMap<BlockId, i32>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+struct BlockData {
+    id: String,
+    zh_cn: String,
+    num: i64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct RequirementStr {
+    requirements: HashMap<BlockId, BlockData>,
 }
 impl Requirements {
     pub fn new() -> Self {
@@ -45,6 +60,56 @@ impl Requirements {
 
     pub fn export_to_string(&self) -> String {
         serde_json::to_string(&self.requirements).unwrap_or_default()
+    }
+}
+
+impl RequirementStr {
+    pub fn new() -> Self {
+        Self {
+            requirements: HashMap::new(),
+        }
+    }
+
+    pub fn upsert(&mut self, block_id: BlockId, data: BlockData) {
+        self.requirements.insert(block_id, data);
+    }
+
+    pub fn get(&self, block_id: &BlockId) -> Option<&BlockData> {
+        self.requirements.get(block_id)
+    }
+
+    pub fn get_all(&self) -> &HashMap<BlockId, BlockData> {
+        &self.requirements
+    }
+
+    pub fn export_to_string(&self) -> Result<String, SchematicError> {
+        serde_json::to_string(&self.requirements)
+            .map_err(|e| SchematicError::Json(e))
+    }
+
+    pub fn from_requirements(req: &Requirements, data: &tauri::State<'_, BlocksData>) -> Self {
+        let mut map = HashMap::new();
+
+        for (block_id, &count) in req.get_requirements() {
+            let zh_cn = data.get_zh_cn(&block_id.name)
+                .map(|s| s.to_owned())
+                .unwrap_or_else(|| block_id.name.to_string()); 
+
+            map.insert(
+                block_id.clone(),
+                BlockData {
+                    id: block_id.name.to_string(),
+                    zh_cn,
+                    num: count as i64,
+                },
+            );
+        }
+
+        Self { requirements: map }
+    }
+
+    pub fn par_iter(&self) -> rayon::collections::hash_map::Iter<'_, BlockId, BlockData> {
+        self.requirements.par_iter()
     }
 }
 

@@ -13,6 +13,7 @@ use crate::litematica::lm_schematic::LmSchematic;
 use crate::litematica::to_lm_schematic::ToLmSchematic;
 use utils::extend_write::{to_writer_gzip};
 use crate::create::to_create_schematic::ToCreateSchematic;
+use crate::utils::minecraft_data::je_blocks_data::{BlocksData};
 use crate::word_edit::we_schematic::WeSchematic;
 
 pub mod utils;
@@ -181,4 +182,20 @@ fn lm_big_schematic_write() -> Result<(), SchematicError> {
              (end_mem - start_mem) / 1024
     );
     Ok(())
+}
+
+#[test]
+fn block_data_test() {
+    let json_data = r#"[{
+        "v":100,"b":2,"n":"空气","id":"num.0,107.air","zj":"yn"
+    },{
+        "v":100,"b":1,"n":"石头","id":"num.1,107.stone","t":"0,2","oP":"113"
+    },{
+        "v":108,"b":1,"n":"花岗岩","id":"num.1_1,108.stone,113.granite","t":"0,2","oP":"113"
+    }]"#;
+
+    let data = BlocksData::parse(json_data).map_err(|e|  format!("err: {}",e));
+
+    println!("Version Map: {:#?}", data);
+
 }

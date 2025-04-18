@@ -26,7 +26,7 @@ onMounted(async() => {
 
 onBeforeRouteLeave(navigationGuard)
 
-const formatTime = (time) => {
+const formatTime = (time: any) => {
   return dayjs(time).format('YYYY/MM/DD HH:mm')
 }
 </script>
@@ -76,6 +76,14 @@ const formatTime = (time) => {
                     {{ bp.user }}
                   </v-chip>
                   <v-chip
+                      color="orange-lighten-4"
+                      size="small"
+                      class="text-orange-darken-4"
+                  >
+                    <v-icon start icon="mdi-cube"></v-icon>
+                    {{ bp.game_version }}
+                  </v-chip>
+                  <v-chip
                       color="deep-purple"
                       variant="outlined"
                       size="small"
@@ -111,9 +119,9 @@ const formatTime = (time) => {
                     <div class="d-flex align-center">
                       <v-icon icon="mdi-tag" size="small" class="me-1"></v-icon>
                       <span class="text-caption">
-              v{{ bp.version }}
-              <v-chip size="x-small" color="green" class="ms-1">当前版本</v-chip>
-            </span>
+                        v{{ bp.version }}
+                        <v-chip size="x-small" color="green" class="ms-1">当前版本</v-chip>
+                      </span>
                     </div>
 
                     <v-menu v-if="parseVersions(bp.version_list).length > 0">

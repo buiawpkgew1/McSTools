@@ -9,12 +9,14 @@ use crate::database::db_apis::schematics_api::new_schematic;
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
 use crate::litematica::lm_schematic::LmSchematic;
+use crate::utils::minecraft_data::versions_data::VersionData;
 use crate::word_edit::we_schematic::WeSchematic;
 
 #[tauri::command]
 pub async fn encode_uploaded_schematic(
     db: State<'_, DatabaseState>,
     file_manager: State<'_, FileManager>,
+    versions_data: State<'_, VersionData>,
     file_name: String,
     data: Vec<u8>,
 ) -> Result<(), String> {
@@ -53,7 +55,11 @@ pub async fn encode_uploaded_schematic(
                     .join(",");
 
                 let conn = db.0.get()?;
-
+                let data_version = schematic.get_data_version()?;
+                let game_version = versions_data
+                    .get_name(data_version)
+                    .map(|arc_str| arc_str.to_string())
+                    .unwrap_or_else(|| "unknown_version".to_string());
                 let schematic = Schematic {
                     id: 0,
                     name: file_name_str,
@@ -68,7 +74,7 @@ pub async fn encode_uploaded_schematic(
                     version_list: "0".parse()?,
                     created_at: "".parse()?,
                     updated_at: "".parse()?,
-                    game_version: "".parse()?,
+                    game_version,
                 };
 
                 let schematic_id = new_schematic(conn, schematic)?;
@@ -125,6 +131,11 @@ pub async fn encode_uploaded_schematic(
                 let sizes = schematic.get_size(type_version)?;
                 let sizes_str = sizes.to_string();
                 let conn = db.0.get()?;
+                let data_version = schematic.get_data_version(type_version)?;
+                let game_version = versions_data
+                    .get_name(data_version)
+                    .map(|arc_str| arc_str.to_string())
+                    .unwrap_or_else(|| "unknown_version".to_string());
                 let schematic = Schematic {
                     id: 0,
                     name: file_name_str,
@@ -139,7 +150,7 @@ pub async fn encode_uploaded_schematic(
                     version_list: "0".parse()?,
                     created_at: "".parse()?,
                     updated_at: "".parse()?,
-                    game_version: "".parse()?,
+                    game_version,
                 };
                 let schematic_id = new_schematic(conn, schematic)?;
                 file_manager.save_schematic_data(
@@ -159,6 +170,11 @@ pub async fn encode_uploaded_schematic(
                 let description = metadata.description;
                 let author = metadata.author;
                 let conn = db.0.get()?;
+                let data_version = schematic.get_data_version()?;
+                let game_version = versions_data
+                    .get_name(data_version)
+                    .map(|arc_str| arc_str.to_string())
+                    .unwrap_or_else(|| "unknown_version".to_string());
                 let name = if metadata.name.trim() == "Unnamed" {
                     file_name_str
                 }else {
@@ -178,7 +194,7 @@ pub async fn encode_uploaded_schematic(
                     version_list: "0".parse()?,
                     created_at: "".parse()?,
                     updated_at: "".parse()?,
-                    game_version: "".parse()?,
+                    game_version,
                 };
                 let schematic_id = new_schematic(conn, schematic)?;
                 file_manager.save_schematic_data(

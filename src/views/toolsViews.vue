@@ -34,8 +34,10 @@ onBeforeRouteLeave(navigationGuard)
           <v-divider vertical inset class="mx-4"/>
 
           <v-tabs v-model="activeTab" align-tabs="center" color="blue-lighten-1">
+            <v-tab value="schem">蓝图详情</v-tab>
             <v-tab value="split">蓝图分割</v-tab>
             <v-tab value="replace">方块替换</v-tab>
+            <v-tab value="convert">蓝图转换</v-tab>
             <v-tab value="data">源数据查看</v-tab>
             <v-tab value="stats">材料统计</v-tab>
           </v-tabs>
@@ -60,7 +62,6 @@ onBeforeRouteLeave(navigationGuard)
               </v-col>
             </v-row>
           </v-window-item>
-
           <v-window-item value="replace">
             <v-row class="pa-4" no-gutters>
               <v-col cols="4">
@@ -106,7 +107,6 @@ onBeforeRouteLeave(navigationGuard)
               </v-col>
             </v-row>
           </v-window-item>
-
           <v-window-item value="data">
             <v-card class="ma-4" elevation="2">
               <v-card-text>
@@ -120,14 +120,13 @@ onBeforeRouteLeave(navigationGuard)
               </v-card-text>
             </v-card>
           </v-window-item>
-
           <v-window-item value="stats">
             <v-card class="ma-4" elevation="2">
               <v-table density="compact">
                 <thead>
                 <tr>
                   <th>材料名称</th>
-                  <th>ID</th>
+                  <th>id</th>
                   <th>数量</th>
                   <th>占比</th>
                 </tr>

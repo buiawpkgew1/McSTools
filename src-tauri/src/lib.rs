@@ -19,6 +19,7 @@ use modules::schematic::encode_uploaded_schematic;
 use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics};
 use database::db_apis::logs_api::{add_logs, get_logs};
 use database::db_apis::user_api::{get_user_data};
+use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -33,6 +34,8 @@ pub fn run() {
             app.manage(file_manager);
             let version_data = VersionData::new();
             app.manage(version_data);
+            let je_blocks = BlocksData::new();
+            app.manage(je_blocks);
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())

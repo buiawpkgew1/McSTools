@@ -56,6 +56,9 @@ onBeforeUnmount(() => {
     if (progressTimer.value) {
       window.clearInterval(progressTimer.value)
     }
+    files.value = []
+    uploadStatus.value = 'idle'
+    uploadError.value = null
 })
 </script>
 
