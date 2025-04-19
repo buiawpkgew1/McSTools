@@ -1,14 +1,15 @@
-use anyhow::{Context, Result};
+use anyhow::{Result};
 use r2d2::PooledConnection;
 use r2d2_sqlite::SqliteConnectionManager;
-use rusqlite::{params, OptionalExtension};
+use rusqlite::{params};
 use tauri::{State};
+use crate::building_gadges::bg_schematic_data::JsonData;
 use crate::database::db_control::DatabaseState;
-use crate::database::db_data::{LogEntry, PaginatedResponse, Schematic};
-
+use crate::database::db_data::{PaginatedResponse, Schematic};
+use crate::utils::schematic_data::SchematicError;
 
 pub fn new_schematic(
-    mut conn: PooledConnection<SqliteConnectionManager>,
+    mut conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic: Schematic,
 ) -> Result<i64> {
     let tx = conn.transaction()?;
@@ -33,14 +34,35 @@ pub fn new_schematic(
 
     Ok(rowid)
 }
+
+pub fn new_requirements(
+    conn: &mut PooledConnection<SqliteConnectionManager>,
+    schematic_id: i64,
+    metadata: String,
+) -> Result<i64> {
+    let tx = conn.transaction()?;
+    tx.execute(
+        r#"INSERT INTO requirements (
+            schematic_id, metadata
+        ) VALUES (?1, ?2)"#,
+        params![
+            schematic_id,
+            metadata,
+        ],
+    )?;
+    let rowid = tx.last_insert_rowid();
+    tx.commit()?;
+
+    Ok(rowid)
+}
 #[tauri::command]
 pub fn add_schematic(
     db: State<'_, DatabaseState>,
     schematic: Schematic
 ) -> Result<i64, String> {
-    let conn = db.0.get().map_err(|e| e.to_string())?;
+    let mut conn = db.0.get().map_err(|e| e.to_string())?;
 
-    let new = new_schematic(conn, schematic).map_err(|e| e.to_string())?;
+    let new = new_schematic(&mut conn, schematic).map_err(|e| e.to_string())?;
     Ok(new)
 }
 #[tauri::command]
@@ -71,6 +93,26 @@ pub fn get_schematic(
             })
         }
     ).map_err(|e| e.to_string())?)
+}
+
+#[tauri::command]
+pub fn get_requirements(
+    db: State<'_, DatabaseState>,
+    id: i64
+) -> Result<JsonData, String> {
+    let conn = db.0.get().map_err(|e| e.to_string())?;
+
+    conn.query_row(
+        "SELECT metadata FROM requirements WHERE schematic_id = ?1", 
+        [id],
+        |row| {
+            let metadata_str: String = row.get("metadata")?;
+            serde_json::from_str(&metadata_str)
+                .map_err(|e| rusqlite::Error::FromSqlConversionFailure(0, rusqlite::types::Type::Text, Box::new(e)
+                ))
+        }
+    )
+        .map_err(|e| e.to_string()) 
 }
 
 #[tauri::command]

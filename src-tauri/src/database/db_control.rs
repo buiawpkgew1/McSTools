@@ -33,7 +33,9 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
         .with_init(|conn| {
             conn.execute_batch(
                 "PRAGMA journal_mode = WAL;
-                 PRAGMA synchronous = NORMAL;"
+                 PRAGMA synchronous = NORMAL;
+                 PRAGMA foreign_keys = ON;"
+                
             )
         });
 
@@ -64,7 +66,23 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
 
         CREATE INDEX IF NOT EXISTS idx_schematic_search
         ON schematics(created_at DESC, name, description);
-
+        
+        CREATE TABLE IF NOT EXISTS requirements (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            schematic_id INTEGER NOT NULL,
+            metadata TEXT DEFAULT '{}', -- 元数据（JSON格式存储）
+            
+            FOREIGN KEY (
+                schematic_id
+            ) REFERENCES schematics (
+                id
+            ) ON DELETE CASCADE, 
+            
+            UNIQUE(schematic_id)
+        );
+        CREATE INDEX IF NOT EXISTS idx_requirements_schematic 
+        ON requirements(schematic_id);
+        
         CREATE TABLE IF NOT EXISTS app_logs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,

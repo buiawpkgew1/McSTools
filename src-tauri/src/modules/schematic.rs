@@ -5,11 +5,13 @@ use tauri::{State};
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
-use crate::database::db_apis::schematics_api::new_schematic;
+use crate::database::db_apis::schematics_api::{new_requirements, new_schematic};
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
 use crate::litematica::lm_schematic::LmSchematic;
+use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 use crate::utils::minecraft_data::versions_data::VersionData;
+use crate::utils::requirements::{get_requirements, RequirementStr};
 use crate::word_edit::we_schematic::WeSchematic;
 
 #[tauri::command]
@@ -17,6 +19,7 @@ pub async fn encode_uploaded_schematic(
     db: State<'_, DatabaseState>,
     file_manager: State<'_, FileManager>,
     versions_data: State<'_, VersionData>,
+    je_blocks: State<'_, BlocksData>,
     file_name: String,
     data: Vec<u8>,
 ) -> Result<(), String> {
@@ -39,6 +42,9 @@ pub async fn encode_uploaded_schematic(
             "nbt" => {
                 let original_data = data.clone();
                 let schematic = CreateSchematic::new_from_bytes(data)?;
+                let schematic_data = schematic.get_blocks_pos()?;
+                let requirement = get_requirements(&schematic_data.blocks)?;
+                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks).export_to_string()?;
                 let size = schematic.get_size()?;
                 let sizes = match size {
                     list => list.iter()
@@ -54,7 +60,7 @@ pub async fn encode_uploaded_schematic(
                     .collect::<Vec<_>>()
                     .join(",");
 
-                let conn = db.0.get()?;
+                let mut conn = db.0.get()?;
                 let data_version = schematic.get_data_version()?;
                 let game_version = versions_data
                     .get_name(data_version)
@@ -77,8 +83,8 @@ pub async fn encode_uploaded_schematic(
                     game_version,
                 };
 
-                let schematic_id = new_schematic(conn, schematic)?;
-                println!("{}", schematic_id);
+                let schematic_id = new_schematic(&mut conn, schematic)?;
+                new_requirements(&mut conn, schematic_id, requirements_str)?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,
@@ -92,9 +98,13 @@ pub async fn encode_uploaded_schematic(
                 let original_data = data.clone();
 
                 let schematic = BgSchematic::new_from_data(data)?;
+                let schematic_data = schematic.get_blocks_pos()?;
+                let requirement = get_requirements(&schematic_data.blocks)?;
+                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks).export_to_string()?;
+
                 let sizes = schematic.get_size()?;
                 let schematic_type = schematic.get_type()?;
-                let conn = db.0.get()?;
+                let mut conn = db.0.get()?;
 
                 let schematic = Schematic {
                     id: 0,
@@ -113,8 +123,8 @@ pub async fn encode_uploaded_schematic(
                     game_version: "".parse()?,
                 };
 
-                let schematic_id = new_schematic(conn, schematic)?;
-
+                let schematic_id = new_schematic(&mut conn, schematic)?;
+                new_requirements(&mut conn, schematic_id, requirements_str)?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,
@@ -127,10 +137,13 @@ pub async fn encode_uploaded_schematic(
             "schem" => {
                 let original_data = data.clone();
                 let schematic = WeSchematic::new_from_bytes(data)?;
+                let schematic_data = schematic.get_blocks_pos()?;
+                let requirement = get_requirements(&schematic_data.blocks)?;
+                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks).export_to_string()?;
                 let type_version = schematic.get_type()?;
                 let sizes = schematic.get_size(type_version)?;
                 let sizes_str = sizes.to_string();
-                let conn = db.0.get()?;
+                let mut conn = db.0.get()?;
                 let data_version = schematic.get_data_version(type_version)?;
                 let game_version = versions_data
                     .get_name(data_version)
@@ -152,7 +165,8 @@ pub async fn encode_uploaded_schematic(
                     updated_at: "".parse()?,
                     game_version,
                 };
-                let schematic_id = new_schematic(conn, schematic)?;
+                let schematic_id = new_schematic(&mut conn, schematic)?;
+                new_requirements(&mut conn, schematic_id, requirements_str)?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,
@@ -165,11 +179,14 @@ pub async fn encode_uploaded_schematic(
             "litematic" => {
                 let original_data = data.clone();
                 let schematic = LmSchematic::new_from_bytes(data)?;
+                let schematic_data = schematic.get_blocks_pos()?;
+                let requirement = get_requirements(&schematic_data.blocks)?;
+                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks).export_to_string()?;
                 let metadata = schematic.read_metadata()?;
                 let sizes_pos = metadata.enclosing_size;
                 let description = metadata.description;
                 let author = metadata.author;
-                let conn = db.0.get()?;
+                let mut conn = db.0.get()?;
                 let data_version = schematic.get_data_version()?;
                 let game_version = versions_data
                     .get_name(data_version)
@@ -196,7 +213,8 @@ pub async fn encode_uploaded_schematic(
                     updated_at: "".parse()?,
                     game_version,
                 };
-                let schematic_id = new_schematic(conn, schematic)?;
+                let schematic_id = new_schematic(&mut conn, schematic)?;
+                new_requirements(&mut conn, schematic_id, requirements_str)?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,
@@ -207,7 +225,7 @@ pub async fn encode_uploaded_schematic(
                 )?
             },
             _ => {
-                let conn = db.0.get()?;
+                let mut conn = db.0.get()?;
                 let original_data = data.clone();
                 let schematic = Schematic {
                     id: 0,
@@ -225,7 +243,8 @@ pub async fn encode_uploaded_schematic(
                     updated_at: "".parse()?,
                     game_version: "".parse()?,
                 };
-                let schematic_id = new_schematic(conn, schematic)?;
+                let schematic_id = new_schematic(&mut conn, schematic)?;
+                new_requirements(&mut conn, schematic_id, "{}".to_string())?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,

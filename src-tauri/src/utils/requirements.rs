@@ -5,7 +5,6 @@ use crate::utils::block_state_pos_list::{BlockId, BlockStatePosList};
 use crate::utils::schematic_data::SchematicError;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
-use tauri::{State};
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -83,15 +82,20 @@ impl RequirementStr {
     }
 
     pub fn export_to_string(&self) -> Result<String, SchematicError> {
-        serde_json::to_string(&self.requirements)
-            .map_err(|e| SchematicError::Json(e))
+        let converted: HashMap<String, &BlockData> = self.requirements
+            .iter()
+            .map(|(k, v)| (k.name.to_string(), v))
+            .collect();
+
+        serde_json::to_string(&converted)
+            .map_err(SchematicError::Json)
     }
 
-    pub fn from_requirements(req: &Requirements, data: &tauri::State<'_, BlocksData>) -> Self {
+    pub fn from_requirements(req: &Requirements, data: &BlocksData) -> Self {
         let mut map = HashMap::new();
 
         for (block_id, &count) in req.get_requirements() {
-            let zh_cn = data.get_zh_cn(&block_id.name)
+            let zh_cn = data.get_zh_cn(&block_id.name.replace("minecraft:", ""))
                 .map(|s| s.to_owned())
                 .unwrap_or_else(|| block_id.name.to_string()); 
 

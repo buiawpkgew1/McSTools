@@ -16,6 +16,8 @@ pub enum SchematicError {
     Io(#[from] IoError),
     #[error("JsonError error: {0}")]
     Json(#[from] JsonError),
+    #[error("JsonError error: {0}")]
+    SQL(#[from] rusqlite::Error),
     #[error("NBT error: {0}")]
     Nbt(#[from] fastnbt::error::Error),
     #[error("UTF8 error: {0}")]

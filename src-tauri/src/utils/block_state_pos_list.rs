@@ -16,9 +16,18 @@ impl BlockPos {
         format!("{},{},{}", self.x, self.y, self.z)
     }
 }
-#[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Hash, Eq, PartialEq, Deserialize)]
 pub struct BlockId {
     pub(crate) name: Arc<str>,
+}
+
+impl serde::Serialize for BlockId {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(&self.name)
+    }
 }
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct BlockData {

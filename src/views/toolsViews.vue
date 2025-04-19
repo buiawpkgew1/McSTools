@@ -34,7 +34,7 @@ onBeforeRouteLeave(navigationGuard)
           <v-divider vertical inset class="mx-4"/>
 
           <v-tabs v-model="activeTab" align-tabs="center" color="blue-lighten-1">
-            <v-tab value="schem">蓝图详情</v-tab>
+            <v-tab value="schematic">蓝图详情</v-tab>
             <v-tab value="split">蓝图分割</v-tab>
             <v-tab value="replace">方块替换</v-tab>
             <v-tab value="convert">蓝图转换</v-tab>

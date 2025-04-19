@@ -16,7 +16,7 @@ use tauri::Manager;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
 use crate::database::db_control;
 use modules::schematic::encode_uploaded_schematic;
-use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics};
+use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics, get_requirements};
 use database::db_apis::logs_api::{add_logs, get_logs};
 use database::db_apis::user_api::{get_user_data};
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
@@ -34,7 +34,7 @@ pub fn run() {
             app.manage(file_manager);
             let version_data = VersionData::new();
             app.manage(version_data);
-            let je_blocks = BlocksData::new();
+            let je_blocks = BlocksData::new()?;
             app.manage(je_blocks);
             Ok(())
         })
@@ -49,7 +49,8 @@ pub fn run() {
             get_logs,
             add_schematic,
             get_schematic,
-            get_schematics
+            get_schematics,
+            get_requirements
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -14,6 +14,7 @@ use crate::litematica::to_lm_schematic::ToLmSchematic;
 use utils::extend_write::{to_writer_gzip};
 use crate::create::to_create_schematic::ToCreateSchematic;
 use crate::utils::minecraft_data::je_blocks_data::{BlocksData};
+use crate::utils::requirements::RequirementStr;
 use crate::word_edit::we_schematic::WeSchematic;
 
 pub mod utils;
@@ -40,7 +41,7 @@ fn test_lm_schematic() -> Result<(), SchematicError> {
     let schem2 = schematic2.get_blocks_pos()?;
     let to = ToLmSchematic::new(&schem2);
     println!("{:?},{:?}", to.start_pos,to.end_pos);
-    //let requirements = get_requirements(&schem2.blocks);
+    let requirements = get_requirements(&schem2.blocks)?;
     //print!("{:?}", requirements);
     sys.refresh_processes(ProcessesToUpdate::All, false);
     let end_mem = sys.process(pid)

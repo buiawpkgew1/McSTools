@@ -6,9 +6,8 @@ use anyhow::{Context, Result};
 #[derive(Debug, Deserialize)]
 struct RawBlock {
     v: u32,
-    b: u32,
     n: String,
-    id: String,
+    ID: String,
     #[serde(default)]
     zj: String,
     #[serde(default)]
@@ -21,7 +20,7 @@ struct RawBlock {
 pub struct SubData {
     pub zh_cn: String,
     pub block_name: String,
-    pub block_id: i32,
+    pub block_id: String,
     pub version_map: HashMap<u32, String>,
 }
 
@@ -42,11 +41,11 @@ impl BlocksData {
         let mut blocks = Vec::new();
         let mut block_to_cn = HashMap::new();
         for raw in raw_blocks {
-            let mut id_parts = raw.id.split(',');
+            let mut id_parts = raw.ID.split(',');
 
             let num_part = id_parts.next().context("err")?;
             let (_, num_str) = num_part.split_once('.').context("err")?;
-            let block_id = num_str.replace('_', "").parse::<i32>()?;
+            let block_id = num_str.replace('_', "").parse::<String>()?;
 
             let mut version_map = HashMap::new();
             let mut block_name = String::new();
