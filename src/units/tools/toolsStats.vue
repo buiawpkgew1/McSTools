@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, computed, ref, onMounted, watchEffect } from "vue";
+import { defineProps, computed, ref, watch, nextTick, onBeforeUnmount } from "vue";
 import type { RequirementStatistics } from "../../moduels/requirements.ts";
 import * as echarts from 'echarts';
 
@@ -14,11 +14,17 @@ const sortedItems = computed(() => {
   return props.data?.items?.slice().sort((a, b) => b.count - a.count) || [];
 });
 
-const initChart = (element: HTMLElement) => {
-  chartInstance = echarts.init(element);
+const initOrUpdateChart = async () => {
+  await nextTick();
+  const chartDom = document.getElementById('chart-container');
 
-  const updateChart = () => {
-    if (!props.data?.items?.length) return;
+  if (chartDom) {
+    if (chartInstance) {
+      chartInstance.dispose();
+      chartInstance = null;
+    }
+
+    chartInstance = echarts.init(chartDom);
 
     const option = {
       tooltip: {
@@ -28,24 +34,25 @@ const initChart = (element: HTMLElement) => {
       },
       legend: {
         orient: 'vertical',
-        right: 10,
+        right: 0,
         top: 'middle',
         formatter: (name: string) => {
           const item = sortedItems.value.find(i => i.zh_cn === name);
-          return `${name}  ${item?.count}`;
+          return `${ name.indexOf(":") == -1? name : name.split(":")[1] }  ${item?.count}`;
         }
       },
       series: [{
         type: 'pie',
-        radius: ['40%', '70%'],
-        center: ['35%', '50%'],
+        radius: ['35%', '80%'],
+        center: ['15%', '45%'],
         itemStyle: {
           borderRadius: 5,
           borderColor: '#fff',
           borderWidth: 2
         },
         label: {
-          show: false
+          show: false,
+          position: 'center'
         },
         data: sortedItems.value.map(item => ({
           name: item.zh_cn,
@@ -55,16 +62,32 @@ const initChart = (element: HTMLElement) => {
       }]
     };
 
-    chartInstance?.setOption(option);
-  };
-
-  watchEffect(updateChart);
-  window.addEventListener('resize', () => chartInstance?.resize());
+    chartInstance.setOption(option);
+    window.addEventListener('resize', () => chartInstance?.resize());
+  }
 };
 
-onMounted(() => {
-  const chartDom = document.getElementById('chart-container');
-  if (chartDom) initChart(chartDom);
+watch(viewMode, (newVal) => {
+  if (newVal === 'chart') {
+    nextTick(() => {
+      if (props.data?.items?.length) {
+        initOrUpdateChart();
+      }
+    });
+  }
+});
+
+watch(() => props.data, (newVal) => {
+  if (viewMode.value === 'chart' && newVal?.items?.length) {
+    initOrUpdateChart();
+  }
+}, { deep: true });
+
+onBeforeUnmount(() => {
+  if (chartInstance) {
+    chartInstance.dispose();
+    window.removeEventListener('resize', () => chartInstance?.resize());
+  }
 });
 </script>
 
