@@ -58,3 +58,18 @@ export const fetchSchematics = async (
         throw new Error(`获取原理图失败: ${error}`);
     }
 }
+
+export const fetchSchematic = async (
+    id: number
+): Promise<SchematicsData> => {
+    try {
+        return await invoke<SchematicsData>(
+            'get_schematic',
+            {
+                id: id || 1,
+            }
+        )
+    } catch (error) {
+        throw new Error(`获取原理图失败: ${error}`);
+    }
+}

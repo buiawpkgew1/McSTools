@@ -1,19 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import {onBeforeRouteLeave} from "vue-router";
+import {onMounted, ref} from 'vue'
+import {onBeforeRouteLeave, useRouter} from "vue-router";
 import {isLeaving, navigationGuard} from "../moduels/navigation.ts";
-const activeTab = ref(0)
-const blueprintData = ref({})
-const materialStats = ref([])
+import {fetchRequirementsWithStats, RequirementStatistics} from "../moduels/requirements.ts";
+import { activeTab } from  "../moduels/layout.ts";
+import toolsConvert from '../units/tools/toolsConvert.vue';
+import toolsStats from  '../units/tools/toolsStats.vue';
+import {SchematicsData} from "../moduels/schematics_data.ts";
+import {schematic_id, get_data, get_requirements, fetch_data} from "../moduels/tools_data.ts"
+const active = ref(0)
 const replacementRules = ref([])
-
-const sampleMaterials = [
-  { name: '橡木木板', id: 'minecraft:oak_planks', count: 1520 },
-  { name: '圆石', id: 'minecraft:cobblestone', count: 845 },
-  { name: '红石粉', id: 'minecraft:redstone', count: 328 }
-]
+const router = useRouter()
+const schematicData = ref<SchematicsData | undefined>();
+const requirementsData = ref<RequirementStatistics | undefined>();
 onBeforeRouteLeave(navigationGuard)
-
+onMounted(async() => {
+    if (schematic_id.value != undefined){
+        schematicData.value = await get_data(schematic_id.value)
+        requirementsData.value = await get_requirements(schematic_id.value)
+    }
+})
 </script>
 
 <template class="page-wrapper">
@@ -22,18 +28,32 @@ onBeforeRouteLeave(navigationGuard)
          :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col>
-      <v-card class="mx-auto" elevation="4" style="height: 99vh">
+      <v-card class="mx-auto overflow-auto h-auto" elevation="4" >
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
           <v-toolbar-title>
             <v-icon icon="mdi-tools" class="mr-2"></v-icon>
-            <span class="text-h5">蓝图工具箱</span>
+            <span class="text-h5">蓝图工具箱   </span>
+            <v-chip
+                v-if="schematic_id != undefined"
+                color="orange-lighten-4"
+                class="text-orange-darken-4"
+            >
+              <v-icon start icon="mdi-cube"></v-icon>
+              蓝图ID:{{ schematic_id }}
+            </v-chip>
+            <v-chip
+                v-else
+                color="red-orange-darken-4"
+            >
+              <v-icon start icon="mdi-cube"></v-icon>
+              未选取目标蓝图
+            </v-chip>
           </v-toolbar-title>
-          <v-btn variant="text" icon="mdi-cloud-upload" title="上传蓝图"/>
-          <v-btn variant="text" icon="mdi-content-save" title="保存配置"/>
+          <v-btn variant="text" icon="mdi-cloud-upload" title="上传蓝图" @click="router.push('/home');activeTab = 'home'"/>
 
           <v-divider vertical inset class="mx-4"/>
 
-          <v-tabs v-model="activeTab" align-tabs="center" color="blue-lighten-1">
+          <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1" :disabled="schematic_id == undefined">
             <v-tab value="schematic">蓝图详情</v-tab>
             <v-tab value="split">蓝图分割</v-tab>
             <v-tab value="replace">方块替换</v-tab>
@@ -42,7 +62,12 @@ onBeforeRouteLeave(navigationGuard)
             <v-tab value="stats">材料统计</v-tab>
           </v-tabs>
         </v-toolbar>
-        <v-window v-model="activeTab">
+        <v-window v-model="active">
+          <v-window-item value="schematic">
+            <toolsConvert
+                :data="schematicData"
+            />
+          </v-window-item>
           <v-window-item value="split">
             <v-row class="pa-4" no-gutters>
               <v-col cols="3">
@@ -107,6 +132,25 @@ onBeforeRouteLeave(navigationGuard)
               </v-col>
             </v-row>
           </v-window-item>
+          <v-window-item value="convert">
+            <v-row class="pa-4" no-gutters>
+              <v-col cols="3">
+                <v-card class="pa-3" elevation="2">
+                  <v-select label="分割方式" :items="['垂直分层', '水平区域', '自定义范围']"/>
+                  <v-range-slider label="分割范围" thumb-label min="0" max="256"/>
+                  <v-btn block color="green" prepend-icon="mdi-axe">执行分割</v-btn>
+                </v-card>
+              </v-col>
+
+              <v-col cols="9">
+                <v-card class="h-100" elevation="2">
+                  <div class="d-flex justify-center align-center h-100 text-grey">
+                    3D预览区域
+                  </div>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-window-item>
           <v-window-item value="data">
             <v-card class="ma-4" elevation="2">
               <v-card-text>
@@ -121,37 +165,9 @@ onBeforeRouteLeave(navigationGuard)
             </v-card>
           </v-window-item>
           <v-window-item value="stats">
-            <v-card class="ma-4" elevation="2">
-              <v-table density="compact">
-                <thead>
-                <tr>
-                  <th>材料名称</th>
-                  <th>id</th>
-                  <th>数量</th>
-                  <th>占比</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(item, index) in sampleMaterials" :key="index">
-                  <td>{{ item.name }}</td>
-                  <td class="text-caption">{{ item.id }}</td>
-                  <td>{{ item.count }}</td>
-                  <td>
-                    <v-progress-linear
-                        :model-value="(item.count / 3000) * 100"
-                        height="20"
-                        color="green"
-                        rounded
-                    >
-                      <template v-slot:default="{ value }">
-                        <strong>{{ Math.ceil(value) }}%</strong>
-                      </template>
-                    </v-progress-linear>
-                  </td>
-                </tr>
-                </tbody>
-              </v-table>
-            </v-card>
+            <toolsStats
+                :data="requirementsData"
+            />
           </v-window-item>
         </v-window>
       </v-card>

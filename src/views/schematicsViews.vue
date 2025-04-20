@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import dayjs from 'dayjs'
-import {onBeforeRouteLeave} from "vue-router";
+import {onBeforeRouteLeave, useRouter} from "vue-router";
 import {isLeaving, navigationGuard} from "../moduels/navigation.ts";
 import {fetchSchematics, SchematicsData, schematicTypeList} from "../moduels/schematics_data.ts";
-
+import {clear_tools, fetch_data} from "../moduels/tools_data.ts"
+import {activeTab} from "../moduels/layout.ts";
+const router = useRouter()
 let schematics = ref<SchematicsData[]>([])
 const parseDimensions = (sizeStr: string) => {
   const [length, width, height] = sizeStr.split(',').map(Number);
   return [`X${length}`, `Y${width}`, `Z${height}`]
 };
+
+const selectSchematic = async(id: number) => {
+    clear_tools()
+    await fetch_data(id)
+    await router.push("/tools")
+    activeTab.value = 'tools'
+}
 
 const parseVersions  = (versionStr: string) => {
   return versionStr.split(',').map(Number);
@@ -52,6 +61,7 @@ const formatTime = (time: any) => {
               :key="bp.id"
               class="py-2"
               :title="bp.name"
+              @click="selectSchematic(bp.id)"
           >
             <template v-slot:prepend>
               <v-icon

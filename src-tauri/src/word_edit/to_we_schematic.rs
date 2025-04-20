@@ -1,10 +1,10 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI32, Ordering};
 use fastnbt::Value;
 use fastnbt::Value::Compound;
 use rayon::iter::ParallelIterator;
-use crate::utils::block_state_pos_list::{BlockData, BlockPos, BlockStatePos};
+use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos};
 use crate::utils::schematic_data::{SchematicData, SchematicError};
 use rayon::iter::{IntoParallelRefIterator};
 #[derive(Debug)]
@@ -15,6 +15,7 @@ pub struct ToWeSchematic {
     width: i32,
     height: i32,
     length: i32,
+    air_index: usize,
     pub unique_block_states: Vec<Arc<BlockData>>,
     pub block_state_to_index: HashMap<Arc<BlockData>, usize>,
 }
@@ -46,11 +47,15 @@ impl ToWeSchematic {
         let height = max.y - min.y + 1;
         let length = max.z - min.z + 1;
 
-        let (unique_block_states, block_state_to_index) = {
+        let (unique_block_states, block_state_to_index, air_index) = {
             let mut seen = HashMap::new();
             let mut unique = Vec::new();
             let mut index_map = HashMap::new();
-
+            let air = Arc::new(BlockData {
+                id: BlockId { name: Arc::from("minecraft:air") },
+                properties: BTreeMap::new(),
+            });
+            
             for block_pos in &block_list.elements {
                 let block_data = block_pos.block.clone();
 
@@ -62,7 +67,17 @@ impl ToWeSchematic {
                 }
             }
 
-            (unique, index_map)
+            if !seen.contains_key(&air) {
+                let index = unique.len();
+                seen.insert(air.clone(), index);
+                unique.push(air.clone());
+                index_map.insert(air.clone(), index);
+            }
+
+            let air_index = *seen.get(&air).unwrap();
+
+
+            (unique, index_map, air_index)
         };
 
         Self {
@@ -72,6 +87,7 @@ impl ToWeSchematic {
             width,
             height,
             length,
+            air_index,
             unique_block_states,
             block_state_to_index,
         }
@@ -79,7 +95,7 @@ impl ToWeSchematic {
 
     pub fn get_block_id_list(&self) -> Vec<i32> {
         let total_blocks = (self.length * self.width * self.height) as usize;
-
+        let air_index = self.air_index as i32;
         let atomic_block_list: Vec<AtomicI32> = (0..total_blocks)
             .map(|_| AtomicI32::new(0))
             .collect();
@@ -98,7 +114,7 @@ impl ToWeSchematic {
                 let state_id = self.block_state_to_index
                     .get(&block.block)
                     .map(|v| *v as i32)
-                    .unwrap_or(0);
+                    .unwrap_or(air_index);
 
                 atomic_block_list[id as usize]
                     .store(state_id, Ordering::Relaxed);

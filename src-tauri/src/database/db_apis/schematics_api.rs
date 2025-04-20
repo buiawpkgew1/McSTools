@@ -99,7 +99,7 @@ pub fn get_schematic(
 pub fn get_requirements(
     db: State<'_, DatabaseState>,
     id: i64
-) -> Result<JsonData, String> {
+) -> Result<String, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
 
     conn.query_row(
@@ -107,9 +107,7 @@ pub fn get_requirements(
         [id],
         |row| {
             let metadata_str: String = row.get("metadata")?;
-            serde_json::from_str(&metadata_str)
-                .map_err(|e| rusqlite::Error::FromSqlConversionFailure(0, rusqlite::types::Type::Text, Box::new(e)
-                ))
+            Ok(metadata_str)
         }
     )
         .map_err(|e| e.to_string()) 

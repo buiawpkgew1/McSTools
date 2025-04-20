@@ -118,12 +118,16 @@ impl RequirementStr {
 }
 
 pub fn get_requirements(blocks: &BlockStatePosList) -> Result<Requirements, SchematicError> {
+    let air = Arc::from("minecraft:air");
     let requirements_map = blocks.elements
         .par_iter()
         .fold(
             || HashMap::new(),
             |mut acc, block| {
                 let data = Arc::as_ref(&block.block);
+                if data.id.name == air {
+                    return acc;
+                }
                 let block_id = data.id.clone();
                 *acc.entry(block_id).or_insert(0) += 1;
                 acc

@@ -69,7 +69,7 @@ fn test_create_schematic() -> Result<(), SchematicError> {
     let start_time = Instant::now();
     let sichematic = CreateSchematic::new("./schematic/test.nbt")?;
     let schem = sichematic.get_blocks_pos()?;
-    print!("{:?}", schem);
+    //print!("{:?}", schem);
     sys.refresh_processes(ProcessesToUpdate::All, false);
     let end_mem = sys.process(pid)
         .map(|p| p.memory())
