@@ -1,23 +1,27 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
 import {onBeforeRouteLeave, useRouter} from "vue-router";
-import {isLeaving, navigationGuard} from "../moduels/navigation.ts";
-import {fetchRequirementsWithStats, RequirementStatistics} from "../moduels/requirements.ts";
-import { activeTab } from  "../moduels/layout.ts";
+import {isLeaving, navigationGuard} from "../modules/navigation.ts";
+import 'vue-json-pretty/lib/styles.css';
+import {RequirementStatistics} from "../modules/requirements.ts";
+import { activeTab } from "../modules/layout.ts";
 import toolsConvert from '../units/tools/toolsConvert.vue';
 import toolsStats from  '../units/tools/toolsStats.vue';
-import {SchematicsData} from "../moduels/schematics_data.ts";
-import {schematic_id, get_data, get_requirements, fetch_data} from "../moduels/tools_data.ts"
+import toolsData from '../units/tools/toolsData.vue';
+import {SchematicsData} from "../modules/schematics_data.ts";
+import {schematic_id, get_data, get_requirements, get_schematic_str} from "../modules/tools_data.ts"
 const active = ref(0)
 const replacementRules = ref([])
 const router = useRouter()
 const schematicData = ref<SchematicsData | undefined>();
 const requirementsData = ref<RequirementStatistics | undefined>();
+const schematicStr = ref<string | undefined>()
 onBeforeRouteLeave(navigationGuard)
 onMounted(async() => {
     if (schematic_id.value != undefined){
         schematicData.value = await get_data(schematic_id.value)
         requirementsData.value = await get_requirements(schematic_id.value)
+        schematicStr.value = await get_schematic_str(schematic_id.value)
     }
 })
 </script>
@@ -152,22 +156,10 @@ onMounted(async() => {
             </v-row>
           </v-window-item>
           <v-window-item value="data">
-            <v-card class="ma-4" elevation="2">
-              <v-card-text>
-                <v-textarea
-                    auto-grow
-                    readonly
-                    variant="outlined"
-                    value="{/* 示例NBT数据 */}"
-                    rows="15"
-                />
-              </v-card-text>
-            </v-card>
+            <toolsData :data="schematicStr"/>
           </v-window-item>
           <v-window-item value="stats">
-            <toolsStats
-                :data="requirementsData"
-            />
+            <toolsStats :data="requirementsData"/>
           </v-window-item>
         </v-window>
       </v-card>
@@ -209,4 +201,13 @@ onMounted(async() => {
     transform: translateX(0);
   }
 }
+.json-container {
+  height: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin: 8px;
+  background: #f5f5f5;
+  overflow: auto;
+}
+
 </style>

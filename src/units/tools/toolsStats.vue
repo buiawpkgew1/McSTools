@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed, ref, watch, nextTick, onBeforeUnmount } from "vue";
-import type { RequirementStatistics } from "../../moduels/requirements.ts";
+import type { RequirementStatistics } from "../../modules/requirements.ts";
 import * as echarts from 'echarts';
 
 const props = defineProps<{

@@ -1,11 +1,14 @@
 use std::fs;
 use std::fs::File;
 use std::io;
-use std::io::Write;
+use std::io::{Cursor, Write};
 use std::path::{Path, PathBuf};
-use anyhow::Context;
+use anyhow::{anyhow, Context};
 use anyhow::Result;
+use fastnbt::Value;
+use flate2::read::GzDecoder;
 use tauri::{AppHandle, Manager};
+use crate::utils::schematic_data::SchematicError;
 
 #[derive(Debug)]
 pub struct FileData {
@@ -73,7 +76,7 @@ impl FileManager {
         Ok(final_path)
     }
 
-    pub fn save_schematic_data(&self, id: i64, mut data: Vec<u8>, version: i32, sub_version: i32, v_type: i32, file_ext: String) -> Result<PathBuf> {
+    pub fn save_schematic_data(&self, id: i64, data: Vec<u8>, version: i32, sub_version: i32, v_type: i32, file_ext: String) -> Result<PathBuf> {
         let schematic_dir = self.schematic_dir(id)?;
         let temp_file = schematic_dir.join(format!(
             "temp_{}_{}_{}.{}",
@@ -104,5 +107,76 @@ impl FileManager {
             .with_context(|| format!("重命名失败: {} → {}", temp_file.display(), final_path.display()
             ))?;
         Ok(final_path)
+    }
+
+    pub fn read_schematic_str(
+        &self,
+        id: i64,
+        version: i32,
+        sub_version: i32,
+        v_type: i32,
+    ) -> Result<String> {
+        let schematic_dir = self.schematic_dir(id)?;
+        let file_ext = match v_type {
+            1 => "nbt",
+            2 => "litematic",
+            3 => "schem",
+            4 => "json",
+            5 => "mcstruct",
+            _ => "unknown"
+        };
+        let filename = format!(
+            "schematic_{}.{}.{}.{}",
+            version,
+            sub_version,
+            v_type,
+            file_ext
+        );
+
+        let file_path = schematic_dir.join(filename);
+
+        let data = fs::read(&file_path)
+            .with_context(|| format!(
+                "无法读取蓝图文件: {}",
+                file_path.display()
+            ))?;
+        match v_type {
+            1 => {
+                let cursor = Cursor::new(data);
+                let mut decoder = GzDecoder::new(cursor);
+
+                let nbt: Value = fastnbt::from_reader(&mut decoder)?;
+                let ser = fastsnbt::to_string(&nbt)?;
+                Ok(ser)
+            },
+            2 => {
+                let cursor = Cursor::new(data);
+                let mut decoder = GzDecoder::new(cursor);
+
+                let nbt: Value = fastnbt::from_reader(&mut decoder)?;
+                let ser = fastsnbt::to_string(&nbt)?;
+                Ok(ser)
+            },
+            3 => {
+                let cursor = Cursor::new(data);
+                let mut decoder = GzDecoder::new(cursor);
+
+                let nbt: Value = fastnbt::from_reader(&mut decoder)?;
+                let ser = fastsnbt::to_string(&nbt)?;
+                Ok(ser)
+            },
+            4 => {
+                let json_str = String::from_utf8(data)?;
+                Ok(json_str)
+            },
+            5 => {
+                let nbt: Value = fastnbt::from_bytes(&data)?;
+                let ser = fastsnbt::to_string(&nbt)?;
+                Ok(ser)
+            },
+            _ => { 
+                Err(anyhow!("UNK: {}", v_type))
+            }
+        }
     }
 }

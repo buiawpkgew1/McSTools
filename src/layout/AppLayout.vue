@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { activeTab, navItems } from '../moduels/layout.ts'
+import { activeTab, navItems } from '../modules/layout.ts'
 import {useRouter} from "vue-router";
 const router = useRouter()
 

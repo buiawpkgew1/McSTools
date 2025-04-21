@@ -15,7 +15,7 @@ use utils::minecraft_data::versions_data::VersionData;
 use tauri::Manager;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
 use crate::database::db_control;
-use modules::schematic::encode_uploaded_schematic;
+use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
 use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics, get_requirements};
 use database::db_apis::logs_api::{add_logs, get_logs};
 use database::db_apis::user_api::{get_user_data};
@@ -50,7 +50,8 @@ pub fn run() {
             add_schematic,
             get_schematic,
             get_schematics,
-            get_requirements
+            get_requirements,
+            get_schematic_data
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

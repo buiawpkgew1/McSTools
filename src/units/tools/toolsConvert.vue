@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {defineProps, onMounted} from "vue";
-import {SchematicsData, schematicTypeList} from "../../moduels/schematics_data.ts";
+import {defineProps} from "vue";
+import {SchematicsData, schematicTypeList} from "../../modules/schematics_data.ts";
 import dayjs from "dayjs";
 
 const props = defineProps<{
@@ -13,9 +13,7 @@ const parseDimensions = (sizeStr: string) => {
 const formatTime = (time: any) => {
   return dayjs(time).format('YYYY/MM/DD HH:mm')
 }
-onMounted(async()=>{
-  console.log(props.data)
-})
+
 </script>
 
 <template>

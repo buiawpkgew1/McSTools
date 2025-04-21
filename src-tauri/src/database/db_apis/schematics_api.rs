@@ -35,6 +35,37 @@ pub fn new_schematic(
     Ok(rowid)
 }
 
+pub fn find_schematic(
+    mut conn: &mut PooledConnection<SqliteConnectionManager>,
+    id: i64
+) -> Result<Schematic> {
+    let tx = conn.transaction()?;
+    let schematic = tx.query_row(
+        "SELECT * FROM schematics WHERE id = ? AND is_deleted = FALSE",
+        [id],
+        |row| {
+            Ok(Schematic {
+                id: row.get("id")?,
+                name: row.get("name")?,
+                description: row.get("description")?,
+                schematic_type: row.get("type")?,
+                sub_type: row.get("sub_type")?,
+                is_deleted: row.get("is_deleted")?,
+                sizes: row.get("sizes")?,
+                user: row.get("user")?,
+                is_upload: row.get("is_upload")?,
+                version: row.get("version")?,
+                version_list: row.get("version_list")?,
+                created_at: row.get("created_at")?,
+                updated_at: row.get("updated_at")?,
+                game_version: row.get("game_version")?,
+            })
+        }
+    );
+    tx.commit()?;
+    Ok(schematic?)
+}
+
 pub fn new_requirements(
     conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic_id: i64,
@@ -70,29 +101,9 @@ pub fn get_schematic(
     db: State<'_, DatabaseState>,
     id: i64
 ) -> Result<Schematic, String> {
-    let conn = db.0.get().map_err(|e| e.to_string())?;
-    Ok(conn.query_row(
-        "SELECT * FROM schematics WHERE id = ? AND is_deleted = FALSE",
-        [id],
-        |row| {
-            Ok(Schematic {
-                id: row.get("id")?,
-                name: row.get("name")?,
-                description: row.get("description")?,
-                schematic_type: row.get("type")?,
-                sub_type: row.get("sub_type")?,
-                is_deleted: row.get("is_deleted")?,
-                sizes: row.get("sizes")?,
-                user: row.get("user")?,
-                is_upload: row.get("is_upload")?,
-                version: row.get("version")?,
-                version_list: row.get("version_list")?,
-                created_at: row.get("created_at")?,
-                updated_at: row.get("updated_at")?,
-                game_version: row.get("game_version")?,
-            })
-        }
-    ).map_err(|e| e.to_string())?)
+    let mut conn = db.0.get().map_err(|e| e.to_string())?;
+    let schematic = find_schematic(&mut conn, id);
+    Ok(schematic.map_err(|e| e.to_string())?)
 }
 
 #[tauri::command]

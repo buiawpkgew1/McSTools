@@ -2,10 +2,10 @@
 import {onMounted, ref} from "vue";
 import dayjs from 'dayjs'
 import {onBeforeRouteLeave, useRouter} from "vue-router";
-import {isLeaving, navigationGuard} from "../moduels/navigation.ts";
-import {fetchSchematics, SchematicsData, schematicTypeList} from "../moduels/schematics_data.ts";
-import {clear_tools, fetch_data} from "../moduels/tools_data.ts"
-import {activeTab} from "../moduels/layout.ts";
+import {isLeaving, navigationGuard} from "../modules/navigation.ts";
+import {fetchSchematics, SchematicsData, schematicTypeList} from "../modules/schematics_data.ts";
+import {clear_tools, fetch_data} from "../modules/tools_data.ts"
+import {activeTab} from "../modules/layout.ts";
 const router = useRouter()
 let schematics = ref<SchematicsData[]>([])
 const parseDimensions = (sizeStr: string) => {

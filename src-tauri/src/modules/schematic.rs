@@ -5,7 +5,7 @@ use tauri::{State};
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
-use crate::database::db_apis::schematics_api::{new_requirements, new_schematic};
+use crate::database::db_apis::schematics_api::{new_requirements, new_schematic, find_schematic};
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -153,7 +153,7 @@ pub async fn encode_uploaded_schematic(
                     id: 0,
                     name: file_name_str,
                     description: "".parse()?,
-                    schematic_type: 2,
+                    schematic_type: 3,
                     sub_type: type_version,
                     is_deleted: false,
                     sizes: sizes_str,
@@ -260,4 +260,23 @@ pub async fn encode_uploaded_schematic(
         .await
         .map_err(|e: anyhow::Error| e.to_string())
 
+}
+
+#[tauri::command]
+pub async fn get_schematic_data(
+    db: State<'_, DatabaseState>,
+    file_manager: State<'_, FileManager>,
+    id: i64
+) -> Result<String, String> {
+    async move {
+        let mut conn = db.0.get()?;
+        let schematic = find_schematic(&mut conn, id)?;
+        let version = schematic.version;
+        let sub_version = schematic.sub_type;
+        let v_type = schematic.schematic_type;
+        let str = file_manager.read_schematic_str(id, version, sub_version, v_type)?;
+        Ok(str)
+    }
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())
 }

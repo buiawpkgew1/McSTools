@@ -14,10 +14,10 @@ import {
   progressValue,
   uploadError,
   uploadStatus
-} from "../moduels/upload_schematic.ts";
-import {UserData} from "../moduels/user_data.ts";
-import {isLeaving, navigationGuard} from "../moduels/navigation.ts";
-import { createTimeManager } from '../moduels/time_data.ts'
+} from "../modules/upload_schematic.ts";
+import {UserData} from "../modules/user_data.ts";
+import {isLeaving, navigationGuard} from "../modules/navigation.ts";
+import { createTimeManager } from '../modules/time_data.ts'
 
 const timeManager = createTimeManager()
 const {
