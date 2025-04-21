@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeViews from "../src/views/homeViews.vue";
 import ToolsViews from "../src/views/toolsViews.vue";
 import SchematicViews from "../src/views/schematicsViews.vue"
+import IndividuationViews from "../src/views/individuationViews.vue"
 const routes = [
     {
         path: '/',
@@ -33,6 +34,15 @@ const routes = [
             keywords: ''
         },
         component: SchematicViews
+    },{
+        path: '/individuation',
+        name: 'individuation',
+        meta: {
+            title: 'individuation',
+            description: '',
+            keywords: ''
+        },
+        component: IndividuationViews
     }
 ]
 

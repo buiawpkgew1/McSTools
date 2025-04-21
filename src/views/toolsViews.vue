@@ -6,12 +6,13 @@ import 'vue-json-pretty/lib/styles.css';
 import {RequirementStatistics} from "../modules/requirements.ts";
 import { activeTab } from "../modules/layout.ts";
 import toolsConvert from '../units/tools/toolsConvert.vue';
+import toolsReplace from '../units/tools/toolsReplace.vue';
 import toolsStats from  '../units/tools/toolsStats.vue';
 import toolsData from '../units/tools/toolsData.vue';
+import toolsSplit from '../units/tools/toolsSplit.vue';
 import {SchematicsData} from "../modules/schematics_data.ts";
 import {schematic_id, get_data, get_requirements, get_schematic_str} from "../modules/tools_data.ts"
 const active = ref(0)
-const replacementRules = ref([])
 const router = useRouter()
 const schematicData = ref<SchematicsData | undefined>();
 const requirementsData = ref<RequirementStatistics | undefined>();
@@ -68,73 +69,13 @@ onMounted(async() => {
         </v-toolbar>
         <v-window v-model="active">
           <v-window-item value="schematic">
-            <toolsConvert
-                :data="schematicData"
-            />
+            <toolsConvert :data="schematicData"/>
           </v-window-item>
           <v-window-item value="split">
-            <v-row class="pa-4" no-gutters>
-              <v-col cols="3">
-                <v-card class="pa-3" elevation="2">
-                  <v-select label="分割方式" :items="['垂直分层', '水平区域', '自定义范围']"/>
-                  <v-range-slider label="分割范围" thumb-label min="0" max="256"/>
-                  <v-btn block color="green" prepend-icon="mdi-axe">执行分割</v-btn>
-                </v-card>
-              </v-col>
-
-              <v-col cols="9">
-                <v-card class="h-100" elevation="2">
-                  <div class="d-flex justify-center align-center h-100 text-grey">
-                    3D预览区域
-                  </div>
-                </v-card>
-              </v-col>
-            </v-row>
+            <toolsSplit />
           </v-window-item>
           <v-window-item value="replace">
-            <v-row class="pa-4" no-gutters>
-              <v-col cols="4">
-                <v-card class="pa-3" elevation="2">
-                  <div class="d-flex align-center mb-4">
-                    <v-icon icon="mdi-magnify" class="mr-2"/>
-                    <v-combobox label="查找方块" :items="['橡木木板', '圆石', '红石粉']"/>
-                  </div>
-
-                  <v-divider class="my-4"/>
-
-                  <div class="d-flex align-center">
-                    <v-icon icon="mdi-arrow-right" class="mx-2"/>
-                    <v-combobox label="替换为" :items="['云杉木板', '石砖', '红石块']"/>
-                  </div>
-
-                  <v-checkbox label="全局替换" density="compact"/>
-                  <v-btn block color="orange" prepend-icon="mdi-swap-horizontal">执行替换</v-btn>
-                </v-card>
-              </v-col>
-
-              <v-col cols="8">
-                <v-card class="h-100" elevation="2">
-                  <v-table density="compact">
-                    <thead>
-                    <tr>
-                      <th>原方块</th>
-                      <th>新方块</th>
-                      <th>数量</th>
-                      <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(rule, index) in replacementRules" :key="index">
-                      <td>{{ rule.original }}</td>
-                      <td>{{ rule.replacement }}</td>
-                      <td>{{ rule.count }}</td>
-                      <td><v-btn icon="mdi-delete" variant="text" color="red"/></td>
-                    </tr>
-                    </tbody>
-                  </v-table>
-                </v-card>
-              </v-col>
-            </v-row>
+            <toolsReplace />
           </v-window-item>
           <v-window-item value="convert">
             <v-row class="pa-4" no-gutters>

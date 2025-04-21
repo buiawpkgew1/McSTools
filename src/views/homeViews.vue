@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
             ></v-icon>
             <div class="text-h6 text-primary">拖放文件或点击上传</div>
             <div class="text-caption text-medium-emphasis mt-1">
-              支持格式：PDF、JPG、PNG（最大50MB）
+              支持格式：nbt、litematic、schem、 json、 mcstruct（最大50MB）
             </div>
           </div>
 
