@@ -1,6 +1,6 @@
 <script setup lang="ts">
-
 import {isLeaving} from "../modules/navigation.ts";
+import fav from  "../static/img/fav512.png"
 </script>
 
 <template class="page-wrapper">
@@ -42,7 +42,7 @@ import {isLeaving} from "../modules/navigation.ts";
                 <v-col cols="12">
                   <div class="d-flex justify-space-between">
                     <span class="text-h6 text-blue-grey-darken-2">版本: V1.0.00</span>
-                    <span class="text-h6 text-blue-grey-darken-2">发布日期: 2024-02-20</span>
+                    <span class="text-h6 text-blue-grey-darken-2">发布日期: 2024-04-22</span>
                   </div>
                   <v-row align="center" justify="start">
                     <v-col cols="auto">
@@ -114,8 +114,13 @@ import {isLeaving} from "../modules/navigation.ts";
                 <v-col cols="12">
                   <v-card>
                     <v-toolbar density="compact" class="pa-2 justify-center">
-                      <v-toolbar-title class="text-center">
-                        <span class="text-h6 text-blue-grey-darken-2">蓝图站</span>
+                      <v-toolbar-title class="d-inline-flex align-center justify-center">
+                        <div class="d-flex align-center">
+                          <v-img :src="fav" class="mr-2"
+                          style="height: 32px; width: 32px; flex-shrink: 0"
+                          ></v-img>
+                          <span class="text-h6 text-blue-grey-darken-2">蓝图站</span>
+                        </div>
                       </v-toolbar-title>
                     </v-toolbar>
 
@@ -139,6 +144,83 @@ import {isLeaving} from "../modules/navigation.ts";
                       </div>
                     </v-card-text>
                   </v-card>
+                </v-col>
+                <v-col cols="12">
+                  <div class="d-flex align-start">
+                    <div class="mr-3 mt-1">
+                      <v-icon color="primary" size="42">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="M2 21v-2h9V7.825q-.65-.225-1.125-.7T9.175 6H6l3 7q0 1.25-1.025 2.125T5.5 16t-2.475-.875T2 13l3-7H3V4h6.175q.3-.875 1.075-1.437T12 2t1.75.563T14.825 4H21v2h-2l3 7q0 1.25-1.025 2.125T18.5 16t-2.475-.875T15 13l3-7h-3.175q-.225.65-.7 1.125t-1.125.7V19h9v2zm14.625-8h3.75L18.5 8.65zm-13 0h3.75L5.5 8.65zM12 6q.425 0 .713-.288T13 5t-.288-.712T12 4t-.712.288T11 5t.288.713T12 6"/>
+                        </svg>
+                      </v-icon>
+                    </div>
+
+                    <div>
+                      <p class="text-body-1 mb-1">
+                        <span class="font-weight-medium">GNU General Public License v3.0</span>
+                        <v-tooltip location="top">
+                          <template v-slot:activator="{ props }">
+                            <v-icon v-bind="props" size="16" color="grey" class="ml-1">mdi-information-outline</v-icon>
+                          </template>
+                          <span>允许修改和分发，但必须开源修改后的代码并保留版权声明</span>
+                        </v-tooltip>
+                      </p>
+
+                      <div class="d-flex align-center flex-wrap">
+                        <span class="text-caption text-grey-darken-1 mr-2">
+                          © 2025 MCS Tools. All rights licensed under GPL-3.0
+                        </span>
+                        <v-btn
+                            variant="text"
+                            color="secondary"
+                            density="compact"
+                            href="https://www.gnu.org/licenses/gpl-3.0.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="px-1"
+                        >
+                          <span class="text-caption">查看完整协议</span>
+                          <v-icon icon="mdi-open-in-new" size="14" class="ml-1"></v-icon>
+                        </v-btn>
+                      </div>
+                    </div>
+                  </div>
+                </v-col>
+                <v-col cols="12">
+                  <div class="d-flex align-start">
+                    <div class="mr-3 mt-1">
+                      <v-icon color="primary" size="32">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#0284c7" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81c1.66 0 3-1.34 3-3s-1.34-3-3-3s-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66c0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91s-1.31-2.92-2.92-2.92M18 4c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1M6 13c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1m12 7c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1"/></svg>
+                      </v-icon>
+                    </div>
+                    <div>
+                      <p class="text-body-1 mb-1">
+                        <span class="font-weight-medium">开发贡献者</span>
+                        <v-tooltip location="top">
+                          <template v-slot:activator="{ props }">
+                            <v-icon v-bind="props" size="16" color="grey" class="ml-1">mdi-information-outline</v-icon>
+                          </template>
+                          <span>参与开发及代表明确遵守GPL V3协议,改版 转发请注明所有开发人员和协议</span>
+                        </v-tooltip>
+                      </p>
+                      <v-row>
+                        <v-col cols="auto">
+                          <v-tooltip location="top">
+                            <template v-slot:activator="{ props }">
+                              <div class="d-flex align-start" v-bind="props">
+                                <v-avatar size="28" class="mr-2">
+                                  <v-img alt="authon" src="https://q1.qlogo.cn/g?b=qq&nk=3051016381&s=100"></v-img>
+                                </v-avatar>
+                                <span class="text-h6 font-weight-medium">Guapi</span>
+                              </div>
+                            </template>
+                            <span>作者</span>
+                          </v-tooltip>
+
+                        </v-col>
+                      </v-row>
+                    </div>
+                  </div>
                 </v-col>
               </v-row>
             </v-col>

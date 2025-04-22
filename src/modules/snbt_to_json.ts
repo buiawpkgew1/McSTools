@@ -10,7 +10,7 @@ export const cleanSNBT = (snbt: string): string => {
     });
 };
 
-export const cleanLargeSNBT = (snbt: string, chunkSize = 50000): string => {
+export const cleanLargeSNBT = (snbt: string, chunkSize = 500000): string => {
     const chunks: string[] = [];
 
     for (let i = 0; i < snbt.length; i += chunkSize) {

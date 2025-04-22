@@ -8,7 +8,6 @@ export const navigationGuard: NavigationGuard = (to, from, next) => {
     leaveTimer.value = window.setTimeout(() => {
         next();
         isLeaving.value = false
-        console.log(isLeaving)
     }, 200)
 
     const handler = () => {
