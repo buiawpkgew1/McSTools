@@ -38,7 +38,6 @@
         <span class="tooltip-text">{{ item.title }}</span>
       </v-tooltip>
     </v-list>
-
     <template v-slot:append>
       <div class="bottom-actions">
         <v-tooltip location="right">
@@ -83,7 +82,6 @@ const router = useRouter()
   transform: rotate(15deg) scale(1.1);
 }
 
-/* 导航列表优化 */
 .nav-list {
   padding: 0 8px;
 }

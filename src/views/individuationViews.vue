@@ -45,7 +45,7 @@ onBeforeRouteLeave(navigationGuard)
         <v-card class="mx-auto" elevation="4" hover>
           <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
             <v-toolbar-title>
-              <v-icon icon="mdi-palette" class="mr-2 text-blue-darken-2"></v-icon>
+              <v-icon icon="mdi-palette" class="mr-2"></v-icon>
               <span class="text-h5">个性化设置</span>
             </v-toolbar-title>
           </v-toolbar>
@@ -66,7 +66,6 @@ onBeforeRouteLeave(navigationGuard)
                           v-model="opacity"
                           :max="1"
                           :min="0.2"
-                          :step="0.1"
                           thumb-label
                           track-color="blue-grey-lighten-3"
                           color="blue-darken-2"
@@ -126,8 +125,8 @@ onBeforeRouteLeave(navigationGuard)
       <v-card class="mx-auto" elevation="4" hover>
         <v-toolbar density="compact" class="pa-2">
           <v-toolbar-title>
-            <v-icon icon="mdi-image" class="mr-2 text-blue-darken-3"></v-icon>
-            <span class="text-h6 text-blue-darken-3">背景设置</span>
+            <v-icon icon="mdi-image" class="mr-2"></v-icon>
+            <span class="text-h7">背景设置</span>
           </v-toolbar-title>
         </v-toolbar>
 
@@ -174,7 +173,6 @@ onBeforeRouteLeave(navigationGuard)
                     v-model="opacity"
                     :max="1"
                     :min="0.2"
-                    :step="0.1"
                     thumb-label
                     track-color="blue-grey-lighten-3"
                     color="blue-darken-2"

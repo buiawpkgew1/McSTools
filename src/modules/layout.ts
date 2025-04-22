@@ -7,6 +7,6 @@ export const navItems = [
     { icon: 'mdi-tools', title: '蓝图工具', value: 'tools' },
     { icon: 'mdi-warehouse', title: '蓝图库', value: 'schematic' },
     { icon: 'mdi-palette', title: '个性化', value: 'individuation' },
-    { icon: 'mdi-message-alert-outline', title: '问题反馈', value: 'alert' },
+    { icon: 'mdi-message-alert-outline', title: '问题反馈', value: 'report' },
     { icon: 'mdi-information-outline', title: '关于', value: 'about' },
 ]

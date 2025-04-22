@@ -3,6 +3,8 @@ import HomeViews from "../src/views/homeViews.vue";
 import ToolsViews from "../src/views/toolsViews.vue";
 import SchematicViews from "../src/views/schematicsViews.vue"
 import IndividuationViews from "../src/views/individuationViews.vue"
+import ReportViews from "../src/views/reportViews.vue";
+import AboutViews from "../src/views/aboutViews.vue";
 const routes = [
     {
         path: '/',
@@ -43,6 +45,24 @@ const routes = [
             keywords: ''
         },
         component: IndividuationViews
+    },{
+        path: '/report',
+        name: 'report',
+        meta: {
+            title: 'report',
+            description: '',
+            keywords: ''
+        },
+        component: ReportViews
+    },{
+        path: '/about',
+        name: 'about',
+        meta: {
+            title: 'about',
+            description: '',
+            keywords: ''
+        },
+        component: AboutViews
     }
 ]
 
