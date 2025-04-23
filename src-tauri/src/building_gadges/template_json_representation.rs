@@ -1,18 +1,16 @@
-use std::collections::{BTreeMap, HashMap};
-use std::sync::Arc;
-use fastnbt::Value;
-use fastnbt::Value::Compound;
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
 use crate::utils::extend_value::NbtExt;
 use crate::utils::schematic_data::SchematicError;
+use fastnbt::Value;
+use fastnbt::Value::Compound;
+use std::collections::{BTreeMap, HashMap};
+use std::sync::Arc;
 
 const B1_BYTE_MASK: i64 = 0xFF;
 const B2_BYTE_MASK: i64 = 0xFFFF;
 const B3_BYTE_MASK: i64 = 0xFFFFFF;
 
-pub fn deserialize(
-    nbt: HashMap<String, Value>,
-) -> Result<BlockStatePosList, SchematicError> {
+pub fn deserialize(nbt: HashMap<String, Value>) -> Result<BlockStatePosList, SchematicError> {
     let mut block_list = BlockStatePosList::default();
     let pos_list = nbt.get_list("pos")?;
     let state_list = nbt.get_list("data")?;
@@ -25,7 +23,8 @@ pub fn deserialize(
         let pos = pos_from_long(*long_nbt)?;
         let state_id = read_state_id(*long_nbt);
 
-        let state_value = state_list.get(state_id as usize)
+        let state_value = state_list
+            .get(state_id as usize)
             .ok_or_else(|| SchematicError::InvalidFormat("state not found"))?;
 
         let Compound(state) = state_value else {
@@ -33,7 +32,8 @@ pub fn deserialize(
         };
 
         let block_state = state.get_compound("state")?;
-        let name = block_state.get("Name")
+        let name = block_state
+            .get("Name")
             .and_then(Value::as_str)
             .map(|s| Arc::from(s))
             .unwrap_or_else(|| Arc::from("minecraft:air"));
@@ -42,18 +42,18 @@ pub fn deserialize(
         if let Some(Compound(prop_map)) = block_state.get("Properties") {
             for (k, v) in prop_map {
                 if let Value::String(s) = v {
-                    properties.insert(
-                        Arc::from(k.as_str()),
-                        Arc::from(s.as_str())
-                    );
+                    properties.insert(Arc::from(k.as_str()), Arc::from(s.as_str()));
                 }
             }
         }
 
-        block_list.add(pos, Arc::new(BlockData {
-            id: BlockId { name },
-            properties
-        }));
+        block_list.add(
+            pos,
+            Arc::new(BlockData {
+                id: BlockId { name },
+                properties,
+            }),
+        );
     }
 
     Ok(block_list)
@@ -76,7 +76,7 @@ pub fn read_state_id(serialized: i64) -> i32 {
 
 pub fn int_to_rel_pos(start_pos: BlockPos, p: i32) -> BlockPos {
     let dx = ((p >> 16) & 0xFF) as i8 as i32;
-    let dy = ((p >> 8)  & 0xFF) as i8 as i32;
+    let dy = ((p >> 8) & 0xFF) as i8 as i32;
     let dz = (p & 0xFF) as i8 as i32;
 
     BlockPos {

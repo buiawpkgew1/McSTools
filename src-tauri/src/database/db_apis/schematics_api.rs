@@ -1,12 +1,12 @@
-use anyhow::{Result};
-use r2d2::PooledConnection;
-use r2d2_sqlite::SqliteConnectionManager;
-use rusqlite::{params};
-use tauri::{State};
 use crate::building_gadges::bg_schematic_data::JsonData;
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::{PaginatedResponse, Schematic};
 use crate::utils::schematic_data::SchematicError;
+use anyhow::Result;
+use r2d2::PooledConnection;
+use r2d2_sqlite::SqliteConnectionManager;
+use rusqlite::params;
+use tauri::State;
 
 pub fn new_schematic(
     mut conn: &mut PooledConnection<SqliteConnectionManager>,
@@ -37,7 +37,7 @@ pub fn new_schematic(
 
 pub fn find_schematic(
     mut conn: &mut PooledConnection<SqliteConnectionManager>,
-    id: i64
+    id: i64,
 ) -> Result<Schematic> {
     let tx = conn.transaction()?;
     let schematic = tx.query_row(
@@ -60,7 +60,7 @@ pub fn find_schematic(
                 updated_at: row.get("updated_at")?,
                 game_version: row.get("game_version")?,
             })
-        }
+        },
     );
     tx.commit()?;
     Ok(schematic?)
@@ -76,10 +76,7 @@ pub fn new_requirements(
         r#"INSERT INTO requirements (
             schematic_id, metadata
         ) VALUES (?1, ?2)"#,
-        params![
-            schematic_id,
-            metadata,
-        ],
+        params![schematic_id, metadata,],
     )?;
     let rowid = tx.last_insert_rowid();
     tx.commit()?;
@@ -87,41 +84,32 @@ pub fn new_requirements(
     Ok(rowid)
 }
 #[tauri::command]
-pub fn add_schematic(
-    db: State<'_, DatabaseState>,
-    schematic: Schematic
-) -> Result<i64, String> {
+pub fn add_schematic(db: State<'_, DatabaseState>, schematic: Schematic) -> Result<i64, String> {
     let mut conn = db.0.get().map_err(|e| e.to_string())?;
 
     let new = new_schematic(&mut conn, schematic).map_err(|e| e.to_string())?;
     Ok(new)
 }
 #[tauri::command]
-pub fn get_schematic(
-    db: State<'_, DatabaseState>,
-    id: i64
-) -> Result<Schematic, String> {
+pub fn get_schematic(db: State<'_, DatabaseState>, id: i64) -> Result<Schematic, String> {
     let mut conn = db.0.get().map_err(|e| e.to_string())?;
     let schematic = find_schematic(&mut conn, id);
     Ok(schematic.map_err(|e| e.to_string())?)
 }
 
 #[tauri::command]
-pub fn get_requirements(
-    db: State<'_, DatabaseState>,
-    id: i64
-) -> Result<String, String> {
+pub fn get_requirements(db: State<'_, DatabaseState>, id: i64) -> Result<String, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
 
     conn.query_row(
-        "SELECT metadata FROM requirements WHERE schematic_id = ?1", 
+        "SELECT metadata FROM requirements WHERE schematic_id = ?1",
         [id],
         |row| {
             let metadata_str: String = row.get("metadata")?;
             Ok(metadata_str)
-        }
+        },
     )
-        .map_err(|e| e.to_string()) 
+    .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -129,7 +117,7 @@ pub fn get_schematics(
     db: State<'_, DatabaseState>,
     filter: &str,
     page: i32,
-    page_size: i32
+    page_size: i32,
 ) -> Result<PaginatedResponse<Schematic>, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
     let page = page.max(1);
@@ -141,8 +129,9 @@ pub fn get_schematics(
     } else {
         format!("%{}%", filter)
     };
-    let mut stmt = conn.prepare(
-        r#"
+    let mut stmt = conn
+        .prepare(
+            r#"
         SELECT * FROM schematics
         WHERE
             (?1 = '' OR
@@ -150,16 +139,13 @@ pub fn get_schematics(
             AND is_deleted = FALSE
         ORDER BY created_at DESC
         LIMIT ?2 OFFSET ?3
-        "#
-    ).map_err(|e| e.to_string())?;
+        "#,
+        )
+        .map_err(|e| e.to_string())?;
 
     let schematics = stmt
         .query_map(
-            rusqlite::params![
-                search_pattern,
-                page_size,
-                offset
-            ],
+            rusqlite::params![search_pattern, page_size, offset],
             |row| {
                 Ok(Schematic {
                     id: row.get("id")?,
@@ -178,7 +164,8 @@ pub fn get_schematics(
                     game_version: row.get("game_version")?,
                 })
             },
-        ).map_err(|e| e.to_string())?
+        )
+        .map_err(|e| e.to_string())?
         .collect::<Result<Vec<_>, _>>()
         .map_err(|e| e.to_string())?;
 
@@ -188,4 +175,3 @@ pub fn get_schematics(
         page_size,
     })
 }
-

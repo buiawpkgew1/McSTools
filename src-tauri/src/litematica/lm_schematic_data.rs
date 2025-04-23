@@ -1,7 +1,7 @@
-use std::collections::HashMap;
+use crate::utils::block_state_pos_list::BlockPos;
 use fastnbt::Value;
 use serde::{Deserialize, Serialize};
-use crate::utils::block_state_pos_list::BlockPos;
+use std::collections::HashMap;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct LmMetadata {

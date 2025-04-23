@@ -1,7 +1,7 @@
-use std::collections::HashMap;
-use fastnbt::{ByteArray, IntArray, LongArray, Value};
 use crate::utils::block_state_pos_list::BlockPos;
 use crate::utils::schematic_data::SchematicError;
+use fastnbt::{ByteArray, IntArray, LongArray, Value};
+use std::collections::HashMap;
 
 pub trait NbtExt {
     fn get_compound(&self, key: &str) -> Result<&HashMap<String, Value>, SchematicError>;
@@ -32,7 +32,7 @@ impl NbtExt for HashMap<String, Value> {
         self.get(key)
             .and_then(|v| match v {
                 Value::String(n) => Some(n),
-                _ => None
+                _ => None,
             })
             .ok_or_else(|| SchematicError::MissingField(key.into()))
     }
@@ -41,7 +41,7 @@ impl NbtExt for HashMap<String, Value> {
         self.get(key)
             .and_then(|v| match v {
                 Value::List(n) => Some(n),
-                _ => None
+                _ => None,
             })
             .ok_or_else(|| SchematicError::MissingField(key.into()))
     }
@@ -50,7 +50,7 @@ impl NbtExt for HashMap<String, Value> {
         self.get(key)
             .and_then(|v| match v {
                 Value::Short(n) => Some(*n),
-                _ => None
+                _ => None,
             })
             .ok_or_else(|| SchematicError::MissingField(key.into()))
     }
@@ -59,7 +59,7 @@ impl NbtExt for HashMap<String, Value> {
         self.get(key)
             .and_then(|v| match v {
                 Value::Int(n) => Some(*n),
-                _ => None
+                _ => None,
             })
             .ok_or_else(|| SchematicError::MissingField(key.into()))
     }
@@ -74,7 +74,7 @@ impl NbtExt for HashMap<String, Value> {
         self.get(key)
             .and_then(|v| match v {
                 Value::LongArray(n) => Some(n),
-                _ => None
+                _ => None,
             })
             .ok_or_else(|| SchematicError::MissingField(key.into()))
     }
@@ -83,7 +83,7 @@ impl NbtExt for HashMap<String, Value> {
         self.get(key)
             .and_then(|v| match v {
                 Value::IntArray(n) => Some(n),
-                _ => None
+                _ => None,
             })
             .ok_or_else(|| SchematicError::MissingField(key.into()))
     }
@@ -92,7 +92,7 @@ impl NbtExt for HashMap<String, Value> {
         self.get(key)
             .and_then(|v| match v {
                 Value::ByteArray(n) => Some(n),
-                _ => None
+                _ => None,
             })
             .ok_or_else(|| SchematicError::MissingField(key.into()))
     }

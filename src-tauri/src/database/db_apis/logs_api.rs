@@ -1,15 +1,15 @@
-use rusqlite::{params, OptionalExtension};
-use tauri::State;
-use anyhow::{Context, Result};
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::LogEntry;
+use anyhow::{Context, Result};
+use rusqlite::{params, OptionalExtension};
+use tauri::State;
 
 #[tauri::command]
 pub fn get_logs(
     db: State<'_, DatabaseState>,
     filter: &str,
     page: i32,
-    page_size: i32
+    page_size: i32,
 ) -> Result<Vec<LogEntry>, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
     let page = page.max(1);
@@ -22,24 +22,22 @@ pub fn get_logs(
         format!("%{}%", filter)
     };
 
-    let mut stmt = conn.prepare(
-        r#"
+    let mut stmt = conn
+        .prepare(
+            r#"
         SELECT * FROM app_logs
         WHERE
             (?1 = '' OR
             message LIKE ?1)
         ORDER BY timestamp DESC
         LIMIT ?2 OFFSET ?3
-        "#
-    ).map_err(|e| e.to_string())?;
+        "#,
+        )
+        .map_err(|e| e.to_string())?;
 
     let logs = stmt
         .query_map(
-            rusqlite::params![
-                search_pattern,
-                page_size,
-                offset
-            ],
+            rusqlite::params![search_pattern, page_size, offset],
             |row| {
                 Ok(LogEntry {
                     level: row.get("level")?,
@@ -57,22 +55,15 @@ pub fn get_logs(
 }
 
 #[tauri::command]
-pub fn add_logs(
-    db: State<'_, DatabaseState>,
-    log: LogEntry
-) -> Result<i64, String> {
+pub fn add_logs(db: State<'_, DatabaseState>, log: LogEntry) -> Result<i64, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
 
     conn.execute(
         "INSERT INTO app_logs (level, target, message, context)
             VALUES (?1, ?2, ?3, ?4)",
-        params![
-            log.level,
-            log.target,
-            log.message,
-            log.context
-        ],
-    ).map_err(|e| e.to_string())?;
+        params![log.level, log.target, log.message, log.context],
+    )
+    .map_err(|e| e.to_string())?;
 
     Ok(conn.last_insert_rowid())
 }

@@ -1,11 +1,7 @@
-use std::path::Path;
-use fastnbt::Value;
-use anyhow::Result;
-use tauri::{State};
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
-use crate::database::db_apis::schematics_api::{new_requirements, new_schematic, find_schematic};
+use crate::database::db_apis::schematics_api::{find_schematic, new_requirements, new_schematic};
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -13,6 +9,10 @@ use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 use crate::utils::minecraft_data::versions_data::VersionData;
 use crate::utils::requirements::{get_requirements, RequirementStr};
 use crate::word_edit::we_schematic::WeSchematic;
+use anyhow::Result;
+use fastnbt::Value;
+use std::path::Path;
+use tauri::State;
 
 #[tauri::command]
 pub async fn encode_uploaded_schematic(
@@ -26,12 +26,14 @@ pub async fn encode_uploaded_schematic(
     async move {
         let path = Path::new(&file_name);
         let (file_ext_str, file_name_str) = {
-            let ext = path.extension()
+            let ext = path
+                .extension()
                 .and_then(|e| e.to_str())
                 .map(|e| e.to_lowercase())
                 .unwrap_or_else(|| "unknown".into());
 
-            let name = path.file_name()
+            let name = path
+                .file_name()
                 .and_then(|n| n.to_str())
                 .map(|n| n.to_lowercase())
                 .unwrap_or_else(|| "unnamed".into());
@@ -44,18 +46,21 @@ pub async fn encode_uploaded_schematic(
                 let schematic = CreateSchematic::new_from_bytes(data)?;
                 let schematic_data = schematic.get_blocks_pos()?;
                 let requirement = get_requirements(&schematic_data.blocks)?;
-                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks).export_to_string()?;
+                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
+                    .export_to_string()?;
                 let size = schematic.get_size()?;
                 let sizes = match size {
-                    list => list.iter()
+                    list => list
+                        .iter()
                         .filter_map(|v| match v {
                             Value::Int(n) => Some(*n),
-                            _ => None
+                            _ => None,
                         })
                         .collect::<Vec<i32>>(),
                 };
 
-                let sizes_str = sizes.iter()
+                let sizes_str = sizes
+                    .iter()
                     .map(|n| n.to_string())
                     .collect::<Vec<_>>()
                     .join(",");
@@ -93,14 +98,15 @@ pub async fn encode_uploaded_schematic(
                     1,
                     file_ext_str,
                 )?
-            },
+            }
             "json" => {
                 let original_data = data.clone();
 
                 let schematic = BgSchematic::new_from_data(data)?;
                 let schematic_data = schematic.get_blocks_pos()?;
                 let requirement = get_requirements(&schematic_data.blocks)?;
-                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks).export_to_string()?;
+                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
+                    .export_to_string()?;
 
                 let sizes = schematic.get_size()?;
                 let schematic_type = schematic.get_type()?;
@@ -133,13 +139,14 @@ pub async fn encode_uploaded_schematic(
                     4,
                     file_ext_str,
                 )?
-            },
+            }
             "schem" => {
                 let original_data = data.clone();
                 let schematic = WeSchematic::new_from_bytes(data)?;
                 let schematic_data = schematic.get_blocks_pos()?;
                 let requirement = get_requirements(&schematic_data.blocks)?;
-                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks).export_to_string()?;
+                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
+                    .export_to_string()?;
                 let type_version = schematic.get_type()?;
                 let sizes = schematic.get_size(type_version)?;
                 let sizes_str = sizes.to_string();
@@ -175,13 +182,14 @@ pub async fn encode_uploaded_schematic(
                     3,
                     file_ext_str,
                 )?
-            },
+            }
             "litematic" => {
                 let original_data = data.clone();
                 let schematic = LmSchematic::new_from_bytes(data)?;
                 let schematic_data = schematic.get_blocks_pos()?;
                 let requirement = get_requirements(&schematic_data.blocks)?;
-                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks).export_to_string()?;
+                let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
+                    .export_to_string()?;
                 let metadata = schematic.read_metadata()?;
                 let sizes_pos = metadata.enclosing_size;
                 let description = metadata.description;
@@ -194,7 +202,7 @@ pub async fn encode_uploaded_schematic(
                     .unwrap_or_else(|| "unknown_version".to_string());
                 let name = if metadata.name.trim() == "Unnamed" {
                     file_name_str
-                }else {
+                } else {
                     metadata.name
                 };
                 let schematic = Schematic {
@@ -223,7 +231,7 @@ pub async fn encode_uploaded_schematic(
                     2,
                     file_ext_str,
                 )?
-            },
+            }
             _ => {
                 let mut conn = db.0.get()?;
                 let original_data = data.clone();
@@ -253,20 +261,19 @@ pub async fn encode_uploaded_schematic(
                     -1,
                     file_ext_str,
                 )?
-            },
+            }
         };
         Ok(())
     }
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
-
+    .await
+    .map_err(|e: anyhow::Error| e.to_string())
 }
 
 #[tauri::command]
 pub async fn get_schematic_data(
     db: State<'_, DatabaseState>,
     file_manager: State<'_, FileManager>,
-    id: i64
+    id: i64,
 ) -> Result<String, String> {
     async move {
         let mut conn = db.0.get()?;
@@ -277,6 +284,6 @@ pub async fn get_schematic_data(
         let str = file_manager.read_schematic_str(id, version, sub_version, v_type)?;
         Ok(str)
     }
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
+    .await
+    .map_err(|e: anyhow::Error| e.to_string())
 }

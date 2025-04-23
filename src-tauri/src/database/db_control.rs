@@ -1,8 +1,8 @@
 use anyhow::{Context, Result};
 use r2d2::Pool;
 use r2d2_sqlite::SqliteConnectionManager;
-use tauri::{AppHandle, Manager};
 use std::path::PathBuf;
+use tauri::{AppHandle, Manager};
 
 type SqlitePool = Pool<SqliteConnectionManager>;
 
@@ -10,14 +10,14 @@ type SqlitePool = Pool<SqliteConnectionManager>;
 pub struct DatabaseState(pub SqlitePool);
 
 fn get_db_path(app: &AppHandle) -> Result<PathBuf> {
-    let data_dir = app.path()
+    let data_dir = app
+        .path()
         .app_data_dir()
         .context("无法获取应用数据目录")?
         .join("data");
 
     if !data_dir.exists() {
-        std::fs::create_dir_all(&data_dir)
-            .context("创建数据目录失败")?;
+        std::fs::create_dir_all(&data_dir).context("创建数据目录失败")?;
     }
 
     Ok(data_dir)
@@ -27,15 +27,13 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
     let db_path = get_db_path(app_handle)?.join("mcs_tools.db");
     let manager = SqliteConnectionManager::file(db_path)
         .with_flags(
-            rusqlite::OpenFlags::SQLITE_OPEN_READ_WRITE |
-                rusqlite::OpenFlags::SQLITE_OPEN_CREATE
+            rusqlite::OpenFlags::SQLITE_OPEN_READ_WRITE | rusqlite::OpenFlags::SQLITE_OPEN_CREATE,
         )
         .with_init(|conn| {
             conn.execute_batch(
                 "PRAGMA journal_mode = WAL;
                  PRAGMA synchronous = NORMAL;
-                 PRAGMA foreign_keys = ON;"
-                
+                 PRAGMA foreign_keys = ON;",
             )
         });
 
@@ -109,9 +107,8 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
         INSERT INTO user_data (id, nickname, avatar, qq, accessToken, openid, schematics, cloud)
         SELECT 1, '', '', '', '', '', 0, 0
         WHERE NOT EXISTS (SELECT 1 FROM user_data WHERE id = 1);
-        "#
+        "#,
     )?;
 
     Ok(DatabaseState(pool))
 }
-

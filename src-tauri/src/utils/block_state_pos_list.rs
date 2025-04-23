@@ -1,8 +1,8 @@
-use std::collections::{BTreeMap};
-use serde::{Serialize, Deserialize};
-use std::sync::Arc;
-use std::collections::VecDeque;
 use rayon::iter::IntoParallelRefIterator;
+use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
+use std::collections::VecDeque;
+use std::sync::Arc;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
 pub struct BlockPos {
@@ -70,15 +70,14 @@ impl BlockStatePosList {
         self.elements = other;
     }
 
-    pub fn add_by_pos(&mut self, x: i32, y:i32, z:i32, block: Arc<BlockData>) {
-        self.elements.push_back(BlockStatePos::new(BlockPos{x, y, z}, block));
+    pub fn add_by_pos(&mut self, x: i32, y: i32, z: i32, block: Arc<BlockData>) {
+        self.elements
+            .push_back(BlockStatePos::new(BlockPos { x, y, z }, block));
     }
 
     pub fn add_to_first(&mut self, x: i32, y: i32, z: i32, block: &Arc<BlockData>) {
-        self.elements.push_front(BlockStatePos::new(
-            BlockPos { x, y, z },
-            block.clone()
-        ));
+        self.elements
+            .push_front(BlockStatePos::new(BlockPos { x, y, z }, block.clone()));
     }
 
     pub fn remove(&mut self, target: &BlockStatePos) -> bool {
@@ -100,5 +99,4 @@ impl BlockStatePosList {
             None
         }
     }
-
 }

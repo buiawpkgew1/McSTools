@@ -1,6 +1,6 @@
+use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::sync::Arc;
-use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct VersionData {
@@ -627,8 +627,10 @@ impl VersionData {
                 }
             }
         }
-        Self { name_to_id, id_to_name }
-        
+        Self {
+            name_to_id,
+            id_to_name,
+        }
     }
     pub fn get_id(&self, name: &str) -> Option<i32> {
         self.name_to_id.get(name).copied()

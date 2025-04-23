@@ -1,12 +1,12 @@
-use std::collections::{BTreeMap, HashMap, VecDeque};
-use std::sync::Arc;
-use std::sync::atomic::{AtomicI32, Ordering};
-use fastnbt::Value;
-use fastnbt::Value::Compound;
-use rayon::iter::ParallelIterator;
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos};
 use crate::utils::schematic_data::{SchematicData, SchematicError};
-use rayon::iter::{IntoParallelRefIterator};
+use fastnbt::Value;
+use fastnbt::Value::Compound;
+use rayon::iter::IntoParallelRefIterator;
+use rayon::iter::ParallelIterator;
+use std::collections::{BTreeMap, HashMap, VecDeque};
+use std::sync::atomic::{AtomicI32, Ordering};
+use std::sync::Arc;
 #[derive(Debug)]
 pub struct ToWeSchematic {
     blocks: VecDeque<BlockStatePos>,
@@ -29,8 +29,16 @@ impl ToWeSchematic {
         }
         let (min, max) = blocks.iter().fold(
             (
-                BlockPos { x: i32::MAX, y: i32::MAX, z: i32::MAX },
-                BlockPos { x: i32::MIN, y: i32::MIN, z: i32::MIN },
+                BlockPos {
+                    x: i32::MAX,
+                    y: i32::MAX,
+                    z: i32::MAX,
+                },
+                BlockPos {
+                    x: i32::MIN,
+                    y: i32::MIN,
+                    z: i32::MIN,
+                },
             ),
             |(mut min, mut max), bp| {
                 min.x = min.x.min(bp.pos.x);
@@ -52,10 +60,12 @@ impl ToWeSchematic {
             let mut unique = Vec::new();
             let mut index_map = HashMap::new();
             let air = Arc::new(BlockData {
-                id: BlockId { name: Arc::from("minecraft:air") },
+                id: BlockId {
+                    name: Arc::from("minecraft:air"),
+                },
                 properties: BTreeMap::new(),
             });
-            
+
             for block_pos in &block_list.elements {
                 let block_data = block_pos.block.clone();
 
@@ -76,7 +86,6 @@ impl ToWeSchematic {
 
             let air_index = *seen.get(&air).unwrap();
 
-
             (unique, index_map, air_index)
         };
 
@@ -96,9 +105,8 @@ impl ToWeSchematic {
     pub fn get_block_id_list(&self) -> Vec<i32> {
         let total_blocks = (self.length * self.width * self.height) as usize;
         let air_index = self.air_index as i32;
-        let atomic_block_list: Vec<AtomicI32> = (0..total_blocks)
-            .map(|_| AtomicI32::new(0))
-            .collect();
+        let atomic_block_list: Vec<AtomicI32> =
+            (0..total_blocks).map(|_| AtomicI32::new(0)).collect();
         let atomic_block_list = Arc::new(atomic_block_list);
 
         self.blocks.par_iter().for_each(|block| {
@@ -106,18 +114,16 @@ impl ToWeSchematic {
             let dy = block.pos.y - self.start_pos.y;
             let dz = block.pos.z - self.start_pos.z;
 
-            let id = (dy * self.width * self.length)
-                + (dz * self.width)
-                + dx;
+            let id = (dy * self.width * self.length) + (dz * self.width) + dx;
 
             if id >= 0 && (id as usize) < atomic_block_list.len() {
-                let state_id = self.block_state_to_index
+                let state_id = self
+                    .block_state_to_index
                     .get(&block.block)
                     .map(|v| *v as i32)
                     .unwrap_or(air_index);
 
-                atomic_block_list[id as usize]
-                    .store(state_id, Ordering::Relaxed);
+                atomic_block_list[id as usize].store(state_id, Ordering::Relaxed);
             }
         });
 
@@ -189,7 +195,10 @@ impl ToWeSchematic {
         match type_version {
             0 => {
                 let mut nbt = HashMap::new();
-                nbt.insert("PaletteMax".to_string(), Value::Int(self.unique_block_states.len() as i32));
+                nbt.insert(
+                    "PaletteMax".to_string(),
+                    Value::Int(self.unique_block_states.len() as i32),
+                );
                 nbt.insert("Version".to_string(), Value::Int(2));
                 nbt.insert("Length".to_string(), Value::Short(self.length as i16));
                 nbt.insert("Height".to_string(), Value::Short(self.height as i16));
@@ -197,17 +206,23 @@ impl ToWeSchematic {
                 nbt.insert("DataVersion".to_string(), Value::Int(3465));
                 nbt.insert("Palette".to_string(), self.we_palette());
                 let bytes_array = self.decode_to_bytes();
-                nbt.insert("BlockData".to_string(), Value::ByteArray(fastnbt::ByteArray::new(bytes_array)));
+                nbt.insert(
+                    "BlockData".to_string(),
+                    Value::ByteArray(fastnbt::ByteArray::new(bytes_array)),
+                );
                 nbt.insert("BlockEntities".to_string(), Value::List(Vec::new()));
                 Ok(Compound(nbt))
-            },
+            }
             1 => {
                 let mut nbt = HashMap::new();
                 let mut schematic = HashMap::new();
                 let mut blocks = HashMap::new();
                 blocks.insert("Palette".to_string(), self.we_palette());
                 let bytes_array = self.decode_to_bytes();
-                blocks.insert("BlockData".to_string(), Value::ByteArray(fastnbt::ByteArray::new(bytes_array)));
+                blocks.insert(
+                    "BlockData".to_string(),
+                    Value::ByteArray(fastnbt::ByteArray::new(bytes_array)),
+                );
                 blocks.insert("BlockEntities".to_string(), Value::List(Vec::new()));
                 schematic.insert("Blocks".to_string(), Compound(blocks));
                 schematic.insert("Version".to_string(), Value::Int(3));
@@ -217,10 +232,8 @@ impl ToWeSchematic {
                 schematic.insert("DataVersion".to_string(), Value::Int(3465));
                 nbt.insert("Schematic".to_string(), Compound(schematic));
                 Ok(Compound(nbt))
-
             }
-            _ => {Err(SchematicError::InvalidFormat("?"))}
+            _ => Err(SchematicError::InvalidFormat("?")),
         }
-
     }
 }

@@ -1,11 +1,12 @@
-use std::collections::HashMap;
-use std::sync::Arc;
+use crate::utils::block_state_pos_list::BlockData;
 use fastnbt::Value;
 use serde::{Deserialize, Serialize};
-use crate::utils::block_state_pos_list::{BlockData};
+use std::collections::HashMap;
+use std::sync::Arc;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct WeMetadata { //we蓝图 metadata参数较为自由暂时弃用
+pub struct WeMetadata {
+    //we蓝图 metadata参数较为自由暂时弃用
     pub(crate) we_offset_x: i64,
     pub(crate) we_offset_y: i64,
     pub(crate) we_offset_z: String,

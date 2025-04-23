@@ -1,11 +1,11 @@
-use std::collections::HashMap;
-use std::sync::Arc;
-use serde::{Deserialize, Serialize};
 use crate::utils::block_state_pos_list::{BlockId, BlockStatePosList};
+use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 use crate::utils::schematic_data::SchematicError;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
-use crate::utils::minecraft_data::je_blocks_data::BlocksData;
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+use std::sync::Arc;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Requirements {
@@ -82,22 +82,23 @@ impl RequirementStr {
     }
 
     pub fn export_to_string(&self) -> Result<String, SchematicError> {
-        let converted: HashMap<String, &BlockData> = self.requirements
+        let converted: HashMap<String, &BlockData> = self
+            .requirements
             .iter()
             .map(|(k, v)| (k.name.to_string(), v))
             .collect();
 
-        serde_json::to_string(&converted)
-            .map_err(SchematicError::Json)
+        serde_json::to_string(&converted).map_err(SchematicError::Json)
     }
 
     pub fn from_requirements(req: &Requirements, data: &BlocksData) -> Self {
         let mut map = HashMap::new();
 
         for (block_id, &count) in req.get_requirements() {
-            let zh_cn = data.get_zh_cn(&block_id.name.replace("minecraft:", ""))
+            let zh_cn = data
+                .get_zh_cn(&block_id.name.replace("minecraft:", ""))
                 .map(|s| s.to_owned())
-                .unwrap_or_else(|| block_id.name.to_string()); 
+                .unwrap_or_else(|| block_id.name.to_string());
 
             map.insert(
                 block_id.clone(),
@@ -119,7 +120,8 @@ impl RequirementStr {
 
 pub fn get_requirements(blocks: &BlockStatePosList) -> Result<Requirements, SchematicError> {
     let air = Arc::from("minecraft:air");
-    let requirements_map = blocks.elements
+    let requirements_map = blocks
+        .elements
         .par_iter()
         .fold(
             || HashMap::new(),
@@ -131,7 +133,7 @@ pub fn get_requirements(blocks: &BlockStatePosList) -> Result<Requirements, Sche
                 let block_id = data.id.clone();
                 *acc.entry(block_id).or_insert(0) += 1;
                 acc
-            }
+            },
         )
         .reduce(
             || HashMap::new(),
@@ -140,10 +142,10 @@ pub fn get_requirements(blocks: &BlockStatePosList) -> Result<Requirements, Sche
                     *a.entry(k).or_insert(0) += v;
                 }
                 a
-            }
+            },
         );
 
     Ok(Requirements {
-        requirements: requirements_map
+        requirements: requirements_map,
     })
 }

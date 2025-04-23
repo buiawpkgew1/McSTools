@@ -2,33 +2,35 @@
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
-pub mod utils;
-pub mod litematica;
-pub mod create;
-mod building_gadges;
 mod be_schematic;
-mod word_edit;
+mod building_gadges;
+pub mod create;
 mod data_files;
 mod database;
+pub mod litematica;
 mod modules;
-use utils::minecraft_data::versions_data::VersionData;
-use tauri::Manager;
-use data_files::{config, config::get_config, config::update_config, files::FileManager};
+pub mod utils;
+mod word_edit;
 use crate::database::db_control;
-use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
-use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics, get_requirements};
-use database::db_apis::logs_api::{add_logs, get_logs};
-use database::db_apis::user_api::{get_user_data};
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
+use data_files::{config, config::get_config, config::update_config, files::FileManager};
+use database::db_apis::logs_api::{add_logs, get_logs};
+use database::db_apis::schematics_api::{
+    add_schematic, get_requirements, get_schematic, get_schematics,
+};
+use database::db_apis::user_api::get_user_data;
+use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
+use tauri::Manager;
+use utils::minecraft_data::versions_data::VersionData;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
         .setup(|app| {
             let db_state = db_control::init_db(app.handle())?;
             app.manage(db_state);
-            let config = config::init_config(app.handle())
-                .expect("配置系统初始化失败");
+            let config = config::init_config(app.handle()).expect("配置系统初始化失败");
             app.manage(config);
             let file_manager = FileManager::new(app.handle())?;
             app.manage(file_manager);

@@ -1,12 +1,12 @@
-use serde::{Deserialize, Serialize};
-use thiserror::Error;
-use std::io::{Error as IoError};
-use crate::utils::block_state_pos_list::{BlockStatePosList};
+use crate::utils::block_state_pos_list::BlockStatePosList;
 use crate::utils::tile_entities::TileEntitiesList;
-use serde_json::{Error as JsonError};
-use regex::Error as RegexError;
 use flate2::CompressError;
 use flate2::DecompressError;
+use regex::Error as RegexError;
+use serde::{Deserialize, Serialize};
+use serde_json::Error as JsonError;
+use std::io::Error as IoError;
+use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum SchematicError {
@@ -37,7 +37,7 @@ pub enum SchematicError {
     #[error("Type")]
     TypeMismatch {
         expected: &'static str,
-        actual: String
+        actual: String,
     },
     #[error("Missing required field: {0}")]
     MissingField(String),
@@ -53,11 +53,19 @@ pub struct Size {
 pub struct SchematicData {
     pub blocks: BlockStatePosList,
     pub tile_entities_list: TileEntitiesList,
-    pub size: Size
+    pub size: Size,
 }
 
 impl SchematicData {
-    pub fn new(blocks: BlockStatePosList, tile_entities_list: TileEntitiesList, size: Size) -> Self {
-        Self { blocks, tile_entities_list, size }
+    pub fn new(
+        blocks: BlockStatePosList,
+        tile_entities_list: TileEntitiesList,
+        size: Size,
+    ) -> Self {
+        Self {
+            blocks,
+            tile_entities_list,
+            size,
+        }
     }
 }

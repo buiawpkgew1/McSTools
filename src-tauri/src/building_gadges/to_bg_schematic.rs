@@ -1,14 +1,14 @@
-use std::collections::{BTreeMap, HashMap, VecDeque};
-use std::sync::Arc;
-use std::sync::atomic::{AtomicI32, Ordering};
-use fastnbt::Value;
-use fastsnbt::to_string;
-use fastnbt::Value::Compound;
-use rayon::iter::IntoParallelRefIterator;
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos};
 use crate::utils::schematic_data::{SchematicData, SchematicError};
+use fastnbt::Value;
+use fastnbt::Value::Compound;
+use fastsnbt::to_string;
+use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
 use serde_json::{json, Value as JsonValue};
+use std::collections::{BTreeMap, HashMap, VecDeque};
+use std::sync::atomic::{AtomicI32, Ordering};
+use std::sync::Arc;
 #[derive(Debug)]
 pub struct ToBgSchematic {
     blocks: VecDeque<BlockStatePos>,
@@ -31,8 +31,16 @@ impl ToBgSchematic {
         }
         let (min, max) = blocks.iter().fold(
             (
-                BlockPos { x: i32::MAX, y: i32::MAX, z: i32::MAX },
-                BlockPos { x: i32::MIN, y: i32::MIN, z: i32::MIN },
+                BlockPos {
+                    x: i32::MAX,
+                    y: i32::MAX,
+                    z: i32::MAX,
+                },
+                BlockPos {
+                    x: i32::MIN,
+                    y: i32::MIN,
+                    z: i32::MIN,
+                },
             ),
             |(mut min, mut max), bp| {
                 min.x = min.x.min(bp.pos.x);
@@ -54,7 +62,9 @@ impl ToBgSchematic {
             let mut unique = Vec::new();
             let mut index_map = HashMap::new();
             let air = Arc::new(BlockData {
-                id: BlockId { name: Arc::from("minecraft:air") },
+                id: BlockId {
+                    name: Arc::from("minecraft:air"),
+                },
                 properties: BTreeMap::new(),
             });
 
@@ -77,7 +87,6 @@ impl ToBgSchematic {
             }
 
             let air_index = *seen.get(&air).unwrap();
-
 
             (unique, index_map, air_index)
         };
@@ -119,9 +128,8 @@ impl ToBgSchematic {
     pub fn get_block_id_list(&self) -> Vec<i32> {
         let total_blocks = (self.length * self.width * self.height) as usize;
         let air_index = self.air_index as i32;
-        let atomic_block_list: Vec<AtomicI32> = (0..total_blocks)
-            .map(|_| AtomicI32::new(0))
-            .collect();
+        let atomic_block_list: Vec<AtomicI32> =
+            (0..total_blocks).map(|_| AtomicI32::new(0)).collect();
         let atomic_block_list = Arc::new(atomic_block_list);
 
         self.blocks.par_iter().for_each(|block| {
@@ -129,18 +137,16 @@ impl ToBgSchematic {
             let dy = block.pos.y - self.start_pos.y;
             let dz = block.pos.z - self.start_pos.z;
 
-            let id = (dy * self.width * self.length)
-                + (dz * self.width)
-                + dx;
+            let id = (dy * self.width * self.length) + (dz * self.width) + dx;
 
             if id >= 0 && (id as usize) < atomic_block_list.len() {
-                let state_id = self.block_state_to_index
+                let state_id = self
+                    .block_state_to_index
                     .get(&block.block)
                     .map(|v| *v as i32)
                     .unwrap_or(air_index);
 
-                atomic_block_list[id as usize]
-                    .store(state_id, Ordering::Relaxed);
+                atomic_block_list[id as usize].store(state_id, Ordering::Relaxed);
             }
         });
 
@@ -151,7 +157,7 @@ impl ToBgSchematic {
             .collect()
     }
 
-    pub fn state_pos_array_list(&self) -> Result<String, SchematicError>  {
+    pub fn state_pos_array_list(&self) -> Result<String, SchematicError> {
         let mut region = HashMap::new();
         let int_array: Vec<i32> = self.get_block_id_list();
         region.insert("blockstatemap".to_string(), self.bg_palette());
@@ -165,11 +171,14 @@ impl ToBgSchematic {
         start_pos.insert("Y".to_string(), Value::Int(self.start_pos.y));
         start_pos.insert("Z".to_string(), Value::Int(self.start_pos.z));
         region.insert("startpos".to_string(), Compound(start_pos));
-        region.insert("statelist".to_string(), Value::IntArray(fastnbt::IntArray::new(int_array)));
+        region.insert(
+            "statelist".to_string(),
+            Value::IntArray(fastnbt::IntArray::new(int_array)),
+        );
         Ok(to_string(&region)?)
     }
 
-    pub fn bg_schematic(&self) -> Result<JsonValue, SchematicError>  {
+    pub fn bg_schematic(&self) -> Result<JsonValue, SchematicError> {
         let state_pos_array_list = self.state_pos_array_list()?;
         let dynamic_json = json!({
             "name": "null",

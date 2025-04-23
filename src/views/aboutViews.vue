@@ -10,7 +10,7 @@ import fav from  "../static/img/fav512.png"
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2">
           <v-toolbar-title>
             <v-icon icon="mdi-information-outline" class="mr-2"></v-icon>
-            <span class="text-h6">关于本站</span>
+            <span class="text-h6">关于</span>
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text>

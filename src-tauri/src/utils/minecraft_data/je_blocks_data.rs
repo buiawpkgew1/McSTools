@@ -1,7 +1,7 @@
+use anyhow::{Context, Result};
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::fs;
-use anyhow::{Context, Result};
 
 #[derive(Debug, Deserialize)]
 struct RawBlock {
@@ -33,7 +33,7 @@ pub struct BlocksData {
 impl BlocksData {
     pub fn new() -> Result<BlocksData> {
         let path = "./data/je_blocks.json";
-        let str =fs::read_to_string(path)?;
+        let str = fs::read_to_string(path)?;
         Ok(Self::parse(str.as_str())?)
     }
     pub fn parse(json: &str) -> Result<Self> {
@@ -65,7 +65,10 @@ impl BlocksData {
             });
         }
 
-        Ok(BlocksData { blocks, block_to_cn })
+        Ok(BlocksData {
+            blocks,
+            block_to_cn,
+        })
     }
 
     pub fn get_zh_cn(&self, block_name: &str) -> Option<&str> {

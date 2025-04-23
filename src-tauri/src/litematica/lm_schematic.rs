@@ -1,16 +1,16 @@
+use crate::litematica::lm_schematic_data::{LmMetadata, RegionData, RegionList, RegionNameList};
+use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
 use crate::utils::extend_value::NbtExt;
+use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
+use crate::utils::tile_entities::TileEntitiesList;
+use fastnbt::Value;
+use fastnbt::Value::Compound;
+use flate2::read::GzDecoder;
+use rayon::prelude::*;
 use std::collections::{BTreeMap, HashMap};
 use std::fs::File;
-use flate2::read::GzDecoder;
-use fastnbt::{Value};
 use std::io::{BufReader, Cursor};
-use std::sync::{Arc};
-use fastnbt::Value::Compound;
-use crate::litematica::lm_schematic_data::{LmMetadata, RegionData, RegionList, RegionNameList};
-use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
-use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
-use crate::utils::tile_entities::TileEntitiesList;
-use rayon::prelude::*;
+use std::sync::Arc;
 use tauri::http::Version;
 
 #[derive(Debug)]
@@ -44,7 +44,7 @@ impl LmSchematic {
             Err(SchematicError::InvalidFormat("Root is not a Compound"))
         }
     }
-    
+
     pub fn get_data_version(&self) -> Result<i32, SchematicError> {
         let Compound(root) = &self.nbt else {
             return Err(SchematicError::InvalidFormat("Root is not a Compound"));
@@ -58,9 +58,11 @@ impl LmSchematic {
             root.get("Metadata")
                 .and_then(|v| match v {
                     Compound(list) => Some(list),
-                    _ => None
+                    _ => None,
                 })
-                .ok_or(SchematicError::InvalidFormat("NotFound Size is not a IntArray"))
+                .ok_or(SchematicError::InvalidFormat(
+                    "NotFound Size is not a IntArray",
+                ))
         } else {
             Err(SchematicError::InvalidFormat("Root is not a Compound"))
         }
@@ -71,9 +73,11 @@ impl LmSchematic {
             root.get("Regions")
                 .and_then(|v| match v {
                     Compound(list) => Some(list),
-                    _ => None
+                    _ => None,
                 })
-                .ok_or(SchematicError::InvalidFormat("NotFound Size is not a IntArray"))
+                .ok_or(SchematicError::InvalidFormat(
+                    "NotFound Size is not a IntArray",
+                ))
         } else {
             Err(SchematicError::InvalidFormat("Root is not a Compound"))
         }
@@ -113,7 +117,7 @@ impl LmSchematic {
         for (name, region_value) in regions {
             let region = match region_value {
                 Compound(r) => r,
-                _ => return Err(SchematicError::InvalidFormat("null"))
+                _ => return Err(SchematicError::InvalidFormat("null")),
             };
             let block_states = region.get_long_array("BlockStates")?;
             let position = region.get_pos("Position")?;
@@ -143,13 +147,17 @@ impl LmSchematic {
         Ok((regions_list, regions_name_list))
     }
 
-    pub fn parse_palette(&self, palette_list: &[Value]) -> Result<Vec<Arc<BlockData>>, SchematicError> {
+    pub fn parse_palette(
+        &self,
+        palette_list: &[Value],
+    ) -> Result<Vec<Arc<BlockData>>, SchematicError> {
         let mut palette = Vec::with_capacity(palette_list.len());
         for entry in palette_list {
             let Compound(root) = entry else {
                 return Err(SchematicError::InvalidFormat("Root is not a Compound"));
             };
-            let name = root.get("Name")
+            let name = root
+                .get("Name")
                 .and_then(Value::as_str)
                 .map(|s| Arc::<str>::from(s))
                 .unwrap_or_else(|| Arc::from("minecraft:air"));
@@ -157,10 +165,8 @@ impl LmSchematic {
             if let Some(Compound(prop_map)) = root.get("Properties") {
                 for (k, v) in prop_map {
                     if let Value::String(s) = v {
-                        properties.insert(
-                            Arc::<str>::from(k.as_str()),
-                            Arc::<str>::from(s.as_str())
-                        );
+                        properties
+                            .insert(Arc::<str>::from(k.as_str()), Arc::<str>::from(s.as_str()));
                     }
                 }
             }
@@ -200,7 +206,15 @@ impl LmSchematic {
         y * (x_size * z_size) + z * x_size + x
     }
 
-    pub fn get_block_state(&self, x: i32, y: i32, z: i32, size: BlockPos, bits: i32, long_array: &[i64]) -> i32 {
+    pub fn get_block_state(
+        &self,
+        x: i32,
+        y: i32,
+        z: i32,
+        size: BlockPos,
+        bits: i32,
+        long_array: &[i64],
+    ) -> i32 {
         let index = self.get_index(x, y, z, size) as i64;
         self.get_at(index, bits, long_array)
     }
@@ -210,10 +224,12 @@ impl LmSchematic {
         let tile_entities = TileEntitiesList::default();
         let metadata = self.read_metadata()?;
         let size = metadata.enclosing_size;
-        let region_blocks: Vec<BlockStatePosList> = regions_name_list.names
+        let region_blocks: Vec<BlockStatePosList> = regions_name_list
+            .names
             .par_iter()
             .map(|name| {
-                let region = regions_list.get(name)
+                let region = regions_list
+                    .get(name)
                     .ok_or_else(|| SchematicError::MissingField(name.clone()))?;
 
                 let palette = self.parse_palette(&region.block_state_palette)?;
@@ -238,14 +254,14 @@ impl LmSchematic {
                                     z as i32,
                                     size,
                                     bits,
-                                    &block_states
+                                    &block_states,
                                 ) as usize;
                                 let block_data = &palette[state_id];
                                 local_blocks.add_by_pos(
                                     x as i32 + position.x,
                                     y as i32 + position.y,
                                     z as i32 + position.z,
-                                    block_data.clone()
+                                    block_data.clone(),
                                 );
                             }
                         }
@@ -253,21 +269,31 @@ impl LmSchematic {
                     })
                     .collect();
 
-                Ok(y_blocks.into_iter().fold(BlockStatePosList::default(), |mut acc, blocks| {
-                    acc.merge(blocks);
-                    acc
-                }))
+                Ok(y_blocks
+                    .into_iter()
+                    .fold(BlockStatePosList::default(), |mut acc, blocks| {
+                        acc.merge(blocks);
+                        acc
+                    }))
             })
             .collect::<Result<Vec<_>, SchematicError>>()?;
 
-        let final_block_list = region_blocks.into_iter().fold(
-            BlockStatePosList::default(),
-            |mut acc, blocks| {
-                acc.merge(blocks);
-                acc
-            }
-        );
+        let final_block_list =
+            region_blocks
+                .into_iter()
+                .fold(BlockStatePosList::default(), |mut acc, blocks| {
+                    acc.merge(blocks);
+                    acc
+                });
 
-        Ok(SchematicData::new(final_block_list, tile_entities, Size{width:size.x, height:size.y, length:size.z}))
+        Ok(SchematicData::new(
+            final_block_list,
+            tile_entities,
+            Size {
+                width: size.x,
+                height: size.y,
+                length: size.z,
+            },
+        ))
     }
 }

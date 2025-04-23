@@ -1,6 +1,6 @@
+use crate::utils::block_state_pos_list::BlockPos;
+use fastnbt::Value;
 use serde::{Deserialize, Serialize};
-use crate::utils::block_state_pos_list::{BlockPos};
-use fastnbt::{Value};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TileEntities {

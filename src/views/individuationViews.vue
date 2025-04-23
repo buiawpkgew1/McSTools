@@ -4,7 +4,7 @@ import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {onBeforeRouteLeave} from "vue-router";
 
 const opacity = ref(0.8)
-const selectedTheme = ref('blue')
+const selectedTheme = ref('grey')
 const backgroundImage = ref('/default-bg.jpg');
 const backgroundOpacity = ref(0.9);
 const layoutMode = ref('cover');
@@ -24,6 +24,7 @@ const refreshBackground = () => {
   console.log('刷新背景图片');
 };
 const themes = [
+  { label: '默认灰白', value: 'grey', color: 'bg-blue-grey-lighten-5', icon: 'mdi-weather-sunny' },
   { label: '蔚蓝主题', value: 'blue', color: 'blue-darken-2', icon: 'mdi-weather-sunny' },
   { label: '深蓝之夜', value: 'dark-blue', color: 'indigo-darken-3', icon: 'mdi-moon-waning-crescent' },
   { label: '清新绿意', value: 'green', color: 'teal-darken-2', icon: 'mdi-leaf' },
@@ -51,7 +52,7 @@ onBeforeRouteLeave(navigationGuard)
           </v-toolbar>
 
           <v-card-text class="pa-6">
-            <v-card variant="flat" class="mb-6 bg-blue-grey-lighten-5">
+            <v-card variant="flat" class="mb-3 bg-blue-grey-lighten-5">
               <v-card-text>
                 <v-row align="center">
                   <v-col cols="2">
@@ -94,25 +95,30 @@ onBeforeRouteLeave(navigationGuard)
                   </v-col>
                   <v-col cols="10">
                     <div class="d-flex flex-wrap gap-3">
-                      <v-radio
-                          v-for="theme in themes"
-                          :key="theme.value"
+                      <v-radio-group
                           v-model="selectedTheme"
-                          :value="theme.value"
+                          inline
                           hide-details
                       >
-                        <template v-slot:label>
-                          <v-chip
-                              :color="theme.color"
-                              label
-                              :variant="selectedTheme === theme.value ? 'elevated' : 'outlined'"
-                              class="ma-2"
-                          >
-                            <v-icon left :icon="theme.icon"></v-icon>
-                            {{ theme.label }}
-                          </v-chip>
-                        </template>
-                      </v-radio>
+                        <v-radio
+                            v-for="theme in themes"
+                            :key="theme.value"
+                            :color="theme.color"
+                            :v-model="selectedTheme"
+                            :value="theme.value"
+                        >
+                          <template v-slot:label>
+                            <v-chip
+                                :color="theme.color"
+                                :variant="selectedTheme === theme.value ? 'elevated' : 'outlined'"
+                                class="ma-1"
+                            >
+                              <v-icon left :icon="theme.icon"></v-icon>
+                              {{ theme.label }}
+                            </v-chip>
+                          </template>
+                        </v-radio>
+                      </v-radio-group>
                     </div>
                   </v-col>
                 </v-row>
@@ -161,65 +167,72 @@ onBeforeRouteLeave(navigationGuard)
               </v-btn>
             </v-col>
           </v-row>
-
-          <v-row align="center" class="mb-4">
-            <v-col cols="2" class="d-flex align-center">
-              <v-icon icon="mdi-opacity" class="mr-2"></v-icon>
-              <span>透明度</span>
-            </v-col>
-            <v-col cols="10">
-              <div class="d-flex align-center">
-                <v-slider
-                    v-model="opacity"
-                    :max="1"
-                    :min="0.2"
-                    thumb-label
-                    track-color="blue-grey-lighten-3"
-                    color="blue-darken-2"
-                    class="mr-4"
-                ></v-slider>
-                <v-chip
-                    color="blue-darken-2"
-                    label
-                    class="text-white"
-                >
-                  {{ Math.round(opacity * 100) }}%
-                </v-chip>
-              </div>
-            </v-col>
-          </v-row>
-
-          <!-- 布局方式设置 -->
-          <v-row align="center">
-            <v-col cols="3" class="d-flex align-center">
-              <v-icon icon="mdi-image-area" class="mr-2"></v-icon>
-              <span>布局方式</span>
-            </v-col>
-            <v-col cols="9">
-              <v-radio-group
-                  v-model="layoutMode"
-                  inline
-                  hide-details
-              >
-                <v-radio
-                    v-for="mode in layoutModes"
-                    :key="mode.value"
-                    :value="mode.value"
-                    :color="mode.color"
-                >
-                  <template v-slot:label>
+          <v-card variant="flat" class="bg-blue-grey-lighten-5 mb-3">
+            <v-card-text class="pa-6">
+              <v-row align="center" >
+                <v-col cols="2" class="d-flex align-center">
+                  <v-icon icon="mdi-opacity" class="mr-2"></v-icon>
+                  <span>透明度</span>
+                </v-col>
+                <v-col cols="10">
+                  <div class="d-flex align-center">
+                    <v-slider
+                        v-model="opacity"
+                        :max="1"
+                        :min="0.2"
+                        thumb-label
+                        track-color="blue-grey-lighten-3"
+                        color="blue-darken-2"
+                        class="mr-4"
+                    ></v-slider>
                     <v-chip
-                        :color="mode.color"
-                        :variant="layoutMode === mode.value ? 'elevated' : 'outlined'"
-                        class="ma-1"
+                        color="blue-darken-2"
+                        label
+                        class="text-white"
                     >
-                      {{ mode.label }}
+                      {{ Math.round(opacity * 100) }}%
                     </v-chip>
-                  </template>
-                </v-radio>
-              </v-radio-group>
-            </v-col>
-          </v-row>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+
+          <v-card variant="flat" class="bg-blue-grey-lighten-5 mb-2">
+            <v-card-text class="pa-6">
+              <v-row align="center">
+                <v-col cols="2" class="d-flex align-center">
+                  <v-icon icon="mdi-image-area" class="mr-2"></v-icon>
+                  <span>布局方式</span>
+                </v-col>
+                <v-col cols="10">
+                  <v-radio-group
+                      v-model="layoutMode"
+                      inline
+                      hide-details
+                  >
+                    <v-radio
+                        v-for="mode in layoutModes"
+                        :key="mode.value"
+                        :value="mode.value"
+                        :color="mode.color"
+                    >
+                      <template v-slot:label>
+                        <v-chip
+                            :color="mode.color"
+                            :variant="layoutMode === mode.value ? 'elevated' : 'outlined'"
+                            class="ma-1"
+                        >
+                          {{ mode.label }}
+                        </v-chip>
+                      </template>
+                    </v-radio>
+                  </v-radio-group>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+
         </v-card-text>
       </v-card>
     </v-col>

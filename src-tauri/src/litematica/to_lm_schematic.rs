@@ -1,14 +1,16 @@
-use std::collections::{BTreeMap, HashMap, VecDeque};
-use std::sync::Arc;
-use std::sync::atomic::{AtomicI32, AtomicU64, Ordering};
-use fastnbt::{Value};
+use crate::utils::block_state_pos_list::{
+    BlockData, BlockId, BlockPos, BlockStatePos, BlockStatePosList,
+};
+use crate::utils::schematic_data::SchematicData;
+use fastnbt::Value;
 use fastnbt::Value::Compound;
+use rayon::iter::IndexedParallelIterator;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
-use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos, BlockStatePosList};
-use crate::utils::schematic_data::SchematicData;
-use rayon::iter::IndexedParallelIterator;
 use rayon::prelude::*;
+use std::collections::{BTreeMap, HashMap, VecDeque};
+use std::sync::atomic::{AtomicI32, AtomicU64, Ordering};
+use std::sync::Arc;
 #[derive(Debug)]
 pub struct ToLmSchematic {
     blocks: VecDeque<BlockStatePos>,
@@ -32,7 +34,8 @@ impl ToLmSchematic {
                 panic!("Block list cannot be empty");
             }
 
-            let global_min = elements.par_iter()
+            let global_min = elements
+                .par_iter()
                 .with_min_len(1_000_000)
                 .fold(
                     || BlockPos {
@@ -68,21 +71,20 @@ impl ToLmSchematic {
             }
         };
         let size = schematic.size;
-        let max = BlockPos{
+        let max = BlockPos {
             x: min.x + size.width + 1,
             y: min.y + size.height,
             z: min.z + size.length + 1,
         };
 
         let air = Arc::new(BlockData {
-            id: BlockId { name: Arc::from("minecraft:air") },
+            id: BlockId {
+                name: Arc::from("minecraft:air"),
+            },
             properties: BTreeMap::new(),
         });
-        let capacity = ((max.y - min.y) as usize) * (
-            ((max.z - min.z) * 2) +
-                ((max.x - min.x) * 2) +
-                4
-        ) as usize;
+        let capacity = ((max.y - min.y) as usize)
+            * (((max.z - min.z) * 2) + ((max.x - min.x) * 2) + 4) as usize;
 
         block_list.reserve_front(capacity);
 
@@ -90,8 +92,7 @@ impl ToLmSchematic {
             .into_par_iter()
             .flat_map(|y| {
                 let mut positions = Vec::with_capacity(
-                    (max.z - min.z) as usize * 2 +
-                        (max.x - min.x) as usize * 2 + 4
+                    (max.z - min.z) as usize * 2 + (max.x - min.x) as usize * 2 + 4,
                 );
 
                 for z in min.z..max.z {
@@ -163,9 +164,8 @@ impl ToLmSchematic {
     pub fn get_block_id_list(&self) -> Vec<i32> {
         let total_blocks = (self.length * self.width * self.height) as usize;
 
-        let atomic_block_list: Vec<AtomicI32> = (0..total_blocks)
-            .map(|_| AtomicI32::new(0))
-            .collect();
+        let atomic_block_list: Vec<AtomicI32> =
+            (0..total_blocks).map(|_| AtomicI32::new(0)).collect();
         let atomic_block_list = Arc::new(atomic_block_list);
 
         self.blocks.par_iter().for_each(|block| {
@@ -173,18 +173,16 @@ impl ToLmSchematic {
             let dy = block.pos.y - self.start_pos.y;
             let dz = block.pos.z - self.start_pos.z;
 
-            let id = (dy * self.width * self.length)
-                + (dz * self.width)
-                + dx;
+            let id = (dy * self.width * self.length) + (dz * self.width) + dx;
 
             if id >= 0 && (id as usize) < atomic_block_list.len() {
-                let state_id = self.block_state_to_index
+                let state_id = self
+                    .block_state_to_index
                     .get(&block.block)
                     .map(|v| *v as i32)
                     .unwrap_or(0);
 
-                atomic_block_list[id as usize]
-                    .store(state_id, Ordering::Relaxed);
+                atomic_block_list[id as usize].store(state_id, Ordering::Relaxed);
             }
         });
 
@@ -200,38 +198,39 @@ impl ToLmSchematic {
         let total_bits = state_ids.len() * bits;
         let longs_needed = (total_bits + 63) / 64;
 
-        let long_array: Vec<AtomicU64> = (0..longs_needed)
-            .map(|_| AtomicU64::new(0))
-            .collect();
+        let long_array: Vec<AtomicU64> = (0..longs_needed).map(|_| AtomicU64::new(0)).collect();
         let long_array = Arc::new(long_array);
 
-        state_ids.par_iter().enumerate().for_each(|(index, &state_id)| {
-            let state = state_id as u64;
-            let start_bit = index * bits;
-            let start_long_index = start_bit / 64;
-            let start_bit_offset = (start_bit % 64) as u32;
-            let end_bit = start_bit + bits - 1;
-            let end_long_index = end_bit / 64;
+        state_ids
+            .par_iter()
+            .enumerate()
+            .for_each(|(index, &state_id)| {
+                let state = state_id as u64;
+                let start_bit = index * bits;
+                let start_long_index = start_bit / 64;
+                let start_bit_offset = (start_bit % 64) as u32;
+                let end_bit = start_bit + bits - 1;
+                let end_long_index = end_bit / 64;
 
-            let mask = (1u64).wrapping_shl(bits as u32).wrapping_sub(1);
-            let masked_state = state & mask;
+                let mask = (1u64).wrapping_shl(bits as u32).wrapping_sub(1);
+                let masked_state = state & mask;
 
-            let long_array = Arc::clone(&long_array);
+                let long_array = Arc::clone(&long_array);
 
-            if start_long_index == end_long_index {
-                let value = masked_state << start_bit_offset;
-                long_array[start_long_index].fetch_or(value, Ordering::Relaxed);
-            } else {
-                let bits_in_first = 64 - start_bit_offset;
-                let part1 = masked_state << start_bit_offset;
-                let part2 = masked_state >> bits_in_first;
+                if start_long_index == end_long_index {
+                    let value = masked_state << start_bit_offset;
+                    long_array[start_long_index].fetch_or(value, Ordering::Relaxed);
+                } else {
+                    let bits_in_first = 64 - start_bit_offset;
+                    let part1 = masked_state << start_bit_offset;
+                    let part2 = masked_state >> bits_in_first;
 
-                long_array[start_long_index].fetch_or(part1, Ordering::Relaxed);
-                if end_long_index < longs_needed {
-                    long_array[end_long_index].fetch_or(part2, Ordering::Relaxed);
+                    long_array[start_long_index].fetch_or(part1, Ordering::Relaxed);
+                    if end_long_index < longs_needed {
+                        long_array[end_long_index].fetch_or(part2, Ordering::Relaxed);
+                    }
                 }
-            }
-        });
+            });
 
         Arc::try_unwrap(long_array)
             .unwrap()
@@ -268,22 +267,29 @@ impl ToLmSchematic {
         enclosing_size.insert("z".to_string(), Value::Int(self.length));
         metadata.insert("EnclosingSize".to_string(), Compound(enclosing_size));
 
-        metadata.insert("Description".to_string(), Value::String(
-            "来自蓝图站www.mcschematic.top自动转换,不保留实体".to_string()
-        ));
+        metadata.insert(
+            "Description".to_string(),
+            Value::String("来自蓝图站www.mcschematic.top自动转换,不保留实体".to_string()),
+        );
         metadata.insert("RegionCount".to_string(), Value::Int(1));
         metadata.insert("Name".to_string(), Value::String("null".to_string()));
-        metadata.insert("Author".to_string(), Value::String("www.mcschematic.top".to_string()));
+        metadata.insert(
+            "Author".to_string(),
+            Value::String("www.mcschematic.top".to_string()),
+        );
 
         Compound(metadata)
     }
     pub fn lm_regions(&self) -> Value {
         let mut regions = HashMap::new();
-        let mut region:HashMap<String, Value> = HashMap::new();
+        let mut region: HashMap<String, Value> = HashMap::new();
 
         let encoded = self.encode_block_states();
         let long_array: Vec<i64> = encoded.iter().map(|&v| v as i64).collect();
-        region.insert("BlockStates".to_string(), Value::LongArray(fastnbt::LongArray::new(long_array)));
+        region.insert(
+            "BlockStates".to_string(),
+            Value::LongArray(fastnbt::LongArray::new(long_array)),
+        );
 
         let mut position = HashMap::new();
         position.insert("x".to_string(), Value::Int(0));
@@ -302,7 +308,7 @@ impl ToLmSchematic {
         regions.insert("null".to_string(), Compound(region));
         Compound(regions)
     }
-    pub fn lm_schematic(&self, version:i32) -> Value {
+    pub fn lm_schematic(&self, version: i32) -> Value {
         let mut nbt = HashMap::new();
         nbt.insert("MinecraftDataVersion".to_string(), Value::Int(3465));
         nbt.insert("Version".to_string(), Value::Int(version));
@@ -310,7 +316,7 @@ impl ToLmSchematic {
         nbt.insert("Metadata".to_string(), metadata);
         let regions = self.lm_regions();
         nbt.insert("Regions".to_string(), regions);
-        nbt.insert("SubVersion".to_string(),Value::Int(1));
+        nbt.insert("SubVersion".to_string(), Value::Int(1));
         Compound(nbt)
     }
 }

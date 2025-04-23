@@ -1,12 +1,12 @@
-use std::collections::{HashMap, VecDeque};
-use std::sync::Arc;
-use fastnbt::Value;
-use fastnbt::Value::Compound;
-use rayon::iter::IntoParallelRefIterator;
-use rayon::iter::ParallelIterator;
-use rayon::iter::IndexedParallelIterator;
 use crate::utils::block_state_pos_list::{BlockData, BlockPos, BlockStatePos};
 use crate::utils::schematic_data::SchematicData;
+use fastnbt::Value;
+use fastnbt::Value::Compound;
+use rayon::iter::IndexedParallelIterator;
+use rayon::iter::IntoParallelRefIterator;
+use rayon::iter::ParallelIterator;
+use std::collections::{HashMap, VecDeque};
+use std::sync::Arc;
 
 #[derive(Debug)]
 pub struct ToCreateSchematic {
@@ -27,7 +27,8 @@ impl ToCreateSchematic {
             panic!("Block list cannot be empty");
         }
         let min = {
-            let global_min = blocks.par_iter()
+            let global_min = blocks
+                .par_iter()
                 .with_min_len(1_000_000)
                 .fold(
                     || BlockPos {
@@ -63,7 +64,7 @@ impl ToCreateSchematic {
             }
         };
         let size = schematic.size;
-        let max = BlockPos{
+        let max = BlockPos {
             x: min.x + size.width,
             y: min.y + size.height,
             z: min.z + size.length,
@@ -125,7 +126,8 @@ impl ToCreateSchematic {
     }
 
     pub fn create_blocks(&self, air: bool) -> Value {
-        let block_list: Vec<Value> = self.blocks
+        let block_list: Vec<Value> = self
+            .blocks
             .par_iter()
             .filter_map(|block_pos| {
                 let data = (*block_pos.block).clone();
@@ -133,7 +135,9 @@ impl ToCreateSchematic {
                     return None;
                 }
 
-                let state_id = self.block_state_to_index.get(&data)
+                let state_id = self
+                    .block_state_to_index
+                    .get(&data)
                     .expect("Block state not found in palette");
 
                 let pos = Value::List(vec![

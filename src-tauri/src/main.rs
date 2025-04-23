@@ -1,27 +1,27 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::fs::File;
-use std::io::BufWriter;
-use crate::utils::schematic_data::SchematicError;
-use std::time::Instant;
-use sysinfo::{System, Pid, ProcessesToUpdate};
-use utils::requirements::get_requirements;
 use crate::building_gadges::to_bg_schematic::ToBgSchematic;
 use crate::create::create_schematic::CreateSchematic;
+use crate::create::to_create_schematic::ToCreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
 use crate::litematica::to_lm_schematic::ToLmSchematic;
-use utils::extend_write::{to_writer_gzip};
-use crate::create::to_create_schematic::ToCreateSchematic;
-use crate::utils::minecraft_data::je_blocks_data::{BlocksData};
+use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 use crate::utils::requirements::RequirementStr;
+use crate::utils::schematic_data::SchematicError;
 use crate::word_edit::we_schematic::WeSchematic;
+use std::fs::File;
+use std::io::BufWriter;
+use std::time::Instant;
+use sysinfo::{Pid, ProcessesToUpdate, System};
+use utils::extend_write::to_writer_gzip;
+use utils::requirements::get_requirements;
 
-pub mod utils;
-pub mod litematica;
-pub mod word_edit;
-pub mod create;
 pub mod building_gadges;
+pub mod create;
+pub mod litematica;
+pub mod utils;
+pub mod word_edit;
 
 fn main() {
     rust_lib::run()
@@ -33,27 +33,25 @@ fn test_lm_schematic() -> Result<(), SchematicError> {
     let pid = Pid::from(std::process::id() as usize);
 
     sys.refresh_processes(ProcessesToUpdate::All, false);
-    let start_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let start_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let start_time = Instant::now();
-    let schematic2 = LmSchematic::new("./schematic/08baa20e-264d-41d4-8205-4611029936b0.litematic")?;
+    let schematic2 =
+        LmSchematic::new("./schematic/08baa20e-264d-41d4-8205-4611029936b0.litematic")?;
     let schem2 = schematic2.get_blocks_pos()?;
     let to = ToLmSchematic::new(&schem2);
-    println!("{:?},{:?}", to.start_pos,to.end_pos);
+    println!("{:?},{:?}", to.start_pos, to.end_pos);
     let requirements = get_requirements(&schem2.blocks)?;
     //print!("{:?}", requirements);
     sys.refresh_processes(ProcessesToUpdate::All, false);
-    let end_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let end_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let duration = start_time.elapsed();
 
     println!("执行时间: {:.2} 秒", duration.as_secs_f64());
-    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
-             start_mem / 1024,
-             end_mem / 1024,
-             (end_mem - start_mem) / 1024
+    println!(
+        "内存消耗: {} KB → {} KB (增量: {} KB)",
+        start_mem / 1024,
+        end_mem / 1024,
+        (end_mem - start_mem) / 1024
     );
     Ok(())
 }
@@ -63,24 +61,21 @@ fn test_create_schematic() -> Result<(), SchematicError> {
     let pid = Pid::from(std::process::id() as usize);
 
     sys.refresh_processes(ProcessesToUpdate::All, false);
-    let start_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let start_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let start_time = Instant::now();
     let sichematic = CreateSchematic::new("./schematic/test.nbt")?;
     let schem = sichematic.get_blocks_pos()?;
     //print!("{:?}", schem);
     sys.refresh_processes(ProcessesToUpdate::All, false);
-    let end_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let end_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let duration = start_time.elapsed();
 
     println!("执行时间: {:.2} 秒", duration.as_secs_f64());
-    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
-             start_mem / 1024,
-             end_mem / 1024,
-             (end_mem - start_mem) / 1024
+    println!(
+        "内存消耗: {} KB → {} KB (增量: {} KB)",
+        start_mem / 1024,
+        end_mem / 1024,
+        (end_mem - start_mem) / 1024
     );
     Ok(())
 }
@@ -91,11 +86,10 @@ fn bg_schematic_write() -> Result<(), SchematicError> {
     let pid = Pid::from(std::process::id() as usize);
 
     sys.refresh_processes(ProcessesToUpdate::All, false);
-    let start_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let start_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let start_time = Instant::now();
-    let mut schematic3 = WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
+    let mut schematic3 =
+        WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
     let schem3 = schematic3.get_blocks_pos()?;
 
     let bg = ToBgSchematic::new(&schem3);
@@ -104,19 +98,17 @@ fn bg_schematic_write() -> Result<(), SchematicError> {
     let file = File::create(output_path)?;
     let writer = BufWriter::new(file);
 
-
     serde_json::to_writer_pretty(writer, &data)?;
     sys.refresh_processes(ProcessesToUpdate::All, false);
-    let end_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let end_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let duration = start_time.elapsed();
 
     println!("执行时间: {:.2} 秒", duration.as_secs_f64());
-    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
-             start_mem / 1024,
-             end_mem / 1024,
-             (end_mem - start_mem) / 1024
+    println!(
+        "内存消耗: {} KB → {} KB (增量: {} KB)",
+        start_mem / 1024,
+        end_mem / 1024,
+        (end_mem - start_mem) / 1024
     );
     Ok(())
 }
@@ -127,11 +119,10 @@ fn lm_schematic_write() -> Result<(), SchematicError> {
     let pid = Pid::from(std::process::id() as usize);
 
     sys.refresh_processes(ProcessesToUpdate::All, false);
-    let start_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let start_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let start_time = Instant::now();
-    let mut schematic3 = WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
+    let mut schematic3 =
+        WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
     let schem3 = schematic3.get_blocks_pos()?;
 
     let bg = ToLmSchematic::new(&schem3);
@@ -139,16 +130,15 @@ fn lm_schematic_write() -> Result<(), SchematicError> {
     let output_path = "./schematic/out2.litematic";
     to_writer_gzip(&data, output_path)?;
 
-    let end_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let end_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let duration = start_time.elapsed();
 
     println!("执行时间: {:.2} 秒", duration.as_secs_f64());
-    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
-             start_mem / 1024,
-             end_mem / 1024,
-             (end_mem - start_mem) / 1024
+    println!(
+        "内存消耗: {} KB → {} KB (增量: {} KB)",
+        start_mem / 1024,
+        end_mem / 1024,
+        (end_mem - start_mem) / 1024
     );
     Ok(())
 }
@@ -159,11 +149,10 @@ fn lm_big_schematic_write() -> Result<(), SchematicError> {
     let pid = Pid::from(std::process::id() as usize);
 
     sys.refresh_processes(ProcessesToUpdate::All, false);
-    let start_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let start_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let start_time = Instant::now();
-    let mut schematic3 = LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
+    let mut schematic3 =
+        LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
     let schem3 = schematic3.get_blocks_pos()?;
 
     let bg = ToCreateSchematic::new(&schem3);
@@ -171,16 +160,15 @@ fn lm_big_schematic_write() -> Result<(), SchematicError> {
     let output_path = "./schematic/out.nbt";
     to_writer_gzip(&data, output_path)?;
 
-    let end_mem = sys.process(pid)
-        .map(|p| p.memory())
-        .unwrap_or(0);
+    let end_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let duration = start_time.elapsed();
 
     println!("执行时间: {:.2} 秒", duration.as_secs_f64());
-    println!("内存消耗: {} KB → {} KB (增量: {} KB)",
-             start_mem / 1024,
-             end_mem / 1024,
-             (end_mem - start_mem) / 1024
+    println!(
+        "内存消耗: {} KB → {} KB (增量: {} KB)",
+        start_mem / 1024,
+        end_mem / 1024,
+        (end_mem - start_mem) / 1024
     );
     Ok(())
 }
@@ -195,8 +183,7 @@ fn block_data_test() {
         "v":108,"b":1,"n":"花岗岩","id":"num.1_1,108.stone,113.granite","t":"0,2","oP":"113"
     }]"#;
 
-    let data = BlocksData::parse(json_data).map_err(|e|  format!("err: {}",e));
+    let data = BlocksData::parse(json_data).map_err(|e| format!("err: {}", e));
 
     println!("Version Map: {:#?}", data);
-
 }

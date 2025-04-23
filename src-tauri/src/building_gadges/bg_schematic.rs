@@ -1,19 +1,19 @@
-use std::collections::{BTreeMap};
-use std::fs;
-use std::io::{Cursor, Read};
-use std::sync::Arc;
-use serde_json::Value as JsonValue;
-use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
-use base64::Engine;
-use fastnbt::{from_bytes, Value as FastNbtValue, Value};
-use fastnbt::Value::Compound;
-use fastsnbt::from_str;
-use flate2::read::GzDecoder;
-use crate::building_gadges::bg_schematic_data::{BgSchematicData};
+use crate::building_gadges::bg_schematic_data::BgSchematicData;
 use crate::building_gadges::template_json_representation::{deserialize, int_to_rel_pos};
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePosList};
 use crate::utils::extend_value::NbtExt;
+use crate::utils::schematic_data::{SchematicData, SchematicError, Size};
 use crate::utils::tile_entities::TileEntitiesList;
+use base64::Engine;
+use fastnbt::Value::Compound;
+use fastnbt::{from_bytes, Value as FastNbtValue, Value};
+use fastsnbt::from_str;
+use flate2::read::GzDecoder;
+use serde_json::Value as JsonValue;
+use std::collections::BTreeMap;
+use std::fs;
+use std::io::{Cursor, Read};
+use std::sync::Arc;
 
 #[derive(Debug)]
 pub struct BgSchematic {
@@ -22,13 +22,11 @@ pub struct BgSchematic {
 
 impl BgSchematic {
     pub fn read_json_file(path: &str) -> Result<String, SchematicError> {
-        fs::read_to_string(path)
-            .map_err(|e| SchematicError::Io(e))
+        fs::read_to_string(path).map_err(|e| SchematicError::Io(e))
     }
 
-    pub fn parse_json(&self ,json_str: &str) -> Result<JsonValue, SchematicError> {
-        serde_json::from_str(json_str)
-            .map_err(|e| SchematicError::Json(e))
+    pub fn parse_json(&self, json_str: &str) -> Result<JsonValue, SchematicError> {
+        serde_json::from_str(json_str).map_err(|e| SchematicError::Json(e))
     }
 
     fn try_parse(&self) -> Result<(), serde_json::Error> {
@@ -37,14 +35,12 @@ impl BgSchematic {
     }
 
     pub fn new(file_path: &str) -> Result<Self, SchematicError> {
-        let json_str = fs::read_to_string(file_path)
-            .map_err(|e| SchematicError::Io(e))?;
+        let json_str = fs::read_to_string(file_path).map_err(|e| SchematicError::Io(e))?;
         Ok(Self { json: json_str })
     }
 
     pub fn new_from_data(data: Vec<u8>) -> Result<Self, SchematicError> {
-        let json_str = String::from_utf8(data)
-            .map_err(|e| SchematicError::UTF8(e))?;
+        let json_str = String::from_utf8(data).map_err(|e| SchematicError::UTF8(e))?;
 
         Ok(Self { json: json_str })
     }
@@ -52,9 +48,27 @@ impl BgSchematic {
     pub fn get_type(&self) -> Result<i32, SchematicError> {
         match self.try_parse() {
             Ok(_) => Ok(0),
-            Err(_) if self.json.split_whitespace().collect::<String>().contains("body") => Ok(1),
-            Err(_) if self.json.split_whitespace().collect::<String>().contains("mapIntState") => Ok(2),
-            Err(_) => Err(SchematicError::InvalidFormat("missing 'body' or 'mapIntState'")),
+            Err(_)
+                if self
+                    .json
+                    .split_whitespace()
+                    .collect::<String>()
+                    .contains("body") =>
+            {
+                Ok(1)
+            }
+            Err(_)
+                if self
+                    .json
+                    .split_whitespace()
+                    .collect::<String>()
+                    .contains("mapIntState") =>
+            {
+                Ok(2)
+            }
+            Err(_) => Err(SchematicError::InvalidFormat(
+                "missing 'body' or 'mapIntState'",
+            )),
         }
     }
 
@@ -72,7 +86,8 @@ impl BgSchematic {
         match type_version {
             0 => {
                 let data = self.parse_json(&self.json)?;
-                let state_pos_str = data.get("statePosArrayList")
+                let state_pos_str = data
+                    .get("statePosArrayList")
                     .and_then(|v| v.as_str())
                     .ok_or_else(|| SchematicError::TypeMismatch {
                         expected: "string",
@@ -112,7 +127,6 @@ impl BgSchematic {
             }
             _ => Err(SchematicError::InvalidFormat("无效的版本类型")),
         }
-
     }
     fn parse_palette(&self, palette_list: &[Value]) -> Result<Vec<Arc<BlockData>>, SchematicError> {
         let mut palette = Vec::with_capacity(palette_list.len());
@@ -120,7 +134,8 @@ impl BgSchematic {
             let Compound(root) = entry else {
                 return Err(SchematicError::InvalidFormat("Root is not a Compound"));
             };
-            let name = root.get("Name")
+            let name = root
+                .get("Name")
                 .and_then(Value::as_str)
                 .map(|s| Arc::<str>::from(s))
                 .unwrap_or_else(|| Arc::from("minecraft:air"));
@@ -128,10 +143,8 @@ impl BgSchematic {
             if let Some(Compound(prop_map)) = root.get("Properties") {
                 for (k, v) in prop_map {
                     if let Value::String(s) = v {
-                        properties.insert(
-                            Arc::<str>::from(k.as_str()),
-                            Arc::<str>::from(s.as_str())
-                        );
+                        properties
+                            .insert(Arc::<str>::from(k.as_str()), Arc::<str>::from(s.as_str()));
                     }
                 }
             }
@@ -159,7 +172,7 @@ impl BgSchematic {
                 let height = ((end_pos.y - start_pos.y) + 1).abs();
                 let width = ((end_pos.x - start_pos.x) + 1).abs();
                 let length = ((end_pos.z - start_pos.z) + 1).abs();
-                Ok(BlockPos{
+                Ok(BlockPos {
                     x: width,
                     y: height,
                     z: length,
@@ -171,12 +184,20 @@ impl BgSchematic {
                     return Err(SchematicError::InvalidFormat("Root is not a Compound"));
                 };
                 let header = root.get_compound("header")?;
-                let start_pos = BlockPos { x: header.get_i32("minX")?, y: header.get_i32("minY")?, z: header.get_i32("minZ")?};
-                let end_pos = BlockPos { x: header.get_i32("maxX")?, y: header.get_i32("maxY")?, z: header.get_i32("maxZ")?};
+                let start_pos = BlockPos {
+                    x: header.get_i32("minX")?,
+                    y: header.get_i32("minY")?,
+                    z: header.get_i32("minZ")?,
+                };
+                let end_pos = BlockPos {
+                    x: header.get_i32("maxX")?,
+                    y: header.get_i32("maxY")?,
+                    z: header.get_i32("maxZ")?,
+                };
                 let height = ((end_pos.y - start_pos.y) + 1).abs();
                 let width = ((end_pos.x - start_pos.x) + 1).abs();
                 let length = ((end_pos.z - start_pos.z) + 1).abs();
-                Ok(BlockPos{
+                Ok(BlockPos {
                     x: width,
                     y: height,
                     z: length,
@@ -192,7 +213,7 @@ impl BgSchematic {
                 let height = ((end_pos.y - start_pos.y) + 1).abs();
                 let width = ((end_pos.x - start_pos.x) + 1).abs();
                 let length = ((end_pos.z - start_pos.z) + 1).abs();
-                Ok(BlockPos{
+                Ok(BlockPos {
                     x: width,
                     y: height,
                     z: length,
@@ -229,12 +250,7 @@ impl BgSchematic {
                             let block_state_lookup = state_list[counter] as usize;
                             counter += 1;
                             let block_state = &palette[block_state_lookup];
-                            block_list.add_by_pos(
-                                x,
-                                y,
-                                z,
-                                block_state.clone()
-                            );
+                            block_list.add_by_pos(x, y, z, block_state.clone());
                         }
                     }
                 }
@@ -259,7 +275,8 @@ impl BgSchematic {
                 let pos_int_array = root.get_i32_array("posIntArray")?;
                 let mut counter = 0;
                 for index in block_list_i32 {
-                    let pos_raw = *pos_int_array.get(counter)
+                    let pos_raw = *pos_int_array
+                        .get(counter)
                         .ok_or(SchematicError::InvalidFormat("Index OutOf"))?;
                     counter += 1;
                     let abs_pos = int_to_rel_pos(start_pos, pos_raw);
@@ -270,14 +287,18 @@ impl BgSchematic {
                     };
 
                     let state_index = (index - 1) as usize;
-                    let state_value = block_state_map.get(state_index)
-                        .ok_or_else(|| SchematicError::InvalidFormat("State index out of bounds"))?;
+                    let state_value = block_state_map.get(state_index).ok_or_else(|| {
+                        SchematicError::InvalidFormat("State index out of bounds")
+                    })?;
 
                     let Compound(state_nbt) = state_value else {
-                        return Err(SchematicError::InvalidFormat("Expected Compound tag for block state"));
+                        return Err(SchematicError::InvalidFormat(
+                            "Expected Compound tag for block state",
+                        ));
                     };
                     let map_state = state_nbt.get_compound("mapState")?;
-                    let name = map_state.get("Name")
+                    let name = map_state
+                        .get("Name")
                         .and_then(Value::as_str)
                         .map(|s| Arc::from(s))
                         .unwrap_or_else(|| Arc::from("minecraft:air"));
@@ -286,21 +307,29 @@ impl BgSchematic {
                     if let Some(Compound(prop_map)) = map_state.get("Properties") {
                         for (k, v) in prop_map {
                             if let Value::String(s) = v {
-                                properties.insert(
-                                    Arc::from(k.as_str()),
-                                    Arc::from(s.as_str())
-                                );
+                                properties.insert(Arc::from(k.as_str()), Arc::from(s.as_str()));
                             }
                         }
                     }
-                    block_list.add(rel_pos, Arc::new(BlockData {
-                        id: BlockId { name },
-                        properties
-                    }));
+                    block_list.add(
+                        rel_pos,
+                        Arc::new(BlockData {
+                            id: BlockId { name },
+                            properties,
+                        }),
+                    );
                 }
             }
             _ => {}
         }
-        Ok(SchematicData::new(block_list, tile_entities, Size{width: size.x, height: size.y, length:size.z}))
+        Ok(SchematicData::new(
+            block_list,
+            tile_entities,
+            Size {
+                width: size.x,
+                height: size.y,
+                length: size.z,
+            },
+        ))
     }
 }
