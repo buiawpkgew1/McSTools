@@ -1,0 +1,7 @@
+$heading-font: 'Roboto Flex', sans-serif;
+$body-font: 'Roboto Slab', sans-serif;
+
+@use 'vuetify' with (
+  $heading-font-family: $heading-font,
+  $body-font-family: $body-font,
+);

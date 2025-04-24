@@ -6,6 +6,7 @@ import weImg from '../static/img/wordEdit.png'
 import beImg from '../static/img/grass_block.png'
 import {onMounted, ref, onBeforeUnmount} from "vue";
 import {invoke} from '@tauri-apps/api/core';
+import {opacity} from "../modules/theme.ts";
 import {onBeforeRouteLeave} from 'vue-router'
 import {
   files,
@@ -18,7 +19,6 @@ import {
 import {UserData} from "../modules/user_data.ts";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import { createTimeManager } from '../modules/time_data.ts'
-
 const timeManager = createTimeManager()
 const {
   currentDate,
@@ -68,8 +68,16 @@ onBeforeUnmount(() => {
          transition="scroll-x-transition"
   >
     <v-col>
-      <v-card class="mx-auto" elevation="4" hover transition="slide-x-transition">
-        <v-card-title class="bg-blue-grey-lighten-5 pa-4">
+      <v-card
+          class="mx-auto v-theme--custom text-primary"
+          :style="{ '--surface-alpha': opacity }"
+          elevation="4"
+          hover
+          transition="slide-x-transition"
+      >
+        <v-card-title
+            class="pa-4 bg-blue-grey-lighten-5"
+        >
           <v-icon icon="mdi-tools" class="mr-2"></v-icon>
           <span class="text-h5">蓝图工具箱</span>
         </v-card-title>
@@ -81,7 +89,7 @@ onBeforeUnmount(() => {
                 <v-icon icon="mdi-folder-multiple" color="deep-purple" class="mr-2"></v-icon>
                 <div>
                   <div class="text-caption text-grey">本地蓝图总数</div>
-                  <div class="text-h4">{{ userData?.schematics ?? 0 }}</div>
+                  <div class="text-h4 text-grey-darken-3">{{ userData?.schematics ?? 0 }}</div>
                 </div>
               </div>
             </v-col>
@@ -91,7 +99,7 @@ onBeforeUnmount(() => {
                 <v-icon icon="mdi-cloud-upload" size="28" color="teal" class="mr-2"></v-icon>
                 <div>
                   <div class="text-caption text-grey">云端蓝图总数</div>
-                  <div class="text-h4">{{ userData?.cloud ?? 0 }}</div>
+                  <div class="text-h4 text-grey-darken-3">{{ userData?.cloud ?? 0 }}</div>
                 </div>
               </div>
             </v-col>
@@ -122,7 +130,7 @@ onBeforeUnmount(() => {
                         <v-icon small left>mdi-login</v-icon>
                         欢迎回来
                       </div>
-                      <div class="text-h6 text-primary font-weight-medium">
+                      <div class="text-h6 font-weight-medium text-blue-darken-4">
                         {{ userData?.nickname || '用户' }}
                       </div>
                     </div>
@@ -191,7 +199,14 @@ onBeforeUnmount(() => {
       style="height: 500px"
   >
     <v-col cols="8" class="h-100">
-      <v-card class="d-flex flex-column h-100" elevation="4">
+      <v-card class="
+      d-flex
+      v-theme--custom text-primary
+      flex-column
+      h-100"
+              elevation="4"
+              :style="{ '--surface-alpha': opacity }"
+      >
         <v-card-title class="text-h6 bg-blue-lighten-5">
           <v-icon icon="mdi-cloud-upload" class="mr-2"></v-icon>
           蓝图处理
@@ -202,10 +217,9 @@ onBeforeUnmount(() => {
             <v-icon
                 icon="mdi-cloud-upload"
                 size="80"
-                color="primary"
-                class="mb-2"
+                class="mb-2 text-medium-emphasis"
             ></v-icon>
-            <div class="text-h6 text-primary">拖放文件或点击上传</div>
+            <div class="text-h6 text-medium-emphasis">拖放文件或点击上传</div>
             <div class="text-caption text-medium-emphasis mt-1">
               支持格式：nbt、litematic、schem、 json、 mcstruct（最大50MB）
             </div>
@@ -308,7 +322,11 @@ onBeforeUnmount(() => {
     </v-col>
 
     <v-col cols="4" class="h-100">
-      <v-card class="h-100" elevation="4">
+      <v-card class="
+      h-100
+      v-theme--custom text-primary "
+              :style="{ '--surface-alpha': opacity }"
+              elevation="4">
         <v-card-title class="text-h6 bg-green-lighten-5">
           <v-icon icon="mdi-format-list-checks" class="mr-2"></v-icon>
           支持蓝图类型

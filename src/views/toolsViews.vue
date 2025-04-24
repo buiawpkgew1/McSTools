@@ -12,6 +12,7 @@ import toolsData from '../units/tools/toolsData.vue';
 import toolsSplit from '../units/tools/toolsSplit.vue';
 import {SchematicsData} from "../modules/schematics_data.ts";
 import {schematic_id, get_data, get_requirements, get_schematic_str} from "../modules/tools_data.ts"
+import {opacity} from "../modules/theme.ts";
 const active = ref(0)
 const router = useRouter()
 const schematicData = ref<SchematicsData | undefined>();
@@ -33,7 +34,7 @@ onMounted(async() => {
          :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col>
-      <v-card class="mx-auto overflow-auto h-auto" elevation="4" >
+      <v-card class="mx-auto overflow-auto h-auto v-theme--custom text-primary" :style="{ '--surface-alpha': opacity }" elevation="4" >
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
           <v-toolbar-title>
             <v-icon icon="mdi-tools" class="mr-2"></v-icon>

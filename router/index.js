@@ -5,6 +5,7 @@ import SchematicViews from "../src/views/schematicsViews.vue"
 import IndividuationViews from "../src/views/individuationViews.vue"
 import ReportViews from "../src/views/reportViews.vue";
 import AboutViews from "../src/views/aboutViews.vue";
+import EmptyViews from "../src/views/EmptyViews.vue"
 const routes = [
     {
         path: '/',
@@ -63,6 +64,11 @@ const routes = [
             keywords: ''
         },
         component: AboutViews
+    },
+    {
+        path: '/empty',
+        name: 'emptyRoute',
+        component: EmptyViews
     }
 ]
 

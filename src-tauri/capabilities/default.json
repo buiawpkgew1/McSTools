@@ -8,6 +8,15 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "store:default"
+    "store:default",
+    "fs:default",
+    {
+      "identifier": "fs:allow-app-write-recursive",
+      "allow": [{ "path": "$APPDATA/mcSchematic/*" }]
+    },
+    {
+      "identifier": "fs:allow-app-read-recursive",
+      "allow": [{ "path": "$APPDATA/mcSchematic/*" }]
+    }
   ]
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {onBeforeRouteLeave} from "vue-router";
+import {opacity} from "../modules/theme.ts";
 
 onBeforeRouteLeave(navigationGuard)
 </script>
@@ -11,7 +12,7 @@ onBeforeRouteLeave(navigationGuard)
          :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col class="mb-4" cols="12">
-      <v-card class="mx-auto" elevation="4" hover>
+      <v-card class="mx-auto" :style="{ '--surface-alpha': opacity }" elevation="4" hover>
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
           <v-toolbar-title>
             <v-icon icon="mdi-message-alert-outline" class="mr-2"></v-icon>
@@ -33,7 +34,7 @@ onBeforeRouteLeave(navigationGuard)
 
     </v-col>
     <v-col cols="12">
-      <v-card>
+      <v-card :style="{ '--surface-alpha': opacity }">
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2">
           <v-toolbar-title>
             <v-icon icon="mdi-compass-outline" class="mr-2"></v-icon>
@@ -45,7 +46,7 @@ onBeforeRouteLeave(navigationGuard)
             <v-col cols="12">
               <v-hover>
                 <template v-slot:default="{ isHovering, props }">
-                  <v-card v-bind="props">
+                  <v-card v-bind="props" >
                     <v-toolbar
                         density="compact"
                         class="pa-2 hover-toolbar"

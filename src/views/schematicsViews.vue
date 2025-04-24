@@ -6,6 +6,7 @@ import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {fetchSchematics, SchematicsData, schematicTypeList} from "../modules/schematics_data.ts";
 import {clear_tools, fetch_data} from "../modules/tools_data.ts"
 import {activeTab} from "../modules/layout.ts";
+import {opacity} from "../modules/theme.ts";
 const router = useRouter()
 let schematics = ref<SchematicsData[]>([])
 const parseDimensions = (sizeStr: string) => {
@@ -45,7 +46,7 @@ const formatTime = (time: any) => {
          :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col>
-      <v-card class="mx-auto" elevation="4" style="height: 99vh">
+      <v-card class="mx-auto v-theme--custom text-primary " :style="{ '--surface-alpha': opacity }" elevation="4" style="height: 99vh">
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
           <v-toolbar-title>
             <v-icon icon="mdi-warehouse" class="mr-2"></v-icon>

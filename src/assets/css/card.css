@@ -1,0 +1,4 @@
+[data-v-app] .v-card--variant-elevated,
+[data-v-app] .v-card--variant-flat {
+    background: rgba(var(--v-theme-surface), var(--surface-alpha, 1)) !important;
+}

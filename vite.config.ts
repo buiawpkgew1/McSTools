@@ -15,6 +15,12 @@ export default defineConfig(async () => ({
   clearScreen: false,
   server: {
     port: 1420,
+    proxy: {
+          '/asset': {
+              target: 'http://localhost:3000',
+              rewrite: path => path.replace(/^\/asset/, '')
+          }
+    },
     strictPort: true,
     host: host || false,
     hmr: host

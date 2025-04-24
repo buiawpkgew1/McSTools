@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import {isLeaving} from "../modules/navigation.ts";
 import fav from  "../static/img/fav512.png"
+import {opacity} from "../modules/theme.ts";
 </script>
 
 <template class="page-wrapper">
   <v-row no-gutters class="mb-4 animate-row" :class="{ 'animate-row-out': isLeaving }">
     <v-col class="mb-4" cols="12">
-      <v-card class="mx-auto" elevation="4" hover>
+      <v-card
+          class="mx-auto"
+          elevation="4"
+          :style="{ '--surface-alpha': opacity }"
+          hover>
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2">
           <v-toolbar-title>
             <v-icon icon="mdi-information-outline" class="mr-2"></v-icon>
@@ -47,7 +52,6 @@ import fav from  "../static/img/fav512.png"
                   <v-row align="center" justify="start">
                     <v-col cols="auto">
                       <v-btn
-                          color="primary"
                           variant="outlined"
                           prepend-icon="mdi-update"
                           @click=""
@@ -79,7 +83,6 @@ import fav from  "../static/img/fav512.png"
                     <v-col cols="auto">
                       <v-btn
                           density="default"
-                          color="primary"
                           variant="outlined"
                           prepend-icon="mdi-github"
                           @click=""
@@ -148,7 +151,7 @@ import fav from  "../static/img/fav512.png"
                 <v-col cols="12">
                   <div class="d-flex align-start">
                     <div class="mr-3 mt-1">
-                      <v-icon color="primary" size="42">
+                      <v-icon color="grey" size="42">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                           <path fill="currentColor" d="M2 21v-2h9V7.825q-.65-.225-1.125-.7T9.175 6H6l3 7q0 1.25-1.025 2.125T5.5 16t-2.475-.875T2 13l3-7H3V4h6.175q.3-.875 1.075-1.437T12 2t1.75.563T14.825 4H21v2h-2l3 7q0 1.25-1.025 2.125T18.5 16t-2.475-.875T15 13l3-7h-3.175q-.225.65-.7 1.125t-1.125.7V19h9v2zm14.625-8h3.75L18.5 8.65zm-13 0h3.75L5.5 8.65zM12 6q.425 0 .713-.288T13 5t-.288-.712T12 4t-.712.288T11 5t.288.713T12 6"/>
                         </svg>
@@ -160,7 +163,7 @@ import fav from  "../static/img/fav512.png"
                         <span class="font-weight-medium">GNU General Public License v3.0</span>
                         <v-tooltip location="top">
                           <template v-slot:activator="{ props }">
-                            <v-icon v-bind="props" size="16" color="grey" class="ml-1">mdi-information-outline</v-icon>
+                            <v-icon v-bind="props" size="16" class="ml-1 ">mdi-information-outline</v-icon>
                           </template>
                           <span>允许修改和分发，但必须开源修改后的代码并保留版权声明</span>
                         </v-tooltip>

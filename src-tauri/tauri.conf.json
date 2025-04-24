@@ -22,7 +22,18 @@
       }
     ],
     "security": {
-      "csp": null
+      "csp": {
+        "default-src": "'self' customprotocol: asset: http://asset.localhost",
+        "connect-src": "ipc: http://ipc.localhost",
+        "img-src": "'self' asset: http://asset.localhost blob: data:",
+        "style-src": "'unsafe-inline' 'self' asset: http://asset.localhost"
+      },
+      "assetProtocol": {
+        "enable" : true,
+        "scope": {
+          "allow": ["$APPDATA/mcSchematic/background/*"]
+        }
+      }
     }
   },
   "bundle": {
@@ -34,6 +45,9 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
+    ],
+    "resources": [
+      "./data/je_blocks.json"
     ]
   }
 }

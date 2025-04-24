@@ -1,10 +1,12 @@
 <template>
   <v-navigation-drawer
-      class="bg-grey-lighten-3"
+      class="bg-primary fixed-sidebar"
       width="72"
       permanent
-      floating
+      fixed
+      :floating="false"
       :elevation="3"
+      app
   >
     <div class="logo-container">
       <v-icon
@@ -67,6 +69,20 @@ const router = useRouter()
 </script>
 
 <style scoped>
+.fixed-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 1000;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.05);
+}
+
+.v-main {
+  margin-left: 72px;
+  transition: margin 0.3s ease;
+}
+
 .logo-container {
   padding: 20px 0;
   margin: 0 12px 16px;

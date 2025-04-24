@@ -1,14 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import {onMounted, ref, watch} from 'vue';
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {onBeforeRouteLeave} from "vue-router";
+import {appStore} from '../modules/store.ts';
+import {getBackgroundBase64Url, saveImage} from "../modules/uploadImage.ts";
+import router from "../../router";
+import {useTheme} from "vuetify/framework";
+import {backgroundOpacity, layoutMode, opacity} from "../modules/theme.ts";
 
-const opacity = ref(0.8)
-const selectedTheme = ref('grey')
-const backgroundImage = ref('/default-bg.jpg');
-const backgroundOpacity = ref(0.9);
-const layoutMode = ref('cover');
 
+const selectedTheme = ref('grey');
+const backgroundImage = ref('null');
+const backgroundStr = ref();
+const backgroundSize = ref<number>();
+const backgroundDimensions = ref();
+const backgroundName = ref();
+const background = ref();
+const theme = useTheme()
 const layoutModes = [
   { label: '拉伸填充', value: 'stretch', color: 'red-darken-2' },
   { label: '平铺重复', value: 'repeat', color: 'teal-darken-2' },
@@ -16,17 +24,13 @@ const layoutModes = [
   { label: '完整覆盖', value: 'cover', color: 'blue-darken-2' },
 ];
 
-const openImageFolder = () => {
-  console.log('打开背景图文件夹');
-};
-
-const refreshBackground = () => {
-  console.log('刷新背景图片');
+const refreshBackground = async() => {
+  await router.push({name: 'emptyRoute'});
 };
 const themes = [
   { label: '默认灰白', value: 'grey', color: 'bg-blue-grey-lighten-5', icon: 'mdi-weather-sunny' },
   { label: '蔚蓝主题', value: 'blue', color: 'blue-darken-2', icon: 'mdi-weather-sunny' },
-  { label: '深蓝之夜', value: 'dark-blue', color: 'indigo-darken-3', icon: 'mdi-moon-waning-crescent' },
+  { label: '深蓝之夜', value: 'dark_blue', color: 'indigo-darken-3', icon: 'mdi-moon-waning-crescent' },
   { label: '清新绿意', value: 'green', color: 'teal-darken-2', icon: 'mdi-leaf' },
   { label: '活力橙', value: 'orange', color: 'orange-darken-2', icon: 'mdi-fire' },
   { label: '菠萝黄', value: 'yellow', color: 'yellow-darken-3', icon: 'mdi-fruit-pineapple' },
@@ -34,7 +38,46 @@ const themes = [
 ]
 
 onBeforeRouteLeave(navigationGuard)
+onMounted(async () => {
+  opacity.value = await appStore.get('opacity', 0.8);
+  selectedTheme.value = await appStore.get('selectedTheme', 'grey');
+  backgroundImage.value = await appStore.get('backgroundImage', 'null');
+  backgroundOpacity.value = await appStore.get('backgroundOpacity', 0.9);
+  layoutMode.value = await appStore.get('layoutMode', 'cover');
+  backgroundSize.value = await appStore.get('backgroundSize', 0);
+  backgroundDimensions.value = await appStore.get('backgroundDimensions', "null")
+  backgroundName.value = await appStore.get('backgroundName', "null")
+  if (backgroundImage.value != "null"){
+    backgroundStr.value = await getBackgroundBase64Url(backgroundImage.value)
+  }
+  theme.global.name.value = selectedTheme.value
+});
 
+const updateBackGround = async(file: File| undefined) =>{
+  let data = await saveImage(file)
+  await appStore.set('backgroundImage', data?.path);
+  await appStore.set('backgroundSize', data?.size)
+  await appStore.set('backgroundDimensions', data?.dimensions)
+  await appStore.set('backgroundName', data?.name)
+  await router.push({name: 'emptyRoute'});
+}
+const clearBackGround = async () => {
+  await appStore.set('backgroundImage', 'null');
+  await appStore.set('backgroundSize', 0)
+  await appStore.set('backgroundDimensions', 'null')
+  await appStore.set('backgroundName', 'null')
+  await router.push({name: 'emptyRoute'});
+}
+
+watch(selectedTheme, (val) => {
+      theme.global.name.value = val
+      appStore.set('selectedTheme', val)
+}
+);
+watch(backgroundImage, (val) => appStore.set('backgroundImage', val));
+watch(layoutMode, (val) => appStore.set('layoutMode', val));
+watch(opacity, (val) => appStore.set('opacity', val))
+watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
 </script>
 
 <template  class="page-wrapper">
@@ -43,7 +86,7 @@ onBeforeRouteLeave(navigationGuard)
          :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col class="mb-4" cols="12">
-        <v-card class="mx-auto" elevation="4" hover>
+        <v-card class="mx-auto v-theme--custom text-primary " :style="{ '--surface-alpha': opacity }" elevation="4" hover>
           <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
             <v-toolbar-title>
               <v-icon icon="mdi-palette" class="mr-2"></v-icon>
@@ -128,7 +171,7 @@ onBeforeRouteLeave(navigationGuard)
         </v-card>
     </v-col>
     <v-col class="mb-4" cols="12">
-      <v-card class="mx-auto" elevation="4" hover>
+      <v-card class="mx-auto" :style="{ '--surface-alpha': opacity }" elevation="4" hover>
         <v-toolbar density="compact" class="pa-2">
           <v-toolbar-title>
             <v-icon icon="mdi-image" class="mr-2"></v-icon>
@@ -137,24 +180,101 @@ onBeforeRouteLeave(navigationGuard)
         </v-toolbar>
 
         <v-card-text class="pa-4">
-          <div
-              class="preview-container mb-6 rounded-lg"
-              :style="{
-              backgroundImage: `url(${backgroundImage})`,
-              opacity: backgroundOpacity,
-              }"
-          ></div>
+          <v-row class="preview-layout mb-4" v-if="backgroundImage != 'null'">
+            <v-col cols="6" class="image-column">
+              <v-img
+                  :aspect-ratio="16/9"
+                  :style="{
+                    backgroundColor: `rgba(255,255,255, ${1 - backgroundOpacity})`,
+                    backgroundImage: `url(${backgroundStr})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundAttachment: 'fixed',
+                  }"
+                  contain
+                  transition="fade-transition"
+                  class="image-preview rounded-lg"
+              >
+                <template #default>
+                  <div class="opacity-control pa-2">
+                    <v-slider
+                        v-model="backgroundOpacity"
+                        :max="1"
+                        color="primary"
+                        thumb-label
+                    >
+                      <template #prepend>
+                        <v-icon>mdi-opacity</v-icon>
+                      </template>
+                    </v-slider>
+                  </div>
+                </template>
+              </v-img>
+            </v-col>
+
+            <v-col cols="6" class="info-column">
+              <v-card class="h-100" :style="{ '--surface-alpha': opacity }" elevation="2">
+                <v-card-title class="d-flex align-center">
+                  <v-icon left>mdi-information</v-icon>
+                  图片信息
+                </v-card-title>
+
+                <v-divider></v-divider>
+
+                <v-card-text>
+                  <v-list density="compact" >
+                    <v-list-item>
+                      <template #prepend>
+                        <v-icon>mdi-file</v-icon>
+                      </template>
+                      <v-list-item-title>文件名</v-list-item-title>
+                      <v-list-item-subtitle>{{ backgroundName }}</v-list-item-subtitle>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <template #prepend>
+                        <v-icon>mdi-weight</v-icon>
+                      </template>
+                      <v-list-item-title>文件大小</v-list-item-title>
+                      <v-list-item-subtitle>{{ backgroundSize?.toFixed(2) }} kb</v-list-item-subtitle>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <template #prepend>
+                        <v-icon>mdi-arrow-expand</v-icon>
+                      </template>
+                      <v-list-item-title>分辨率</v-list-item-title>
+                      <v-list-item-subtitle>{{ backgroundDimensions }}</v-list-item-subtitle>
+                    </v-list-item>
+                  </v-list>
+                </v-card-text>
+
+                <v-card-actions class="justify-end">
+                  <v-btn
+                      color="error"
+                      variant="flat"
+                      @click="clearBackGround"
+                  >
+                    <v-icon left>mdi-delete</v-icon>
+                    清除背景
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
 
           <v-row class="mb-4">
             <v-col cols="6">
-              <v-btn
-                  variant="tonal"
-                  block
-                  @click="openImageFolder"
-              >
-                <v-icon left>mdi-folder-open</v-icon>
-                选择背景图
-              </v-btn>
+              <v-file-input
+                  v-model="background"
+                  accept="image/png, image/jpeg, image/bmp"
+                  label="选择背景文件"
+                  density="compact"
+                  placeholder="单击选择文件"
+                  show-size
+                  prepend-icon="mdi-folder-open"
+                  @update:model-value="updateBackGround(background)"
+              ></v-file-input>
             </v-col>
             <v-col cols="6">
               <v-btn
@@ -172,12 +292,12 @@ onBeforeRouteLeave(navigationGuard)
               <v-row align="center" >
                 <v-col cols="2" class="d-flex align-center">
                   <v-icon icon="mdi-opacity" class="mr-2"></v-icon>
-                  <span>透明度</span>
+                  <span>不透明度</span>
                 </v-col>
                 <v-col cols="10">
                   <div class="d-flex align-center">
                     <v-slider
-                        v-model="opacity"
+                        v-model="backgroundOpacity"
                         :max="1"
                         :min="0.2"
                         thumb-label
@@ -190,7 +310,7 @@ onBeforeRouteLeave(navigationGuard)
                         label
                         class="text-white"
                     >
-                      {{ Math.round(opacity * 100) }}%
+                      {{ Math.round(backgroundOpacity * 100) }}%
                     </v-chip>
                   </div>
                 </v-col>
@@ -352,5 +472,36 @@ button:hover {
 .v-chip--selected {
   transform: scale(1.05);
   transition: all 0.3s ease;
+}
+
+
+
+
+.preview-layout {
+  height: 300px;
+}
+
+.image-column, .info-column {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 8px;
+}
+
+.image-preview {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.opacity-control {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.info-column {
+  height: 100%;
 }
 </style>
