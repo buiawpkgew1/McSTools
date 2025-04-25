@@ -20,12 +20,14 @@ use database::db_apis::schematics_api::{
 };
 use database::db_apis::user_api::get_user_data;
 use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
+use modules::convert::{get_schematic_convert_data};
 use tauri::Manager;
 use utils::minecraft_data::versions_data::VersionData;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_store::Builder::new().build())
         .setup(|app| {
@@ -54,7 +56,8 @@ pub fn run() {
             get_schematic,
             get_schematics,
             get_requirements,
-            get_schematic_data
+            get_schematic_data,
+            get_schematic_convert_data
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

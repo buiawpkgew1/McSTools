@@ -2,45 +2,46 @@ import {fetchSchematic, SchematicsData} from "./schematics_data.ts";
 import {fetchRequirementsWithStats, RequirementStatistics} from "./requirements.ts";
 import {ref} from "vue";
 import {invoke} from "@tauri-apps/api/core";
+import {ConvertData, fetchConvertData} from "./convert_data.ts";
 
 export let schematic_id = ref<number | undefined>();
-export let schematic_data = ref<SchematicsData | undefined>();
-export let schematic_requirements = ref<RequirementStatistics | undefined>();
+export let schematicData = ref<SchematicsData | undefined>();
+export let convertData = ref<ConvertData | undefined>();
+export let schematicRequirements = ref<RequirementStatistics | undefined>();
+export let schematicStr = ref<string | undefined>();
 
 export const clear_tools = () =>{
     schematic_id.value = undefined
-    schematic_data.value = undefined
-    schematic_requirements.value = undefined
+    schematicData.value = undefined
+    schematicRequirements.value = undefined
+    convertData.value = undefined
 }
 
 export const fetch_data = async (id: number) => {
     schematic_id.value = id
-    schematic_data.value = await fetchSchematic(id)
-    schematic_requirements.value = await fetchRequirementsWithStats(id)
+    schematicData.value = await fetchSchematic(id)
+    convertData.value = await fetchConvertData(id)
+    schematicRequirements.value = await fetchRequirementsWithStats(id)
+    schematicStr.value = await  fetchSchematicStr(id)
 }
 
 export const get_data = async (id: number) => {
     if (id == schematic_id.value){
-        return schematic_data.value
+        return schematicData.value
     }
     clear_tools()
     await fetch_data(id)
-    return schematic_data.value
+    return schematicData.value
 }
 
 export const get_requirements = async (id: number) => {
     if (id == schematic_id.value){
-        return schematic_requirements.value
+        return schematicRequirements.value
     }
     clear_tools()
     await fetch_data(id)
-    return schematic_requirements.value
+    return schematicRequirements.value
 }
-
-export const get_schematic_str = async (id: number) => {
-    return await fetchSchematicStr(id)
-}
-
 export async function fetchSchematicStr(
     schematicId: number
 ): Promise<string> {

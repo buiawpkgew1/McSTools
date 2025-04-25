@@ -3,27 +3,28 @@ import {onMounted, ref} from 'vue'
 import {onBeforeRouteLeave, useRouter} from "vue-router";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import 'vue-json-pretty/lib/styles.css';
-import {RequirementStatistics} from "../modules/requirements.ts";
 import { activeTab } from "../modules/layout.ts";
 import toolsConvert from '../units/tools/toolsConvert.vue';
 import toolsReplace from '../units/tools/toolsReplace.vue';
 import toolsStats from  '../units/tools/toolsStats.vue';
 import toolsData from '../units/tools/toolsData.vue';
+import toolsSchematic from '../units/tools/toolsSchematic.vue';
 import toolsSplit from '../units/tools/toolsSplit.vue';
-import {SchematicsData} from "../modules/schematics_data.ts";
-import {schematic_id, get_data, get_requirements, get_schematic_str} from "../modules/tools_data.ts"
+import {
+  schematic_id,
+  fetch_data,
+  schematicData,
+  schematicRequirements,
+  schematicStr,
+  convertData
+} from "../modules/tools_data.ts"
 import {opacity} from "../modules/theme.ts";
 const active = ref(0)
 const router = useRouter()
-const schematicData = ref<SchematicsData | undefined>();
-const requirementsData = ref<RequirementStatistics | undefined>();
-const schematicStr = ref<string | undefined>()
 onBeforeRouteLeave(navigationGuard)
 onMounted(async() => {
     if (schematic_id.value != undefined){
-        schematicData.value = await get_data(schematic_id.value)
-        requirementsData.value = await get_requirements(schematic_id.value)
-        schematicStr.value = await get_schematic_str(schematic_id.value)
+        await fetch_data(schematic_id.value)
     }
 })
 </script>
@@ -70,7 +71,7 @@ onMounted(async() => {
         </v-toolbar>
         <v-window v-model="active">
           <v-window-item value="schematic">
-            <toolsConvert :data="schematicData"/>
+            <toolsSchematic :data="schematicData"/>
           </v-window-item>
           <v-window-item value="split">
             <toolsSplit />
@@ -79,29 +80,13 @@ onMounted(async() => {
             <toolsReplace />
           </v-window-item>
           <v-window-item value="convert">
-            <v-row class="pa-4" no-gutters>
-              <v-col cols="3">
-                <v-card class="pa-3" elevation="2">
-                  <v-select label="分割方式" :items="['垂直分层', '水平区域', '自定义范围']"/>
-                  <v-range-slider label="分割范围" thumb-label min="0" max="256"/>
-                  <v-btn block color="green" prepend-icon="mdi-axe">执行分割</v-btn>
-                </v-card>
-              </v-col>
-
-              <v-col cols="9">
-                <v-card class="h-100" elevation="2">
-                  <div class="d-flex justify-center align-center h-100 text-grey">
-                    3D预览区域
-                  </div>
-                </v-card>
-              </v-col>
-            </v-row>
+            <toolsConvert :data="convertData"/>
           </v-window-item>
           <v-window-item value="data">
             <toolsData :data="schematicStr"/>
           </v-window-item>
           <v-window-item value="stats">
-            <toolsStats :data="requirementsData"/>
+            <toolsStats :data="schematicRequirements"/>
           </v-window-item>
         </v-window>
       </v-card>

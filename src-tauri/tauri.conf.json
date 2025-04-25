@@ -46,8 +46,17 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
+    "createUpdaterArtifacts": true,
     "resources": [
       "./data/je_blocks.json"
     ]
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEFGMjNCQzhBMEFGNzRERjUKUldUMVRmY0tpcndqcjZGR3FzKzdGR3lSQ2ZaT1hBVXVxR3JpTFVtZ0t6UGpUa1Rrc2grRW1SQ3IK",
+      "windows": {
+        "installMode": "passive"
+      }
+    }
   }
 }

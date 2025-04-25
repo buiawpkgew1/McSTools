@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use crate::utils::schematic_data::SchematicError;
 use anyhow::Result;
 use anyhow::{anyhow, Context};
@@ -9,6 +10,7 @@ use std::io;
 use std::io::{Cursor, Write};
 use std::path::{Path, PathBuf};
 use tauri::{AppHandle, Manager};
+use crate::modules::convert_data::{ConvertData, SchematicType, Target};
 
 #[derive(Debug)]
 pub struct FileData {
@@ -181,5 +183,69 @@ impl FileManager {
             }
             _ => Err(anyhow!("UNK: {}", v_type)),
         }
+    }
+
+    pub fn get_convert_data(
+        &self,
+        id: i64,
+        version: i32,
+        main_sub_version: i32,
+        v_type: i32,
+    ) -> Result<ConvertData> {
+        let schematic_dir = self.schematic_dir(id)?;
+        let mut convert_data = ConvertData {
+            schematic_type: SchematicType::from_code(v_type).unwrap_or(SchematicType::Create),
+            schematic_type_id: v_type,
+            sub_type: main_sub_version,
+            version,
+            size: String::new(),
+            schematics: HashMap::new(),
+        };
+
+        for schematic_type in [
+            SchematicType::Create,
+            SchematicType::Litematic,
+            SchematicType::Bg,
+            SchematicType::We,
+            SchematicType::Be,
+        ] {
+            let mut version_map = HashMap::new();
+
+            for sub_v in schematic_type.get_sub_versions() {
+                let filename = format!(
+                    "schematic_{}.{}.{}.{}",
+                    version,
+                    sub_v,
+                    schematic_type.type_id(),
+                    schematic_type.file_extension()
+                );
+                let path = schematic_dir.join(&filename);
+
+                if path.exists() {
+                    let metadata = fs::metadata(&path)?;
+                    version_map.insert(
+                        sub_v,
+                        Target {
+                            has: true,
+                            size: metadata.len().to_string(),
+                            version,
+                        },
+                    );
+                }
+            }
+
+            if !version_map.is_empty() {
+                convert_data.schematics.insert(schematic_type, version_map);
+            }
+        }
+
+        if let Some(versions) = convert_data.schematics.get(&convert_data.schematic_type) {
+            convert_data.size = versions
+                .get(&main_sub_version)
+                .map(|t| t.size.clone())
+                .unwrap_or_default();
+        }
+
+        Ok(convert_data)
     }
 }
