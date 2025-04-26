@@ -24,10 +24,9 @@ import AppLayout from "./layout/AppLayout.vue";
 import {onMounted, ref, watchEffect} from "vue";
 import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
-import {getBackgroundBase64Url} from "./modules/uploadImage.ts";
-import {backgroundOpacity, layoutMode} from "./modules/theme.ts";
+import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 const theme = useTheme()
-const backgroundImage = ref<string | null>(null)
+
 const selectedTheme = ref('grey')
 const backgroundStyle = ref({
   backgroundColor: '',
@@ -43,25 +42,18 @@ const backgroundStyle = ref({
 onMounted(async () => {
   selectedTheme.value = await appStore.get('selectedTheme', 'grey')
   theme.global.name.value = selectedTheme.value
-  const bgPath = await appStore.get('backgroundImage', '')
-  if (bgPath) {
-    try {
-      backgroundImage.value = await getBackgroundBase64Url(bgPath)
-    } catch (error) {
-      console.error('背景加载失败:', error)
-      backgroundImage.value = 'null'
-    }
-  }
+  await initTheme()
+
 })
 
 watchEffect(() => {
-  if (backgroundImage.value) {
+  if (backgroundStr.value) {
     backgroundStyle.value.backgroundImage = `
       linear-gradient(
         rgba(var(--v-theme-background), var(--gradient-opacity)),
         rgba(var(--v-theme-background), var(--gradient-opacity))
       ),
-      url(${backgroundImage.value})
+      url(${backgroundStr.value})
     `;
     backgroundStyle.value.backgroundSize = layoutMode.value;
     backgroundStyle.value["--gradient-opacity"] = (1 - backgroundOpacity.value).toString()
@@ -114,3 +106,4 @@ watchEffect(() => {
 
 <style lang="scss" src="./assets/css/main.scss"></style>
 <style lang="css" src="./assets/css/card.css"></style>
+<style lang="css" src="./assets/css/views.css"></style>

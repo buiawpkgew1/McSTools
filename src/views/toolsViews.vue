@@ -96,38 +96,7 @@ onMounted(async() => {
 </template>
 
 <style scoped>
-.page-wrapper {
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
 
-.animate-row {
-  animation: rowEntrance 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.animate-row-out {
-  animation: rowOut 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes rowOut{
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-500px);
-    opacity: 0;
-  }
-}
-@keyframes rowEntrance {
-  from {
-    opacity: 0;
-    transform: translateX(-500px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 .json-container {
   height: 100%;
   border: 1px solid #e0e0e0;

@@ -6,12 +6,11 @@ import {appStore} from '../modules/store.ts';
 import {getBackgroundBase64Url, saveImage} from "../modules/uploadImage.ts";
 import router from "../../router";
 import {useTheme} from "vuetify/framework";
-import {backgroundOpacity, layoutMode, opacity} from "../modules/theme.ts";
+import {backgroundOpacity, backgroundStr, layoutMode, opacity} from "../modules/theme.ts";
 
 
 const selectedTheme = ref('grey');
 const backgroundImage = ref('null');
-const backgroundStr = ref();
 const backgroundSize = ref<number>();
 const backgroundDimensions = ref();
 const backgroundName = ref();
@@ -39,17 +38,11 @@ const themes = [
 
 onBeforeRouteLeave(navigationGuard)
 onMounted(async () => {
-  opacity.value = await appStore.get('opacity', 0.8);
   selectedTheme.value = await appStore.get('selectedTheme', 'grey');
   backgroundImage.value = await appStore.get('backgroundImage', 'null');
-  backgroundOpacity.value = await appStore.get('backgroundOpacity', 0.9);
-  layoutMode.value = await appStore.get('layoutMode', 'cover');
   backgroundSize.value = await appStore.get('backgroundSize', 0);
   backgroundDimensions.value = await appStore.get('backgroundDimensions', "null")
   backgroundName.value = await appStore.get('backgroundName', "null")
-  if (backgroundImage.value != "null"){
-    backgroundStr.value = await getBackgroundBase64Url(backgroundImage.value)
-  }
   theme.global.name.value = selectedTheme.value
 });
 
@@ -427,38 +420,7 @@ button:hover {
   color: white;
   border-color: #4CAF50;
 }
-.page-wrapper {
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
 
-.animate-row {
-  animation: rowEntrance 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.animate-row-out {
-  animation: rowOut 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes rowOut{
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-500px);
-    opacity: 0;
-  }
-}
-@keyframes rowEntrance {
-  from {
-    opacity: 0;
-    transform: translateX(-500px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 .mc-blueprint-list {
   --v-list-item-padding: 12px;
 

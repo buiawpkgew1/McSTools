@@ -4,16 +4,71 @@ import createImg from '../../static/img/create.jpg'
 import lmImg from '../../static/img/Litematica.jpg'
 import weImg from '../../static/img/wordEdit.png'
 import beImg from '../../static/img/grass_block.png'
-import {defineProps, onMounted} from "vue";
+import {defineProps, onMounted, computed, ref, watch} from "vue";
 import {ConvertData} from "../../modules/convert_data.ts";
 const props = defineProps<{
   data: ConvertData | undefined,
 }>()
-
+const showSubVersions1 = ref(false);
+const showSubVersions2 = ref(false);
+const showSubVersions3 = ref(false);
+const showSubVersions4 = ref(false);
+const showSubVersions5 = ref(false);
+const formatInfo = computed(() => {
+  switch(props.data?.schematic_type_id) {
+    case 1:
+      return {
+        img: createImg,
+        ext: 'nbt',
+        title: '香草结构蓝图',
+        desc: '适配 Minecraft 原版结构方块格式',
+        icon: 'mdi-cube'
+      }
+    case 2:
+      return {
+        img: lmImg,
+        ext: 'litematic',
+        title: '投影蓝图',
+        desc: '适配 我的世界建筑投影蓝图格式',
+        icon: 'mdi-vector-square'
+      }
+    case 3:
+      return {
+        img: weImg,
+        title: '创世神',
+        ext: 'schem',
+        desc: '适配与新版1.16 + 创世神模组和最新版 axios',
+        icon: 'mdi-vector-square'
+      }
+    case 4:
+      return {
+        img: bgImg,
+        title: '建筑小帮手',
+        ext: 'json',
+        desc: '适配与1.12 + 建筑小帮手 3个 变种格式蓝图',
+        icon: 'mdi-vector-square'
+      }
+    case 5:
+      return {
+        img: beImg,
+        title: 'MC BE',
+        ext: 'mcstructure',
+        desc: '适配与1.18 + 我的世界BE原版 结构方块格式',
+        icon: 'mdi-vector-square'
+      }
+    default:
+      return {
+        img: beImg,
+        title: '未知格式',
+        ext: 'unknow',
+        desc: '未知格式描述',
+        icon: 'mdi-help-circle'
+      }
+  }
+});
 onMounted(() =>{
-  console.log(props.data)
+  console.log(props.data?.schematics.Bg?.["1"]?.size)
 })
-
 
 </script>
 
@@ -31,14 +86,14 @@ onMounted(() =>{
     </v-col>
   </v-row>
 
-  <v-container class="pa-8">
+  <v-container class="pa-3">
     <v-row class="conversion-flow" justify="center" no-gutters>
-      <v-col cols="12" md="5">
+      <v-col cols="12" md="6">
         <v-card class="format-card elevation-3" hover>
           <v-row no-gutters align="center">
             <v-col cols="4">
               <v-img
-                  :src="lmImg"
+                  :src="formatInfo.img"
                   height="120"
                   cover
                   class="card-image"
@@ -48,8 +103,8 @@ onMounted(() =>{
             <v-col cols="8" class="pa-4">
               <div class="meta-info">
                 <div class="d-flex justify-space-between">
-                  <span class="text-caption text-grey">格式类型:</span>
-                  <span class="text-caption">投影蓝图格式</span>
+                  <span class="text-caption text-grey">后缀类型:</span>
+                  <span class="text-caption">{{ formatInfo.ext }}</span>
                 </div>
 
                 <div class="d-flex justify-space-between mt-1">
@@ -65,13 +120,13 @@ onMounted(() =>{
                         icon="mdi-tag"
                     >
                     </v-icon>
-                    <span class="text-caption font-weight-medium">v{{ props.data?.version }}</span>
+                    <span class="text-caption font-weight-medium">v {{ props.data?.version }}</span>
                   </div>
 
                 </div>
 
                 <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">适配版本:</span>
+                  <span class="text-caption text-grey">适配子版本:</span>
                   <div>
                     <v-icon
                         color="success"
@@ -79,7 +134,7 @@ onMounted(() =>{
                         icon="mdi-check-circle"
                     >
                     </v-icon>
-                    <span class="text-caption font-weight-medium">v{{ props.data?.sub_type }}</span>
+                    <span class="text-caption font-weight-medium">v {{ props.data?.sub_type }}</span>
                   </div>
                 </div>
               </div>
@@ -90,23 +145,162 @@ onMounted(() =>{
           <v-card-item>
             <v-card-title class="text-h5 font-weight-bold text-blue-darken-2">
               <v-icon icon="mdi-vector-square" size="28" class="mr-2"></v-icon>
-              投影蓝图
+              {{ formatInfo.title }}
             </v-card-title>
             <v-card-subtitle class="text-caption text-grey-darken-1">
-              适配与 我的世界建筑投影蓝图 格式
+              {{ formatInfo.desc }}
             </v-card-subtitle>
           </v-card-item>
         </v-card>
       </v-col>
-
-      <v-col cols="12" md="2" class="text-center py-4">
-        <v-icon size="64" class="transition-swing">
-          <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><path fill="#0284c7" d="m21.71 9.29l-4-4a1 1 0 0 0-1.42 1.42L18.59 9H7a1 1 0 0 0 0 2h14a1 1 0 0 0 .92-.62a1 1 0 0 0-.21-1.09M17 13H3a1 1 0 0 0-.92.62a1 1 0 0 0 .21 1.09l4 4a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42L5.41 15H17a1 1 0 0 0 0-2"/></svg>
+    </v-row>
+    <v-row class="conversion-flow py-9" justify="center" no-gutters>
+      <v-col cols="12" md="2" class="text-center">
+        <v-icon size="48" class="transition-swing">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="96" viewBox="0 0 256 512"><path fill="#0284c7" d="M145.6 7.7C141 2.8 134.7 0 128 0s-13 2.8-17.6 7.7l-104 112c-6.5 7-8.2 17.2-4.4 25.9S14.5 160 24 160h56v192H24c-9.5 0-18.2 5.7-22 14.4s-2.1 18.9 4.4 25.9l104 112c4.5 4.9 10.9 7.7 17.6 7.7s13-2.8 17.6-7.7l104-112c6.5-7 8.2-17.2 4.4-25.9S241.5 352 232 352h-56V160h56c9.5 0 18.2-5.7 22-14.4s2.1-18.9-4.4-25.9z"/></svg>
         </v-icon>
-        <div class=" text-blue-grey-darken-1 mt-2">一键转换</div>
+        <div class=" text-blue-grey-darken-1 mt-6">一键转换</div>
       </v-col>
+    </v-row>
+    <v-row class="conversion-flow" justify="center">
+      <v-col cols="6"
+             v-if="!(props.data?.schematic_type_id == 2)"
+             @mouseenter="showSubVersions2 = true;"
+             @mouseleave="showSubVersions2 = false"
+      >
+        <v-card class="format-card elevation-3"
+                hover
+        >
+          <v-row no-gutters align="center">
+            <v-col cols="4">
+              <v-img
+                  :src="lmImg"
+                  height="120"
+                  cover
+                  class="card-image"
+              ></v-img>
+            </v-col>
 
-      <v-col cols="12" md="5">
+            <v-col cols="8" class="pa-4">
+              <div class="meta-info">
+                <div class="d-flex justify-space-between">
+                  <span class="text-caption text-grey">后缀类型:</span>
+                  <span class="text-caption">litematic</span>
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">Gzip压缩:</span>
+                  <v-icon
+                      color="success"
+                      size="16"
+                      icon="mdi-check-circle"
+                  >
+                  </v-icon>
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-tag"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">v {{ props.data?.version }}</span>
+                  </div>
+
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">存在子版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-check-circle"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">1</span>
+                  </div>
+                </div>
+              </div>
+              <v-divider class="my-2"></v-divider>
+            </v-col>
+          </v-row>
+
+          <v-card-item>
+            <v-card-title class="text-h5 font-weight-bold text-blue-darken-2">
+              <v-icon icon="mdi-cube-scan" size="28" class="mr-2"></v-icon>
+              投影蓝图
+            </v-card-title>
+            <v-card-subtitle class="text-caption text-grey-darken-1">
+              适配 我的世界建筑投影蓝图格式
+            </v-card-subtitle>
+          </v-card-item>
+          <v-expand-transition>
+            <v-card v-if="showSubVersions2"
+                    class="position-absolute w-100"
+                    height="100%"
+                    style="bottom: 0;"
+                    hover>
+              <v-card-title class="text-subtitle-1">
+                <v-icon icon="mdi-history" class="mr-2"></v-icon>
+                可用子版本
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <div class="meta-info">
+                      <div class="d-flex justify-space-between">
+                        <span class="text-caption">后缀类型:</span>
+                        <span class="text-caption">litematic</span>
+                      </div>
+
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">原始大小:</span>
+                        <span class="text-caption font-weight-medium">{{ (Number(props.data?.schematics?.Litematic?.["-1"]?.size) / 1024).toFixed(2) + 'KB' }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">子版本:</span>
+                        <span class="text-caption font-weight-medium">-1</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">已存在:</span>
+                        <div>
+                          <v-icon
+                              :color="props.data?.schematics?.Litematic == undefined? 'error' : 'success'"
+                              size="16"
+                              :icon="props.data?.schematics?.Litematic == undefined? 'mdi-close-circle' : 'mdi-check-circle'"
+                          >
+                          </v-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <v-divider class="my-2"></v-divider>
+                    <v-col cols="12" class="justify-end">
+                      <v-btn
+                          variant="text"
+                          color="primary"
+                          @click=""
+                      >
+                        <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
+                        转换到改格式
+                      </v-btn>
+                    </v-col>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-expand-transition>
+        </v-card>
+      </v-col>
+      <v-col cols="6"
+             v-if="!(props.data?.schematic_type_id == 1)"
+             @mouseenter="showSubVersions1 = true;"
+             @mouseleave="showSubVersions1 = false"
+      >
         <v-card class="format-card elevation-3" hover>
           <v-row no-gutters align="center">
             <v-col cols="4">
@@ -121,17 +315,12 @@ onMounted(() =>{
             <v-col cols="8" class="pa-4">
               <div class="meta-info">
                 <div class="d-flex justify-space-between">
-                  <span class="text-caption text-grey">格式类型:</span>
-                  <span class="text-caption">Minecraft 原生格式</span>
+                  <span class="text-caption text-grey">后缀类型:</span>
+                  <span class="text-caption">nbt</span>
                 </div>
 
                 <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">原始大小:</span>
-                  <span class="text-caption font-weight-medium">1000kb</span>
-                </div>
-
-                <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">文件状态:</span>
+                  <span class="text-caption text-grey">Gzip压缩:</span>
                   <v-icon
                       color="success"
                       size="16"
@@ -139,11 +328,37 @@ onMounted(() =>{
                   >
                   </v-icon>
                 </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-tag"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">v {{ props.data?.version }}</span>
+                  </div>
+
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">存在子版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-check-circle"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">1</span>
+                  </div>
+                </div>
               </div>
               <v-divider class="my-2"></v-divider>
             </v-col>
           </v-row>
-
           <v-card-item>
             <v-card-title class="text-h5 font-weight-bold text-blue-darken-2">
               <v-icon icon="mdi-cube-scan" size="28" class="mr-2"></v-icon>
@@ -153,7 +368,69 @@ onMounted(() =>{
               适配与JE原版结构方块和机械动力
             </v-card-subtitle>
           </v-card-item>
+          <v-expand-transition>
+            <v-card v-if="showSubVersions1"
+                    class="position-absolute w-100"
+                    height="100%"
+                    style="bottom: 0;"
+                    hover>
+              <v-card-title class="text-subtitle-1">
+                <v-icon icon="mdi-history" class="mr-2"></v-icon>
+                可用子版本
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <div class="meta-info">
+                      <div class="d-flex justify-space-between">
+                        <span class="text-caption">后缀类型:</span>
+                        <span class="text-caption">nbt</span>
+                      </div>
+
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">原始大小:</span>
+                        <span class="text-caption font-weight-medium">{{ (Number(props.data?.schematics?.Create?.["-1"]?.size) / 1024).toFixed(2) + 'KB' }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">子版本:</span>
+                        <span class="text-caption font-weight-medium">-1</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">已存在:</span>
+                        <div>
+                          <v-icon
+                              :color="props.data?.schematics?.Create == undefined? 'error' : 'success'"
+                              size="16"
+                              :icon="props.data?.schematics?.Create == undefined? 'mdi-close-circle' : 'mdi-check-circle'"
+                          >
+                          </v-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <v-divider class="my-2"></v-divider>
+                    <v-col cols="12" class="justify-end">
+                      <v-btn
+                          variant="text"
+                          color="primary"
+                          @click=""
+                      >
+                        <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
+                        转换到改格式
+                      </v-btn>
+                    </v-col>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-expand-transition>
         </v-card>
+      </v-col>
+      <v-col cols="6"
+             v-if="!(props.data?.schematic_type_id == 3)"
+             @mouseenter="showSubVersions3 = true;"
+             @mouseleave="showSubVersions3 = false"
+      >
         <v-card class="format-card elevation-3" hover>
           <v-row no-gutters align="center">
             <v-col cols="4">
@@ -168,23 +445,45 @@ onMounted(() =>{
             <v-col cols="8" class="pa-4">
               <div class="meta-info">
                 <div class="d-flex justify-space-between">
-                  <span class="text-caption text-grey">格式类型:</span>
-                  <span class="text-caption">WorldEdit 格式</span>
+                  <span class="text-caption text-grey">后缀类型:</span>
+                  <span class="text-caption">schem</span>
                 </div>
 
                 <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">原始大小:</span>
-                  <span class="text-caption font-weight-medium">1000kb</span>
-                </div>
-
-                <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">文件状态:</span>
+                  <span class="text-caption text-grey">Gzip压缩:</span>
                   <v-icon
                       color="success"
                       size="16"
                       icon="mdi-check-circle"
                   >
                   </v-icon>
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-tag"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">v {{ props.data?.version }}</span>
+                  </div>
+
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">存在子版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-check-circle"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">2</span>
+                  </div>
                 </div>
               </div>
               <v-divider class="my-2"></v-divider>
@@ -200,7 +499,108 @@ onMounted(() =>{
               适配与新版1.16 + 创世神模组和最新版 axios
             </v-card-subtitle>
           </v-card-item>
+          <v-expand-transition>
+            <v-card v-if="showSubVersions3"
+                    class="position-absolute w-100"
+                    height="100%"
+                    style="bottom: 0;"
+                    hover>
+              <v-card-title class="text-subtitle-1">
+                <v-icon icon="mdi-history" class="mr-2"></v-icon>
+                可用子版本
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="6">
+                    <div class="meta-info">
+                      <div class="d-flex justify-space-between">
+                        <span class="text-caption">后缀类型:</span>
+                        <span class="text-caption">schem</span>
+                      </div>
+
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">原始大小:</span>
+                        <span class="text-caption font-weight-medium">{{ (Number(props.data?.schematics?.We?.["0"]?.size) / 1024).toFixed(2) + 'KB' }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">子版本:</span>
+                        <span class="text-caption font-weight-medium">0</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">已存在:</span>
+                        <div>
+                          <v-icon
+                              :color="props.data?.schematics?.We?.['0'] == undefined? 'error' : 'success'"
+                              size="16"
+                              :icon="props.data?.schematics?.We?.['0'] == undefined? 'mdi-close-circle' : 'mdi-check-circle'"
+                          >
+                          </v-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <v-divider class="my-2"></v-divider>
+                    <v-col cols="12" class="justify-end">
+                      <v-btn
+                          variant="text"
+                          color="primary"
+                          @click=""
+                      >
+                        <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
+                        转换到改格式
+                      </v-btn>
+                    </v-col>
+                  </v-col>
+                  <v-col cols="6">
+                    <div class="meta-info">
+                      <div class="d-flex justify-space-between">
+                        <span class="text-caption">后缀类型:</span>
+                        <span class="text-caption">schem</span>
+                      </div>
+
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">原始大小:</span>
+                        <span class="text-caption font-weight-medium">{{ (Number(props.data?.schematics?.We?.["1"]?.size) / 1024).toFixed(2) + 'KB' }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">子版本:</span>
+                        <span class="text-caption font-weight-medium">1</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">已存在:</span>
+                        <div>
+                          <v-icon
+                              :color="props.data?.schematics?.We?.['1'] == undefined? 'error' : 'success'"
+                              size="16"
+                              :icon="props.data?.schematics?.We?.['1'] == undefined? 'mdi-close-circle' : 'mdi-check-circle'"
+                          >
+                          </v-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <v-divider class="my-2"></v-divider>
+                    <v-col cols="12" class="justify-end">
+                      <v-btn
+                          variant="text"
+                          color="primary"
+                          @click=""
+                      >
+                        <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
+                        转换到改格式
+                      </v-btn>
+                    </v-col>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-expand-transition>
         </v-card>
+      </v-col>
+      <v-col cols="6"
+             v-if="!(props.data?.schematic_type_id == 4)"
+             @mouseenter="showSubVersions4 = true;"
+             @mouseleave="showSubVersions4 = false"
+      >
         <v-card class="format-card elevation-3" hover>
           <v-row no-gutters align="center">
             <v-col cols="4">
@@ -215,23 +615,45 @@ onMounted(() =>{
             <v-col cols="8" class="pa-4">
               <div class="meta-info">
                 <div class="d-flex justify-space-between">
-                  <span class="text-caption text-grey">格式类型:</span>
-                  <span class="text-caption">建筑小帮手 格式</span>
+                  <span class="text-caption text-grey">后缀类型:</span>
+                  <span class="text-caption">json</span>
                 </div>
 
                 <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">原始大小:</span>
-                  <span class="text-caption font-weight-medium">1000kb</span>
-                </div>
-
-                <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">文件状态:</span>
+                  <span class="text-caption text-grey">Gzip压缩:</span>
                   <v-icon
-                      color="success"
+                      color="error"
                       size="16"
-                      icon="mdi-check-circle"
+                      icon="mdi-close-circle"
                   >
                   </v-icon>
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-tag"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">v {{ props.data?.version }}</span>
+                  </div>
+
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">存在子版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-check-circle"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">3</span>
+                  </div>
                 </div>
               </div>
               <v-divider class="my-2"></v-divider>
@@ -247,7 +669,148 @@ onMounted(() =>{
               适配与1.12 + 建筑小帮手 3个 变种格式蓝图
             </v-card-subtitle>
           </v-card-item>
+          <v-expand-transition>
+            <v-card v-if="showSubVersions4"
+                    class="position-absolute w-100"
+                    height="100%"
+                    style="bottom: 0;"
+                    hover>
+              <v-card-title class="text-subtitle-1">
+                <v-icon icon="mdi-history" class="mr-2"></v-icon>
+                可用子版本
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="4">
+                    <div class="meta-info">
+                      <div class="d-flex justify-space-between">
+                        <span class="text-caption">后缀类型:</span>
+                        <span class="text-caption">json</span>
+                      </div>
+
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">原始大小:</span>
+                        <span class="text-caption font-weight-medium">{{ (Number(props.data?.schematics?.Bg?.["0"]?.size || 0) / 1024).toFixed(2) + 'KB' }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">子版本:</span>
+                        <span class="text-caption font-weight-medium">0</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">已存在:</span>
+                        <div>
+                          <v-icon
+                              :color="props.data?.schematics?.Bg?.['0'] == undefined? 'error' : 'success'"
+                              size="16"
+                              :icon="props.data?.schematics?.Bg?.['0'] == undefined? 'mdi-close-circle' : 'mdi-check-circle'"
+                          >
+                          </v-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <v-divider class="my-2"></v-divider>
+                    <v-col cols="12" class="justify-end">
+                      <v-btn
+                          variant="text"
+                          color="primary"
+                          @click=""
+                      >
+                        <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
+                        转换到改格式
+                      </v-btn>
+                    </v-col>
+                  </v-col>
+                  <v-col cols="4">
+                    <div class="meta-info">
+                      <div class="d-flex justify-space-between">
+                        <span class="text-caption">后缀类型:</span>
+                        <span class="text-caption">json</span>
+                      </div>
+
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">原始大小:</span>
+                        <span class="text-caption font-weight-medium">{{ (Number(props.data?.schematics?.Bg?.['1']?.size) / 1024).toFixed(2) + 'KB' }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">子版本:</span>
+                        <span class="text-caption font-weight-medium">1</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">已存在:</span>
+                        <div>
+                          <v-icon
+                              :color="props.data?.schematics?.Bg?.['1'] == undefined? 'error' : 'success'"
+                              size="16"
+                              :icon="props.data?.schematics?.Bg?.['1'] == undefined? 'mdi-close-circle' : 'mdi-check-circle'"
+                          >
+                          </v-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <v-divider class="my-2"></v-divider>
+                    <v-col cols="12" class="justify-end">
+                      <v-btn
+                          variant="text"
+                          color="primary"
+                          @click=""
+                      >
+                        <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
+                        转换到改格式
+                      </v-btn>
+                    </v-col>
+                  </v-col>
+                  <v-col cols="4">
+                    <div class="meta-info">
+                      <div class="d-flex justify-space-between">
+                        <span class="text-caption">后缀类型:</span>
+                        <span class="text-caption">json</span>
+                      </div>
+
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">原始大小:</span>
+                        <span class="text-caption font-weight-medium">{{ (Number(props.data?.schematics?.Bg?.[2]?.size) / 1024).toFixed(2) + 'KB' }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">子版本:</span>
+                        <span class="text-caption font-weight-medium">2</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">已存在:</span>
+                        <div>
+                          <v-icon
+                              :color="props.data?.schematics?.Bg?.[2] == undefined? 'error' : 'success'"
+                              size="16"
+                              :icon="props.data?.schematics?.Bg?.[2] == undefined? 'mdi-close-circle' : 'mdi-check-circle'"
+                          >
+                          </v-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <v-divider class="my-2"></v-divider>
+                    <v-col cols="12" class="justify-end">
+                      <v-btn
+                          variant="text"
+                          color="primary"
+                          @click=""
+                      >
+                        <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
+                        转换到改格式
+                      </v-btn>
+                    </v-col>
+                  </v-col>
+
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-expand-transition>
         </v-card>
+      </v-col>
+      <v-col cols="6"
+             v-if="!(props.data?.schematic_type_id == 5)"
+             @mouseenter="showSubVersions5 = true;"
+             @mouseleave="showSubVersions5 = false"
+      >
         <v-card class="format-card elevation-3" hover>
           <v-row no-gutters align="center">
             <v-col cols="4">
@@ -262,23 +825,45 @@ onMounted(() =>{
             <v-col cols="8" class="pa-4">
               <div class="meta-info">
                 <div class="d-flex justify-space-between">
-                  <span class="text-caption text-grey">格式类型:</span>
-                  <span class="text-caption">基岩版格式</span>
+                  <span class="text-caption text-grey">后缀类型:</span>
+                  <span class="text-caption">mcstructure</span>
                 </div>
 
                 <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">原始大小:</span>
-                  <span class="text-caption font-weight-medium">1000kb</span>
-                </div>
-
-                <div class="d-flex justify-space-between mt-1">
-                  <span class="text-caption text-grey">文件状态:</span>
+                  <span class="text-caption text-grey">Gzip压缩:</span>
                   <v-icon
-                      color="success"
+                      color="error"
                       size="16"
-                      icon="mdi-check-circle"
+                      icon="mdi-close-circle"
                   >
                   </v-icon>
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-tag"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">v {{ props.data?.version }}</span>
+                  </div>
+
+                </div>
+
+                <div class="d-flex justify-space-between mt-1">
+                  <span class="text-caption text-grey">存在子版本:</span>
+                  <div>
+                    <v-icon
+                        color="success"
+                        size="16"
+                        icon="mdi-check-circle"
+                    >
+                    </v-icon>
+                    <span class="text-caption font-weight-medium">1</span>
+                  </div>
                 </div>
               </div>
               <v-divider class="my-2"></v-divider>
@@ -294,6 +879,63 @@ onMounted(() =>{
               适配与1.18 + 我的世界BE原版 结构方块格式
             </v-card-subtitle>
           </v-card-item>
+          <v-expand-transition>
+            <v-card v-if="showSubVersions5"
+                    class="position-absolute w-100"
+                    height="100%"
+                    style="bottom: 0;"
+                    hover>
+              <v-card-title class="text-subtitle-1">
+                <v-icon icon="mdi-history" class="mr-2"></v-icon>
+                可用子版本
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <div class="meta-info">
+                      <div class="d-flex justify-space-between">
+                        <span class="text-caption">后缀类型:</span>
+                        <span class="text-caption">mcstructure</span>
+                      </div>
+
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">原始大小:</span>
+                        <span class="text-caption font-weight-medium">{{ (Number(props.data?.schematics?.Be?.["-1"]?.size) / 1024).toFixed(2) + 'KB' }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">子版本:</span>
+                        <span class="text-caption font-weight-medium">-1</span>
+                      </div>
+                      <div class="d-flex justify-space-between mt-1">
+                        <span class="text-caption ">已存在:</span>
+                        <div>
+                          <v-icon
+                              :color="props.data?.schematics?.Be == undefined? 'error' : 'success'"
+                              size="16"
+                              :icon="props.data?.schematics?.Be == undefined? 'mdi-close-circle' : 'mdi-check-circle'"
+                          >
+                          </v-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <v-divider class="my-2"></v-divider>
+                    <v-col cols="12" class="justify-end">
+                      <v-btn
+                          variant="text"
+                          color="primary"
+                          @click=""
+                      >
+                        <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
+                        转换到改格式
+                      </v-btn>
+                    </v-col>
+                  </v-col>
+
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-expand-transition>
         </v-card>
       </v-col>
     </v-row>
@@ -302,7 +944,7 @@ onMounted(() =>{
 
 <style scoped>
 .conversion-flow {
-  min-height: 300px;
+  min-height: 120px;
 }
 
 .format-card {
