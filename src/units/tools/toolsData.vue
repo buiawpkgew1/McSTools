@@ -5,6 +5,8 @@ import {cleanLargeSNBT} from "../../modules/snbt_to_json.ts";
 const props = defineProps<{
   data: string | undefined;
 }>();
+
+
 const json_data = shallowRef<JSON | undefined>()
 const isJson = ref(false)
 const isLoading = ref(false);

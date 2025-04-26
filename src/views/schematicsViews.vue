@@ -30,6 +30,7 @@ onMounted(async() => {
     page: 1,
     page_size: 20
   });
+  console.log(page, page_size)
   schematics.value = data
 })
 

@@ -3,7 +3,7 @@ import {onMounted, ref, watch} from 'vue';
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {onBeforeRouteLeave} from "vue-router";
 import {appStore} from '../modules/store.ts';
-import {getBackgroundBase64Url, saveImage} from "../modules/uploadImage.ts";
+import {saveImage} from "../modules/uploadImage.ts";
 import router from "../../router";
 import {useTheme} from "vuetify/framework";
 import {backgroundOpacity, backgroundStr, layoutMode, opacity} from "../modules/theme.ts";

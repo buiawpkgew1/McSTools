@@ -1,5 +1,5 @@
 <template >
-  <v-app :style="backgroundStyle" >
+  <v-app :style="backgroundStyle">
     <v-theme-provider>
       <div class="layout-container">
         <app-layout class="app-layout" />
@@ -36,7 +36,6 @@ const backgroundStyle = ref({
   backgroundAttachment: 'fixed',
   '--gradient-opacity': `${1 - backgroundOpacity.value}`,
   transform: 'translateZ(0)',
-  backfaceVisibility: 'hidden'
 })
 
 onMounted(async () => {

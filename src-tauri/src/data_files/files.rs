@@ -149,6 +149,9 @@ impl FileManager {
             .with_context(|| format!("无法读取蓝图文件: {}", file_path.display()))?;
         match v_type {
             1 => {
+                if data.len() > 8 * 1024 * 1024 {
+                    return Ok(String::new());
+                }
                 let cursor = Cursor::new(data);
                 let mut decoder = GzDecoder::new(cursor);
 
@@ -157,6 +160,9 @@ impl FileManager {
                 Ok(ser)
             }
             2 => {
+                if data.len() > 1 * 512 * 1024 {
+                    return Ok(String::new());
+                }
                 let cursor = Cursor::new(data);
                 let mut decoder = GzDecoder::new(cursor);
 
@@ -165,6 +171,9 @@ impl FileManager {
                 Ok(ser)
             }
             3 => {
+                if data.len() > 8 * 1024 * 1024 {
+                    return Ok(String::new());
+                }
                 let cursor = Cursor::new(data);
                 let mut decoder = GzDecoder::new(cursor);
 
@@ -173,10 +182,16 @@ impl FileManager {
                 Ok(ser)
             }
             4 => {
+                if data.len() > 8 * 1024 * 1024 {
+                    return Ok(String::new());
+                }
                 let json_str = String::from_utf8(data)?;
                 Ok(json_str)
             }
             5 => {
+                if data.len() > 8 * 1024 * 1024 {
+                    return Ok(String::new());
+                }
                 let nbt: Value = fastnbt::from_bytes(&data)?;
                 let ser = fastsnbt::to_string(&nbt)?;
                 Ok(ser)
