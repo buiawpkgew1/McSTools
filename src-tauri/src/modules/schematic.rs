@@ -1,7 +1,7 @@
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
-use crate::database::db_apis::schematics_api::{find_schematic, new_requirements, new_schematic};
+use crate::database::db_apis::schematics_api::{find_schematic, get_schematic_version, new_requirements, new_schematic, update_requirements, update_schematic};
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -91,16 +91,16 @@ pub async fn encode_uploaded_schematic(
                     game_version,
                 };
 
-                if(update) {
+                if update {
+                    let version = get_schematic_version(&mut conn, update_id)?;
                     schematic.id = update_id;
-
-                    let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_requirements(&mut conn, schematic_id, requirements_str)?;
-                    add_user_schematic(&mut conn)?;
+                    schematic.version = version;
+                    let schematic_id = update_schematic(&mut conn, schematic)?;
+                    update_requirements(&mut conn, schematic_id, requirements_str)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
-                        0,
+                        version + 1,
                         -1,
                         1,
                         file_ext_str,
@@ -118,8 +118,6 @@ pub async fn encode_uploaded_schematic(
                         file_ext_str,
                     )?
                 }
-
-
             }
             "json" => {
                 let original_data = data.clone();
@@ -134,7 +132,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic_type = schematic.get_type()?;
                 let mut conn = db.0.get()?;
 
-                let schematic = Schematic {
+                let mut schematic = Schematic {
                     id: 0,
                     name: file_name_str,
                     description: "".parse()?,
@@ -150,18 +148,34 @@ pub async fn encode_uploaded_schematic(
                     updated_at: "".parse()?,
                     game_version: "".parse()?,
                 };
+                if update {
+                    let version = get_schematic_version(&mut conn, update_id)?;
+                    schematic.id = update_id;
+                    schematic.version = version;
+                    let schematic_id = update_schematic(&mut conn, schematic)?;
+                    update_requirements(&mut conn, schematic_id, requirements_str)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        version + 1,
+                        schematic_type,
+                        4,
+                        file_ext_str,
+                    )?
+                }else {
+                    let schematic_id = new_schematic(&mut conn, schematic)?;
+                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    add_user_schematic(&mut conn)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        0,
+                        schematic_type,
+                        4,
+                        file_ext_str,
+                    )?
+                }
 
-                let schematic_id = new_schematic(&mut conn, schematic)?;
-                new_requirements(&mut conn, schematic_id, requirements_str)?;
-                add_user_schematic(&mut conn)?;
-                file_manager.save_schematic_data(
-                    schematic_id,
-                    original_data,
-                    0,
-                    schematic_type,
-                    4,
-                    file_ext_str,
-                )?
             }
             "schem" => {
                 let original_data = data.clone();
@@ -179,7 +193,7 @@ pub async fn encode_uploaded_schematic(
                     .get_name(data_version)
                     .map(|arc_str| arc_str.to_string())
                     .unwrap_or_else(|| "unknown_version".to_string());
-                let schematic = Schematic {
+                let mut schematic = Schematic {
                     id: 0,
                     name: file_name_str,
                     description: "".parse()?,
@@ -195,17 +209,35 @@ pub async fn encode_uploaded_schematic(
                     updated_at: "".parse()?,
                     game_version,
                 };
-                let schematic_id = new_schematic(&mut conn, schematic)?;
-                new_requirements(&mut conn, schematic_id, requirements_str)?;
-                add_user_schematic(&mut conn)?;
-                file_manager.save_schematic_data(
-                    schematic_id,
-                    original_data,
-                    0,
-                    type_version,
-                    3,
-                    file_ext_str,
-                )?
+
+                if update {
+                    let version = get_schematic_version(&mut conn, update_id)?;
+                    schematic.id = update_id;
+                    schematic.version = version;
+                    let schematic_id = update_schematic(&mut conn, schematic)?;
+                    update_requirements(&mut conn, schematic_id, requirements_str)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        version + 1,
+                        type_version,
+                        3,
+                        file_ext_str,
+                    )?
+                }else {
+                    let schematic_id = new_schematic(&mut conn, schematic)?;
+                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    add_user_schematic(&mut conn)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        0,
+                        type_version,
+                        3,
+                        file_ext_str,
+                    )?
+                }
+
             }
             "litematic" => {
                 let original_data = data.clone();
@@ -229,7 +261,7 @@ pub async fn encode_uploaded_schematic(
                 } else {
                     metadata.name
                 };
-                let schematic = Schematic {
+                let mut schematic = Schematic {
                     id: 0,
                     name,
                     description,
@@ -245,22 +277,39 @@ pub async fn encode_uploaded_schematic(
                     updated_at: "".parse()?,
                     game_version,
                 };
-                let schematic_id = new_schematic(&mut conn, schematic)?;
-                new_requirements(&mut conn, schematic_id, requirements_str)?;
-                add_user_schematic(&mut conn)?;
-                file_manager.save_schematic_data(
-                    schematic_id,
-                    original_data,
-                    0,
-                    -1,
-                    2,
-                    file_ext_str,
-                )?
+                if update {
+                    let version = get_schematic_version(&mut conn, update_id)?;
+                    schematic.id = update_id;
+                    schematic.version = version;
+                    let schematic_id = update_schematic(&mut conn, schematic)?;
+                    update_requirements(&mut conn, schematic_id, requirements_str)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        version + 1,
+                        -1,
+                        2,
+                        file_ext_str,
+                    )?
+                }else {
+                    let schematic_id = new_schematic(&mut conn, schematic)?;
+                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    add_user_schematic(&mut conn)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        0,
+                        -1,
+                        2,
+                        file_ext_str,
+                    )?
+                }
+
             }
             _ => {
                 let mut conn = db.0.get()?;
                 let original_data = data.clone();
-                let schematic = Schematic {
+                let mut schematic = Schematic {
                     id: 0,
                     name: "未解析".parse()?,
                     description: "".parse()?,
@@ -276,17 +325,33 @@ pub async fn encode_uploaded_schematic(
                     updated_at: "".parse()?,
                     game_version: "".parse()?,
                 };
-                let schematic_id = new_schematic(&mut conn, schematic)?;
-                new_requirements(&mut conn, schematic_id, "{}".to_string())?;
-                add_user_schematic(&mut conn)?;
-                file_manager.save_schematic_data(
-                    schematic_id,
-                    original_data,
-                    0,
-                    -1,
-                    -1,
-                    file_ext_str,
-                )?
+                if update {
+                    let version = get_schematic_version(&mut conn, update_id)?;
+                    schematic.id = update_id;
+                    schematic.version = version;
+                    let schematic_id = update_schematic(&mut conn, schematic)?;
+                    update_requirements(&mut conn, schematic_id, "{}".to_string())?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        version + 1,
+                        -1,
+                        -1,
+                        file_ext_str,
+                    )?
+                }else {
+                    let schematic_id = new_schematic(&mut conn, schematic)?;
+                    new_requirements(&mut conn, schematic_id, "{}".to_string())?;
+                    add_user_schematic(&mut conn)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        0,
+                        -1,
+                        -1,
+                        file_ext_str,
+                    )?
+                }
             }
         };
         Ok(())

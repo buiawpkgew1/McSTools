@@ -15,7 +15,7 @@ pub fn update_schematic(
 ) -> Result<i64> {
     let tx = conn.transaction()?;
 
-    let rows_affected = tx.execute(
+    tx.execute(
         r#"UPDATE schematics
         SET
             name = ?1,
@@ -24,7 +24,7 @@ pub fn update_schematic(
             sub_type = ?4,
             sizes = ?5,
             user = ?6,
-            version_list = ?7,
+            version = ?7,
             game_version = ?8
         WHERE id = ?9"#,
         params![
@@ -34,7 +34,7 @@ pub fn update_schematic(
             schematic.sub_type,
             schematic.sizes,
             schematic.user,
-            schematic.version_list,
+            schematic.version,
             schematic.game_version,
             schematic.id
         ],
@@ -96,6 +96,22 @@ pub fn find_schematic(
                 updated_at: row.get("updated_at")?,
                 game_version: row.get("game_version")?,
             })
+        },
+    );
+    tx.commit()?;
+    Ok(schematic?)
+}
+
+pub fn get_schematic_version(
+    mut conn: &mut PooledConnection<SqliteConnectionManager>,
+    id: i64,
+) -> Result<i32> {
+    let tx = conn.transaction()?;
+    let schematic = tx.query_row(
+        "SELECT * FROM schematics WHERE id = ? AND is_deleted = FALSE",
+        [id],
+        |row| {
+            Ok(row.get("version")?)
         },
     );
     tx.commit()?;

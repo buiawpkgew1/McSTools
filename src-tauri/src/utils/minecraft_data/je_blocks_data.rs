@@ -1,5 +1,5 @@
 use anyhow::{Context, Result};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs;
 
@@ -16,7 +16,7 @@ struct RawBlock {
     o_p: String,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SubData {
     pub zh_cn: String,
     pub block_name: String,
@@ -24,7 +24,7 @@ pub struct SubData {
     pub version_map: HashMap<u32, String>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BlocksData {
     pub blocks: Vec<SubData>,
     pub block_to_cn: HashMap<String, String>,
