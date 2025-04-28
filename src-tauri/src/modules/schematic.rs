@@ -13,6 +13,7 @@ use anyhow::Result;
 use fastnbt::Value;
 use std::path::Path;
 use tauri::State;
+use crate::database::db_apis::user_api::add_user_schematic;
 
 #[tauri::command]
 pub async fn encode_uploaded_schematic(
@@ -22,6 +23,8 @@ pub async fn encode_uploaded_schematic(
     je_blocks: State<'_, BlocksData>,
     file_name: String,
     data: Vec<u8>,
+    update: bool,
+    update_id: i64
 ) -> Result<(), String> {
     async move {
         let path = Path::new(&file_name);
@@ -71,7 +74,7 @@ pub async fn encode_uploaded_schematic(
                     .get_name(data_version)
                     .map(|arc_str| arc_str.to_string())
                     .unwrap_or_else(|| "unknown_version".to_string());
-                let schematic = Schematic {
+                let mut schematic = Schematic {
                     id: 0,
                     name: file_name_str,
                     description: "".parse()?,
@@ -88,16 +91,35 @@ pub async fn encode_uploaded_schematic(
                     game_version,
                 };
 
-                let schematic_id = new_schematic(&mut conn, schematic)?;
-                new_requirements(&mut conn, schematic_id, requirements_str)?;
-                file_manager.save_schematic_data(
-                    schematic_id,
-                    original_data,
-                    0,
-                    -1,
-                    1,
-                    file_ext_str,
-                )?
+                if(update) {
+                    schematic.id = update_id;
+
+                    let schematic_id = new_schematic(&mut conn, schematic)?;
+                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    add_user_schematic(&mut conn)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        0,
+                        -1,
+                        1,
+                        file_ext_str,
+                    )?
+                }else {
+                    let schematic_id = new_schematic(&mut conn, schematic)?;
+                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    add_user_schematic(&mut conn)?;
+                    file_manager.save_schematic_data(
+                        schematic_id,
+                        original_data,
+                        0,
+                        -1,
+                        1,
+                        file_ext_str,
+                    )?
+                }
+
+
             }
             "json" => {
                 let original_data = data.clone();
@@ -131,6 +153,7 @@ pub async fn encode_uploaded_schematic(
 
                 let schematic_id = new_schematic(&mut conn, schematic)?;
                 new_requirements(&mut conn, schematic_id, requirements_str)?;
+                add_user_schematic(&mut conn)?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,
@@ -174,6 +197,7 @@ pub async fn encode_uploaded_schematic(
                 };
                 let schematic_id = new_schematic(&mut conn, schematic)?;
                 new_requirements(&mut conn, schematic_id, requirements_str)?;
+                add_user_schematic(&mut conn)?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,
@@ -223,6 +247,7 @@ pub async fn encode_uploaded_schematic(
                 };
                 let schematic_id = new_schematic(&mut conn, schematic)?;
                 new_requirements(&mut conn, schematic_id, requirements_str)?;
+                add_user_schematic(&mut conn)?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,
@@ -253,6 +278,7 @@ pub async fn encode_uploaded_schematic(
                 };
                 let schematic_id = new_schematic(&mut conn, schematic)?;
                 new_requirements(&mut conn, schematic_id, "{}".to_string())?;
+                add_user_schematic(&mut conn)?;
                 file_manager.save_schematic_data(
                     schematic_id,
                     original_data,

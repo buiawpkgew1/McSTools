@@ -7,7 +7,7 @@ export const uploadError = ref<string | null>(null);
 export const progressTimer = ref<number | null>(null)
 export const progressValue = ref(100)
 
-export const handleUpload = async () => {
+export const handleUpload = async (update_id: number) => {
     if (files.value.length === 0) return;
 
     uploadStatus.value = 'uploading';
@@ -20,7 +20,9 @@ export const handleUpload = async () => {
 
             await invoke('encode_uploaded_schematic', {
                 fileName: file.name,
-                data: Array.from(uint8Array)
+                data: Array.from(uint8Array),
+                update: update_id != -1,
+                updateId: update_id
             });
         }
 

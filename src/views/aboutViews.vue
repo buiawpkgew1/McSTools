@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import {isLeaving} from "../modules/navigation.ts";
+import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import fav from  "../static/img/fav512.png"
 import {opacity} from "../modules/theme.ts";
+import {onBeforeRouteLeave} from "vue-router";
+
+onBeforeRouteLeave(navigationGuard)
 </script>
 
 <template class="page-wrapper">

@@ -50,10 +50,11 @@
                   icon="mdi-cog-outline"
                   variant="text"
                   class="more-btn"
+                  @click.native="activeTab = 'setting'; router.push(`/setting`)"
               />
             </div>
           </template>
-          <span>更多选项</span>
+          <span>设置</span>
         </v-tooltip>
       </div>
     </template>

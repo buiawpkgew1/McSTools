@@ -8,6 +8,42 @@ use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::params;
 use tauri::State;
 
+
+pub fn update_schematic(
+    conn: &mut PooledConnection<SqliteConnectionManager>,
+    schematic: Schematic,
+) -> Result<i64> {
+    let tx = conn.transaction()?;
+
+    let rows_affected = tx.execute(
+        r#"UPDATE schematics
+        SET
+            name = ?1,
+            description = ?2,
+            type = ?3,
+            sub_type = ?4,
+            sizes = ?5,
+            user = ?6,
+            version_list = ?7,
+            game_version = ?8
+        WHERE id = ?9"#,
+        params![
+            schematic.name,
+            schematic.description,
+            schematic.schematic_type,
+            schematic.sub_type,
+            schematic.sizes,
+            schematic.user,
+            schematic.version_list,
+            schematic.game_version,
+            schematic.id
+        ],
+    )?;
+
+    tx.commit()?;
+
+    Ok(schematic.id)
+}
 pub fn new_schematic(
     mut conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic: Schematic,
@@ -76,6 +112,25 @@ pub fn new_requirements(
         r#"INSERT INTO requirements (
             schematic_id, metadata
         ) VALUES (?1, ?2)"#,
+        params![schematic_id, metadata,],
+    )?;
+    let rowid = tx.last_insert_rowid();
+    tx.commit()?;
+
+    Ok(rowid)
+}
+
+pub fn update_requirements(
+    conn: &mut PooledConnection<SqliteConnectionManager>,
+    schematic_id: i64,
+    metadata: String,
+) -> Result<i64> {
+    let tx = conn.transaction()?;
+    tx.execute(
+        r#"UPDATE requirements
+        SET metadata = ?1
+        WHERE schematic_id = ?2
+        VALUES (?1, ?2)"#,
         params![schematic_id, metadata,],
     )?;
     let rowid = tx.last_insert_rowid();

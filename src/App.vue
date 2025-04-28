@@ -26,7 +26,7 @@ import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 const theme = useTheme()
-
+import {invoke} from "@tauri-apps/api/core";
 const selectedTheme = ref('grey')
 const backgroundStyle = ref({
   backgroundColor: '',
@@ -42,7 +42,8 @@ onMounted(async () => {
   selectedTheme.value = await appStore.get('selectedTheme', 'grey')
   theme.global.name.value = selectedTheme.value
   await initTheme()
-
+  await invoke("close_splashscreen")
+  console.log("close_splashscreen")
 })
 
 watchEffect(() => {

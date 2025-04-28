@@ -23,6 +23,7 @@ use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
 use modules::convert::{get_schematic_convert_data};
 use tauri::Manager;
 use utils::minecraft_data::versions_data::VersionData;
+use utils::loading::close_splashscreen;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -45,6 +46,7 @@ pub fn run() {
         })
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
+            close_splashscreen,
             greet,
             get_config,
             update_config,

@@ -39,7 +39,7 @@ onMounted(async() => {
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
           <v-toolbar-title>
             <v-icon icon="mdi-tools" class="mr-2"></v-icon>
-            <span class="text-h5">蓝图工具箱   </span>
+            <span class="text-h5">蓝图编辑   </span>
             <v-chip
                 v-if="schematic_id != undefined"
                 color="orange-lighten-4"

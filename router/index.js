@@ -6,11 +6,14 @@ import IndividuationViews from "../src/views/individuationViews.vue"
 import ReportViews from "../src/views/reportViews.vue";
 import AboutViews from "../src/views/aboutViews.vue";
 import EmptyViews from "../src/views/EmptyViews.vue"
+import OthersViews from "../src/views/othersViews.vue";
+import SettingViews from "../src/views/settingViews.vue";
 const routes = [
     {
         path: '/',
         redirect: '/home'
-    }, {
+    },
+    {
         path: '/home',
         name: 'home',
         meta: {
@@ -19,7 +22,8 @@ const routes = [
             keywords: ''
         },
         component: HomeViews
-    },{
+    },
+    {
         path: '/tools',
         name: 'tools',
         meta: {
@@ -28,7 +32,8 @@ const routes = [
             keywords: ''
         },
         component: ToolsViews
-    },{
+    },
+    {
         path: '/schematic',
         name: 'schematic',
         meta: {
@@ -37,7 +42,8 @@ const routes = [
             keywords: ''
         },
         component: SchematicViews
-    },{
+    },
+    {
         path: '/individuation',
         name: 'individuation',
         meta: {
@@ -46,7 +52,8 @@ const routes = [
             keywords: ''
         },
         component: IndividuationViews
-    },{
+    },
+    {
         path: '/report',
         name: 'report',
         meta: {
@@ -55,7 +62,8 @@ const routes = [
             keywords: ''
         },
         component: ReportViews
-    },{
+    },
+    {
         path: '/about',
         name: 'about',
         meta: {
@@ -64,6 +72,26 @@ const routes = [
             keywords: ''
         },
         component: AboutViews
+    },
+    {
+        path: '/others',
+        name: 'others',
+        meta: {
+            title: 'others',
+            description: '',
+            keywords: ''
+        },
+        component: OthersViews
+    },
+    {
+        path: '/setting',
+        name: 'setting',
+        meta: {
+            title: 'setting',
+            description: '',
+            keywords: ''
+        },
+        component: SettingViews
     },
     {
         path: '/empty',

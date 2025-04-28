@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 
 
-const json_data = shallowRef<JSON | undefined>()
+const json_data = shallowRef<string | undefined>()
 const isJson = ref(false)
 const isLoading = ref(false);
 const collapsedDepth = ref(2);

@@ -1,8 +1,51 @@
 use crate::database::db_control::DatabaseState;
-use crate::database::db_data::UserData;
+use crate::database::db_data::{Schematic, UserData};
 use anyhow::{Context, Result};
-use rusqlite::OptionalExtension;
+use r2d2::PooledConnection;
+use r2d2_sqlite::SqliteConnectionManager;
+use rusqlite::{params, OptionalExtension};
 use tauri::State;
+
+pub fn add_user_schematic(
+    conn: &mut PooledConnection<SqliteConnectionManager>,
+) -> Result<i64> {
+    let tx = conn.transaction()?;
+    tx.execute(
+        "UPDATE user_data SET schematics = schematics + 1 WHERE id = 1",
+        [],
+    )?;
+
+    let new_value: i64 = tx.query_row(
+        "SELECT schematics FROM user_data WHERE id = 1",
+        [],
+        |row| row.get(0),
+    )?;
+
+    tx.commit()?;
+
+    Ok(new_value)
+}
+
+pub fn add_cloud(
+    conn: &mut PooledConnection<SqliteConnectionManager>,
+) -> Result<i64> {
+    let tx = conn.transaction()?;
+    tx.execute(
+        "UPDATE user_data SET cloud = cloud + 1 WHERE id = 1",
+        [],
+    )?;
+
+    let new_value: i64 = tx.query_row(
+        "SELECT cloud FROM user_data WHERE id = 1",
+        [],
+        |row| row.get(0),
+    )?;
+
+    tx.commit()?;
+
+    Ok(new_value)
+}
+
 #[tauri::command]
 pub fn get_user_data(db: State<'_, DatabaseState>) -> Result<UserData, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
@@ -21,3 +64,4 @@ pub fn get_user_data(db: State<'_, DatabaseState>) -> Result<UserData, String> {
         })
         .map_err(|e| e.to_string())?)
 }
+
