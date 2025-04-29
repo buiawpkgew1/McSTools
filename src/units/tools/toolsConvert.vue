@@ -10,10 +10,18 @@ const props = defineProps<{
   data: ConvertData | undefined,
 }>()
 const showSubVersions1 = ref(false);
+const dialogVersions1 = ref(false);
 const showSubVersions2 = ref(false);
+const dialogVersions2 = ref(false);
 const showSubVersions3 = ref(false);
+const dialogVersions3 = ref(false);
 const showSubVersions4 = ref(false);
+const dialogVersions4 = ref(false);
 const showSubVersions5 = ref(false);
+const lmVersion = ref(6)
+const weVersion = ref(0)
+const bgVersion = ref(0)
+const dialogVersions5 = ref(false);
 const formatInfo = computed(() => {
   switch(props.data?.schematic_type_id) {
     case 1:
@@ -237,6 +245,7 @@ onMounted(() =>{
             <v-card-subtitle class="text-caption text-grey-darken-1">
               适配 我的世界建筑投影蓝图格式
             </v-card-subtitle>
+
           </v-card-item>
           <v-expand-transition>
             <v-card v-if="showSubVersions2"
@@ -279,15 +288,16 @@ onMounted(() =>{
                       </div>
                     </div>
                     <v-divider class="my-2"></v-divider>
-                    <v-col cols="12" class="justify-end">
+                    <v-col cols="12" class="justify-end" style="position: relative">
                       <v-btn
                           variant="text"
                           color="primary"
-                          @click=""
+                          @click="dialogVersions2 = true;"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
                         转换到改格式
                       </v-btn>
+
                     </v-col>
                   </v-col>
                 </v-row>
@@ -413,7 +423,7 @@ onMounted(() =>{
                       <v-btn
                           variant="text"
                           color="primary"
-                          @click=""
+                          @click="dialogVersions1 = true"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
                         转换到改格式
@@ -544,7 +554,7 @@ onMounted(() =>{
                       <v-btn
                           variant="text"
                           color="primary"
-                          @click=""
+                          @click="dialogVersions3 = true; weVersion = 0"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
                         转换到改格式
@@ -583,7 +593,7 @@ onMounted(() =>{
                       <v-btn
                           variant="text"
                           color="primary"
-                          @click=""
+                          @click="dialogVersions3 = true; weVersion = 1"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
                         转换到改格式
@@ -714,7 +724,7 @@ onMounted(() =>{
                       <v-btn
                           variant="text"
                           color="primary"
-                          @click=""
+                          @click="dialogVersions4 = true; bgVersion = 0"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
                         转换到改格式
@@ -753,7 +763,7 @@ onMounted(() =>{
                       <v-btn
                           variant="text"
                           color="primary"
-                          @click=""
+                          @click="dialogVersions4 = true; bgVersion = 1"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
                         转换到改格式
@@ -792,7 +802,7 @@ onMounted(() =>{
                       <v-btn
                           variant="text"
                           color="primary"
-                          @click=""
+                          @click="dialogVersions4 = true; bgVersion = 2"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
                         转换到改格式
@@ -924,7 +934,7 @@ onMounted(() =>{
                       <v-btn
                           variant="text"
                           color="primary"
-                          @click=""
+                          @click="dialogVersions5 = true"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
                         转换到改格式
@@ -940,6 +950,161 @@ onMounted(() =>{
       </v-col>
     </v-row>
   </v-container>
+  <v-dialog
+      v-model="dialogVersions1"
+      width="auto"
+  >
+    <v-card
+        max-width="400"
+        width="450"
+    >
+      <v-card-title class="text-subtitle-1">
+        <v-icon icon="mdi-history" class="mr-2"></v-icon>
+        转换到目标版本
+      </v-card-title>
+      <v-card-subtitle class="text-caption text-grey-darken-1">
+        转换到.nbt 香草结构蓝图.
+      </v-card-subtitle>
+      <v-card-text>
+        <span class="text-caption text-grey-darken-1">
+          无转换参数，大型蓝图转换需要一定时间等待
+        </span>
+      </v-card-text>
+      <template v-slot:actions>
+        <v-btn
+            class="ms-auto"
+            text="确认开始"
+            @click="dialogVersions1 = false"
+        ></v-btn>
+      </template>
+    </v-card>
+  </v-dialog>
+  <v-dialog
+      v-model="dialogVersions2"
+      width="auto"
+  >
+    <v-card
+        max-width="400"
+        width="450"
+    >
+      <v-card-title class="text-subtitle-1">
+        <v-icon icon="mdi-history" class="mr-2"></v-icon>
+        转换到目标版本
+      </v-card-title>
+      <v-card-subtitle class="text-caption text-grey-darken-1">
+        转换到.litematic 投影蓝图.
+      </v-card-subtitle>
+      <v-card-text>
+        <v-row no-gutters>
+          <v-col cols="12">
+            <v-combobox
+                v-model="lmVersion"
+                :items="[3, 4, 5, 6, 7]"
+                density="compact"
+                label="目标输出版本"
+            ></v-combobox>
+          </v-col>
+        </v-row>
+        <span class="text-caption text-grey-darken-1">
+          大型蓝图转换需要一定时间等待
+        </span>
+      </v-card-text>
+      <template v-slot:actions>
+        <v-btn
+            class="ms-auto"
+            text="确认开始"
+            @click="dialogVersions2 = false"
+        ></v-btn>
+      </template>
+    </v-card>
+  </v-dialog>
+  <v-dialog
+      v-model="dialogVersions3"
+      width="auto"
+  >
+    <v-card
+        max-width="400"
+        width="450"
+    >
+      <v-card-title class="text-subtitle-1">
+        <v-icon icon="mdi-history" class="mr-2"></v-icon>
+        转换到目标版本
+      </v-card-title>
+      <v-card-subtitle class="text-caption text-grey-darken-1">
+        转换到.schem 创世神蓝图.
+      </v-card-subtitle>
+      <v-card-text>
+        <span class="text-caption text-grey-darken-1">
+          无转换参数，大型蓝图转换需要一定时间等待
+        </span>
+      </v-card-text>
+      <template v-slot:actions>
+        <v-btn
+            class="ms-auto"
+            text="确认开始"
+            @click="dialogVersions2 = false"
+        ></v-btn>
+      </template>
+    </v-card>
+  </v-dialog>
+  <v-dialog
+      v-model="dialogVersions4"
+      width="auto"
+  >
+    <v-card
+        max-width="400"
+        width="450"
+    >
+      <v-card-title class="text-subtitle-1">
+        <v-icon icon="mdi-history" class="mr-2"></v-icon>
+        转换到目标版本
+      </v-card-title>
+      <v-card-subtitle class="text-caption text-grey-darken-1">
+        转换到.json 建筑小帮手蓝图.
+      </v-card-subtitle>
+      <v-card-text>
+        <span class="text-caption text-grey-darken-1">
+          无转换参数，大型蓝图转换需要一定时间等待
+        </span>
+      </v-card-text>
+      <template v-slot:actions>
+        <v-btn
+            class="ms-auto"
+            text="确认开始"
+            @click="dialogVersions2 = false"
+        ></v-btn>
+      </template>
+    </v-card>
+  </v-dialog>
+  <v-dialog
+      v-model="dialogVersions5"
+      width="auto"
+  >
+    <v-card
+        max-width="400"
+        width="450"
+    >
+      <v-card-title class="text-subtitle-1">
+        <v-icon icon="mdi-history" class="mr-2"></v-icon>
+        转换到目标版本
+      </v-card-title>
+      <v-card-subtitle class="text-caption text-grey-darken-1">
+        转换到.mcstructure MC BE蓝图.
+      </v-card-subtitle>
+      <v-card-text>
+        <span class="text-caption text-grey-darken-1">
+          无转换参数，大型蓝图转换需要一定时间等待
+        </span>
+      </v-card-text>
+      <template v-slot:actions>
+        <v-btn
+            class="ms-auto"
+            text="确认开始"
+            @click="dialogVersions2 = false"
+        ></v-btn>
+      </template>
+    </v-card>
+  </v-dialog>
 </template>
 
 <style scoped>

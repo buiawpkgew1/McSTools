@@ -239,7 +239,7 @@ onBeforeUnmount(() => {
                 :loading="uploadStatus === 'uploading'"
                 :error-messages="uploadError"
                 :disabled="uploadStatus === 'uploading'"
-                @update:model-value="handleUpload(false)"
+                @update:model-value="handleUpload(-1)"
             >
             </v-file-input>
 

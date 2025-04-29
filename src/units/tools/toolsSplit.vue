@@ -3,6 +3,19 @@
 </script>
 
 <template>
+  <v-row>
+    <v-col cols="12">
+      <v-alert
+          variant="tonal"
+          color="red"
+          icon="mdi-information"
+          class="mt-4"
+      >
+        未实现。
+      </v-alert>
+    </v-col>
+  </v-row>
+  <!--
   <v-row class="pa-4" no-gutters>
     <v-col cols="3">
       <v-card class="pa-3" elevation="2">
@@ -20,6 +33,8 @@
       </v-card>
     </v-col>
   </v-row>
+   -->
+
 </template>
 
 <style scoped>

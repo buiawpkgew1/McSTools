@@ -77,7 +77,7 @@ onMounted(async() => {
             <toolsSplit />
           </v-window-item>
           <v-window-item value="replace">
-            <toolsReplace />
+            <toolsReplace :data="schematicRequirements"/>
           </v-window-item>
           <v-window-item value="convert">
             <toolsConvert :data="convertData"/>

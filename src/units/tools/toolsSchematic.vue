@@ -2,6 +2,7 @@
 import {defineProps} from "vue";
 import {SchematicsData, schematicTypeList} from "../../modules/schematics_data.ts";
 import dayjs from "dayjs";
+import {files, handleUpload, progressValue, uploadError, uploadStatus} from "../../modules/upload_schematic.ts";
 
 const props = defineProps<{
   data: SchematicsData | undefined,
@@ -105,6 +106,99 @@ const formatTime = (time: any) => {
           auto-grow
           class="mt-4"
       ></v-textarea>
+
+      <div class="upload-container">
+        <v-file-input
+            v-model="files"
+            class="custom-file-input"
+            variant="solo-filled"
+            color="primary"
+            bg-color="grey-lighten-3"
+            label="更新蓝图文件"
+            multiple
+            accept=".nbt, .json, .schem, .litematic"
+            :max-file-size="100 * 1024 * 1024"
+            :loading="uploadStatus === 'uploading'"
+            :error-messages="uploadError"
+            :disabled="uploadStatus === 'uploading'"
+            @update:model-value="handleUpload(props.data.id)"
+        >
+        </v-file-input>
+
+        <v-alert
+            v-if="uploadStatus === 'success'"
+            type="success"
+            variant="tonal"
+            class="mt-2"
+        >
+          <template #prepend>
+            <v-icon icon="mdi-check-circle" class="mr-2"></v-icon>
+          </template>
+
+          <div class="d-flex align-center">
+            <span class="mr-2">成功上传 {{ files.length }} 个文件</span>
+            <v-spacer></v-spacer>
+            <v-btn
+                icon
+                variant="text"
+                size="x-small"
+                @click="uploadStatus = 'idle'"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </div>
+
+          <v-progress-linear
+              :model-value="progressValue"
+              color="success"
+              height="8"
+              class="mt-2"
+              stream
+              rounded
+          >
+            <template #default>
+              <span class="text-caption">{{ Math.ceil(progressValue) }}%</span>
+            </template>
+          </v-progress-linear>
+        </v-alert>
+
+        <v-alert
+            v-if="uploadStatus === 'error'"
+            type="error"
+            variant="tonal"
+            class="mt-2"
+        >
+          <template #prepend>
+            <v-icon icon="mdi-check-circle" class="mr-2"></v-icon>
+          </template>
+
+          <div class="d-flex align-center">
+            <span class="mr-2">发生错误:{{ uploadError }}</span>
+            <v-spacer></v-spacer>
+            <v-btn
+                icon
+                variant="text"
+                size="x-small"
+                @click="uploadStatus = 'idle'"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </div>
+
+          <v-progress-linear
+              :model-value="progressValue"
+              color="error"
+              height="8"
+              class="mt-2"
+              stream
+              rounded
+          >
+            <template #default>
+              <span class="text-caption">{{ Math.ceil(progressValue) }}%</span>
+            </template>
+          </v-progress-linear>
+        </v-alert>
+      </div>
     </v-card-text>
   </div>
   <div v-else class="ma-4 error-card">

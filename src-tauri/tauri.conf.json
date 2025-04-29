@@ -61,7 +61,7 @@
     ],
     "createUpdaterArtifacts": true,
     "resources": [
-      "./data/je_blocks.json"
+      "./data/*"
     ]
   },
   "plugins": {

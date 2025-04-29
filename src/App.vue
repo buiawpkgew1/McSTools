@@ -27,6 +27,7 @@ import {useTheme} from "vuetify/framework";
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 const theme = useTheme()
 import {invoke} from "@tauri-apps/api/core";
+import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 const selectedTheme = ref('grey')
 const backgroundStyle = ref({
   backgroundColor: '',
@@ -43,7 +44,8 @@ onMounted(async () => {
   theme.global.name.value = selectedTheme.value
   await initTheme()
   await invoke("close_splashscreen")
-  console.log("close_splashscreen")
+  jeBlocks.value = await fetchJeBlocks()
+  console.log(jeBlocks)
 })
 
 watchEffect(() => {
