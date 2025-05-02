@@ -8,6 +8,22 @@ use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::params;
 use tauri::State;
 
+pub fn delete_schematic_data(
+    conn: &mut PooledConnection<SqliteConnectionManager>,
+    id: i64,
+) -> Result<i64> {
+    let tx = conn.transaction()?;
+    tx.execute(
+        r#"UPDATE schematics
+        SET is_deleted = TRUE,
+            updated_at = strftime('%Y-%m-%d %H:%M:%f', 'now')
+        WHERE id = ?
+        AND is_deleted = FALSE"#,
+        params![id],
+    )?;
+    tx.commit()?;
+    Ok(id)
+}
 
 pub fn update_schematic(
     conn: &mut PooledConnection<SqliteConnectionManager>,
@@ -118,46 +134,6 @@ pub fn get_schematic_version(
     Ok(schematic?)
 }
 
-pub fn new_schematic_data(
-    conn: &mut PooledConnection<SqliteConnectionManager>,
-    schematic_id: i64,
-    metadata: String,
-    unique_blocks: String
-) -> Result<i64> {
-    let tx = conn.transaction()?;
-    tx.execute(
-        r#"INSERT INTO schematic_data (
-            schematic_id, requirements, unique_blocks
-        ) VALUES (?1, ?2, ?3)"#,
-        params![schematic_id, metadata, unique_blocks],
-    )?;
-    let rowid = tx.last_insert_rowid();
-    tx.commit()?;
-
-    Ok(rowid)
-}
-
-pub fn update_schematic_data(
-    conn: &mut PooledConnection<SqliteConnectionManager>,
-    schematic_id: i64,
-    metadata: String,
-    unique_blocks: String
-) -> Result<i64> {
-    let tx = conn.transaction()?;
-    tx.execute(
-        r#"UPDATE schematic_data
-        SET
-            requirements = ?1
-            unique_blocks = ?3
-        WHERE schematic_id = ?2
-        VALUES (?1, ?2, ?3)"#,
-        params![schematic_id, metadata, unique_blocks],
-    )?;
-    let rowid = tx.last_insert_rowid();
-    tx.commit()?;
-
-    Ok(rowid)
-}
 #[tauri::command]
 pub fn add_schematic(db: State<'_, DatabaseState>, schematic: Schematic) -> Result<i64, String> {
     let mut conn = db.0.get().map_err(|e| e.to_string())?;
@@ -171,37 +147,6 @@ pub fn get_schematic(db: State<'_, DatabaseState>, id: i64) -> Result<Schematic,
     let schematic = find_schematic(&mut conn, id);
     Ok(schematic.map_err(|e| e.to_string())?)
 }
-
-#[tauri::command]
-pub fn get_requirements(db: State<'_, DatabaseState>, id: i64) -> Result<String, String> {
-    let conn = db.0.get().map_err(|e| e.to_string())?;
-
-    conn.query_row(
-        "SELECT requirements FROM schematic_data WHERE schematic_id = ?1",
-        [id],
-        |row| {
-            let metadata_str: String = row.get("requirements")?;
-            Ok(metadata_str)
-        },
-    )
-    .map_err(|e| e.to_string())
-}
-
-#[tauri::command]
-pub fn get_unique_block(db: State<'_, DatabaseState>, id: i64) -> Result<String, String> {
-    let conn = db.0.get().map_err(|e| e.to_string())?;
-
-    conn.query_row(
-        "SELECT unique_blocks FROM schematic_data WHERE schematic_id = ?1",
-        [id],
-        |row| {
-            let unique_block_str: String = row.get("unique_blocks")?;
-            Ok(unique_block_str)
-        },
-    )
-        .map_err(|e| e.to_string())
-}
-
 #[tauri::command]
 pub fn get_schematics(
     db: State<'_, DatabaseState>,
@@ -264,4 +209,12 @@ pub fn get_schematics(
         page,
         page_size,
     })
+}
+
+#[tauri::command]
+pub fn delete_schematic(db: State<'_, DatabaseState>, id: i64) -> Result<i64, String> {
+    let mut conn = db.0.get().map_err(|e| e.to_string())?;
+
+    let new = delete_schematic_data(&mut conn, id).map_err(|e| e.to_string())?;
+    Ok(new)
 }

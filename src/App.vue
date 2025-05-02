@@ -28,6 +28,7 @@ import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules
 const theme = useTheme()
 import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
+import {fetchUserData} from "./modules/user_data.ts";
 const selectedTheme = ref('grey')
 const backgroundStyle = ref({
   backgroundColor: '',
@@ -44,6 +45,7 @@ onMounted(async () => {
   theme.global.name.value = selectedTheme.value
   await initTheme()
   await invoke("close_splashscreen")
+  await fetchUserData()
   jeBlocks.value = await fetchJeBlocks()
   console.log(jeBlocks)
 })

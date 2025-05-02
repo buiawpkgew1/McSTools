@@ -1,5 +1,6 @@
 import {ref} from "vue";
 import {invoke} from "@tauri-apps/api/core";
+import {userData} from "./user_data.ts";
 
 export const files = ref<File[]>([]);
 export const uploadStatus = ref<'idle' | 'uploading' | 'success' | 'error'>('idle');
@@ -27,6 +28,7 @@ export const handleUpload = async (update_id: number) => {
         }
 
         uploadStatus.value = 'success';
+        userData.value.schematics += 1;
         startProgressTimer()
     } catch (err) {
         uploadStatus.value = 'error';
@@ -36,7 +38,7 @@ export const handleUpload = async (update_id: number) => {
     }
 };
 const startProgressTimer = () => {
-    const duration = 5000
+    const duration = 2500
     const interval = 50
     const steps = duration / interval
     let currentStep = 0

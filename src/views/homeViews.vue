@@ -4,8 +4,7 @@ import createImg from '../static/img/create.jpg'
 import lmImg from '../static/img/Litematica.jpg'
 import weImg from '../static/img/wordEdit.png'
 import beImg from '../static/img/grass_block.png'
-import {onMounted, ref, onBeforeUnmount} from "vue";
-import {invoke} from '@tauri-apps/api/core';
+import {onBeforeUnmount} from "vue";
 import {opacity} from "../modules/theme.ts";
 import {onBeforeRouteLeave} from 'vue-router'
 import {
@@ -16,9 +15,10 @@ import {
   uploadError,
   uploadStatus
 } from "../modules/upload_schematic.ts";
-import {UserData} from "../modules/user_data.ts";
+import {userData} from "../modules/user_data.ts";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
-import { createTimeManager } from '../modules/time_data.ts'
+import {createTimeManager} from '../modules/time_data.ts'
+
 const timeManager = createTimeManager()
 const {
   currentDate,
@@ -28,30 +28,8 @@ const {
   isNewSecond,
 } = timeManager.useInComponent()
 
-const loading = ref(true)
-const error = ref<string | null>(null)
-const userData = ref<Partial<UserData> | null>(null)
-
-const fetchUserData = async () => {
-  try {
-      loading.value = true
-      error.value = null
-      let data = await invoke<UserData>('get_user_data')
-      console.log(data)
-      userData.value = data
-
-    } catch (err) {
-      error.value = typeof err === 'string' ? err : '获取用户数据失败'
-      console.error('API Error:', err)
-    } finally {
-      loading.value = false
-    }
-}
 onBeforeRouteLeave(navigationGuard)
 
-onMounted(async() => {
-    await fetchUserData()
-})
 onBeforeUnmount(() => {
     if (progressTimer.value) {
       window.clearInterval(progressTimer.value)

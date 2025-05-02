@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import dayjs from 'dayjs'
 import {onBeforeRouteLeave, useRouter} from "vue-router";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
@@ -7,8 +7,11 @@ import {fetchSchematics, SchematicsData, schematicTypeList} from "../modules/sch
 import {clear_tools, fetch_data} from "../modules/tools_data.ts"
 import {activeTab} from "../modules/layout.ts";
 import {opacity} from "../modules/theme.ts";
+import {userData} from "../modules/user_data.ts";
 const router = useRouter()
 const autoPage = ref(1)
+const hasMore = ref(true);
+const isLoading = ref(false);
 let schematics = ref<SchematicsData[]>([])
 const parseDimensions = (sizeStr: string) => {
   const [length, width, height] = sizeStr.split(',').map(Number);
@@ -21,19 +24,42 @@ const selectSchematic = async(id: number) => {
     await router.push("/tools")
     activeTab.value = 'tools'
 }
+interface LoadParams {
+  done: (status: 'ok' | 'error' | 'empty') => void
+}
 
 const parseVersions  = (versionStr: string) => {
   return versionStr.split(',').map(Number);
 };
-onMounted(async() => {
-  const { data, page, page_size} = await fetchSchematics({
-    filter: '',
-    page: autoPage.value,
-    page_size: 20
-  });
-  console.log(page, page_size)
-  schematics.value = data
-})
+const schematic_load = async ({ done }: LoadParams) => {
+  if (!hasMore.value) {
+    done('empty')
+    return
+  }
+  if (!hasMore.value || isLoading.value) return;
+
+  try {
+    isLoading.value = true;
+    const total = userData.value.schematics
+
+    const { data, page, page_size } = await fetchSchematics({
+      filter: '',
+      page: autoPage.value,
+      page_size: 20
+    });
+
+    schematics.value = [...schematics.value, ...data];
+    autoPage.value += 1;
+
+    hasMore.value = (page * page_size) < total;
+    done('ok')
+  } catch (error) {
+    console.error('加载失败:', error);
+    done('error')
+  } finally {
+    isLoading.value = false;
+  }
+}
 
 onBeforeRouteLeave(navigationGuard)
 
@@ -58,152 +84,175 @@ const formatTime = (time: any) => {
         </v-toolbar>
 
         <v-list class="mc-blueprint-list">
-          <v-list-item
-              v-for="(bp) in schematics"
-              :key="bp.id"
-              class="py-2"
-              :title="bp.name"
-              @click="selectSchematic(bp.id)"
+          <v-infinite-scroll
+              :items="schematics"
+              @load="schematic_load"
+              :has-more="hasMore"
           >
-            <template v-slot:prepend>
-              <v-icon
-                  icon="mdi-cube-scan"
-                  size="60"
-                  class="app-logo"
-              />
-            </template>
+            <v-list-item
+                v-for="(bp) in schematics"
+                :key="bp.id"
+                class="py-2"
+                :title="bp.name"
+                @click="selectSchematic(bp.id)"
+            >
+              <template v-slot:prepend>
+                <v-icon
+                    icon="mdi-cube-scan"
+                    size="60"
+                    class="app-logo"
+                />
+              </template>
 
-            <template #title>
-              <div class="d-flex align-center flex-wrap">
-                <span v-if="bp.schematic_type == -1" class="text-h6 text-red-lighten-1">未解析</span>
-                <span class="text-h6 text-blue-darken-4">{{ bp.name }}</span>
-                <div class="ms-3 d-flex align-center ga-1">
-                  <v-chip
-                      variant="outlined"
-                      color="green-darken-2"
-                      size="small"
-                      class="me-2"
-                  >
-                    <v-icon start icon="mdi-account"></v-icon>
-                    {{ bp.user }}
-                  </v-chip>
-                  <v-chip
-                      color="orange-lighten-4"
-                      size="small"
-                      class="text-orange-darken-4"
-                  >
-                    <v-icon start icon="mdi-cube"></v-icon>
-                    {{ bp.game_version }}
-                  </v-chip>
-                  <v-chip
-                      color="deep-purple"
-                      variant="outlined"
-                      size="small"
-                      class="dimension-chip"
-                  >
-                    <div class="d-flex align-center">
-                      <v-icon icon="mdi-axis-arrow" class="mr-1"></v-icon>
-                      <div class="dimension-values">
+              <template #title>
+                <div class="d-flex align-center flex-wrap">
+                  <span v-if="bp.schematic_type == -1" class="text-h6 text-red-lighten-1">未解析</span>
+                  <span class="text-h6 text-blue-darken-4">{{ bp.name }}</span>
+                  <div class="ms-3 d-flex align-center ga-1">
+                    <v-chip
+                        variant="outlined"
+                        color="green-darken-2"
+                        size="small"
+                        class="me-2"
+                    >
+                      <v-icon start icon="mdi-account"></v-icon>
+                      {{ bp.user }}
+                    </v-chip>
+                    <v-chip
+                        color="orange-lighten-4"
+                        size="small"
+                        class="text-orange-darken-4"
+                    >
+                      <v-icon start icon="mdi-cube"></v-icon>
+                      {{ bp.game_version }}
+                    </v-chip>
+                    <v-chip
+                        color="deep-purple"
+                        variant="outlined"
+                        size="small"
+                        class="dimension-chip"
+                    >
+                      <div class="d-flex align-center">
+                        <v-icon icon="mdi-axis-arrow" class="mr-1"></v-icon>
+                        <div class="dimension-values">
                         <span v-for="(dim, index) in parseDimensions(bp.sizes)" :key="index">
                           {{ dim }}
                           <v-icon v-if="index < 2" icon="mdi-close" size="x-small" class="mx-1"></v-icon>
                         </span>
+                        </div>
                       </div>
-                    </div>
-                  </v-chip>
-                </div>
-              </div>
-            </template>
-
-            <template #subtitle>
-              <div class="d-flex flex-column mt-1">
-                <p class="text-caption mb-1">
-                  {{ bp.description }}
-                </p>
-
-                <div class="d-flex align-center flex-wrap gap-3">
-                  <div class="d-flex align-center">
-                    <v-icon icon="mdi-format-list-bulleted-type" size="small" class="me-1"></v-icon>
-                    <span class="text-caption">{{ schematicTypeList[bp.schematic_type as 1 | 2 | 3 | 4] }}</span>
+                    </v-chip>
                   </div>
+                </div>
+              </template>
+
+              <template #subtitle>
+                <div class="d-flex flex-column mt-1">
+                  <p class="text-caption mb-1">
+                    {{ bp.description }}
+                  </p>
 
                   <div class="d-flex align-center flex-wrap gap-3">
                     <div class="d-flex align-center">
-                      <v-icon icon="mdi-tag" size="small" class="me-1"></v-icon>
-                      <span class="text-caption">
+                      <v-icon icon="mdi-format-list-bulleted-type" size="small" class="me-1"></v-icon>
+                      <span class="text-caption">{{ schematicTypeList[bp.schematic_type as 1 | 2 | 3 | 4] }}</span>
+                    </div>
+
+                    <div class="d-flex align-center flex-wrap gap-3">
+                      <div class="d-flex align-center">
+                        <v-icon icon="mdi-tag" size="small" class="me-1"></v-icon>
+                        <span class="text-caption">
                         v{{ bp.version }}
                         <v-chip size="x-small" color="green" class="ms-1">当前版本</v-chip>
                       </span>
+                      </div>
+
+                      <v-menu v-if="parseVersions(bp.version_list).length > 0">
+                        <template v-slot:activator="{ props }">
+                          <v-btn
+                              variant="text"
+                              color="primary"
+                              size="small"
+                              v-bind="props"
+                          >
+                            <v-icon icon="mdi-history" class="me-1"></v-icon>
+                            历史版本 ({{ parseVersions(bp.version_list).length }})
+                          </v-btn>
+                        </template>
+
+                        <v-list density="compact">
+                          <v-list-item
+                              v-for="(version, index) in parseVersions(bp.version_list)"
+                              :key="index"
+                          >
+                            <v-list-item-title>
+                              v{{ version }}
+                              <v-icon
+                                  v-if="version === bp.version"
+                                  icon="mdi-tag"
+                                  color="green"
+                                  size="small"
+                                  class="ms-1"
+                              />
+                            </v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
                     </div>
 
-                    <v-menu v-if="parseVersions(bp.version_list).length > 0">
-                      <template v-slot:activator="{ props }">
-                        <v-btn
-                            variant="text"
-                            color="primary"
-                            size="small"
-                            v-bind="props"
-                        >
-                          <v-icon icon="mdi-history" class="me-1"></v-icon>
-                          历史版本 ({{ parseVersions(bp.version_list).length }})
-                        </v-btn>
-                      </template>
-
-                      <v-list density="compact">
-                        <v-list-item
-                            v-for="(version, index) in parseVersions(bp.version_list)"
-                            :key="index"
-                        >
-                          <v-list-item-title>
-                            v{{ version }}
-                            <v-icon
-                                v-if="version === bp.version"
-                                icon="mdi-tag"
-                                color="green"
-                                size="small"
-                                class="ms-1"
-                            />
-                          </v-list-item-title>
-                        </v-list-item>
-                      </v-list>
-                    </v-menu>
-                  </div>
-
-                  <div class="d-flex align-center">
-                    <v-icon icon="mdi-clock-outline" size="small" class="me-1"></v-icon>
-                    <span class="text-caption">{{ formatTime(bp.updated_at) }}</span>
+                    <div class="d-flex align-center">
+                      <v-icon icon="mdi-clock-outline" size="small" class="me-1"></v-icon>
+                      <span class="text-caption">{{ formatTime(bp.updated_at) }}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </template>
+              </template>
 
-            <template v-slot:append>
-              <div class="d-flex flex-column align-center ga-2">
-                <v-btn
-                    variant="tonal"
+              <template v-slot:append>
+                <div class="d-flex flex-column align-center ga-2">
+                  <v-btn
+                      variant="tonal"
+                      color="primary"
+                      prepend-icon="mdi-download"
+                      size="small"
+                  >
+                    导出
+                  </v-btn>
+                  <div class="d-flex ga-1">
+                    <v-btn
+                        variant="text"
+                        color="grey-darken-1"
+                        icon="mdi-pencil"
+                        density="comfortable"
+                    ></v-btn>
+                    <v-btn
+                        variant="text"
+                        color="red-lighten-1"
+                        icon="mdi-delete"
+                        density="comfortable"
+                    ></v-btn>
+                  </div>
+                </div>
+              </template>
+            </v-list-item>
+            <template v-slot:load-more>
+              <div class="text-center py-4">
+                <v-progress-circular
+                    indeterminate
                     color="primary"
-                    prepend-icon="mdi-download"
-                    size="small"
-                >
-                  导出
-                </v-btn>
-                <div class="d-flex ga-1">
-                  <v-btn
-                      variant="text"
-                      color="grey-darken-1"
-                      icon="mdi-pencil"
-                      density="comfortable"
-                  ></v-btn>
-                  <v-btn
-                      variant="text"
-                      color="red-lighten-1"
-                      icon="mdi-delete"
-                      density="comfortable"
-                  ></v-btn>
-                </div>
+                    size="24"
+                ></v-progress-circular>
+                  <span class="ml-2 text-caption">正在加载更多数据...</span>
               </div>
             </template>
-          </v-list-item>
+            <template v-slot:empty>
+              <div class="text-center py-4 text-grey">
+                <v-icon icon="mdi-check-circle" class="mr-2"></v-icon>
+                已经到底了，没有更多数据啦~
+              </div>
+            </template>
+          </v-infinite-scroll>
+
         </v-list>
       </v-card>
     </v-col>
