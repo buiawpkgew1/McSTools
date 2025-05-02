@@ -11,12 +11,14 @@ pub mod litematica;
 mod modules;
 pub mod utils;
 mod word_edit;
+mod map_art;
+
 use crate::database::db_control;
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
 use database::db_apis::logs_api::{add_logs, get_logs};
 use database::db_apis::schematics_api::{
-    add_schematic, get_requirements, get_schematic, get_schematics,
+    add_schematic, get_requirements, get_schematic, get_schematics, get_unique_block
 };
 use database::db_apis::user_api::get_user_data;
 use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
@@ -59,6 +61,7 @@ pub fn run() {
             get_schematic,
             get_schematics,
             get_requirements,
+            get_unique_block,
             get_schematic_data,
             get_schematic_convert_data
         ])

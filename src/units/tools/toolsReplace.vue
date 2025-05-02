@@ -2,13 +2,11 @@
 import {defineProps, reactive, onMounted, watch} from "vue";
 import type { RequirementStatistics, RequirementStatistic } from "../../modules/requirements.ts";
 import { jeBlocks, fetchJeBlocks, type SubData } from "../../modules/je_blocks.ts";
-
 interface ReplacementRule {
   original: RequirementStatistic;
   replacement: SubData;
   quantity: number;
 }
-
 const props = defineProps<{
   data: RequirementStatistics | undefined;
 }>();
@@ -63,6 +61,10 @@ const resetSelection = () => {
   state.error = null;
 };
 
+const getBlockIcon = (blockId: string) => {
+  const block = blockId.split(':');
+  return new URL(`../../assets/icon/icon-exports-x32/${block[0]}__${block[1]}.png`, import.meta.url).href
+};
 const removeRule = (index: number) => {
   state.replacementRules.splice(index, 1);
 };
@@ -101,7 +103,23 @@ watch(() => [state.globalReplace, state.selectedOriginal], ([global, selected]) 
             item-value="id"
             clearable
             :loading="!props.data"
-        />
+        >
+          <template v-slot:item="{ props: itemProps, item }">
+            <v-list-item v-bind="itemProps">
+              <template v-slot:prepend>
+                <v-avatar size="32" rounded="0" class="mr-2">
+                  <img
+                      :src="getBlockIcon(item.raw.id)"
+                      :alt="item.raw.zh_cn"
+                  >
+                </v-avatar>
+              </template>
+              <v-list-item-subtitle class="text-caption">
+                ID: {{ item.raw.id }}
+              </v-list-item-subtitle>
+            </v-list-item>
+          </template>
+        </v-combobox>
       </div>
 
       <v-divider class="my-4"/>
@@ -113,9 +131,26 @@ watch(() => [state.globalReplace, state.selectedOriginal], ([global, selected]) 
             label="替换为"
             :items="jeBlocks || []"
             item-title="zh_cn"
-            item-value="block_id"
+            item-value="block_name"
             :loading="!jeBlocks"
-        />
+            clearable
+        >
+          <template v-slot:item="{ props: itemProps, item }">
+            <v-list-item v-bind="itemProps">
+              <template v-slot:prepend>
+                <v-avatar size="32" rounded="0" class="mr-2">
+                  <img
+                      :src="getBlockIcon(`minecraft:${item.raw.block_name}`)"
+                      :alt="item.raw.zh_cn"
+                  >
+                </v-avatar>
+              </template>
+              <v-list-item-subtitle class="text-caption">
+                ID: minecraft:{{ item.raw.block_name }}
+              </v-list-item-subtitle>
+            </v-list-item>
+          </template>
+        </v-combobox>
       </div>
 
       <v-text-field

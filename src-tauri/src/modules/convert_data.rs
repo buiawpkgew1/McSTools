@@ -1,5 +1,9 @@
 use std::collections::HashMap;
+use std::sync::Arc;
 use serde::{Deserialize, Serialize};
+use crate::utils::block_state_pos_list::{BlockData, BlockStatePosList};
+use crate::utils::requirements::Requirements;
+use crate::utils::schematic_data::SchematicError;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Target {
@@ -64,4 +68,24 @@ impl SchematicType {
             SchematicType::Be => &5,
         }
     }
+}
+
+pub fn get_unique_block(blocks: &BlockStatePosList) -> Result<Vec<Arc<BlockData>>, SchematicError> {
+    let mut seen = HashMap::new();
+    let mut unique = Vec::new();
+    for block_pos in &blocks.elements {
+        let block_data = block_pos.block.clone();
+
+        if !seen.contains_key(&block_data) {
+            let index = unique.len();
+            seen.insert(block_data.clone(), index);
+            unique.push(block_data.clone());
+        }
+    }
+    Ok(unique)
+}
+pub fn get_unique_block_str(blocks: &BlockStatePosList) -> Result<String, SchematicError> {
+    let unique = get_unique_block(blocks)?;
+    let str = serde_json::to_string(&unique).map_err(SchematicError::Json)?;
+    Ok(str)
 }

@@ -1,7 +1,7 @@
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
-use crate::database::db_apis::schematics_api::{find_schematic, get_schematic_version, new_requirements, new_schematic, update_requirements, update_schematic};
+use crate::database::db_apis::schematics_api::{find_schematic, get_schematic_version, new_schematic_data, new_schematic, update_schematic_data, update_schematic};
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -14,6 +14,7 @@ use fastnbt::Value;
 use std::path::Path;
 use tauri::State;
 use crate::database::db_apis::user_api::add_user_schematic;
+use crate::modules::convert_data::get_unique_block_str;
 
 #[tauri::command]
 pub async fn encode_uploaded_schematic(
@@ -49,6 +50,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = CreateSchematic::new_from_bytes(data)?;
                 let schematic_data = schematic.get_blocks_pos()?;
                 let requirement = get_requirements(&schematic_data.blocks)?;
+                let unique_blocks = get_unique_block_str(&schematic_data.blocks)?;
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let size = schematic.get_size()?;
@@ -96,7 +98,7 @@ pub async fn encode_uploaded_schematic(
                     schematic.id = update_id;
                     schematic.version = version;
                     let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_requirements(&mut conn, schematic_id, requirements_str)?;
+                    update_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -107,7 +109,7 @@ pub async fn encode_uploaded_schematic(
                     )?
                 }else {
                     let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    new_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
                     add_user_schematic(&mut conn)?;
                     file_manager.save_schematic_data(
                         schematic_id,
@@ -125,6 +127,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = BgSchematic::new_from_data(data)?;
                 let schematic_data = schematic.get_blocks_pos()?;
                 let requirement = get_requirements(&schematic_data.blocks)?;
+                let unique_blocks = get_unique_block_str(&schematic_data.blocks)?;
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
 
@@ -153,7 +156,7 @@ pub async fn encode_uploaded_schematic(
                     schematic.id = update_id;
                     schematic.version = version;
                     let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_requirements(&mut conn, schematic_id, requirements_str)?;
+                    update_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -164,7 +167,7 @@ pub async fn encode_uploaded_schematic(
                     )?
                 }else {
                     let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    new_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
                     add_user_schematic(&mut conn)?;
                     file_manager.save_schematic_data(
                         schematic_id,
@@ -182,6 +185,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = WeSchematic::new_from_bytes(data)?;
                 let schematic_data = schematic.get_blocks_pos()?;
                 let requirement = get_requirements(&schematic_data.blocks)?;
+                let unique_blocks = get_unique_block_str(&schematic_data.blocks)?;
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let type_version = schematic.get_type()?;
@@ -215,7 +219,7 @@ pub async fn encode_uploaded_schematic(
                     schematic.id = update_id;
                     schematic.version = version;
                     let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_requirements(&mut conn, schematic_id, requirements_str)?;
+                    update_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -226,7 +230,7 @@ pub async fn encode_uploaded_schematic(
                     )?
                 }else {
                     let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    new_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
                     add_user_schematic(&mut conn)?;
                     file_manager.save_schematic_data(
                         schematic_id,
@@ -244,6 +248,7 @@ pub async fn encode_uploaded_schematic(
                 let schematic = LmSchematic::new_from_bytes(data)?;
                 let schematic_data = schematic.get_blocks_pos()?;
                 let requirement = get_requirements(&schematic_data.blocks)?;
+                let unique_blocks = get_unique_block_str(&schematic_data.blocks)?;
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let metadata = schematic.read_metadata()?;
@@ -282,7 +287,7 @@ pub async fn encode_uploaded_schematic(
                     schematic.id = update_id;
                     schematic.version = version;
                     let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_requirements(&mut conn, schematic_id, requirements_str)?;
+                    update_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -293,7 +298,7 @@ pub async fn encode_uploaded_schematic(
                     )?
                 }else {
                     let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_requirements(&mut conn, schematic_id, requirements_str)?;
+                    new_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
                     add_user_schematic(&mut conn)?;
                     file_manager.save_schematic_data(
                         schematic_id,
@@ -330,7 +335,7 @@ pub async fn encode_uploaded_schematic(
                     schematic.id = update_id;
                     schematic.version = version;
                     let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_requirements(&mut conn, schematic_id, "{}".to_string())?;
+                    update_schematic_data(&mut conn, schematic_id, "{}".to_string(), "{}".to_string())?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -341,7 +346,7 @@ pub async fn encode_uploaded_schematic(
                     )?
                 }else {
                     let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_requirements(&mut conn, schematic_id, "{}".to_string())?;
+                    new_schematic_data(&mut conn, schematic_id, "{}".to_string(), "{}".to_string())?;
                     add_user_schematic(&mut conn)?;
                     file_manager.save_schematic_data(
                         schematic_id,

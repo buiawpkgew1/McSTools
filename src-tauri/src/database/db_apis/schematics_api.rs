@@ -118,17 +118,18 @@ pub fn get_schematic_version(
     Ok(schematic?)
 }
 
-pub fn new_requirements(
+pub fn new_schematic_data(
     conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic_id: i64,
     metadata: String,
+    unique_blocks: String
 ) -> Result<i64> {
     let tx = conn.transaction()?;
     tx.execute(
-        r#"INSERT INTO requirements (
-            schematic_id, metadata
-        ) VALUES (?1, ?2)"#,
-        params![schematic_id, metadata,],
+        r#"INSERT INTO schematic_data (
+            schematic_id, metadata, unique_block
+        ) VALUES (?1, ?2, ?3)"#,
+        params![schematic_id, metadata, unique_blocks],
     )?;
     let rowid = tx.last_insert_rowid();
     tx.commit()?;
@@ -136,18 +137,21 @@ pub fn new_requirements(
     Ok(rowid)
 }
 
-pub fn update_requirements(
+pub fn update_schematic_data(
     conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic_id: i64,
     metadata: String,
+    unique_blocks: String
 ) -> Result<i64> {
     let tx = conn.transaction()?;
     tx.execute(
-        r#"UPDATE requirements
-        SET metadata = ?1
+        r#"UPDATE schematic_data
+        SET
+            metadata = ?1
+            unique_block = ?3
         WHERE schematic_id = ?2
-        VALUES (?1, ?2)"#,
-        params![schematic_id, metadata,],
+        VALUES (?1, ?2, ?3)"#,
+        params![schematic_id, metadata, unique_blocks],
     )?;
     let rowid = tx.last_insert_rowid();
     tx.commit()?;
@@ -173,7 +177,7 @@ pub fn get_requirements(db: State<'_, DatabaseState>, id: i64) -> Result<String,
     let conn = db.0.get().map_err(|e| e.to_string())?;
 
     conn.query_row(
-        "SELECT metadata FROM requirements WHERE schematic_id = ?1",
+        "SELECT metadata FROM schematic_data WHERE schematic_id = ?1",
         [id],
         |row| {
             let metadata_str: String = row.get("metadata")?;
@@ -181,6 +185,21 @@ pub fn get_requirements(db: State<'_, DatabaseState>, id: i64) -> Result<String,
         },
     )
     .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn get_unique_block(db: State<'_, DatabaseState>, id: i64) -> Result<String, String> {
+    let conn = db.0.get().map_err(|e| e.to_string())?;
+
+    conn.query_row(
+        "SELECT unique_block FROM schematic_data WHERE schematic_id = ?1",
+        [id],
+        |row| {
+            let unique_block_str: String = row.get("unique_block")?;
+            Ok(unique_block_str)
+        },
+    )
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]

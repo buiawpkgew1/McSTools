@@ -65,11 +65,12 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
         CREATE INDEX IF NOT EXISTS idx_schematic_search
         ON schematics(created_at DESC, name, description);
         
-        CREATE TABLE IF NOT EXISTS requirements (
+        CREATE TABLE IF NOT EXISTS schematic_data (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             schematic_id INTEGER NOT NULL,
-            metadata TEXT DEFAULT '{}', -- 元数据（JSON格式存储）
-            
+            requirements TEXT DEFAULT '{}', -- 元数据（JSON格式存储）
+            unique_blocks TEXT DEFAULT '{}', -- 元数据（JSON格式存储）
+
             FOREIGN KEY (
                 schematic_id
             ) REFERENCES schematics (
@@ -79,7 +80,7 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
             UNIQUE(schematic_id)
         );
         CREATE INDEX IF NOT EXISTS idx_requirements_schematic 
-        ON requirements(schematic_id);
+        ON schematic_data(schematic_id);
         
         CREATE TABLE IF NOT EXISTS app_logs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -2,9 +2,10 @@
 
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {opacity} from "../modules/theme.ts";
-import {schematic_id} from "../modules/tools_data.ts";
 import {ref} from "vue";
 import {onBeforeRouteLeave} from "vue-router";
+import mapImage2d from "../units/others/mapImage2d.vue";
+
 const active = ref(0)
 
 onBeforeRouteLeave(navigationGuard)
@@ -25,12 +26,13 @@ onBeforeRouteLeave(navigationGuard)
 
           <v-divider vertical inset class="mx-4"/>
 
-          <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1" :disabled="schematic_id == undefined">
+          <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1">
             <v-tab value="img">地图画</v-tab>
           </v-tabs>
         </v-toolbar>
         <v-window v-model="active">
           <v-window-item value="img">
+            <map-image2d />
           </v-window-item>
         </v-window>
       </v-card>

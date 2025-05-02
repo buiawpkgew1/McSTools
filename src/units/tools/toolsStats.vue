@@ -14,6 +14,10 @@ const sortedItems = computed(() => {
   return props.data?.items?.slice().sort((a, b) => b.count - a.count) || [];
 });
 
+const getBlockIcon = (blockId: string) => {
+  const block = blockId.split(':');
+  return new URL(`../../assets/icon/icon-exports-x32/${block[0]}__${block[1]}.png`, import.meta.url).href
+};
 const initOrUpdateChart = async () => {
   await nextTick();
   const chartDom = document.getElementById('chart-container');
@@ -142,6 +146,12 @@ onBeforeUnmount(() => {
           class="table-row"
       >
         <td class="text-left font-weight-medium">
+          <v-avatar size="32" rounded="0" class="mr-2">
+            <img
+                :src="getBlockIcon(item.id)"
+                :alt="item.zh_cn"
+            >
+          </v-avatar>
           {{ item.zh_cn }}
         </td>
 
