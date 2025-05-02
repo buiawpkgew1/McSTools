@@ -8,6 +8,7 @@ import {clear_tools, fetch_data} from "../modules/tools_data.ts"
 import {activeTab} from "../modules/layout.ts";
 import {opacity} from "../modules/theme.ts";
 const router = useRouter()
+const autoPage = ref(1)
 let schematics = ref<SchematicsData[]>([])
 const parseDimensions = (sizeStr: string) => {
   const [length, width, height] = sizeStr.split(',').map(Number);
@@ -27,7 +28,7 @@ const parseVersions  = (versionStr: string) => {
 onMounted(async() => {
   const { data, page, page_size} = await fetchSchematics({
     filter: '',
-    page: 1,
+    page: autoPage.value,
     page_size: 20
   });
   console.log(page, page_size)

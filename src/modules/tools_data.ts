@@ -3,18 +3,22 @@ import {fetchRequirementsWithStats, RequirementStatistics} from "./requirements.
 import {ref} from "vue";
 import {invoke} from "@tauri-apps/api/core";
 import {ConvertData, fetchConvertData} from "./convert_data.ts";
+import {BlockData, fetchUniqueBlocks} from "./replace_data.ts";
 
 export let schematic_id = ref<number | undefined>();
 export let schematicData = ref<SchematicsData | undefined>();
 export let convertData = ref<ConvertData | undefined>();
 export let schematicRequirements = ref<RequirementStatistics | undefined>();
 export let schematicStr = ref<string | undefined>();
+export let uniqueBlocks = ref<BlockData[] | undefined>();
 
 export const clear_tools = () =>{
     schematic_id.value = undefined
     schematicData.value = undefined
     schematicRequirements.value = undefined
     convertData.value = undefined
+    schematicStr.value = undefined
+    uniqueBlocks.value = undefined
 }
 
 export const fetch_data = async (id: number) => {
@@ -22,7 +26,8 @@ export const fetch_data = async (id: number) => {
     schematicData.value = await fetchSchematic(id)
     convertData.value = await fetchConvertData(id)
     schematicRequirements.value = await fetchRequirementsWithStats(id)
-    schematicStr.value = await  fetchSchematicStr(id)
+    schematicStr.value = await fetchSchematicStr(id)
+    uniqueBlocks.value = await fetchUniqueBlocks(id)
 }
 
 export const get_data = async (id: number) => {

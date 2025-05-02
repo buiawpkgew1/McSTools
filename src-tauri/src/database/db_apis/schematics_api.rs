@@ -127,7 +127,7 @@ pub fn new_schematic_data(
     let tx = conn.transaction()?;
     tx.execute(
         r#"INSERT INTO schematic_data (
-            schematic_id, metadata, unique_block
+            schematic_id, requirements, unique_blocks
         ) VALUES (?1, ?2, ?3)"#,
         params![schematic_id, metadata, unique_blocks],
     )?;
@@ -147,8 +147,8 @@ pub fn update_schematic_data(
     tx.execute(
         r#"UPDATE schematic_data
         SET
-            metadata = ?1
-            unique_block = ?3
+            requirements = ?1
+            unique_blocks = ?3
         WHERE schematic_id = ?2
         VALUES (?1, ?2, ?3)"#,
         params![schematic_id, metadata, unique_blocks],
@@ -177,10 +177,10 @@ pub fn get_requirements(db: State<'_, DatabaseState>, id: i64) -> Result<String,
     let conn = db.0.get().map_err(|e| e.to_string())?;
 
     conn.query_row(
-        "SELECT metadata FROM schematic_data WHERE schematic_id = ?1",
+        "SELECT requirements FROM schematic_data WHERE schematic_id = ?1",
         [id],
         |row| {
-            let metadata_str: String = row.get("metadata")?;
+            let metadata_str: String = row.get("requirements")?;
             Ok(metadata_str)
         },
     )
@@ -192,10 +192,10 @@ pub fn get_unique_block(db: State<'_, DatabaseState>, id: i64) -> Result<String,
     let conn = db.0.get().map_err(|e| e.to_string())?;
 
     conn.query_row(
-        "SELECT unique_block FROM schematic_data WHERE schematic_id = ?1",
+        "SELECT unique_blocks FROM schematic_data WHERE schematic_id = ?1",
         [id],
         |row| {
-            let unique_block_str: String = row.get("unique_block")?;
+            let unique_block_str: String = row.get("unique_blocks")?;
             Ok(unique_block_str)
         },
     )
