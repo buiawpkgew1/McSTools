@@ -37,6 +37,7 @@ r2d2_sqlite = "0.27.0"
 tauri-plugin-store = "2"
 tauri-plugin-fs = "2"
 tokio = "1.44.1"
+dashmap = "6.1.0"
 
 [profile.release]
 opt-level = 3

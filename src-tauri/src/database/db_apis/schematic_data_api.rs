@@ -46,7 +46,7 @@ pub fn update_schematic_data(
     Ok(rowid)
 }
 #[tauri::command]
-pub fn get_requirements(db: State<'_, DatabaseState>, id: i64) -> anyhow::Result<String, String> {
+pub fn get_schematic_requirements(db: State<'_, DatabaseState>, id: i64) -> anyhow::Result<String, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
 
     conn.query_row(

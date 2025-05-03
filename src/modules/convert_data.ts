@@ -1,4 +1,5 @@
 import {invoke} from "@tauri-apps/api/core";
+import {toast} from "./others.ts";
 type SchematicType = "Create" | "Litematic" | "Bg" | "We" | "Be";
 
 interface Target {
@@ -22,6 +23,9 @@ export const fetchConvertData = async (id: number):Promise<ConvertData> => {
             id: id,
         })
     } catch (err) {
+        toast.error(`发生了一个错误:${err}`, {
+            timeout: 3000
+        });
         throw new Error(` ${err}`);
     }
 }

@@ -1,5 +1,6 @@
 import {BaseDirectory, mkdir, readFile, writeFile, exists} from '@tauri-apps/plugin-fs';
 import {path} from "@tauri-apps/api";
+import {toast} from "./others.ts";
 
 
 const saveImage = async (file: File | undefined) => {
@@ -92,6 +93,9 @@ const getBackgroundUrl = async (path: string) => {
 
     } catch (error) {
         console.error('背景加载失败:', error);
+        toast.error(`发生了一个错误:${error}`, {
+            timeout: 3000
+        });
         return null;
     }
 };
@@ -125,6 +129,9 @@ const getBackgroundBase64Url = async (path: string) => {
 
     } catch (error) {
         console.error('背景加载失败:', error);
+        toast.error(`发生了一个错误:${error}`, {
+            timeout: 3000
+        });
         return null;
     }
 };

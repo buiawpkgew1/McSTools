@@ -4,7 +4,7 @@ import createImg from '../../static/img/create.jpg'
 import lmImg from '../../static/img/Litematica.jpg'
 import weImg from '../../static/img/wordEdit.png'
 import beImg from '../../static/img/grass_block.png'
-import {defineProps, onMounted, computed, ref} from "vue";
+import {defineProps, computed, ref} from "vue";
 import {ConvertData} from "../../modules/convert_data.ts";
 const props = defineProps<{
   data: ConvertData | undefined,
@@ -74,9 +74,6 @@ const formatInfo = computed(() => {
       }
   }
 });
-onMounted(() =>{
-  console.log(props.data?.schematics.Bg?.["1"]?.size)
-})
 
 </script>
 

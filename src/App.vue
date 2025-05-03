@@ -26,9 +26,11 @@ import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 const theme = useTheme()
+
 import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";
+import {Notifications} from "@kyvg/vue3-notification";
 const selectedTheme = ref('grey')
 const backgroundStyle = ref({
   backgroundColor: '',
@@ -106,6 +108,7 @@ watchEffect(() => {
 ::-webkit-scrollbar {
   width: 0 !important;height: 0;
 }
+
 </style>
 
 <style lang="scss" src="./assets/css/main.scss"></style>

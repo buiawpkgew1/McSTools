@@ -1,5 +1,6 @@
 import {invoke} from "@tauri-apps/api/core";
 import {ref} from "vue";
+import {toast} from "./others.ts";
 
 export const jeBlocks = ref<SubData[]>()
 export interface SubData {
@@ -14,6 +15,9 @@ export async function fetchJeBlocks(
     try {
         return await invoke<SubData[]>('get_je_blocks')
     } catch (error) {
+        toast.error(`发生了一个错误:${error}`, {
+            timeout: 3000
+        });
         throw new Error(`err: ${error}`);
     }
 }

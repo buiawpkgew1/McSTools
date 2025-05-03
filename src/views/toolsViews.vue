@@ -11,12 +11,13 @@ import toolsData from '../units/tools/toolsData.vue';
 import toolsSchematic from '../units/tools/toolsSchematic.vue';
 import toolsSplit from '../units/tools/toolsSplit.vue';
 import {
-  schematic_id,
-  fetch_data,
-  schematicData,
-  schematicRequirements,
-  schematicStr,
-  convertData
+    schematic_id,
+    fetch_data,
+    schematicData,
+    schematicRequirements,
+    schematicStr,
+    convertData,
+    uniqueBlocks
 } from "../modules/tools_data.ts"
 import {opacity} from "../modules/theme.ts";
 const active = ref(0)
@@ -77,7 +78,10 @@ onMounted(async() => {
             <toolsSplit />
           </v-window-item>
           <v-window-item value="replace">
-            <toolsReplace :data="schematicRequirements"/>
+            <toolsReplace
+                :data="schematicRequirements"
+                :blocks="uniqueBlocks"
+            />
           </v-window-item>
           <v-window-item value="convert">
             <toolsConvert :data="convertData"/>

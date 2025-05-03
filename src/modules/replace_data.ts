@@ -1,4 +1,5 @@
 import {invoke} from "@tauri-apps/api/core";
+import {toast} from "./others.ts";
 
 export interface BlockData  {
     id: string;
@@ -12,6 +13,9 @@ export async function fetchUniqueBlocks(
         const response = await invoke<string>('get_unique_block', { id: schematicId });
         return JSON.parse(response) as BlockData[];
     } catch (error) {
+        toast.error(`发生了一个错误:${error}`, {
+            timeout: 3000
+        });
         throw new Error(`err: ${error}`);
     }
 

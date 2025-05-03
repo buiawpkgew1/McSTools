@@ -1,6 +1,7 @@
 import {ref} from "vue";
 import {invoke} from "@tauri-apps/api/core";
 import {userData} from "./user_data.ts";
+import {toast} from "./others.ts";
 
 export const files = ref<File[]>([]);
 export const uploadStatus = ref<'idle' | 'uploading' | 'success' | 'error'>('idle');
@@ -35,6 +36,9 @@ export const handleUpload = async (update_id: number) => {
         uploadError.value = err instanceof Error ? err.message : '文件上传失败';
         startProgressTimer()
         console.error('上传错误:', err);
+        toast.error(`发生了一个错误:${err}`, {
+            timeout: 3000
+        });
     }
 };
 const startProgressTimer = () => {

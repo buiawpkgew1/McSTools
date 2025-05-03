@@ -1,9 +1,9 @@
 use std::collections::HashMap;
-use std::sync::Arc;
 use serde::{Deserialize, Serialize};
 use crate::utils::block_state_pos_list::{BlockData, BlockStatePosList};
-use crate::utils::requirements::Requirements;
-use crate::utils::schematic_data::SchematicError;
+use rayon::prelude::*;
+use std::sync::{Arc, Mutex};
+use dashmap::DashMap;use crate::utils::schematic_data::SchematicError;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Target {
@@ -71,18 +71,25 @@ impl SchematicType {
 }
 
 pub fn get_unique_block(blocks: &BlockStatePosList) -> Result<Vec<Arc<BlockData>>, SchematicError> {
-    let mut seen = HashMap::new();
-    let mut unique = Vec::new();
-    for block_pos in &blocks.elements {
-        let block_data = block_pos.block.clone();
+    let seen: DashMap<Arc<BlockData>, usize> = DashMap::new();
+    let unique = Mutex::new(Vec::new());
 
-        if !seen.contains_key(&block_data) {
-            let index = unique.len();
-            seen.insert(block_data.clone(), index);
-            unique.push(block_data.clone());
+    blocks.elements.par_iter().for_each(|block_pos| {
+        let block_data = block_pos.block.clone();
+        let entry = seen.entry(block_data.clone());
+        match entry {
+            dashmap::mapref::entry::Entry::Occupied(_) => {
+            },
+            dashmap::mapref::entry::Entry::Vacant(vacant) => {
+                let mut unique_lock = unique.lock().unwrap();
+                let index = unique_lock.len();
+                vacant.insert(index);
+                unique_lock.push(block_data);
+            }
         }
-    }
-    Ok(unique)
+    });
+
+    Ok(unique.into_inner().unwrap())
 }
 pub fn get_unique_block_str(blocks: &BlockStatePosList) -> Result<String, SchematicError> {
     let unique = get_unique_block(blocks)?;

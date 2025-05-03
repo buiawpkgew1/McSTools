@@ -1,7 +1,8 @@
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
-use crate::database::db_apis::schematics_api::{find_schematic, get_schematic_version, new_schematic_data, new_schematic, update_schematic_data, update_schematic};
+use crate::database::db_apis::schematics_api::{find_schematic, get_schematic_version, new_schematic, update_schematic};
+use crate::database::db_apis::schematic_data_api::{get_schematic_requirements, get_unique_block, new_schematic_data, update_schematic_data};
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
 use crate::litematica::lm_schematic::LmSchematic;

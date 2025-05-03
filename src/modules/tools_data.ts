@@ -4,6 +4,7 @@ import {ref} from "vue";
 import {invoke} from "@tauri-apps/api/core";
 import {ConvertData, fetchConvertData} from "./convert_data.ts";
 import {BlockData, fetchUniqueBlocks} from "./replace_data.ts";
+import {toast} from "./others.ts";
 
 export let schematic_id = ref<number | undefined>();
 export let schematicData = ref<SchematicsData | undefined>();
@@ -53,6 +54,9 @@ export async function fetchSchematicStr(
     try {
         return await invoke<string>('get_schematic_data', {id: schematicId})
     } catch (error) {
+        toast.error(`发生了一个错误:${error}`, {
+            timeout: 3000
+        });
         throw new Error(`err: ${error}`);
     }
 

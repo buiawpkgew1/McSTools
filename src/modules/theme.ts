@@ -1,6 +1,7 @@
 import {ref} from "vue";
 import {appStore} from "./store.ts";
 import {getBackgroundBase64Url} from "./uploadImage.ts";
+import {toast} from "./others.ts";
 
 export const opacity = ref(1)
 export const backgroundOpacity = ref(1);
@@ -16,6 +17,9 @@ export const initTheme = async () => {
         try {
             backgroundStr.value = await getBackgroundBase64Url(bgPath)
         } catch (error) {
+            toast.error(`发生了一个错误:${error}`, {
+                timeout: 3000
+            });
             console.error('背景加载失败:', error)
             backgroundStr.value = 'null'
         }

@@ -1,4 +1,5 @@
 import {invoke} from "@tauri-apps/api/core";
+import {toast} from "./others.ts";
 export interface Requirement {
     id: string,
     zh_cn: string,
@@ -50,10 +51,13 @@ export async function fetchRequirementsWithStats(
     schematicId: number
 ): Promise<RequirementStatistics> {
     try {
-        const response = await invoke<string>('get_requirements', { id: schematicId });
+        const response = await invoke<string>('get_schematic_requirements', { id: schematicId });
         const requirements = parseRequirements(response);
         return calculateStatistics(requirements);
     } catch (error) {
+        toast.error(`发生了一个错误:${error}`, {
+            timeout: 3000
+        });
         throw new Error(`err: ${error}`);
     }
 
