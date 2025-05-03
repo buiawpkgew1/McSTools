@@ -8,7 +8,6 @@ import {BlockData} from "../../modules/replace_data.ts";
 const active = ref(0)
 const blockIdInput = ref('')
 const propertiesInput = ref('')
-const inputError = ref('')
 
 const idRules = [
   (v: string) => !!v.trim() || '必须输入方块ID',
@@ -36,7 +35,6 @@ const parseProperties = (input: string): Record<string, string> => {
 }
 
 const updateBlockData = debounce(() => {
-  inputError.value = ''
 
   try {
     if (!/^[a-z0-9_]+:[a-z0-9_/]+$/i.test(blockIdInput.value)) {
@@ -48,7 +46,9 @@ const updateBlockData = debounce(() => {
       properties: parseProperties(propertiesInput.value)
     }
   } catch (err) {
-    inputError.value = err instanceof Error ? err.message : '输入格式错误'
+    toast.error(`发生了一个错误:${err}`, {
+      timeout: 3000
+    });
     state.selectedReplacementDetails = null
   }
 }, 300)
@@ -175,6 +175,8 @@ const resetSelection = () => {
   state.selectedOriginalDetails = null;
   state.quantity = 1;
   state.error = null;
+  blockIdInput.value = '';
+  propertiesInput.value = '';
 };
 const formatProperties = (props: Record<string, string>) => {
   return Object.entries(props)
@@ -567,7 +569,7 @@ watch(() => [state.globalReplace, state.selectedOriginal], ([global, selected]) 
           即将替换 {{ state.replacementRules.length }} 条方块规则
           <ul class="mt-2">
             <li v-for="(rule, index) in state.replacementRules" :key="index">
-              {{ rule.original.zh_cn }} → {{ rule.replacement.zh_cn }} ×{{ rule.quantity }}
+              {{ rule.replaceMode == 0 ? rule.original.zh_cn :  rule.originalDetails.id}} → {{ rule.replaceMode == 0 ? rule.replacement.zh_cn : rule.replacementDetails.id }} ×{{ rule.replaceMode == 0 ? rule.quantity : "全局"}}
             </li>
           </ul>
         </v-card-text>
