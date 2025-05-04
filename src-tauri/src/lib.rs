@@ -21,6 +21,7 @@ use database::db_apis::schematic_data_api::{get_schematic_requirements, get_uniq
 use database::db_apis::user_api::get_user_data;
 use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
 use modules::convert::{get_schematic_convert_data, get_je_blocks};
+use modules::replace::schematic_replacement;
 use tauri::Manager;
 use utils::minecraft_data::versions_data::VersionData;
 use utils::loading::close_splashscreen;
@@ -54,6 +55,7 @@ pub fn run() {
             encode_uploaded_schematic,
             get_user_data,
             add_logs,
+            schematic_replacement,
             get_je_blocks,
             get_logs,
             add_schematic,

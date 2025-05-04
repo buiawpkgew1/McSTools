@@ -18,7 +18,7 @@ impl BlockPos {
 }
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Deserialize)]
 pub struct BlockId {
-    pub(crate) name: Arc<str>,
+    pub name: Arc<str>,
 }
 
 impl serde::Serialize for BlockId {
@@ -31,8 +31,8 @@ impl serde::Serialize for BlockId {
 }
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct BlockData {
-    pub(crate) id: BlockId,
-    pub(crate) properties: BTreeMap<Arc<str>, Arc<str>>,
+    pub id: BlockId,
+    pub properties: BTreeMap<Arc<str>, Arc<str>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]

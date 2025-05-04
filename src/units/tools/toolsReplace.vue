@@ -144,13 +144,14 @@ const executeReplacement = async () => {
       mode: r.replaceMode,
       original_id: r.original?.id,
       replacement_id: typeof r.replacement === 'object'
-          ? `minecraft:${r.replacement.block_name}`
+          ? `minecraft:${r.replacement?.block_name}`
           : r.replacement,
       original_details: r.originalDetails,
       replacement_details: r.replacementDetails,
       quantity: r.quantity,
       global: state.globalReplace
     }))
+    console.log(rules)
 
     const result = await invoke<boolean>('schematic_replacement', {
       rules: rules
@@ -160,6 +161,9 @@ const executeReplacement = async () => {
       state.replacementRules = [];
       state.showConfirmDialog = false;
     }
+    toast.success(`方块替换完成,请前往仓库中查看`, {
+      timeout: 3000
+    });
   } catch (err) {
     state.error = err instanceof Error ? err.message : '替换操作失败';
     toast.error(`发生了一个错误:${err}`, {
@@ -315,6 +319,7 @@ watch(() => [state.globalReplace, state.selectedOriginal], ([global, selected]) 
               v-model="state.globalReplace"
               label="全局替换"
               density="compact"
+              :disabled="true"
           />
           <v-btn
               block
@@ -424,6 +429,7 @@ watch(() => [state.globalReplace, state.selectedOriginal], ([global, selected]) 
               v-model="state.globalReplace"
               label="全局替换"
               density="compact"
+              :disabled="true"
           />
           <v-btn
               block
@@ -567,6 +573,9 @@ watch(() => [state.globalReplace, state.selectedOriginal], ([global, selected]) 
           <v-icon icon="mdi-alert" color="warning" class="mr-2"/>
           确认替换操作
         </v-card-title>
+        <v-card-subtitle>
+          替换将导出为新蓝图
+        </v-card-subtitle>
         <v-card-text>
           即将替换 {{ state.replacementRules.length }} 条方块规则
           <ul class="mt-2">
