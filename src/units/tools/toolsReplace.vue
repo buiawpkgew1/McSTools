@@ -5,6 +5,7 @@ import { jeBlocks, fetchJeBlocks, type SubData } from "../../modules/je_blocks.t
 import {invoke} from "@tauri-apps/api/core";
 import {toast} from "../../modules/others.ts";
 import {BlockData} from "../../modules/replace_data.ts";
+import {schematic_id} from "../../modules/tools_data.ts";
 const active = ref(0)
 const blockIdInput = ref('')
 const propertiesInput = ref('')
@@ -46,9 +47,6 @@ const updateBlockData = debounce(() => {
       properties: parseProperties(propertiesInput.value)
     }
   } catch (err) {
-    toast.error(`发生了一个错误:${err}`, {
-      timeout: 3000
-    });
     state.selectedReplacementDetails = null
   }
 }, 300)
@@ -142,10 +140,14 @@ const executeReplacement = async () => {
     state.isLoading = true;
     state.error = null;
     let rules = state.replacementRules.map(r => ({
+      schematic_id: schematic_id.value,
+      mode: r.replaceMode,
       original_id: r.original?.id,
       replacement_id: typeof r.replacement === 'object'
           ? `minecraft:${r.replacement.block_name}`
           : r.replacement,
+      original_details: r.originalDetails,
+      replacement_details: r.replacementDetails,
       quantity: r.quantity,
       global: state.globalReplace
     }))

@@ -7,7 +7,6 @@ use crate::create::to_create_schematic::ToCreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
 use crate::litematica::to_lm_schematic::ToLmSchematic;
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
-use crate::utils::requirements::RequirementStr;
 use crate::utils::schematic_data::SchematicError;
 use crate::word_edit::we_schematic::WeSchematic;
 use std::fs::File;

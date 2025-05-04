@@ -2,7 +2,7 @@ use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
 use crate::database::db_apis::schematics_api::{find_schematic, get_schematic_version, new_schematic, update_schematic};
-use crate::database::db_apis::schematic_data_api::{get_schematic_requirements, get_unique_block, new_schematic_data, update_schematic_data};
+use crate::database::db_apis::schematic_data_api::{new_schematic_data, update_schematic_data};
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -13,12 +13,13 @@ use crate::word_edit::we_schematic::WeSchematic;
 use anyhow::Result;
 use fastnbt::Value;
 use std::path::Path;
-use tauri::State;
+use tauri::{AppHandle, Emitter, State};
 use crate::database::db_apis::user_api::add_user_schematic;
 use crate::modules::convert_data::get_unique_block_str;
 
 #[tauri::command]
 pub async fn encode_uploaded_schematic(
+    app: AppHandle,
     db: State<'_, DatabaseState>,
     file_manager: State<'_, FileManager>,
     versions_data: State<'_, VersionData>,

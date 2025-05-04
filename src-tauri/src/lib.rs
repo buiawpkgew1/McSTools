@@ -1,18 +1,17 @@
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+
 mod be_schematic;
 mod building_gadges;
 pub mod create;
 mod data_files;
 mod database;
 pub mod litematica;
-mod modules;
+pub mod modules;
 pub mod utils;
 mod word_edit;
 mod map_art;
 
+use std::time::Instant;
+use sysinfo::{Pid, ProcessesToUpdate, System};
 use crate::database::db_control;
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
@@ -25,6 +24,8 @@ use modules::convert::{get_schematic_convert_data, get_je_blocks};
 use tauri::Manager;
 use utils::minecraft_data::versions_data::VersionData;
 use utils::loading::close_splashscreen;
+use crate::litematica::lm_schematic::LmSchematic;
+use crate::utils::schematic_data::SchematicError;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -48,7 +49,6 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             close_splashscreen,
-            greet,
             get_config,
             update_config,
             encode_uploaded_schematic,
@@ -66,4 +66,32 @@ pub fn run() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+
+#[test]
+fn test_unique() -> Result<(), SchematicError> {
+    let mut sys = System::new_all();
+    let pid = Pid::from(std::process::id() as usize);
+
+    sys.refresh_processes(ProcessesToUpdate::All, false);
+    let start_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
+    let start_time = Instant::now();
+    let schematic2 =
+        LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
+    let schem2 = schematic2.get_blocks_pos()?;
+    let unique_blocks = modules::convert_data::get_unique_block(&schem2.blocks);
+    println!("unique_blocks: {:?}", unique_blocks);
+    sys.refresh_processes(ProcessesToUpdate::All, false);
+    let end_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
+    let duration = start_time.elapsed();
+
+    println!("执行时间: {:.2} 秒", duration.as_secs_f64());
+    println!(
+        "内存消耗: {} KB → {} KB (增量: {} KB)",
+        start_mem / 1024,
+        end_mem / 1024,
+        (end_mem - start_mem) / 1024
+    );
+    Ok(())
 }

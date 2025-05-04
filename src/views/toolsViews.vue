@@ -101,13 +101,4 @@ onMounted(async() => {
 
 <style scoped>
 
-.json-container {
-  height: 100%;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  margin: 8px;
-  background: #f5f5f5;
-  overflow: auto;
-}
-
 </style>

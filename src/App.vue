@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import AppLayout from "./layout/AppLayout.vue";
-import {onMounted, ref, watchEffect} from "vue";
+import {onMounted, ref, watchEffect, onBeforeUnmount} from "vue";
 import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
@@ -30,7 +30,7 @@ const theme = useTheme()
 import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";
-import {Notifications} from "@kyvg/vue3-notification";
+import { listen } from '@tauri-apps/api/event';
 const selectedTheme = ref('grey')
 const backgroundStyle = ref({
   backgroundColor: '',
@@ -49,7 +49,10 @@ onMounted(async () => {
   await invoke("close_splashscreen")
   await fetchUserData()
   jeBlocks.value = await fetchJeBlocks()
-  console.log(jeBlocks)
+  const unlisten = await listen('upload-state', (event) => {
+    console.log('Received progress:', event.payload);
+  });
+
 })
 
 watchEffect(() => {

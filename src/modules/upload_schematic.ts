@@ -16,6 +16,9 @@ export const handleUpload = async (update_id: number) => {
     uploadError.value = null;
 
     try {
+        toast.info(`蓝图正在${update_id == -1? '上传': '更新'}解析请勿关闭`, {
+            timeout: 5000
+        });
         for (const file of files.value) {
             const arrayBuffer = await file.arrayBuffer();
             const uint8Array = new Uint8Array(arrayBuffer);
@@ -31,6 +34,9 @@ export const handleUpload = async (update_id: number) => {
         uploadStatus.value = 'success';
         userData.value.schematics += 1;
         startProgressTimer()
+        toast.success(`蓝图${update_id == -1? '上传': '更新'}完毕`, {
+            timeout: 5000
+        });
     } catch (err) {
         uploadStatus.value = 'error';
         uploadError.value = err instanceof Error ? err.message : '文件上传失败';
