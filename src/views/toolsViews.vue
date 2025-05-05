@@ -2,12 +2,14 @@
 import {onMounted, ref} from 'vue'
 import {onBeforeRouteLeave, useRouter} from "vue-router";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
+import { activeTab } from "../modules/layout.ts"
 import 'vue-json-pretty/lib/styles.css';
 import toolsConvert from '../units/tools/toolsConvert.vue';
 import toolsReplace from '../units/tools/toolsReplace.vue';
 import toolsStats from  '../units/tools/toolsStats.vue';
 import toolsData from '../units/tools/toolsData.vue';
 import toolsSchematic from '../units/tools/toolsSchematic.vue';
+import toolsHistory from '../units/tools/toolsHistory.vue'
 import toolsSplit from '../units/tools/toolsSplit.vue';
 import {
     schematic_id,
@@ -26,7 +28,6 @@ onMounted(async() => {
     if (schematic_id.value != undefined){
         await fetch_data(schematic_id.value)
     }
-    console.log(uniqueBlocks)
 })
 </script>
 
@@ -63,6 +64,7 @@ onMounted(async() => {
 
           <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1" :disabled="schematic_id == undefined">
             <v-tab value="schematic">蓝图详情</v-tab>
+            <v-tab value="history">版本管理</v-tab>
             <v-tab value="split">蓝图分割</v-tab>
             <v-tab value="replace">方块替换</v-tab>
             <v-tab value="convert">蓝图转换</v-tab>
@@ -73,6 +75,9 @@ onMounted(async() => {
         <v-window v-model="active">
           <v-window-item value="schematic">
             <toolsSchematic :data="schematicData"/>
+          </v-window-item>
+          <v-window-item value="history">
+            <toolsHistory :data="schematicData"/>
           </v-window-item>
           <v-window-item value="split">
             <toolsSplit />

@@ -5,10 +5,10 @@ import lmImg from '../../static/img/Litematica.jpg'
 import weImg from '../../static/img/wordEdit.png'
 import beImg from '../../static/img/grass_block.png'
 import {defineProps, computed, ref} from "vue";
-import {ConvertData} from "../../modules/convert_data.ts";
+import {ConvertData, fetchConvertData} from "../../modules/convert_data.ts";
 import {toast} from "../../modules/others.ts";
 import {invoke} from "@tauri-apps/api/core";
-import {schematic_id} from "../../modules/tools_data.ts";
+import {convertData, schematic_id} from "../../modules/tools_data.ts";
 const props = defineProps<{
   data: ConvertData | undefined,
 }>()
@@ -87,10 +87,11 @@ const convertSchematic = async (schematicType: number) => {
       schematicType: schematicType,
       lmVersion: lmVersion.value,
       weVersion: weVersion.value,
+      bgVersion: bgVersion.value,
       viAir: viAir.value
     });
     if (result) {
-      //理论应该有点东西
+      convertData.value = await fetchConvertData(schematic_id.value)
     }
     toast.success(`转换完毕重新载入即可导出`, {
       timeout: 3000

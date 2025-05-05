@@ -168,7 +168,8 @@ impl ToCreateSchematic {
         tag.insert("size".to_string(), size);
         tag.insert("blocks".to_string(), self.create_blocks(air));
         tag.insert("palette".to_string(), self.create_palette());
-        tag.insert("DataVersion".to_string(), Value::Int(3465));
+        tag.insert("entities".to_string(), Value::List(vec![]));
+        tag.insert("DataVersion".to_string(), Value::Int(3465)); // 你说的对别问我这里为什么写固定值
 
         Compound(tag)
     }

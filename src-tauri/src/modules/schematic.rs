@@ -14,6 +14,7 @@ use anyhow::Result;
 use fastnbt::Value;
 use std::path::Path;
 use tauri::{AppHandle, Emitter, State};
+use crate::database::db_apis::history_api::new_history;
 use crate::database::db_apis::user_api::add_user_schematic;
 use crate::modules::convert_data::get_unique_block_str;
 
@@ -98,9 +99,11 @@ pub async fn encode_uploaded_schematic(
                 if update {
                     let version = get_schematic_version(&mut conn, update_id)?;
                     schematic.id = update_id;
-                    schematic.version = version;
-                    let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
+                    schematic.version = version + 1;
+                    let schematic_id = update_schematic(&mut conn, schematic.clone())?;
+                    update_schematic_data(&mut conn, schematic_id, requirements_str.clone(), unique_blocks.clone())?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -110,9 +113,11 @@ pub async fn encode_uploaded_schematic(
                         file_ext_str,
                     )?
                 }else {
-                    let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
+                    let schematic_id = new_schematic(&mut conn, schematic.clone())?;
+                    new_schematic_data(&mut conn, schematic_id, requirements_str.clone(), unique_blocks.clone())?;
                     add_user_schematic(&mut conn)?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -156,9 +161,11 @@ pub async fn encode_uploaded_schematic(
                 if update {
                     let version = get_schematic_version(&mut conn, update_id)?;
                     schematic.id = update_id;
-                    schematic.version = version;
-                    let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
+                    schematic.version = version + 1;
+                    let schematic_id = update_schematic(&mut conn, schematic.clone())?;
+                    update_schematic_data(&mut conn, schematic_id, requirements_str.clone(), unique_blocks.clone())?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -168,9 +175,11 @@ pub async fn encode_uploaded_schematic(
                         file_ext_str,
                     )?
                 }else {
-                    let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
+                    let schematic_id = new_schematic(&mut conn, schematic.clone())?;
+                    new_schematic_data(&mut conn, schematic_id, requirements_str.clone(), unique_blocks.clone())?;
                     add_user_schematic(&mut conn)?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -219,9 +228,11 @@ pub async fn encode_uploaded_schematic(
                 if update {
                     let version = get_schematic_version(&mut conn, update_id)?;
                     schematic.id = update_id;
-                    schematic.version = version;
-                    let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
+                    schematic.version = version + 1;
+                    let schematic_id = update_schematic(&mut conn, schematic.clone())?;
+                    update_schematic_data(&mut conn, schematic_id, requirements_str.clone(), unique_blocks.clone())?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -231,9 +242,11 @@ pub async fn encode_uploaded_schematic(
                         file_ext_str,
                     )?
                 }else {
-                    let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
+                    let schematic_id = new_schematic(&mut conn, schematic.clone())?;
+                    new_schematic_data(&mut conn, schematic_id, requirements_str.clone(), unique_blocks.clone())?;
                     add_user_schematic(&mut conn)?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -287,9 +300,11 @@ pub async fn encode_uploaded_schematic(
                 if update {
                     let version = get_schematic_version(&mut conn, update_id)?;
                     schematic.id = update_id;
-                    schematic.version = version;
-                    let schematic_id = update_schematic(&mut conn, schematic)?;
-                    update_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
+                    schematic.version = version + 1;
+                    let schematic_id = update_schematic(&mut conn, schematic.clone())?;
+                    update_schematic_data(&mut conn, schematic_id, requirements_str.clone(), unique_blocks.clone())?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -299,9 +314,11 @@ pub async fn encode_uploaded_schematic(
                         file_ext_str,
                     )?
                 }else {
-                    let schematic_id = new_schematic(&mut conn, schematic)?;
-                    new_schematic_data(&mut conn, schematic_id, requirements_str, unique_blocks)?;
+                    let schematic_id = new_schematic(&mut conn, schematic.clone())?;
+                    new_schematic_data(&mut conn, schematic_id, requirements_str.clone(), unique_blocks.clone())?;
                     add_user_schematic(&mut conn)?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, requirements_str, unique_blocks)?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -335,9 +352,11 @@ pub async fn encode_uploaded_schematic(
                 if update {
                     let version = get_schematic_version(&mut conn, update_id)?;
                     schematic.id = update_id;
-                    schematic.version = version;
-                    let schematic_id = update_schematic(&mut conn, schematic)?;
+                    schematic.version = version + 1;
+                    let schematic_id = update_schematic(&mut conn, schematic.clone())?;
                     update_schematic_data(&mut conn, schematic_id, "{}".to_string(), "{}".to_string())?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, "{}".to_string(), "{}".to_string())?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,
@@ -347,9 +366,11 @@ pub async fn encode_uploaded_schematic(
                         file_ext_str,
                     )?
                 }else {
-                    let schematic_id = new_schematic(&mut conn, schematic)?;
+                    let schematic_id = new_schematic(&mut conn, schematic.clone())?;
                     new_schematic_data(&mut conn, schematic_id, "{}".to_string(), "{}".to_string())?;
                     add_user_schematic(&mut conn)?;
+                    let schematic_str = serde_json::to_string(&schematic)?;
+                    new_history(&mut conn, schematic_id, schematic_str, "{}".to_string(), "{}".to_string())?;
                     file_manager.save_schematic_data(
                         schematic_id,
                         original_data,

@@ -34,11 +34,10 @@ pub fn update_schematic_data(
     tx.execute(
         r#"UPDATE schematic_data
         SET
-            requirements = ?1
-            unique_blocks = ?3
-        WHERE schematic_id = ?2
-        VALUES (?1, ?2, ?3)"#,
-        params![schematic_id, metadata, unique_blocks],
+            requirements = ?1,
+            unique_blocks = ?2
+        WHERE schematic_id = ?3"#,
+        params![metadata, unique_blocks, schematic_id],
     )?;
     let rowid = tx.last_insert_rowid();
     tx.commit()?;

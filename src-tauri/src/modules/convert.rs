@@ -49,6 +49,7 @@ pub async fn convert(
     schematic_type: i64,
     lm_version: i64,
     we_version: i64,
+    bg_version: i64,
     vi_air: bool
 ) -> anyhow::Result<bool, String> {
     async move {
@@ -69,11 +70,11 @@ pub async fn convert(
             }
             3 => {
                 let data = ToWeSchematic::new(&data).we_schematic(we_version as i32)?;
-                file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
+                file_manager.save_nbt_value(id, data, version, we_version as i32, schematic_type as i32, true)?;
             }
             4 => {
                 let data = ToBgSchematic::new(&data).bg_schematic()?;
-                file_manager.save_json_value(id, data, version, sub_version, schematic_type as i32)?;
+                file_manager.save_json_value(id, data, version, bg_version as i32, schematic_type as i32)?;
             }
             //5 => {}
             _ => {anyhow::bail!("unknown schematic type: {}", schematic_type);}

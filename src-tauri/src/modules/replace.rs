@@ -6,6 +6,7 @@ use crate::data_files::files::FileManager;
 use crate::database::db_apis::schematics_api::{find_schematic, new_schematic};
 use crate::database::db_control::DatabaseState;
 use rayon::prelude::*;
+use crate::database::db_apis::history_api::new_history;
 use crate::database::db_apis::schematic_data_api::new_schematic_data;
 use crate::database::db_apis::user_api::add_user_schematic;
 use crate::litematica::to_lm_schematic::ToLmSchematic;
@@ -101,9 +102,11 @@ pub async fn schematic_replacement(
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
                 let data = ToCreateSchematic::new(&data).create_schematic(true);
                 schematic.name = format!("replace_schematic_{}", schematic_id);
-                let new_id = new_schematic(&mut conn, schematic)?;
-                new_schematic_data(&mut conn, new_id, requirements_str, unique_blocks)?;
+                let new_id = new_schematic(&mut conn, schematic.clone())?;
+                new_schematic_data(&mut conn, new_id, requirements_str.clone(), unique_blocks.clone())?;
                 add_user_schematic(&mut conn)?;
+                let schematic_str = serde_json::to_string(&schematic)?;
+                new_history(&mut conn, new_id, schematic_str, requirements_str, unique_blocks)?;
                 file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
             }
             2 => {
@@ -113,9 +116,11 @@ pub async fn schematic_replacement(
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
                 let data = ToLmSchematic::new(&data).lm_schematic(sub_version);
                 schematic.name = format!("replace_schematic_{}", schematic_id);
-                let new_id = new_schematic(&mut conn, schematic)?;
-                new_schematic_data(&mut conn, new_id, requirements_str, unique_blocks)?;
+                let new_id = new_schematic(&mut conn, schematic.clone())?;
+                new_schematic_data(&mut conn, new_id, requirements_str.clone(), unique_blocks.clone())?;
                 add_user_schematic(&mut conn)?;
+                let schematic_str = serde_json::to_string(&schematic)?;
+                new_history(&mut conn, new_id, schematic_str, requirements_str, unique_blocks)?;
                 file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
             }
             3 => {
@@ -125,9 +130,11 @@ pub async fn schematic_replacement(
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
                 let data = ToWeSchematic::new(&data).we_schematic(sub_version)?;
                 schematic.name = format!("replace_schematic_{}", schematic_id);
-                let new_id = new_schematic(&mut conn, schematic)?;
-                new_schematic_data(&mut conn, new_id, requirements_str, unique_blocks)?;
+                let new_id = new_schematic(&mut conn, schematic.clone())?;
+                new_schematic_data(&mut conn, new_id, requirements_str.clone(), unique_blocks.clone())?;
                 add_user_schematic(&mut conn)?;
+                let schematic_str = serde_json::to_string(&schematic)?;
+                new_history(&mut conn, new_id, schematic_str, requirements_str, unique_blocks)?;
                 file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
             }
             4 => {
@@ -137,9 +144,11 @@ pub async fn schematic_replacement(
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
                 let data = ToBgSchematic::new(&data).bg_schematic()?;
                 schematic.name = format!("replace_schematic_{}", schematic_id);
-                let new_id = new_schematic(&mut conn, schematic)?;
-                new_schematic_data(&mut conn, new_id, requirements_str, unique_blocks)?;
+                let new_id = new_schematic(&mut conn, schematic.clone())?;
+                new_schematic_data(&mut conn, new_id, requirements_str.clone(), unique_blocks.clone())?;
                 add_user_schematic(&mut conn)?;
+                let schematic_str = serde_json::to_string(&schematic)?;
+                new_history(&mut conn, new_id, schematic_str, requirements_str, unique_blocks)?;
                 file_manager.save_json_value(new_id, data, version, sub_version, v_type)?;
             }
             //5 => {}

@@ -41,7 +41,8 @@ pub fn update_schematic(
             sizes = ?5,
             user = ?6,
             version = ?7,
-            game_version = ?8
+            game_version = ?8,
+            updated_at = CURRENT_TIMESTAMP
         WHERE id = ?9"#,
         params![
             schematic.name,

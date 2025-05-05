@@ -142,6 +142,13 @@ const formatTime = (time: any) => {
                         </div>
                       </div>
                     </v-chip>
+                    <v-chip
+                        color="blue"
+                        size="small"
+                    >
+                      <v-icon size="24" start icon="mdi-identifier"></v-icon>
+                      {{ bp.id }}
+                    </v-chip>
                   </div>
                 </div>
               </template>

@@ -204,9 +204,14 @@ impl WeSchematic {
         let Compound(root) = &self.nbt else {
             return Err(SchematicError::InvalidFormat("Root is not a Compound"));
         };
-        let palette_max = root.get_i32("PaletteMax")?;
         let block_entities = self.get_block_entities(type_version)?;
         let palette = self.parse_palette(type_version)?;
+        let palette_max = match type_version {
+            0 => root.get_i32("PaletteMax")?,
+            1 => palette.len() as i32,
+            _ => Err(SchematicError::InvalidFormat("PaletteMax is not a Compound"))?,
+        };
+
         Ok(WeSchematicData {
             type_version,
             size: self.get_size(type_version)?,

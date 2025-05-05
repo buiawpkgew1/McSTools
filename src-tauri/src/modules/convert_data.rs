@@ -92,11 +92,6 @@ pub fn get_unique_block(blocks: &BlockStatePosList) -> Result<Vec<Arc<BlockData>
     Ok(unique.into_inner().unwrap())
 }
 
-fn calculate_optimal_chunk_size(total: usize) -> usize {
-    let num_threads = rayon::current_num_threads();
-    let base_chunk = (total / (num_threads * 4)).max(1_000);
-    base_chunk.next_power_of_two()
-}
 pub fn get_unique_block_str(blocks: &BlockStatePosList) -> Result<String, SchematicError> {
     let unique = get_unique_block(blocks)?;
     let str = serde_json::to_string(&unique).map_err(SchematicError::Json)?;

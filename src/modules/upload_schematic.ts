@@ -2,6 +2,7 @@ import {ref} from "vue";
 import {invoke} from "@tauri-apps/api/core";
 import {userData} from "./user_data.ts";
 import {toast} from "./others.ts";
+import {fetch_data, schematic_id} from "./tools_data.ts";
 
 export const files = ref<File[]>([]);
 export const uploadStatus = ref<'idle' | 'uploading' | 'success' | 'error'>('idle');
@@ -29,6 +30,9 @@ export const handleUpload = async (update_id: number) => {
                 update: update_id != -1,
                 updateId: update_id
             });
+        }
+        if (update_id != -1) {
+            await fetch_data(update_id)
         }
 
         uploadStatus.value = 'success';
