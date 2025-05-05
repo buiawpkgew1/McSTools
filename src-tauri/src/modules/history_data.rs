@@ -5,7 +5,7 @@ use crate::database::db_data::Schematic;
 use crate::utils::block_state_pos_list::BlockData;
 use crate::utils::requirements::Requirements;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HistoryRecord {
     pub schematic: String,
     pub requirements: String,

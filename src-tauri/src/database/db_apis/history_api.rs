@@ -31,9 +31,9 @@ pub fn new_history(
 pub fn update_history(
     conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic_id: i64,
-    new_schematic: &str,
-    requirements: &str,
-    unique_blocks: &str
+    new_schematic: String,
+    requirements: String,
+    unique_blocks: String
 ) -> Result<i64> {
     let tx = conn.transaction()?;
 
@@ -55,7 +55,7 @@ pub fn update_history(
         SET
             schematic = ?1,
             requirements = ?2,
-            unique_blocks = ?3,
+            unique_blocks = ?3
         WHERE schematic_id = ?4"#,
         params![
             schematic_json.to_string(),
@@ -76,9 +76,9 @@ pub fn update_history(
 
 fn build_updated_schematic(
     old_data: Option<&String>,
-    new_entry: &str
+    new_entry: String
 ) -> Result<Value> {
-    let new_value: Value = serde_json::from_str(new_entry)
+    let new_value: Value = serde_json::from_str(&new_entry)
         .map_err(|e| anyhow::anyhow!("ERR JSON: {}", e))?;
 
     let mut array = match old_data {
@@ -110,7 +110,7 @@ fn convert_to_array(input: String) -> Result<String> {
     }
 }
 
-fn get_history_record(
+pub(crate) fn get_history_record(
     tx: &Transaction,
     schematic_id: i64
 ) -> Result<Option<HistoryRecord>> {

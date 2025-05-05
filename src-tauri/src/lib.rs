@@ -22,6 +22,7 @@ use database::db_apis::user_api::get_user_data;
 use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
 use modules::convert::{get_schematic_convert_data, get_je_blocks, convert};
 use modules::replace::schematic_replacement;
+use modules::history::get_history;
 use tauri::Manager;
 use utils::minecraft_data::versions_data::VersionData;
 use utils::loading::close_splashscreen;
@@ -52,6 +53,7 @@ pub fn run() {
             close_splashscreen,
             get_config,
             convert,
+            get_history,
             update_config,
             encode_uploaded_schematic,
             get_user_data,

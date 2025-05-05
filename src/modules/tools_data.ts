@@ -5,6 +5,7 @@ import {invoke} from "@tauri-apps/api/core";
 import {ConvertData, fetchConvertData} from "./convert_data.ts";
 import {BlockData, fetchUniqueBlocks} from "./replace_data.ts";
 import {toast} from "./others.ts";
+import {fetchHistoryRecord, HistoryRecordData} from "./history_data.ts";
 
 export let schematic_id = ref<number | undefined>();
 export let schematicData = ref<SchematicsData | undefined>();
@@ -12,6 +13,7 @@ export let convertData = ref<ConvertData | undefined>();
 export let schematicRequirements = ref<RequirementStatistics | undefined>();
 export let schematicStr = ref<string | undefined>();
 export let uniqueBlocks = ref<BlockData[] | undefined>();
+export let historyRecordData = ref<HistoryRecordData | undefined>();
 
 export const clear_tools = () =>{
     schematic_id.value = undefined
@@ -20,6 +22,7 @@ export const clear_tools = () =>{
     convertData.value = undefined
     schematicStr.value = undefined
     uniqueBlocks.value = undefined
+    historyRecordData.value = undefined
 }
 
 export const fetch_data = async (id: number) => {
@@ -29,6 +32,8 @@ export const fetch_data = async (id: number) => {
     schematicRequirements.value = await fetchRequirementsWithStats(id)
     schematicStr.value = await fetchSchematicStr(id)
     uniqueBlocks.value = await fetchUniqueBlocks(id)
+    historyRecordData.value = await fetchHistoryRecord(id)
+    console.log(historyRecordData.value)
 }
 
 export const get_data = async (id: number) => {

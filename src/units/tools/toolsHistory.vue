@@ -1,9 +1,158 @@
 <script setup lang="ts">
 
+import {isLeaving} from "../../modules/navigation.ts";
+import {opacity} from "../../modules/theme.ts";
+import {schematicTypeList} from "../../modules/schematics_data.ts";
+import {defineProps} from "vue";
+import {HistoryRecordData} from "../../modules/history_data.ts";
+import dayjs from "dayjs";
+const props = defineProps<{
+  data: HistoryRecordData | undefined,
+}>()
+const parseDimensions = (sizeStr: string) => {
+  const [length, width, height] = sizeStr.split(',').map(Number);
+  return [`X${length}`, `Y${width}`, `Z${height}`]
+};
+const formatTime = (time: any) => {
+  return dayjs(time).format('YYYY/MM/DD HH:mm')
+}
+
 </script>
 
 <template>
+  <v-row no-gutters
+         class="mb-4 animate-row"
+         :class="{ 'animate-row-out': isLeaving }"
+  >
+    <v-col>
+      <v-card class="mx-auto v-theme--custom text-primary " :style="{ '--surface-alpha': opacity }" elevation="4" style="height: 99vh">
 
+        <v-list class="mc-blueprint-list">
+          <v-list-item
+              v-for="(bp) in props.data.schematic"
+              :key="bp.id"
+              class="py-2"
+              :title="bp.name"
+          >
+            <template v-slot:prepend>
+              <v-icon
+                  icon="mdi-cube-scan"
+                  size="60"
+                  class="app-logo"
+              />
+            </template>
+
+            <template #title>
+              <div class="d-flex align-center flex-wrap">
+                <span v-if="bp.schematic_type == -1" class="text-h6 text-red-lighten-1">未解析</span>
+                <span class="text-h6 text-blue-darken-4">{{ bp.name }}</span>
+                <div class="ms-3 d-flex align-center ga-1">
+                  <v-chip
+                      variant="outlined"
+                      color="green-darken-2"
+                      size="small"
+                      class="me-2"
+                  >
+                    <v-icon start icon="mdi-account"></v-icon>
+                    {{ bp.user }}
+                  </v-chip>
+                  <v-chip
+                      color="orange-lighten-4"
+                      size="small"
+                      class="text-orange-darken-4"
+                  >
+                    <v-icon start icon="mdi-cube"></v-icon>
+                    {{ bp.game_version }}
+                  </v-chip>
+                  <v-chip
+                      color="deep-purple"
+                      variant="outlined"
+                      size="small"
+                      class="dimension-chip"
+                  >
+                    <div class="d-flex align-center">
+                      <v-icon icon="mdi-axis-arrow" class="mr-1"></v-icon>
+                      <div class="dimension-values">
+                        <span v-for="(dim, index) in parseDimensions(bp.sizes)" :key="index">
+                          {{ dim }}
+                          <v-icon v-if="index < 2" icon="mdi-close" size="x-small" class="mx-1"></v-icon>
+                        </span>
+                      </div>
+                    </div>
+                  </v-chip>
+                  <v-chip
+                      color="blue"
+                      size="small"
+                  >
+                    <v-icon size="24" start icon="mdi-identifier"></v-icon>
+                    {{ bp.id }}
+                  </v-chip>
+                </div>
+              </div>
+            </template>
+
+            <template #subtitle>
+              <div class="d-flex flex-column mt-1">
+                <p class="text-caption mb-1">
+                  {{ bp.description }}
+                </p>
+
+                <div class="d-flex align-center flex-wrap gap-3">
+                  <div class="d-flex align-center">
+                    <v-icon icon="mdi-format-list-bulleted-type" size="small" class="me-1"></v-icon>
+                    <span class="text-caption">{{ schematicTypeList[bp.schematic_type as 1 | 2 | 3 | 4] }}</span>
+                  </div>
+
+                  <div class="d-flex align-center flex-wrap gap-3">
+                    <div class="d-flex align-center">
+                      <v-icon icon="mdi-tag" size="small" class="me-1"></v-icon>
+                      <span class="text-caption">
+                        v{{ bp.version }}
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <div class="d-flex align-center">
+                    <v-icon icon="mdi-clock-outline" size="small" class="me-1"></v-icon>
+                    <span class="text-caption">{{ formatTime(bp.updated_at) }}</span>
+                  </div>
+                </div>
+              </div>
+            </template>
+
+            <template v-slot:append>
+              <div class="d-flex flex-column align-center ga-2">
+                <v-btn
+                    variant="tonal"
+                    color="primary"
+                    prepend-icon="mdi-download"
+                    size="small"
+                >
+                  导出
+                </v-btn>
+                <div class="d-flex ga-1">
+                  <v-btn
+                      variant="text"
+                      color="grey-darken-1"
+                      icon="mdi-pencil"
+                      density="comfortable"
+                  ></v-btn>
+                  <v-btn
+                      variant="text"
+                      color="red-lighten-1"
+                      icon="mdi-delete"
+                      density="comfortable"
+                  ></v-btn>
+                </div>
+              </div>
+            </template>
+          </v-list-item>
+
+        </v-list>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <style scoped>

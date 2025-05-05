@@ -18,7 +18,8 @@ import {
     schematicRequirements,
     schematicStr,
     convertData,
-    uniqueBlocks
+    uniqueBlocks,
+    historyRecordData
 } from "../modules/tools_data.ts"
 import {opacity} from "../modules/theme.ts";
 const active = ref(0)
@@ -77,7 +78,7 @@ onMounted(async() => {
             <toolsSchematic :data="schematicData"/>
           </v-window-item>
           <v-window-item value="history">
-            <toolsHistory :data="schematicData"/>
+            <toolsHistory :data="historyRecordData"/>
           </v-window-item>
           <v-window-item value="split">
             <toolsSplit />
