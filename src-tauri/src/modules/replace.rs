@@ -7,6 +7,7 @@ use crate::database::db_apis::schematics_api::{find_schematic, new_schematic};
 use crate::database::db_control::DatabaseState;
 use rayon::prelude::*;
 use crate::database::db_apis::schematic_data_api::new_schematic_data;
+use crate::database::db_apis::user_api::add_user_schematic;
 use crate::litematica::to_lm_schematic::ToLmSchematic;
 use crate::modules::convert_data::get_unique_block_str;
 use crate::modules::replace_data::{ReplacementRule, RuleMatcher};
@@ -99,9 +100,10 @@ pub async fn schematic_replacement(
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
                 let data = ToCreateSchematic::new(&data).create_schematic(true);
-                schematic.name = format!("replace_{}", schematic_id);
+                schematic.name = format!("replace_schematic_{}", schematic_id);
                 let new_id = new_schematic(&mut conn, schematic)?;
                 new_schematic_data(&mut conn, new_id, requirements_str, unique_blocks)?;
+                add_user_schematic(&mut conn)?;
                 file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
             }
             2 => {
@@ -110,9 +112,10 @@ pub async fn schematic_replacement(
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
                 let data = ToLmSchematic::new(&data).lm_schematic(sub_version);
-                schematic.name = format!("replace_{}", schematic_id);
+                schematic.name = format!("replace_schematic_{}", schematic_id);
                 let new_id = new_schematic(&mut conn, schematic)?;
                 new_schematic_data(&mut conn, new_id, requirements_str, unique_blocks)?;
+                add_user_schematic(&mut conn)?;
                 file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
             }
             3 => {
@@ -121,9 +124,10 @@ pub async fn schematic_replacement(
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
                 let data = ToWeSchematic::new(&data).we_schematic(sub_version)?;
-                schematic.name = format!("replace_{}", schematic_id);
+                schematic.name = format!("replace_schematic_{}", schematic_id);
                 let new_id = new_schematic(&mut conn, schematic)?;
                 new_schematic_data(&mut conn, new_id, requirements_str, unique_blocks)?;
+                add_user_schematic(&mut conn)?;
                 file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
             }
             4 => {
@@ -132,9 +136,10 @@ pub async fn schematic_replacement(
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
                 let data = ToBgSchematic::new(&data).bg_schematic()?;
-                schematic.name = format!("replace_{}", schematic_id);
+                schematic.name = format!("replace_schematic_{}", schematic_id);
                 let new_id = new_schematic(&mut conn, schematic)?;
                 new_schematic_data(&mut conn, new_id, requirements_str, unique_blocks)?;
+                add_user_schematic(&mut conn)?;
                 file_manager.save_json_value(new_id, data, version, sub_version, v_type)?;
             }
             //5 => {}

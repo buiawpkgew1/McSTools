@@ -61,22 +61,22 @@ pub async fn convert(
         match schematic_type {
             1 => {
                 let data = ToCreateSchematic::new(&data).create_schematic(vi_air);
-                let path = file_manager.save_nbt_value(id, data, version, sub_version, v_type, true)?;
+                let path = file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
                 Ok(path)
             }
             2 => {
                 let data = ToLmSchematic::new(&data).lm_schematic(lm_version as i32);
-                let path = file_manager.save_nbt_value(id, data, version, sub_version, v_type, true)?;
+                let path = file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
                 Ok(path)
             }
             3 => {
                 let data = ToWeSchematic::new(&data).we_schematic(we_version as i32)?;
-                let path = file_manager.save_nbt_value(id, data, version, sub_version, v_type, true)?;
+                let path = file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
                 Ok(path)
             }
             4 => {
                 let data = ToBgSchematic::new(&data).bg_schematic()?;
-                let path = file_manager.save_json_value(id, data, version, sub_version, v_type)?;
+                let path = file_manager.save_json_value(id, data, version, sub_version, schematic_type as i32)?;
                 Ok(path)
             }
             //5 => {}

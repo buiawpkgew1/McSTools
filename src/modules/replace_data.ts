@@ -1,6 +1,14 @@
 import {invoke} from "@tauri-apps/api/core";
 import {toast} from "./others.ts";
 
+export interface BlockId  {
+    name: string;
+}
+
+export interface BlockDataNew  {
+    id: BlockId;
+    properties: Record<string, string>;
+}
 export interface BlockData  {
     id: string;
     properties: Record<string, string>;

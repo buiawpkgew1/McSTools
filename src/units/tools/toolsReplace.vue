@@ -4,7 +4,7 @@ import type { RequirementStatistics, RequirementStatistic } from "../../modules/
 import { jeBlocks, fetchJeBlocks, type SubData } from "../../modules/je_blocks.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {toast} from "../../modules/others.ts";
-import {BlockData} from "../../modules/replace_data.ts";
+import {BlockData, BlockDataNew} from "../../modules/replace_data.ts";
 import {schematic_id} from "../../modules/tools_data.ts";
 const active = ref(0)
 const blockIdInput = ref('')
@@ -41,7 +41,6 @@ const updateBlockData = debounce(() => {
     if (!/^[a-z0-9_]+:[a-z0-9_/]+$/i.test(blockIdInput.value)) {
       throw new Error('无效的方块ID格式')
     }
-
     state.selectedReplacementDetails = {
       id: blockIdInput.value,
       properties: parseProperties(propertiesInput.value)
@@ -134,6 +133,24 @@ const filterBlocks = (item: BlockData, queryText: string) => {
   })
 }
 
+const convertToNewBlockData = (oldData: any): BlockDataNew | null => {
+  if (!oldData) return null;
+
+  const idValue = typeof oldData.id === 'string' ?
+      { name: oldData.id } :
+      (oldData.id?.name ? oldData.id : null);
+
+  if (!idValue) {
+    console.error('Invalid block id format:', oldData.id);
+    return null;
+  }
+
+  return {
+    id: idValue,
+    properties: oldData.properties || {}
+  };
+};
+
 
 const executeReplacement = async () => {
   try {
@@ -146,12 +163,11 @@ const executeReplacement = async () => {
       replacement_id: typeof r.replacement === 'object'
           ? `minecraft:${r.replacement?.block_name}`
           : r.replacement,
-      original_details: r.originalDetails,
-      replacement_details: r.replacementDetails,
+      original_details: convertToNewBlockData(r.originalDetails),
+      replacement_details: convertToNewBlockData(r.replacementDetails),
       quantity: r.quantity,
       global: state.globalReplace
     }))
-    console.log(rules)
 
     const result = await invoke<boolean>('schematic_replacement', {
       rules: rules

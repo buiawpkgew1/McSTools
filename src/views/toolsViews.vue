@@ -3,7 +3,6 @@ import {onMounted, ref} from 'vue'
 import {onBeforeRouteLeave, useRouter} from "vue-router";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import 'vue-json-pretty/lib/styles.css';
-import { activeTab } from "../modules/layout.ts";
 import toolsConvert from '../units/tools/toolsConvert.vue';
 import toolsReplace from '../units/tools/toolsReplace.vue';
 import toolsStats from  '../units/tools/toolsStats.vue';
@@ -27,6 +26,7 @@ onMounted(async() => {
     if (schematic_id.value != undefined){
         await fetch_data(schematic_id.value)
     }
+    console.log(uniqueBlocks)
 })
 </script>
 

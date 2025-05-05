@@ -11,6 +11,7 @@ const props = defineProps<{
 }>()
 const showSubVersions1 = ref(false);
 const dialogVersions1 = ref(false);
+const isLoading = ref(false);
 const showSubVersions2 = ref(false);
 const dialogVersions2 = ref(false);
 const showSubVersions3 = ref(false);
@@ -949,15 +950,23 @@ const formatInfo = computed(() => {
   </v-container>
   <v-dialog
       v-model="dialogVersions1"
-      width="auto"
+      max-width="500"
+      persistent
   >
     <v-card
-        max-width="400"
-        width="450"
+        max-width="500"
+        width="500"
     >
       <v-card-title class="text-subtitle-1">
         <v-icon icon="mdi-history" class="mr-2"></v-icon>
         转换到目标版本
+        <v-chip
+            v-if="props.data?.schematics?.Create != undefined"
+            color="green"
+        >
+          <v-icon start icon="mdi-check-circle"></v-icon>
+          已存在
+        </v-chip>
       </v-card-title>
       <v-card-subtitle class="text-caption text-grey-darken-1">
         转换到.nbt 香草结构蓝图.
@@ -968,25 +977,47 @@ const formatInfo = computed(() => {
         </span>
       </v-card-text>
       <template v-slot:actions>
+        <v-spacer/>
+        <v-btn @click="dialogVersions1 = false">取消</v-btn>
         <v-btn
+            v-if="props.data?.schematics?.Create == undefined"
             class="ms-auto"
             text="确认开始"
-            @click="dialogVersions1 = false"
+            color="primary"
+            :loading="isLoading"
+            @click=""
         ></v-btn>
+        <v-btn
+            v-else
+            class="ms-auto"
+            text="确认导出"
+            color="primary"
+            :loading="isLoading"
+            @click=""
+        >
+        </v-btn>
       </template>
     </v-card>
   </v-dialog>
   <v-dialog
       v-model="dialogVersions2"
-      width="auto"
+      max-width="500"
+      persistent
   >
     <v-card
-        max-width="400"
-        width="450"
+        max-width="500"
+        width="500"
     >
       <v-card-title class="text-subtitle-1">
         <v-icon icon="mdi-history" class="mr-2"></v-icon>
         转换到目标版本
+        <v-chip
+            v-if="props.data?.schematics?.Litematic != undefined"
+            color="green"
+        >
+          <v-icon start icon="mdi-check-circle"></v-icon>
+          已存在
+        </v-chip>
       </v-card-title>
       <v-card-subtitle class="text-caption text-grey-darken-1">
         转换到.litematic 投影蓝图.
@@ -1007,25 +1038,47 @@ const formatInfo = computed(() => {
         </span>
       </v-card-text>
       <template v-slot:actions>
+        <v-spacer/>
+        <v-btn @click="dialogVersions2 = false">取消</v-btn>
         <v-btn
+            v-if="props.data?.schematics?.Litematic == undefined"
             class="ms-auto"
             text="确认开始"
-            @click="dialogVersions2 = false"
+            color="primary"
+            :loading="isLoading"
+            @click=""
         ></v-btn>
+        <v-btn
+            v-else
+            class="ms-auto"
+            text="确认导出"
+            color="primary"
+            :loading="isLoading"
+            @click=""
+        >
+        </v-btn>
       </template>
     </v-card>
   </v-dialog>
   <v-dialog
       v-model="dialogVersions3"
-      width="auto"
+      max-width="500"
+      persistent
   >
     <v-card
-        max-width="400"
-        width="450"
+        max-width="500"
+        width="500"
     >
       <v-card-title class="text-subtitle-1">
         <v-icon icon="mdi-history" class="mr-2"></v-icon>
         转换到目标版本
+        <v-chip
+            v-if="props.data?.schematics?.We?.[weVersion] != undefined"
+            color="green"
+        >
+          <v-icon start icon="mdi-check-circle"></v-icon>
+          已存在
+        </v-chip>
       </v-card-title>
       <v-card-subtitle class="text-caption text-grey-darken-1">
         转换到.schem 创世神蓝图.
@@ -1036,25 +1089,47 @@ const formatInfo = computed(() => {
         </span>
       </v-card-text>
       <template v-slot:actions>
+        <v-spacer/>
+        <v-btn @click="dialogVersions3 = false">取消</v-btn>
         <v-btn
+            v-if="props.data?.schematics?.We?.[weVersion] == undefined"
             class="ms-auto"
             text="确认开始"
-            @click="dialogVersions2 = false"
+            color="primary"
+            :loading="isLoading"
+            @click=""
         ></v-btn>
+        <v-btn
+            v-else
+            class="ms-auto"
+            text="确认导出"
+            color="primary"
+            :loading="isLoading"
+            @click=""
+        >
+        </v-btn>
       </template>
     </v-card>
   </v-dialog>
   <v-dialog
       v-model="dialogVersions4"
-      width="auto"
+      max-width="500"
+      persistent
   >
     <v-card
-        max-width="400"
-        width="450"
+        max-width="500"
+        width="500"
     >
       <v-card-title class="text-subtitle-1">
         <v-icon icon="mdi-history" class="mr-2"></v-icon>
         转换到目标版本
+        <v-chip
+            v-if="props.data?.schematics?.Bg?.[bgVersion] != undefined"
+            color="green"
+        >
+          <v-icon start icon="mdi-check-circle"></v-icon>
+          已存在
+        </v-chip>
       </v-card-title>
       <v-card-subtitle class="text-caption text-grey-darken-1">
         转换到.json 建筑小帮手蓝图.
@@ -1065,21 +1140,36 @@ const formatInfo = computed(() => {
         </span>
       </v-card-text>
       <template v-slot:actions>
+        <v-spacer/>
+        <v-btn @click="dialogVersions4 = false">取消</v-btn>
         <v-btn
+            v-if="props.data?.schematics?.Bg?.[bgVersion] == undefined"
             class="ms-auto"
             text="确认开始"
-            @click="dialogVersions2 = false"
+            color="primary"
+            :loading="isLoading"
+            @click=""
         ></v-btn>
+        <v-btn
+            v-else
+            class="ms-auto"
+            text="确认导出"
+            color="primary"
+            :loading="isLoading"
+            @click=""
+        >
+        </v-btn>
       </template>
     </v-card>
   </v-dialog>
   <v-dialog
       v-model="dialogVersions5"
-      width="auto"
+      max-width="500"
+      persistent
   >
     <v-card
-        max-width="400"
-        width="450"
+        max-width="500"
+        width="500"
     >
       <v-card-title class="text-subtitle-1">
         <v-icon icon="mdi-history" class="mr-2"></v-icon>
@@ -1094,11 +1184,25 @@ const formatInfo = computed(() => {
         </span>
       </v-card-text>
       <template v-slot:actions>
+        <v-spacer/>
+        <v-btn @click="dialogVersions5 = false">取消</v-btn>
         <v-btn
+            v-if="props.data?.schematics?.Be == undefined"
             class="ms-auto"
             text="确认开始"
-            @click="dialogVersions2 = false"
+            color="primary"
+            :loading="isLoading"
+            @click=""
         ></v-btn>
+        <v-btn
+            v-else
+            class="ms-auto"
+            text="确认导出"
+            color="primary"
+            :loading="isLoading"
+            @click=""
+        >
+        </v-btn>
       </template>
     </v-card>
   </v-dialog>
