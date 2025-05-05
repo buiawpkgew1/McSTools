@@ -50,7 +50,7 @@ pub async fn convert(
     lm_version: i64,
     we_version: i64,
     vi_air: bool
-) -> anyhow::Result<PathBuf, String> {
+) -> anyhow::Result<bool, String> {
     async move {
         let mut conn = db.0.get()?;
         let schematic = find_schematic(&mut conn, id)?;
@@ -61,27 +61,24 @@ pub async fn convert(
         match schematic_type {
             1 => {
                 let data = ToCreateSchematic::new(&data).create_schematic(vi_air);
-                let path = file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
-                Ok(path)
+                file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
             }
             2 => {
                 let data = ToLmSchematic::new(&data).lm_schematic(lm_version as i32);
-                let path = file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
-                Ok(path)
+                file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
             }
             3 => {
                 let data = ToWeSchematic::new(&data).we_schematic(we_version as i32)?;
-                let path = file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
-                Ok(path)
+                file_manager.save_nbt_value(id, data, version, sub_version, schematic_type as i32, true)?;
             }
             4 => {
                 let data = ToBgSchematic::new(&data).bg_schematic()?;
-                let path = file_manager.save_json_value(id, data, version, sub_version, schematic_type as i32)?;
-                Ok(path)
+                file_manager.save_json_value(id, data, version, sub_version, schematic_type as i32)?;
             }
             //5 => {}
             _ => {anyhow::bail!("unknown schematic type: {}", schematic_type);}
         }
+        Ok(true)
     }
         .await
         .map_err(|e: anyhow::Error| e.to_string())

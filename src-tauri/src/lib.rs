@@ -20,7 +20,7 @@ use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schema
 use database::db_apis::schematic_data_api::{get_schematic_requirements, get_unique_block};
 use database::db_apis::user_api::get_user_data;
 use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
-use modules::convert::{get_schematic_convert_data, get_je_blocks};
+use modules::convert::{get_schematic_convert_data, get_je_blocks, convert};
 use modules::replace::schematic_replacement;
 use tauri::Manager;
 use utils::minecraft_data::versions_data::VersionData;
@@ -51,6 +51,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             close_splashscreen,
             get_config,
+            convert,
             update_config,
             encode_uploaded_schematic,
             get_user_data,

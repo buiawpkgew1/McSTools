@@ -6,6 +6,9 @@ import weImg from '../../static/img/wordEdit.png'
 import beImg from '../../static/img/grass_block.png'
 import {defineProps, computed, ref} from "vue";
 import {ConvertData} from "../../modules/convert_data.ts";
+import {toast} from "../../modules/others.ts";
+import {invoke} from "@tauri-apps/api/core";
+import {schematic_id} from "../../modules/tools_data.ts";
 const props = defineProps<{
   data: ConvertData | undefined,
 }>()
@@ -22,6 +25,7 @@ const showSubVersions5 = ref(false);
 const lmVersion = ref(6)
 const weVersion = ref(0)
 const bgVersion = ref(0)
+const viAir = ref(false)
 const dialogVersions5 = ref(false);
 const formatInfo = computed(() => {
   switch(props.data?.schematic_type_id) {
@@ -75,7 +79,30 @@ const formatInfo = computed(() => {
       }
   }
 });
-
+const convertSchematic = async (schematicType: number) => {
+  try {
+    isLoading.value = true;
+    const result = await invoke<boolean>('convert', {
+      id: schematic_id.value,
+      schematicType: schematicType,
+      lmVersion: lmVersion.value,
+      weVersion: weVersion.value,
+      viAir: viAir.value
+    });
+    if (result) {
+      //理论应该有点东西
+    }
+    toast.success(`转换完毕重新载入即可导出`, {
+      timeout: 3000
+    });
+  } catch (err) {
+    toast.error(`发生了一个错误:${err}`, {
+      timeout: 3000
+    });
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <template>
@@ -985,7 +1012,7 @@ const formatInfo = computed(() => {
             text="确认开始"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="convertSchematic(1)"
         ></v-btn>
         <v-btn
             v-else
@@ -1046,7 +1073,7 @@ const formatInfo = computed(() => {
             text="确认开始"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="convertSchematic(2)"
         ></v-btn>
         <v-btn
             v-else
@@ -1097,7 +1124,7 @@ const formatInfo = computed(() => {
             text="确认开始"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="convertSchematic(3)"
         ></v-btn>
         <v-btn
             v-else
@@ -1148,7 +1175,7 @@ const formatInfo = computed(() => {
             text="确认开始"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="convertSchematic(4)"
         ></v-btn>
         <v-btn
             v-else
@@ -1192,7 +1219,7 @@ const formatInfo = computed(() => {
             text="确认开始"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="convertSchematic(5)"
         ></v-btn>
         <v-btn
             v-else
