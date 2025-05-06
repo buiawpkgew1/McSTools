@@ -2,7 +2,7 @@ import {ref} from "vue";
 import {invoke} from "@tauri-apps/api/core";
 import {userData} from "./user_data.ts";
 import {toast} from "./others.ts";
-import {fetch_data, schematic_id} from "./tools_data.ts";
+import {fetch_data} from "./tools_data.ts";
 
 export const files = ref<File[]>([]);
 export const uploadStatus = ref<'idle' | 'uploading' | 'success' | 'error'>('idle');
