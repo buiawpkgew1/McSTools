@@ -1,6 +1,6 @@
 import {invoke} from "@tauri-apps/api/core";
 import {toast} from "./others.ts";
-import {Requirement} from "./requirements.ts";
+import {parseRequirementsList, Requirement} from "./requirements.ts";
 import {SchematicsData} from "./schematics_data.ts";
 import {BlockData} from "./replace_data.ts";
 
@@ -12,14 +12,14 @@ export interface HistoryRecord  {
 
 export interface HistoryRecordData  {
     schematic: SchematicsData[];
-    requirements: Requirement[];
+    requirements: Requirement[][];
     unique_blocks: BlockData[][];
 }
 
 export function parseHistoryRecord(record: HistoryRecord): HistoryRecordData {
     try {
         const schematic = JSON.parse(record.schematic);
-        const requirements = JSON.parse(record.requirements);
+        const requirements = parseRequirementsList(record.requirements);
         const unique_blocks = JSON.parse(record.unique_blocks);
 
         return {

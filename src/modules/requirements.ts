@@ -15,13 +15,24 @@ export interface RequirementStatistics {
     total: number;
     items: RequirementStatistic[];
 }
-function parseRequirements(jsonStr: string): Requirement[] {
+export function parseRequirements(jsonStr: string): Requirement[] {
     const rawData = JSON.parse(jsonStr) as Record<string, Requirement>;
     return Object.values(rawData).map(block => ({
         id: block.id,
         zh_cn: block.zh_cn,
         num: block.num
     }));
+}
+
+export function parseRequirementsList(jsonStr: string): Requirement[][] {
+    const rawData = JSON.parse(jsonStr) as Record<string, Requirement>[];
+    return rawData.map(data =>
+        Object.values(data).map(block => ({
+            id: block.id,
+            zh_cn: block.zh_cn,
+            num: block.num
+        }))
+    );
 }
 export function calculateStatistics(requirements: Requirement[]): RequirementStatistics {
     const total = requirements.reduce((sum, req) => sum + req.num, 0);

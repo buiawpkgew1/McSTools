@@ -3,7 +3,7 @@ import {defineProps, reactive, onMounted, watch, ref} from "vue";
 import type { RequirementStatistics, RequirementStatistic } from "../../modules/requirements.ts";
 import { jeBlocks, fetchJeBlocks, type SubData } from "../../modules/je_blocks.ts";
 import {invoke} from "@tauri-apps/api/core";
-import {toast} from "../../modules/others.ts";
+import {getBlockIcon, toast} from "../../modules/others.ts";
 import {BlockData, BlockDataNew} from "../../modules/replace_data.ts";
 import {schematic_id} from "../../modules/tools_data.ts";
 const active = ref(0)
@@ -206,10 +206,6 @@ const formatProperties = (props: Record<string, string>) => {
       .join(', ');
 }
 
-const getBlockIcon = (blockId: string) => {
-  const block = blockId.split(':');
-  return new URL(`../../assets/icon/icon-exports-x32/${block[0]}__${block[1]}.png`, import.meta.url).href
-};
 const removeRule = (index: number) => {
   state.replacementRules.splice(index, 1);
 };

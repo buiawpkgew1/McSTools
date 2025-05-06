@@ -28,9 +28,6 @@ interface LoadParams {
   done: (status: 'ok' | 'error' | 'empty') => void
 }
 
-const parseVersions  = (versionStr: string) => {
-  return versionStr.split(',').map(Number);
-};
 const schematic_load = async ({ done }: LoadParams) => {
   if (!hasMore.value) {
     done('empty')
@@ -173,38 +170,6 @@ const formatTime = (time: any) => {
                         <v-chip size="x-small" color="green" class="ms-1">当前版本</v-chip>
                       </span>
                       </div>
-
-                      <v-menu v-if="parseVersions(bp.version_list).length > 0">
-                        <template v-slot:activator="{ props }">
-                          <v-btn
-                              variant="text"
-                              color="primary"
-                              size="small"
-                              v-bind="props"
-                          >
-                            <v-icon icon="mdi-history" class="me-1"></v-icon>
-                            历史版本 ({{ parseVersions(bp.version_list).length }})
-                          </v-btn>
-                        </template>
-
-                        <v-list density="compact">
-                          <v-list-item
-                              v-for="(version, index) in parseVersions(bp.version_list)"
-                              :key="index"
-                          >
-                            <v-list-item-title>
-                              v{{ version }}
-                              <v-icon
-                                  v-if="version === bp.version"
-                                  icon="mdi-tag"
-                                  color="green"
-                                  size="small"
-                                  class="ms-1"
-                              />
-                            </v-list-item-title>
-                          </v-list-item>
-                        </v-list>
-                      </v-menu>
                     </div>
 
                     <div class="d-flex align-center">
