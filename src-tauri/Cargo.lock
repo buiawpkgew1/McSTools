@@ -3347,6 +3347,7 @@ dependencies = [
  "base64 0.22.1",
  "chrono",
  "dashmap",
+ "dunce",
  "fastnbt",
  "fastsnbt",
  "flate2",

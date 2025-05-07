@@ -8,8 +8,12 @@ import {clear_tools, fetch_data} from "../modules/tools_data.ts"
 import {activeTab} from "../modules/layout.ts";
 import {opacity} from "../modules/theme.ts";
 import {userData} from "../modules/user_data.ts";
+import {delete_schematic} from "../modules/delete_schematic.ts";
 const router = useRouter()
 const autoPage = ref(1)
+const showDeleteDialog = ref(false)
+const selectedBpId = ref(null)
+const selectedBpName = ref('')
 const hasMore = ref(true);
 const isLoading = ref(false);
 let schematics = ref<SchematicsData[]>([])
@@ -58,6 +62,21 @@ const schematic_load = async ({ done }: LoadParams) => {
   }
 }
 
+const openDeleteDialog = (bp: SchematicsData) => {
+  selectedBpId.value = bp.id
+  selectedBpName.value = bp?.name || '未命名蓝图'
+  showDeleteDialog.value = true
+}
+
+const confirmDelete = async () => {
+  try {
+    await delete_schematic(selectedBpId.value)
+    showDeleteDialog.value = false
+  } catch (error) {
+    console.error('删除失败:', error)
+  }
+}
+
 onBeforeRouteLeave(navigationGuard)
 
 const formatTime = (time: any) => {
@@ -91,7 +110,6 @@ const formatTime = (time: any) => {
                 :key="bp.id"
                 class="py-2"
                 :title="bp.name"
-                @click="selectSchematic(bp.id)"
             >
               <template v-slot:prepend>
                 <v-icon
@@ -101,8 +119,8 @@ const formatTime = (time: any) => {
                 />
               </template>
 
-              <template #title>
-                <div class="d-flex align-center flex-wrap">
+              <template #title >
+                <div class="d-flex align-center flex-wrap" @click="selectSchematic(bp.id)">
                   <span v-if="bp.schematic_type == -1" class="text-h6 text-red-lighten-1">未解析</span>
                   <span class="text-h6 text-blue-darken-4">{{ bp.name }}</span>
                   <div class="ms-3 d-flex align-center ga-1">
@@ -151,7 +169,7 @@ const formatTime = (time: any) => {
               </template>
 
               <template #subtitle>
-                <div class="d-flex flex-column mt-1">
+                <div class="d-flex flex-column mt-1" @click="selectSchematic(bp.id)">
                   <p class="text-caption mb-1">
                     {{ bp.description }}
                   </p>
@@ -202,7 +220,10 @@ const formatTime = (time: any) => {
                         color="red-lighten-1"
                         icon="mdi-delete"
                         density="comfortable"
+                        @click="openDeleteDialog(bp)"
                     ></v-btn>
+
+
                   </div>
                 </div>
               </template>
@@ -229,6 +250,34 @@ const formatTime = (time: any) => {
       </v-card>
     </v-col>
   </v-row>
+  <v-dialog v-model="showDeleteDialog" max-width="600" persistent>
+    <v-card>
+      <v-card-title class="headline">
+        <v-icon color="error" class="mr-2">mdi-alert-circle</v-icon>
+        确认删除
+      </v-card-title>
+
+      <v-card-text>
+        确定要永久删除蓝图 <strong>{{ selectedBpName }}</strong> (ID: {{ selectedBpId }}) 吗？此操作不可恢复！
+      </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+            color="grey-darken-1"
+            @click="showDeleteDialog = false"
+        >
+          取消
+        </v-btn>
+        <v-btn
+            color="error"
+            @click="confirmDelete"
+        >
+          确认删除
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 
 </template>
 

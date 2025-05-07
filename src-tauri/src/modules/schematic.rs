@@ -3,9 +3,7 @@ use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
 use crate::database::db_apis::history_api::{new_history, update_history};
 use crate::database::db_apis::schematic_data_api::{new_schematic_data, update_schematic_data};
-use crate::database::db_apis::schematics_api::{
-    find_schematic, get_schematic_version, new_schematic, update_schematic,
-};
+use crate::database::db_apis::schematics_api::{delete_schematic_data, find_schematic, get_schematic_version, new_schematic, update_schematic};
 use crate::database::db_apis::user_api::add_user_schematic;
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
@@ -515,4 +513,20 @@ pub async fn get_schematic_data(
     }
     .await
     .map_err(|e: anyhow::Error| e.to_string())
+}
+
+#[tauri::command]
+pub async fn delete_schematic(
+    db: State<'_, DatabaseState>,
+    file_manager: State<'_, FileManager>,
+    id: i64,
+) -> Result<bool, String> {
+    async move {
+        let mut conn = db.0.get()?;
+        delete_schematic_data(&mut conn, id)?;
+        //file_manager.delete_schematic_dir(id)?; 删文件权限问题暂时不实现
+        Ok(true)
+    }
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())
 }

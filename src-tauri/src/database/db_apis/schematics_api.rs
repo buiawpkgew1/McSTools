@@ -223,7 +223,7 @@ pub fn get_schematics(
 }
 
 #[tauri::command]
-pub fn delete_schematic(db: State<'_, DatabaseState>, id: i64) -> Result<i64, String> {
+pub fn delete_schematic_database(db: State<'_, DatabaseState>, id: i64) -> Result<i64, String> {
     let mut conn = db.0.get().map_err(|e| e.to_string())?;
 
     let new = delete_schematic_data(&mut conn, id).map_err(|e| e.to_string())?;

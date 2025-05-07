@@ -2,8 +2,7 @@ use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
 use crate::modules::convert_data::{ConvertData, SchematicType, Target};
-use crate::utils::extend_write::to_writer_gzip;
-use crate::utils::schematic_data::{SchematicData, SchematicError};
+use crate::utils::schematic_data::{SchematicData};
 use crate::word_edit::we_schematic::WeSchematic;
 use anyhow::Result;
 use anyhow::{anyhow, Context};
@@ -51,6 +50,23 @@ impl FileManager {
         }
         Ok(schematic_dir)
     }
+
+    pub fn delete_schematic_dir(&self, id: i64) -> Result<()> {
+        let target_dir = self.schematic_dir(id)?;
+
+        let path = dunce::canonicalize(&target_dir)
+            .context("路径规范化失败")?;
+
+        if !path.starts_with(&self.data_dir) {
+            return Err(anyhow::anyhow!("非法目录路径: {:?}", path));
+        }
+
+        remove_dir_all_safe(&path)
+            .with_context(|| format!("无法删除目录: {:?}", path))?;
+
+        Ok(())
+    }
+
     pub fn save_schematic(
         &self,
         id: i64,
@@ -273,6 +289,7 @@ impl FileManager {
         }
     }
 
+
     pub fn get_convert_data(
         &self,
         id: i64,
@@ -385,4 +402,31 @@ impl FileManager {
             _ => Err(anyhow!("UNK: {}", v_type)),
         }
     }
+}
+
+fn remove_dir_all_safe<P: AsRef<Path>>(path: P) -> Result<()> {
+    #[cfg(target_os = "windows")]
+    {
+        let _lock = open_file_lock(path.as_ref())?;
+    }
+
+    fs::remove_dir_all(&path)?;
+
+    if path.as_ref().exists() {
+        return Err(anyhow::anyhow!("目录仍存在: {:?}", path.as_ref()));
+    }
+
+    Ok(())
+}
+#[cfg(target_os = "windows")]
+fn open_file_lock(path: &Path) -> Result<fs::File> {
+    use std::os::windows::fs::OpenOptionsExt;
+
+    let file = fs::OpenOptions::new()
+        .write(true)
+        .share_mode(0) // 独占模式
+        .open(path)
+        .context("无法锁定文件")?;
+
+    Ok(file)
 }
