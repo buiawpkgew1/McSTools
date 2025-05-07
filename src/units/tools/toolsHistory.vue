@@ -6,6 +6,7 @@ import {HistoryRecordData} from "../../modules/history_data.ts";
 import dayjs from "dayjs";
 import {Requirement} from "../../modules/requirements.ts";
 import {getBlockIcon} from "../../modules/others.ts";
+import {copySchematic} from "../../modules/copy_file.ts";
 
 const props = defineProps<{
   data: HistoryRecordData | undefined,
@@ -161,6 +162,7 @@ const showDiff = (index: number) => {
                     color="primary"
                     prepend-icon="mdi-download"
                     size="small"
+                    @click="copySchematic(bp.id, bp.sub_type, bp.version, bp.schematic_type)"
                 >
                   导出蓝图
                 </v-btn>

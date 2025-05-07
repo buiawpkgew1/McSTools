@@ -9,6 +9,7 @@ import {activeTab} from "../modules/layout.ts";
 import {opacity} from "../modules/theme.ts";
 import {userData} from "../modules/user_data.ts";
 import {delete_schematic} from "../modules/delete_schematic.ts";
+import {copySchematic} from "../modules/copy_file.ts";
 const router = useRouter()
 const autoPage = ref(1)
 const showDeleteDialog = ref(false)
@@ -217,6 +218,7 @@ const formatTime = (time: any) => {
                       color="primary"
                       prepend-icon="mdi-download"
                       size="small"
+                      @click="copySchematic(bp.id, bp.sub_type, bp.version, bp.schematic_type)"
                   >
                     导出
                   </v-btn>

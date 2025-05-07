@@ -6,7 +6,10 @@ use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::{params, OptionalExtension};
 use tauri::State;
 
-pub fn add_user_schematic(conn: &mut PooledConnection<SqliteConnectionManager>, number: i64) -> Result<i64> {
+pub fn add_user_schematic(
+    conn: &mut PooledConnection<SqliteConnectionManager>,
+    number: i64,
+) -> Result<i64> {
     let tx = conn.transaction()?;
     tx.execute(
         "UPDATE user_data SET schematics = schematics + ?1 WHERE id = 1",

@@ -2,7 +2,7 @@ use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
 use crate::modules::convert_data::{ConvertData, SchematicType, Target};
-use crate::utils::schematic_data::{SchematicData};
+use crate::utils::schematic_data::SchematicData;
 use crate::word_edit::we_schematic::WeSchematic;
 use anyhow::Result;
 use anyhow::{anyhow, Context};
@@ -54,15 +54,13 @@ impl FileManager {
     pub fn delete_schematic_dir(&self, id: i64) -> Result<()> {
         let target_dir = self.schematic_dir(id)?;
 
-        let path = dunce::canonicalize(&target_dir)
-            .context("路径规范化失败")?;
+        let path = dunce::canonicalize(&target_dir).context("路径规范化失败")?;
 
         if !path.starts_with(&self.data_dir) {
             return Err(anyhow::anyhow!("非法目录路径: {:?}", path));
         }
 
-        remove_dir_all_safe(&path)
-            .with_context(|| format!("无法删除目录: {:?}", path))?;
+        remove_dir_all_safe(&path).with_context(|| format!("无法删除目录: {:?}", path))?;
 
         Ok(())
     }
@@ -289,7 +287,44 @@ impl FileManager {
         }
     }
 
+    pub fn copy_file(
+        &self,
+        id: i64,
+        version: i32,
+        sub_version: i32,
+        v_type: i32,
+        target_path: String,
+    ) -> Result<bool> {
+        let schematic_dir = self.schematic_dir(id)?;
+        let file_ext = match v_type {
+            1 => "nbt",
+            2 => "litematic",
+            3 => "schem",
+            4 => "json",
+            5 => "mcstruct",
+            _ => "unknown",
+        };
+        let filename = format!(
+            "schematic_{}.{}.{}.{}",
+            version, sub_version, v_type, file_ext
+        );
+        let path = PathBuf::from(&target_path);
+        let file_path = schematic_dir.join(&filename);
+        let dest_path = if path.is_dir() {
+            path.join(&filename)
+        } else {
+            path.to_path_buf()
+        };
 
+        if let Some(parent) = dest_path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+
+        fs::copy(&file_path, &dest_path)
+            .map_err(|e| anyhow::anyhow!("文件复制失败: {}", e))?;
+
+        Ok(true)
+    }
     pub fn get_convert_data(
         &self,
         id: i64,

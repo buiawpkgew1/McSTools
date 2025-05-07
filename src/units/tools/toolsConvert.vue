@@ -9,6 +9,7 @@ import {ConvertData, fetchConvertData} from "../../modules/convert_data.ts";
 import {toast} from "../../modules/others.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {convertData, schematic_id} from "../../modules/tools_data.ts";
+import {copySchematic} from "../../modules/copy_file.ts";
 const props = defineProps<{
   data: ConvertData | undefined,
 }>()
@@ -1023,7 +1024,7 @@ const convertSchematic = async (schematicType: number) => {
             text="确认导出"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="copySchematic(schematic_id, -1, props.data.version, 1)"
         >
         </v-btn>
       </template>
@@ -1084,7 +1085,7 @@ const convertSchematic = async (schematicType: number) => {
             text="确认导出"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="copySchematic(schematic_id, -1, props.data.version, 2)"
         >
         </v-btn>
       </template>
@@ -1135,7 +1136,7 @@ const convertSchematic = async (schematicType: number) => {
             text="确认导出"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="copySchematic(schematic_id, weVersion, props.data.version, 3)"
         >
         </v-btn>
       </template>
@@ -1186,7 +1187,7 @@ const convertSchematic = async (schematicType: number) => {
             text="确认导出"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="copySchematic(schematic_id, bgVersion, props.data.version, 4)"
         >
         </v-btn>
       </template>
@@ -1230,7 +1231,7 @@ const convertSchematic = async (schematicType: number) => {
             text="确认导出"
             color="primary"
             :loading="isLoading"
-            @click=""
+            @click="copySchematic(schematic_id, -1, props.data.version, 5)"
         >
         </v-btn>
       </template>
