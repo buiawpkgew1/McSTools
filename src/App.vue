@@ -36,10 +36,10 @@
                 height="25"
                 striped
             >
-              <strong>{{ updateProgress }}%</strong>
+              <strong>{{ updateProgress }}</strong>
             </v-progress-linear>
             <div class="text-caption mt-2">
-              已下载: {{ Math.round(updateProgress) }}%
+              已下载: {{ (updateProgress/ 1024 / 1024).toFixed(2)  }}MB
             </div>
           </div>
         </v-card-text>
@@ -107,35 +107,47 @@ import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";
 import {relaunch} from "@tauri-apps/plugin-process";
 import {appData, getAppVersion} from "./modules/app_data.ts";
+import {toast} from "./modules/others.ts";
 const selectedTheme = ref('grey')
 const updateDialog = ref(false);
 const updateProgress = ref(0);
 const updateInfo = ref<Update | null>(null);
 const restartDialog = ref(false);
-
+enum UpdateState {
+  Pending,
+  Downloading,
+  Ready
+}
+const updateState = ref(UpdateState.Pending);
 const checkUpdate = async () => {
   try {
     const update = await check();
-    console.log(update)
+    toast.info(`发现新版本: ${update.version} from ${update.date} with notes ${update.body}`, {
+      timeout: 3000
+    });
     if (update) {
       updateInfo.value = update;
       updateState.value = UpdateState.Pending;
       updateDialog.value = true;
     }
   } catch (error) {
+    toast.error(`检查更新失败: ${error}`, {
+      timeout: 3000
+    });
     console.error('检查更新失败:', error);
   }
 };
 
 const confirmUpdate = async () => {
-  if (!updateInfo.value) return;
-
+  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
   try {
     updateState.value = UpdateState.Downloading;
+    const update = await check();
 
-    await updateInfo.value.downloadAndInstall((event) => {
+    await update.downloadAndInstall((event) => {
       if (event.event === 'Progress') {
-        updateProgress.value = Math.round(
+
+        updateProgress.value += Math.round(
             event.data.chunkLength
         );
       }
@@ -144,17 +156,21 @@ const confirmUpdate = async () => {
     updateState.value = UpdateState.Ready;
     updateDialog.value = false;
     restartDialog.value = true;
+    toast.info(`更新完毕即将重启`, {
+      timeout: 3000
+    });
+    await delay(3000);
+    await relaunch();
   } catch (error) {
+    toast.error(`检查更新失败: ${error}`, {
+      timeout: 3000
+    });
+
     console.error('更新下载失败:', error);
     updateState.value = UpdateState.Pending;
   }
 };
-enum UpdateState {
-  Pending,
-  Downloading,
-  Ready
-}
-const updateState = ref(UpdateState.Pending);
+
 const backgroundStyle = ref({
   backgroundColor: '',
   backgroundImage: '',
