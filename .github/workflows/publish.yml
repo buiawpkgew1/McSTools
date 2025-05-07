@@ -29,6 +29,28 @@ jobs:
         with:
           node-version: "lts/*"
           cache: "pnpm"
+      - name: Validate Key Configuration
+        run: |
+          # 验证私钥环境变量是否存在
+          if [ -z "$TAURI_SIGNING_PRIVATE_KEY" ]; then
+            echo "::error::TAURI_SIGNING_PRIVATE_KEY is not set"
+            exit 1
+          fi
+
+          # 验证密钥头格式（不打印完整内容）
+          if ! echo "$TAURI_SIGNING_PRIVATE_KEY" | head -n 1 | grep -q "BEGIN PRIVATE KEY"; then
+            echo "::error::Private key header missing"
+            exit 1
+          fi
+
+          # 验证注释头存在性
+          if ! echo "$TAURI_SIGNING_PRIVATE_KEY" | grep -q "Tauri"; then
+            echo "::error::Missing Tauri comment in key"
+            exit 1
+          fi
+
+          echo "✅ Key format validation passed"
+
       - name: Install frontend dependencies
         run: pnpm install --no-frozen-lockfile
       - name: Build the app
