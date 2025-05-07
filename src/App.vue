@@ -16,6 +16,81 @@
         </v-main>
       </div>
     </v-theme-provider>
+    <v-dialog v-model="updateDialog" max-width="500">
+      <v-card>
+        <v-card-title class="headline">
+          <v-icon class="mr-2">mdi-update</v-icon>
+          发现新版本 {{ updateInfo?.version }}
+        </v-card-title>
+
+        <v-card-text>
+          <div v-if="updateState === UpdateState.Pending">
+            <p>发布日期: {{ updateInfo?.date }}</p>
+            <pre class="update-notes">{{ updateInfo?.body }}</pre>
+          </div>
+
+          <div v-else-if="updateState === UpdateState.Downloading">
+            <v-progress-linear
+                :value="updateProgress"
+                color="primary"
+                height="25"
+                striped
+            >
+              <strong>{{ updateProgress }}%</strong>
+            </v-progress-linear>
+            <div class="text-caption mt-2">
+              已下载: {{ Math.round(updateProgress) }}%
+            </div>
+          </div>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn
+              v-if="updateState === UpdateState.Pending"
+              color="primary"
+              @click="confirmUpdate"
+          >
+            立即更新
+          </v-btn>
+          <v-btn
+              text
+              @click="updateDialog = false"
+          >
+            {{ updateState === UpdateState.Pending ? '稍后提醒' : '后台下载' }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- 重启确认对话框 -->
+    <v-dialog v-model="restartDialog" max-width="400">
+      <v-card>
+        <v-card-title class="headline">
+          <v-icon color="success" class="mr-2">mdi-check-circle</v-icon>
+          更新准备就绪
+        </v-card-title>
+
+        <v-card-text>
+          新版本已下载完成，是否立即重启应用生效？
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn
+              color="primary"
+              @click="relaunch()"
+          >
+            立即重启
+          </v-btn>
+          <v-spacer />
+          <v-btn
+              text
+              @click="restartDialog = false"
+          >
+            稍后重启
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -24,14 +99,62 @@ import AppLayout from "./layout/AppLayout.vue";
 import {onMounted, ref, watchEffect} from "vue";
 import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
+import {check, Update} from '@tauri-apps/plugin-updater';
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 const theme = useTheme()
 
 import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";
-import {chuck_update} from "./modules/chuck_update.ts";
+import {relaunch} from "@tauri-apps/plugin-process";
 const selectedTheme = ref('grey')
+const updateDialog = ref(false);
+const updateProgress = ref(0);
+const updateInfo = ref<Update | null>(null);
+const restartDialog = ref(false);
+
+const checkUpdate = async () => {
+  try {
+    const update = await check();
+    console.log(update)
+    if (update) {
+      updateInfo.value = update;
+      updateState.value = UpdateState.Pending;
+      updateDialog.value = true;
+    }
+  } catch (error) {
+    console.error('检查更新失败:', error);
+  }
+};
+
+const confirmUpdate = async () => {
+  if (!updateInfo.value) return;
+
+  try {
+    updateState.value = UpdateState.Downloading;
+
+    await updateInfo.value.downloadAndInstall((event) => {
+      if (event.event === 'Progress') {
+        updateProgress.value = Math.round(
+            event.data.chunkLength
+        );
+      }
+    });
+
+    updateState.value = UpdateState.Ready;
+    updateDialog.value = false;
+    restartDialog.value = true;
+  } catch (error) {
+    console.error('更新下载失败:', error);
+    updateState.value = UpdateState.Pending;
+  }
+};
+enum UpdateState {
+  Pending,
+  Downloading,
+  Ready
+}
+const updateState = ref(UpdateState.Pending);
 const backgroundStyle = ref({
   backgroundColor: '',
   backgroundImage: '',
@@ -48,7 +171,7 @@ onMounted(async () => {
   await initTheme()
   await invoke("close_splashscreen")
   await fetchUserData()
-  await chuck_update()
+  await checkUpdate()
   jeBlocks.value = await fetchJeBlocks()
 
 })
@@ -109,7 +232,14 @@ watchEffect(() => {
 ::-webkit-scrollbar {
   width: 0 !important;height: 0;
 }
-
+.update-notes {
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #f5f5f5;
+  padding: 12px;
+  border-radius: 4px;
+}
 </style>
 
 <style lang="scss" src="./assets/css/main.scss"></style>
