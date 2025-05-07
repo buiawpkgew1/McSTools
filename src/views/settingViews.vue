@@ -5,11 +5,9 @@ import {onBeforeRouteLeave} from "vue-router";
 import {ref} from "vue";
 const autoUpdateEnabled = ref(true);
 const updateSources = ref([
-  'https://official.update.com',
-  'https://mirror1.update.com',
-  'https://mirror2.update.com'
+  'https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json'
 ]);
-const selectedSource = ref('https://official.update.com');
+const selectedSource = ref('https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json');
 onBeforeRouteLeave(navigationGuard)
 </script>
 
