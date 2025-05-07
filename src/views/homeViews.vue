@@ -162,7 +162,7 @@ onBeforeUnmount(() => {
               icon="mdi-information"
               class="mt-4"
           >
-            新版本 v-1.0.0 已发布！
+            新版本 v-0.1.0 已发布！
           </v-alert>
         </v-card-text>
       </v-card>
@@ -401,101 +401,4 @@ onBeforeUnmount(() => {
   </v-row>
 </template>
 
-<style scoped>
-.upload-area {
-  border: 2px dashed rgba(0, 0, 0, 0.12);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.upload-area:hover {
-  border-color: #2196F3;
-  background: rgba(33, 150, 243, 0.05);
-}
-
-.custom-file-input {
-  transition: all 0.3s ease;
-}
-.custom-file-input:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-.custom-file-input {
-  border-width: 2px;
-}
-
-.time-part {
-  display: inline-block;
-  min-width: 1.2em;
-  text-align: center;
-}
-
-.time-colon {
-  animation: colon-pulse 1s infinite;
-}
-
-@keyframes colon-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-.icon-pulse {
-  animation: icon-pulse 0.6s ease;
-}
-
-.digit-enter-active {
-  animation: digitIn 0.3s ease-out;
-}
-.digit-leave-active {
-  animation: digitOut 0.3s ease-in;
-}
-
-@keyframes digitIn {
-  from {
-    transform: translateY(0.8em);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes digitOut {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-0.8em);
-    opacity: 0;
-  }
-}
-
-@keyframes colon-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-.fade-slide-enter-active {
-  transition: all 0.3s ease;
-}
-.fade-slide-enter-from {
-  opacity: 0;
-  transform: translateX(10px);
-}
-.v-progress-linear {
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.v-progress-linear::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: currentColor;
-  opacity: 0.1;
-}
-</style>
+<style scoped lang="css" src="../assets/css/home.css"></style>

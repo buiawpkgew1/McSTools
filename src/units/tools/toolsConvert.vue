@@ -789,6 +789,7 @@ const convertSchematic = async (schematicType: number) => {
                       <v-btn
                           variant="text"
                           color="primary"
+                          :disabled="true"
                           @click="dialogVersions4 = true; bgVersion = 1"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
@@ -828,6 +829,7 @@ const convertSchematic = async (schematicType: number) => {
                       <v-btn
                           variant="text"
                           color="primary"
+                          :disabled="true"
                           @click="dialogVersions4 = true; bgVersion = 2"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
@@ -847,7 +849,7 @@ const convertSchematic = async (schematicType: number) => {
              @mouseenter="showSubVersions5 = true;"
              @mouseleave="showSubVersions5 = false"
       >
-        <v-card class="format-card elevation-3" hover>
+        <v-card class="format-card elevation-3" hover :disabled="true">
           <v-row no-gutters align="center">
             <v-col cols="4">
               <v-img
@@ -1249,10 +1251,6 @@ const convertSchematic = async (schematicType: number) => {
 
 .format-card:hover {
   transform: translateY(-4px);
-}
-
-.card-header {
-  border-radius: 12px 12px 0 0;
 }
 
 @media (max-width: 960px) {

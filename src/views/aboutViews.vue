@@ -3,7 +3,8 @@ import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import fav from  "../static/img/fav512.png"
 import {opacity} from "../modules/theme.ts";
 import {onBeforeRouteLeave} from "vue-router";
-
+import {appData} from "../modules/app_data.ts";
+import tauri from "../static/img/tauri.png"
 onBeforeRouteLeave(navigationGuard)
 </script>
 
@@ -22,14 +23,14 @@ onBeforeRouteLeave(navigationGuard)
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-          <v-row>
+          <v-row class="mb-10">
             <v-col cols="3" class="d-flex align-center justify-center">
               <div class="icon-container">
                 <v-img
-                    class="mx-auto"
-                    height="80"
-                    width="80"
-                src="https://bad.src/not/valid"
+                    class="mx-auto mb-10"
+                    height="120"
+                    width="120"
+                :src="fav"
                 style="min-width: 80px"
                 >
                 <template v-slot:error>
@@ -49,8 +50,7 @@ onBeforeRouteLeave(navigationGuard)
               <v-row>
                 <v-col cols="12">
                   <div class="d-flex justify-space-between">
-                    <span class="text-h6 text-blue-grey-darken-2">版本: V1.0.00</span>
-                    <span class="text-h6 text-blue-grey-darken-2">发布日期: 2024-04-22</span>
+                    <span class="text-h6 text-blue-grey-darken-2">版本: v{{ appData.appVersion }}</span>
                   </div>
                   <v-row align="center" justify="start">
                     <v-col cols="auto">
@@ -155,6 +155,33 @@ onBeforeRouteLeave(navigationGuard)
                   <div class="d-flex align-start">
                     <div class="mr-3 mt-1">
                       <v-icon color="grey" size="42">
+                        <v-img :src="tauri"></v-img>
+                      </v-icon>
+                    </div>
+
+                    <div>
+                      <p class="text-body-1 mb-1">
+                        <span class="font-weight-medium">Tauri 2.0</span>
+                        <v-tooltip location="top">
+                          <template v-slot:activator="{ props }">
+                            <v-icon v-bind="props" size="16" class="ml-1 ">mdi-information-outline</v-icon>
+                          </template>
+                          <span>软件基于tauri 2.0开发制作</span>
+                        </v-tooltip>
+                      </p>
+
+                      <div class="d-flex align-center flex-wrap">
+                        <span class="text-caption text-grey-darken-1 mr-2">
+                          © 当前版本: {{ appData.tauriVersion }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </v-col>
+                <v-col cols="12">
+                  <div class="d-flex align-start">
+                    <div class="mr-3 mt-1">
+                      <v-icon color="grey" size="42">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                           <path fill="currentColor" d="M2 21v-2h9V7.825q-.65-.225-1.125-.7T9.175 6H6l3 7q0 1.25-1.025 2.125T5.5 16t-2.475-.875T2 13l3-7H3V4h6.175q.3-.875 1.075-1.437T12 2t1.75.563T14.825 4H21v2h-2l3 7q0 1.25-1.025 2.125T18.5 16t-2.475-.875T15 13l3-7h-3.175q-.225.65-.7 1.125t-1.125.7V19h9v2zm14.625-8h3.75L18.5 8.65zm-13 0h3.75L5.5 8.65zM12 6q.425 0 .713-.288T13 5t-.288-.712T12 4t-.712.288T11 5t.288.713T12 6"/>
                         </svg>
@@ -242,8 +269,8 @@ onBeforeRouteLeave(navigationGuard)
 
 .icon-container {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 160px;
+  height: 160px;
   min-height: 100px;
 }
 
@@ -255,6 +282,5 @@ onBeforeRouteLeave(navigationGuard)
   width: 80px;
   height: 80px;
 }
-
 
 </style>

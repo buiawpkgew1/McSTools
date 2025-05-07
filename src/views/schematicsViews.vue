@@ -226,6 +226,7 @@ const formatTime = (time: any) => {
                         color="grey-darken-1"
                         icon="mdi-pencil"
                         density="comfortable"
+                        @click="selectSchematic(bp.id)"
                     ></v-btn>
                     <v-btn
                         variant="text"
@@ -294,12 +295,10 @@ const formatTime = (time: any) => {
 </template>
 
 <style scoped>
-
 .mc-blueprint-list {
   --v-list-item-padding: 12px;
 
   max-height: calc(99vh - 64px);
   overflow-y: auto;
 }
-
 </style>

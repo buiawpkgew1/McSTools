@@ -1,0 +1,110 @@
+.settings-container {
+  background-color: #f0f8ff;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.setting-section {
+  background: white;
+  padding: 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.setting-section h2 {
+  color: #2c3e50;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+}
+
+.radio-group {
+  display: flex;
+  gap: 12px;
+}
+
+.radio-group label {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.radio-group label.selected {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+.mc-blueprint-list {
+  --v-list-item-padding: 12px;
+
+  max-height: calc(99vh - 64px);
+  overflow-y: auto;
+}
+.v-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.v-chip--selected {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.preview-layout {
+  height: 300px;
+}
+
+.image-column, .info-column {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 8px;
+}
+
+.image-preview {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.opacity-control {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.info-column {
+  height: 100%;
+}

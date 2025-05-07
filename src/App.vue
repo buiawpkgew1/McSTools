@@ -62,7 +62,6 @@
       </v-card>
     </v-dialog>
 
-    <!-- 重启确认对话框 -->
     <v-dialog v-model="restartDialog" max-width="400">
       <v-card>
         <v-card-title class="headline">
@@ -107,6 +106,7 @@ import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";
 import {relaunch} from "@tauri-apps/plugin-process";
+import {appData, getAppVersion} from "./modules/app_data.ts";
 const selectedTheme = ref('grey')
 const updateDialog = ref(false);
 const updateProgress = ref(0);
@@ -172,6 +172,7 @@ onMounted(async () => {
   await invoke("close_splashscreen")
   await fetchUserData()
   await checkUpdate()
+  appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
 
 })
@@ -193,38 +194,7 @@ watchEffect(() => {
 })
 
 </script>
-<style scoped>
 
-.layout-container {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.app-layout {
-  flex-shrink: 0;
-  position: relative;
-  z-index: 2;
-}
-
-.page-wrapper {
-  min-height: 100%;
-  box-sizing: border-box;
-}
-
-.scroll-container {
-  flex: 1;
-  overflow-y: auto;
-  position: relative;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  height: 100vh;
-  overflow-x: hidden;
-  perspective: 1px;
-  transform-style: preserve-3d;
-}
-
-</style>
 <style lang="scss">
 ::-webkit-scrollbar {
   width: 0 !important;
@@ -232,16 +202,8 @@ watchEffect(() => {
 ::-webkit-scrollbar {
   width: 0 !important;height: 0;
 }
-.update-notes {
-  white-space: pre-wrap;
-  max-height: 200px;
-  overflow-y: auto;
-  background: #f5f5f5;
-  padding: 12px;
-  border-radius: 4px;
-}
 </style>
-
+<style lang="css" src="./assets/css/app.css"></style>
 <style lang="scss" src="./assets/css/main.scss"></style>
 <style lang="css" src="./assets/css/card.css"></style>
 <style lang="css" src="./assets/css/views.css"></style>
