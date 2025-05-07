@@ -118,7 +118,7 @@ pub async fn schematic_replacement(
                     requirements_str.clone(),
                     unique_blocks.clone(),
                 )?;
-                add_user_schematic(&mut conn)?;
+                add_user_schematic(&mut conn, 1)?;
                 let schematic_str = serde_json::to_string(&schematic)?;
                 new_history(
                     &mut conn,
@@ -143,7 +143,7 @@ pub async fn schematic_replacement(
                     requirements_str.clone(),
                     unique_blocks.clone(),
                 )?;
-                add_user_schematic(&mut conn)?;
+                add_user_schematic(&mut conn, 1)?;
                 let schematic_str = serde_json::to_string(&schematic)?;
                 new_history(
                     &mut conn,
@@ -168,7 +168,7 @@ pub async fn schematic_replacement(
                     requirements_str.clone(),
                     unique_blocks.clone(),
                 )?;
-                add_user_schematic(&mut conn)?;
+                add_user_schematic(&mut conn, 1)?;
                 let schematic_str = serde_json::to_string(&schematic)?;
                 new_history(
                     &mut conn,
@@ -193,7 +193,7 @@ pub async fn schematic_replacement(
                     requirements_str.clone(),
                     unique_blocks.clone(),
                 )?;
-                add_user_schematic(&mut conn)?;
+                add_user_schematic(&mut conn, 1)?;
                 let schematic_str = serde_json::to_string(&schematic)?;
                 new_history(
                     &mut conn,

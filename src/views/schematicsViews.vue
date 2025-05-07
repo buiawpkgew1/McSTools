@@ -71,6 +71,18 @@ const openDeleteDialog = (bp: SchematicsData) => {
 const confirmDelete = async () => {
   try {
     await delete_schematic(selectedBpId.value)
+    const index = schematics.value.findIndex(
+        item => item.id === selectedBpId.value
+    )
+    userData.value.schematics -= 1;
+    if (index !== -1) {
+      schematics.value.splice(index, 1)
+
+      userData.value.schematics = Math.max(
+          userData.value.schematics - 1,
+          0
+      )
+    }
     showDeleteDialog.value = false
   } catch (error) {
     console.error('删除失败:', error)

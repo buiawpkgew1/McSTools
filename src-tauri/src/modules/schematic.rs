@@ -132,7 +132,7 @@ pub async fn encode_uploaded_schematic(
                         requirements_str.clone(),
                         unique_blocks.clone(),
                     )?;
-                    add_user_schematic(&mut conn)?;
+                    add_user_schematic(&mut conn, 1)?;
                     let schematic_str = serde_json::to_string(&schematic)?;
                     new_history(
                         &mut conn,
@@ -216,7 +216,7 @@ pub async fn encode_uploaded_schematic(
                         requirements_str.clone(),
                         unique_blocks.clone(),
                     )?;
-                    add_user_schematic(&mut conn)?;
+                    add_user_schematic(&mut conn, 1)?;
                     let schematic_str = serde_json::to_string(&schematic)?;
                     new_history(
                         &mut conn,
@@ -304,7 +304,7 @@ pub async fn encode_uploaded_schematic(
                         requirements_str.clone(),
                         unique_blocks.clone(),
                     )?;
-                    add_user_schematic(&mut conn)?;
+                    add_user_schematic(&mut conn, 1)?;
                     let schematic_str = serde_json::to_string(&schematic)?;
                     new_history(
                         &mut conn,
@@ -397,7 +397,7 @@ pub async fn encode_uploaded_schematic(
                         requirements_str.clone(),
                         unique_blocks.clone(),
                     )?;
-                    add_user_schematic(&mut conn)?;
+                    add_user_schematic(&mut conn, 1)?;
                     let schematic_str = serde_json::to_string(&schematic)?;
                     new_history(
                         &mut conn,
@@ -470,7 +470,7 @@ pub async fn encode_uploaded_schematic(
                         "{}".to_string(),
                         "{}".to_string(),
                     )?;
-                    add_user_schematic(&mut conn)?;
+                    add_user_schematic(&mut conn, 1)?;
                     let schematic_str = serde_json::to_string(&schematic)?;
                     new_history(
                         &mut conn,
@@ -525,6 +525,7 @@ pub async fn delete_schematic(
         let mut conn = db.0.get()?;
         delete_schematic_data(&mut conn, id)?;
         //file_manager.delete_schematic_dir(id)?; 删文件权限问题暂时不实现
+        add_user_schematic(&mut conn, -1)?;
         Ok(true)
     }
         .await
