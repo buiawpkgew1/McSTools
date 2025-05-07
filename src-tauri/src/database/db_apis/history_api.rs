@@ -1,26 +1,32 @@
+use crate::modules::history_data::HistoryRecord;
+use anyhow::{Context, Result};
 use r2d2::PooledConnection;
 use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::{params, Transaction};
 use serde_json::{json, Value};
-use anyhow::{Context, Result};
-use crate::modules::history_data::HistoryRecord;
 
 pub fn new_history(
     conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic_id: i64,
     schematic: String,
     requirements: String,
-    unique_blocks: String
+    unique_blocks: String,
 ) -> Result<i64> {
     let tx = conn.transaction()?;
     let processed_schematic = convert_to_array(schematic).context("schematic json error")?;
     let processed_requirements = convert_to_array(requirements).context("schematic json error")?;
-    let processed_unique_blocks = convert_to_array(unique_blocks).context("schematic json error")?;
+    let processed_unique_blocks =
+        convert_to_array(unique_blocks).context("schematic json error")?;
     tx.execute(
         r#"INSERT INTO schematics_history (
             schematic_id, schematic, requirements, unique_blocks
         ) VALUES (?1, ?2, ?3, ?4)"#,
-        params![schematic_id, processed_schematic, processed_requirements, processed_unique_blocks],
+        params![
+            schematic_id,
+            processed_schematic,
+            processed_requirements,
+            processed_unique_blocks
+        ],
     )?;
     let rowid = tx.last_insert_rowid();
     tx.commit()?;
@@ -33,7 +39,7 @@ pub fn update_history(
     schematic_id: i64,
     new_schematic: String,
     requirements: String,
-    unique_blocks: String
+    unique_blocks: String,
 ) -> Result<i64> {
     let tx = conn.transaction()?;
 
@@ -42,9 +48,9 @@ pub fn update_history(
         Some(ref record) => (
             Some(&record.schematic),
             Some(&record.requirements),
-            Some(&record.unique_blocks)
+            Some(&record.unique_blocks),
         ),
-        None => (None, None, None)
+        None => (None, None, None),
     };
     let schematic_json = build_updated_schematic(old_schematic, new_schematic)?;
     let requirements_json = build_updated_schematic(old_requirements, requirements)?;
@@ -74,17 +80,14 @@ pub fn update_history(
     Ok(schematic_id)
 }
 
-fn build_updated_schematic(
-    old_data: Option<&String>,
-    new_entry: String
-) -> Result<Value> {
-    let new_value: Value = serde_json::from_str(&new_entry)
-        .map_err(|e| anyhow::anyhow!("ERR JSON: {}", e))?;
+fn build_updated_schematic(old_data: Option<&String>, new_entry: String) -> Result<Value> {
+    let new_value: Value =
+        serde_json::from_str(&new_entry).map_err(|e| anyhow::anyhow!("ERR JSON: {}", e))?;
 
     let mut array = match old_data {
         Some(s) => {
-            let parsed: Value = serde_json::from_str(&s)
-                .map_err(|e| anyhow::anyhow!("解析旧数据失败: {}", e))?;
+            let parsed: Value =
+                serde_json::from_str(&s).map_err(|e| anyhow::anyhow!("解析旧数据失败: {}", e))?;
 
             if parsed.is_array() {
                 parsed.as_array().unwrap().clone()
@@ -112,7 +115,7 @@ fn convert_to_array(input: String) -> Result<String> {
 
 pub(crate) fn get_history_record(
     tx: &Transaction,
-    schematic_id: i64
+    schematic_id: i64,
 ) -> Result<Option<HistoryRecord>> {
     let mut stmt = tx.prepare(
         r#"SELECT
@@ -120,7 +123,7 @@ pub(crate) fn get_history_record(
             requirements,
             unique_blocks
         FROM schematics_history
-        WHERE schematic_id = ?"#
+        WHERE schematic_id = ?"#,
     )?;
 
     let mut rows = stmt.query([schematic_id])?;

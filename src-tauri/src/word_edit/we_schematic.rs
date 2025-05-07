@@ -209,7 +209,9 @@ impl WeSchematic {
         let palette_max = match type_version {
             0 => root.get_i32("PaletteMax")?,
             1 => palette.len() as i32,
-            _ => Err(SchematicError::InvalidFormat("PaletteMax is not a Compound"))?,
+            _ => Err(SchematicError::InvalidFormat(
+                "PaletteMax is not a Compound",
+            ))?,
         };
 
         Ok(WeSchematicData {

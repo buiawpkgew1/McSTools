@@ -1,15 +1,14 @@
+use crate::database::db_control::DatabaseState;
 use r2d2::PooledConnection;
 use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::params;
 use tauri::State;
-use crate::database::db_control::DatabaseState;
-
 
 pub fn new_schematic_data(
     conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic_id: i64,
     metadata: String,
-    unique_blocks: String
+    unique_blocks: String,
 ) -> anyhow::Result<i64> {
     let tx = conn.transaction()?;
     tx.execute(
@@ -28,7 +27,7 @@ pub fn update_schematic_data(
     conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic_id: i64,
     metadata: String,
-    unique_blocks: String
+    unique_blocks: String,
 ) -> anyhow::Result<i64> {
     let tx = conn.transaction()?;
     tx.execute(
@@ -45,7 +44,10 @@ pub fn update_schematic_data(
     Ok(rowid)
 }
 #[tauri::command]
-pub fn get_schematic_requirements(db: State<'_, DatabaseState>, id: i64) -> anyhow::Result<String, String> {
+pub fn get_schematic_requirements(
+    db: State<'_, DatabaseState>,
+    id: i64,
+) -> anyhow::Result<String, String> {
     let conn = db.0.get().map_err(|e| e.to_string())?;
 
     conn.query_row(
@@ -56,7 +58,7 @@ pub fn get_schematic_requirements(db: State<'_, DatabaseState>, id: i64) -> anyh
             Ok(metadata_str)
         },
     )
-        .map_err(|e| e.to_string())
+    .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -71,5 +73,5 @@ pub fn get_unique_block(db: State<'_, DatabaseState>, id: i64) -> anyhow::Result
             Ok(unique_block_str)
         },
     )
-        .map_err(|e| e.to_string())
+    .map_err(|e| e.to_string())
 }

@@ -1,37 +1,37 @@
-
 mod be_schematic;
 mod building_gadges;
 pub mod create;
 mod data_files;
 mod database;
 pub mod litematica;
+mod map_art;
 pub mod modules;
 pub mod utils;
 mod word_edit;
-mod map_art;
 
-use std::time::Instant;
-use sysinfo::{Pid, ProcessesToUpdate, System};
 use crate::database::db_control;
+use crate::litematica::lm_schematic::LmSchematic;
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
+use crate::utils::schematic_data::SchematicError;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
 use database::db_apis::logs_api::{add_logs, get_logs};
-use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics};
 use database::db_apis::schematic_data_api::{get_schematic_requirements, get_unique_block};
+use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics};
 use database::db_apis::user_api::get_user_data;
-use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
-use modules::convert::{get_schematic_convert_data, get_je_blocks, convert};
-use modules::replace::schematic_replacement;
+use modules::convert::{convert, get_je_blocks, get_schematic_convert_data};
 use modules::history::get_history;
+use modules::replace::schematic_replacement;
+use modules::schematic::{encode_uploaded_schematic, get_schematic_data};
+use std::time::Instant;
+use sysinfo::{Pid, ProcessesToUpdate, System};
 use tauri::Manager;
-use utils::minecraft_data::versions_data::VersionData;
 use utils::loading::close_splashscreen;
-use crate::litematica::lm_schematic::LmSchematic;
-use crate::utils::schematic_data::SchematicError;
+use utils::minecraft_data::versions_data::VersionData;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_store::Builder::new().build())
@@ -72,7 +72,6 @@ pub fn run() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
-
 
 #[test]
 fn test_unique() -> Result<(), SchematicError> {

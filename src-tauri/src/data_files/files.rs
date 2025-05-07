@@ -1,23 +1,23 @@
-use std::collections::HashMap;
-use crate::utils::schematic_data::{SchematicData, SchematicError};
-use anyhow::Result;
-use anyhow::{anyhow, Context};
-use fastnbt::Value;
-use flate2::read::GzDecoder;
-use std::fs;
-use std::fs::File;
-use std::io;
-use std::io::{BufWriter, Cursor, Write};
-use std::path::{Path, PathBuf};
-use flate2::Compression;
-use flate2::write::GzEncoder;
-use tauri::{AppHandle, Manager};
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
 use crate::modules::convert_data::{ConvertData, SchematicType, Target};
 use crate::utils::extend_write::to_writer_gzip;
+use crate::utils::schematic_data::{SchematicData, SchematicError};
 use crate::word_edit::we_schematic::WeSchematic;
+use anyhow::Result;
+use anyhow::{anyhow, Context};
+use fastnbt::Value;
+use flate2::read::GzDecoder;
+use flate2::write::GzEncoder;
+use flate2::Compression;
+use std::collections::HashMap;
+use std::fs;
+use std::fs::File;
+use std::io;
+use std::io::{BufWriter, Cursor, Write};
+use std::path::{Path, PathBuf};
+use tauri::{AppHandle, Manager};
 
 #[derive(Debug)]
 pub struct FileData {
@@ -139,7 +139,6 @@ impl FileManager {
     ) -> Result<PathBuf> {
         let schematic_dir = self.schematic_dir(id)?;
 
-
         let final_filename = format!(
             "schematic_{}.{}.{}.{}",
             version, sub_version, v_type, "json"
@@ -175,10 +174,7 @@ impl FileManager {
 
         let final_filename = format!(
             "schematic_{}.{}.{}.{}",
-            version,
-            sub_version,
-            v_type,
-            file_ext
+            version, sub_version, v_type, file_ext
         );
 
         let final_path = schematic_dir.join(final_filename);

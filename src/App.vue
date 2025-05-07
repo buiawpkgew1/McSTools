@@ -30,6 +30,7 @@ const theme = useTheme()
 import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";
+import {chuck_update} from "./modules/chuck_update.ts";
 const selectedTheme = ref('grey')
 const backgroundStyle = ref({
   backgroundColor: '',
@@ -47,6 +48,7 @@ onMounted(async () => {
   await initTheme()
   await invoke("close_splashscreen")
   await fetchUserData()
+  await chuck_update()
   jeBlocks.value = await fetchJeBlocks()
 
 })

@@ -1,9 +1,9 @@
-use std::collections::HashMap;
-use std::sync::Arc;
-use serde::{Deserialize, Serialize};
 use crate::database::db_data::Schematic;
 use crate::utils::block_state_pos_list::BlockData;
 use crate::utils::requirements::Requirements;
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+use std::sync::Arc;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HistoryRecord {

@@ -127,9 +127,7 @@ pub fn get_schematic_version(
     let schematic = tx.query_row(
         "SELECT * FROM schematics WHERE id = ? AND is_deleted = FALSE",
         [id],
-        |row| {
-            Ok(row.get("version")?)
-        },
+        |row| Ok(row.get("version")?),
     );
     tx.commit()?;
     Ok(schematic?)
@@ -144,7 +142,10 @@ pub fn add_schematic(db: State<'_, DatabaseState>, schematic: Schematic) -> Resu
 }
 
 #[tauri::command]
-pub fn update_schematic_tauri(db: State<'_, DatabaseState>, schematic: Schematic) -> Result<i64, String> {
+pub fn update_schematic_tauri(
+    db: State<'_, DatabaseState>,
+    schematic: Schematic,
+) -> Result<i64, String> {
     let mut conn = db.0.get().map_err(|e| e.to_string())?;
 
     let new = update_schematic(&mut conn, schematic).map_err(|e| e.to_string())?;

@@ -1,9 +1,10 @@
-use std::collections::HashMap;
-use serde::{Deserialize, Serialize};
 use crate::utils::block_state_pos_list::{BlockData, BlockStatePosList};
+use crate::utils::schematic_data::SchematicError;
+use dashmap::DashMap;
 use rayon::prelude::*;
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
-use dashmap::DashMap;use crate::utils::schematic_data::SchematicError;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Target {
@@ -78,8 +79,7 @@ pub fn get_unique_block(blocks: &BlockStatePosList) -> Result<Vec<Arc<BlockData>
         let block_data = block_pos.block.clone();
         let entry = seen.entry(block_data.clone());
         match entry {
-            dashmap::mapref::entry::Entry::Occupied(_) => {
-            },
+            dashmap::mapref::entry::Entry::Occupied(_) => {}
             dashmap::mapref::entry::Entry::Vacant(vacant) => {
                 let mut unique_lock = unique.lock().unwrap();
                 let index = unique_lock.len();

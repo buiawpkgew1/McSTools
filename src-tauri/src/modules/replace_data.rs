@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::utils::block_state_pos_list::BlockData;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ReplacementRule {

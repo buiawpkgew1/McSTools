@@ -1,5 +1,5 @@
-use tokio::time::{sleep, Duration};
 use tauri::{AppHandle, Manager};
+use tokio::time::{sleep, Duration};
 
 #[tauri::command]
 pub async fn close_splashscreen(app: AppHandle) {

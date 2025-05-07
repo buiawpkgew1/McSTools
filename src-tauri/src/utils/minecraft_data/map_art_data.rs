@@ -5,7 +5,7 @@ struct RawBlock {
     bid: u32,
     bname: String,
     bname_eng: String,
-    bclass: Vec<RawBlocksClass>
+    bclass: Vec<RawBlocksClass>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -21,5 +21,5 @@ struct RawBlocksClass {
     name_eng: String,
     low_rgb: Vec<u32>,
     high_rgb: Vec<u32>,
-    lowest_rgb: Vec<u32>
+    lowest_rgb: Vec<u32>,
 }
