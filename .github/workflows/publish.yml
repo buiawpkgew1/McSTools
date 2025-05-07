@@ -31,6 +31,11 @@ jobs:
           cache: "pnpm"
       - name: Validate Key Configuration
         run: |
+          # 验证 Secret 是否存在且非空
+          if [ -z "${{ secrets.TAURI_PRIVATE_KEY }}" ]; then
+          echo "::error::TAURI_PRIVATE_KEY secret is not set"
+          exit 1
+          fi
           # 验证私钥环境变量是否存在
           if [ -z "$TAURI_SIGNING_PRIVATE_KEY" ]; then
             echo "::error::TAURI_SIGNING_PRIVATE_KEY is not set"
