@@ -11,6 +11,7 @@
     "dialog:allow-open",
     "dialog:allow-save",
     "store:default",
+    "shell:allow-open",
     "fs:default",
     {
       "identifier": "fs:allow-app-write-recursive",

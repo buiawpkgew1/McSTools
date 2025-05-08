@@ -2,6 +2,7 @@
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {onBeforeRouteLeave} from "vue-router";
 import {opacity} from "../modules/theme.ts";
+import {openLink} from "../modules/others.ts";
 
 onBeforeRouteLeave(navigationGuard)
 </script>
@@ -46,7 +47,10 @@ onBeforeRouteLeave(navigationGuard)
             <v-col cols="12">
               <v-hover>
                 <template v-slot:default="{ isHovering, props }">
-                  <v-card v-bind="props" >
+                  <v-card
+                      v-bind="props"
+                      @click="openLink('https://github.com/guapi-exe/McSTools/issues')"
+                  >
                     <v-toolbar
                         density="compact"
                         class="pa-2 hover-toolbar"
@@ -70,7 +74,10 @@ onBeforeRouteLeave(navigationGuard)
             <v-col cols="12">
               <v-hover>
                 <template v-slot:default="{ isHovering, props }">
-                  <v-card v-bind="props">
+                  <v-card
+                      v-bind="props"
+                      @click="openLink('https://qm.qq.com/q/JhUloMNoCQ')"
+                  >
                     <v-toolbar
                         density="compact"
                         class="pa-2 hover-toolbar"

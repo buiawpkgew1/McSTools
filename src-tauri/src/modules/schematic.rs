@@ -18,8 +18,8 @@ use crate::word_edit::we_schematic::WeSchematic;
 use anyhow::Result;
 use chrono::{DateTime, Local, NaiveDateTime};
 use fastnbt::Value;
-use std::path::Path;
 use rusqlite::version;
+use std::path::Path;
 use tauri::State;
 use tauri_plugin_updater::target;
 
@@ -543,13 +543,12 @@ pub async fn copy_schematic(
     version: i32,
     v_type: i32,
     target: String,
-    file_manager: State<'_, FileManager>
+    file_manager: State<'_, FileManager>,
 ) -> Result<bool, String> {
     async move {
         let result = file_manager.copy_file(id, version, sub, v_type, target)?;
         Ok(result)
     }
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
-
+    .await
+    .map_err(|e: anyhow::Error| e.to_string())
 }

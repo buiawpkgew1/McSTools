@@ -162,7 +162,7 @@ onBeforeUnmount(() => {
               icon="mdi-information"
               class="mt-4"
           >
-            新版本 v-0.1.0 已发布！
+            新版本 v0.1.5 已发布！
           </v-alert>
         </v-card-text>
       </v-card>

@@ -43,6 +43,7 @@ chrono = "0.4.40"
 tauri-plugin-process = "2"
 dunce = "1.0.5"
 tauri-plugin-dialog = "2"
+tauri-plugin-shell = "2"
 
 [profile.release]
 opt-level = 3

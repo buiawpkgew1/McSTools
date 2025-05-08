@@ -320,8 +320,7 @@ impl FileManager {
             fs::create_dir_all(parent)?;
         }
 
-        fs::copy(&file_path, &dest_path)
-            .map_err(|e| anyhow::anyhow!("文件复制失败: {}", e))?;
+        fs::copy(&file_path, &dest_path).map_err(|e| anyhow::anyhow!("文件复制失败: {}", e))?;
 
         Ok(true)
     }

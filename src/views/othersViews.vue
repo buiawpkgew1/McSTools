@@ -5,6 +5,7 @@ import {opacity} from "../modules/theme.ts";
 import {ref} from "vue";
 import {onBeforeRouteLeave} from "vue-router";
 import mapImage2d from "../units/others/mapImage2d.vue";
+import redStoneMusic from "../units/others/redStoneMusic.vue";
 
 const active = ref(0)
 
@@ -28,11 +29,15 @@ onBeforeRouteLeave(navigationGuard)
 
           <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1">
             <v-tab value="img">地图画</v-tab>
+            <v-tab value="music">红石音乐</v-tab>
           </v-tabs>
         </v-toolbar>
         <v-window v-model="active">
           <v-window-item value="img">
             <map-image2d />
+          </v-window-item>
+          <v-window-item value="music">
+            <redStoneMusic />
           </v-window-item>
         </v-window>
       </v-card>

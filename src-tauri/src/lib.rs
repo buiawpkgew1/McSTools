@@ -21,7 +21,9 @@ use database::db_apis::user_api::get_user_data;
 use modules::convert::{convert, get_je_blocks, get_schematic_convert_data};
 use modules::history::get_history;
 use modules::replace::schematic_replacement;
-use modules::schematic::{delete_schematic, encode_uploaded_schematic, get_schematic_data, copy_schematic};
+use modules::schematic::{
+    copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_data,
+};
 use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
 use tauri::Manager;
@@ -31,6 +33,7 @@ use utils::minecraft_data::versions_data::VersionData;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())

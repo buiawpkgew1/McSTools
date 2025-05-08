@@ -5,7 +5,12 @@ import {opacity} from "../modules/theme.ts";
 import {onBeforeRouteLeave} from "vue-router";
 import {appData} from "../modules/app_data.ts";
 import tauri from "../static/img/tauri.png"
+import guapi from "../static/img/guapi.png"
+import {openLink} from "../modules/others.ts";
+import ifdian from "../static/img/ifdian.png"
 onBeforeRouteLeave(navigationGuard)
+
+
 </script>
 
 <template class="page-wrapper">
@@ -88,7 +93,7 @@ onBeforeRouteLeave(navigationGuard)
                           density="default"
                           variant="outlined"
                           prepend-icon="mdi-github"
-                          @click=""
+                          @click="openLink('https://github.com/guapi-exe/McSTools')"
                       >
                         Github
                       </v-btn>
@@ -99,9 +104,22 @@ onBeforeRouteLeave(navigationGuard)
                           color="secondary"
                           variant="outlined"
                           prepend-icon="mdi-web"
-                          @click=""
+                          @click="openLink('https://www.mcschematic.top/home/')"
                       >
                         官方网站
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="auto">
+                      <v-btn
+                          density="default"
+                          color="secondary"
+                          variant="outlined"
+                          @click="openLink('https://ifdian.net/a/guapi-exe')"
+                      >
+                        <v-icon>
+                          <v-img :src="ifdian"></v-img>
+                        </v-icon>
+                        赞助项目
                       </v-btn>
                     </v-col>
                     <v-col cols="auto">
@@ -143,7 +161,7 @@ onBeforeRouteLeave(navigationGuard)
                             variant="outlined"
                             prepend-icon="mdi-web"
                             class="px-6"
-                        @click=""
+                        @click="openLink('https://www.mcschematic.top/home/')"
                         >
                         前往网站→
                         </v-btn>
@@ -207,10 +225,8 @@ onBeforeRouteLeave(navigationGuard)
                             variant="text"
                             color="secondary"
                             density="compact"
-                            href="https://www.gnu.org/licenses/gpl-3.0.html"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             class="px-1"
+                            @click="openLink('https://www.gnu.org/licenses/gpl-3.0.html')"
                         >
                           <span class="text-caption">查看完整协议</span>
                           <v-icon icon="mdi-open-in-new" size="14" class="ml-1"></v-icon>
@@ -242,7 +258,7 @@ onBeforeRouteLeave(navigationGuard)
                             <template v-slot:activator="{ props }">
                               <div class="d-flex align-start" v-bind="props">
                                 <v-avatar size="28" class="mr-2">
-                                  <v-img alt="authon" src="https://q1.qlogo.cn/g?b=qq&nk=3051016381&s=100"></v-img>
+                                  <v-img alt="author" :src="guapi"></v-img>
                                 </v-avatar>
                                 <span class="text-h6 font-weight-medium">Guapi</span>
                               </div>
