@@ -122,10 +122,10 @@ const updateState = ref(UpdateState.Pending);
 const checkUpdate = async () => {
   try {
     const update = await check();
-    toast.info(`发现新版本: ${update.version} from ${update.date} with notes ${update.body}`, {
-      timeout: 3000
-    });
     if (update) {
+      toast.info(`发现新版本: ${update?.version} from ${update?.date} with notes ${update?.body}`, {
+        timeout: 3000
+      });
       updateInfo.value = update;
       updateState.value = UpdateState.Pending;
       updateDialog.value = true;
