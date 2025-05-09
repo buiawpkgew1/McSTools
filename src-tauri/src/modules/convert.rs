@@ -4,7 +4,7 @@ use crate::data_files::files::FileManager;
 use crate::database::db_apis::schematics_api::find_schematic;
 use crate::database::db_control::DatabaseState;
 use crate::litematica::to_lm_schematic::ToLmSchematic;
-use crate::modules::convert_data::ConvertData;
+use crate::modules::modules_data::convert_data::ConvertData;
 use crate::utils::minecraft_data::je_blocks_data::{BlocksData, SubData};
 use crate::word_edit::to_we_schematic::ToWeSchematic;
 use std::path::PathBuf;

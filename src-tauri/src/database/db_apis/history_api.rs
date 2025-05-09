@@ -1,4 +1,4 @@
-use crate::modules::history_data::HistoryRecord;
+use crate::modules::modules_data::history_data::HistoryRecord;
 use anyhow::{Context, Result};
 use r2d2::PooledConnection;
 use r2d2_sqlite::SqliteConnectionManager;

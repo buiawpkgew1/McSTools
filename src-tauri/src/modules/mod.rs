@@ -1,7 +1,5 @@
 pub mod convert;
-pub mod convert_data;
 pub mod history;
-pub mod history_data;
 pub mod replace;
-pub mod replace_data;
 pub mod schematic;
+mod modules_data;

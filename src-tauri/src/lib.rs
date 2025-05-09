@@ -27,6 +27,7 @@ use modules::schematic::{
 use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
 use tauri::Manager;
+use modules::modules_data;
 use utils::loading::close_splashscreen;
 use utils::minecraft_data::versions_data::VersionData;
 
@@ -90,7 +91,7 @@ fn test_unique() -> Result<(), SchematicError> {
     let schematic2 =
         LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
     let schem2 = schematic2.get_blocks_pos()?;
-    let unique_blocks = modules::convert_data::get_unique_block(&schem2.blocks);
+    let unique_blocks = modules_data::convert_data::get_unique_block(&schem2.blocks);
     println!("unique_blocks: {:?}", unique_blocks);
     sys.refresh_processes(ProcessesToUpdate::All, false);
     let end_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);

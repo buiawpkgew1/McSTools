@@ -1,7 +1,7 @@
 use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::litematica::lm_schematic::LmSchematic;
-use crate::modules::convert_data::{ConvertData, SchematicType, Target};
+use crate::modules::modules_data::convert_data::{ConvertData, SchematicType, Target};
 use crate::utils::schematic_data::SchematicData;
 use crate::word_edit::we_schematic::WeSchematic;
 use anyhow::Result;

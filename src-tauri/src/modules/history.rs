@@ -1,5 +1,5 @@
 use crate::database::db_control::DatabaseState;
-use crate::modules::history_data::HistoryRecord;
+use crate::modules::modules_data::history_data::HistoryRecord;
 use tauri::State;
 
 #[tauri::command]
