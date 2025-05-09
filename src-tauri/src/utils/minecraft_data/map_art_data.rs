@@ -1,36 +1,36 @@
-use std::fs;
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
-use crate::utils::minecraft_data::je_blocks_data::BlocksData;
+use std::collections::HashMap;
+use std::fs;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-struct RawBlock {
-    bid: u32,
-    bname: String,
-    bname_eng: String,
-    bclass: Vec<RawBlocksClass>,
+pub struct BlockColorData {
+    #[serde(rename = "low_rgb")]
+    pub low: Vec<u8>,
+    #[serde(rename = "normal_rgb")]
+    pub normal: Vec<u8>,
+    #[serde(rename = "high_rgb")]
+    pub high: Vec<u8>,
+    #[serde(rename = "lowest_rgb")]
+    pub lowest: Vec<u8>,
+    #[serde(rename = "average_rgb")]
+    pub average: Vec<u8>,
 }
+
+pub type CategoryBlocks = HashMap<String, HashMap<String, BlockColorData>>;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-struct RawBlocksClass {
-    name: String,
-    low: String,
-    normal: String,
-    high: String,
-    lowest: String,
-    x: u32,
-    y: u32,
-    offset: String,
-    name_eng: String,
-    low_rgb: Vec<u32>,
-    high_rgb: Vec<u32>,
-    lowest_rgb: Vec<u32>,
+pub struct BlockDatabase {
+    #[serde(flatten)]
+    pub categories: CategoryBlocks,
 }
 
-impl RawBlock {
-    pub fn new() -> anyhow::Result<Vec<RawBlock>> {
+impl BlockDatabase {
+
+    pub fn new() -> Result<Self> {
         let path = "./data/blocks_art.json";
         let str = fs::read_to_string(path)?;
-        let raw_block: Vec<RawBlock> = serde_json::from_str(str.as_str())?;
+        let raw_block = serde_json::from_str(str.as_str())?;
         Ok(raw_block)
     }
 }

@@ -1,3368 +1,8234 @@
-[
-  {
-    "bid": 1,
-    "bname": "羊毛",
-    "bname_eng": "wool",
-    "bclass": [
-      {
-        "name": "白色羊毛",
-        "low": "#8C8C8C",
-        "normal": "#ABABAB",
-        "high": "#C7C7C7",
-        "lowest": "#696969",
-        "x": 0,
-        "y": 2,
-        "offset": "-0px -32px",
-        "name_eng": "white_wool",
-        "low_rgb": [
-          140,
-          140,
-          140
-        ],
-        "normal_rgb": [
-          171,
-          171,
-          171
-        ],
-        "high_rgb": [
-          199,
-          199,
-          199
-        ],
-        "lowest_rgb": [
-          105,
-          105,
-          105
-        ]
-      },
-      {
-        "name": "橙色羊毛",
-        "low": "#985924",
-        "normal": "#BA6D2C",
-        "high": "#D87F33",
-        "lowest": "#72431B",
-        "x": 26,
-        "y": 6,
-        "offset": "-416px -96px",
-        "name_eng": "orange_wool",
-        "low_rgb": [
-          152,
-          89,
-          36
-        ],
-        "normal_rgb": [
-          186,
-          109,
-          44
-        ],
-        "high_rgb": [
-          216,
-          127,
-          51
-        ],
-        "lowest_rgb": [
-          114,
-          67,
-          27
-        ]
-      },
-      {
-        "name": "品红色羊毛",
-        "low": "#7D3598",
-        "normal": "#9941BA",
-        "high": "#B24CD8",
-        "lowest": "#5E2872",
-        "x": 2,
-        "y": 6,
-        "offset": "-32px -96px",
-        "name_eng": "magenta_wool",
-        "low_rgb": [
-          125,
-          53,
-          152
-        ],
-        "normal_rgb": [
-          153,
-          65,
-          186
-        ],
-        "high_rgb": [
-          178,
-          76,
-          216
-        ],
-        "lowest_rgb": [
-          94,
-          40,
-          114
-        ]
-      },
-      {
-        "name": "淡蓝色羊毛",
-        "low": "#486C98",
-        "normal": "#5884BA",
-        "high": "#6699D8",
-        "lowest": "#365172",
-        "x": 26,
-        "y": 5,
-        "offset": "-416px -80px",
-        "name_eng": "light_blue_wool",
-        "low_rgb": [
-          72,
-          108,
-          152
-        ],
-        "normal_rgb": [
-          88,
-          132,
-          186
-        ],
-        "high_rgb": [
-          102,
-          153,
-          216
-        ],
-        "lowest_rgb": [
-          54,
-          81,
-          114
-        ]
-      },
-      {
-        "name": "黄色羊毛",
-        "low": "#A1A124",
-        "normal": "#C5C52C",
-        "high": "#E5E533",
-        "lowest": "#79791B",
-        "x": 2,
-        "y": 5,
-        "offset": "-32px -80px",
-        "name_eng": "yellow_wool",
-        "low_rgb": [
-          161,
-          161,
-          36
-        ],
-        "normal_rgb": [
-          197,
-          197,
-          44
-        ],
-        "high_rgb": [
-          229,
-          229,
-          51
-        ],
-        "lowest_rgb": [
-          121,
-          121,
-          27
-        ]
-      },
-      {
-        "name": "黄绿色羊毛",
-        "low": "#599011",
-        "normal": "#6DB015",
-        "high": "#7FCC19",
-        "lowest": "#436C0D",
-        "x": 26,
-        "y": 4,
-        "offset": "-416px -64px",
-        "name_eng": "lime_wool",
-        "low_rgb": [
-          89,
-          144,
-          17
-        ],
-        "normal_rgb": [
-          109,
-          176,
-          21
-        ],
-        "high_rgb": [
-          127,
-          204,
-          25
-        ],
-        "lowest_rgb": [
-          67,
-          108,
-          13
-        ]
-      },
-      {
-        "name": "粉红色羊毛",
-        "low": "#AA5974",
-        "normal": "#D06D8E",
-        "high": "#F27FA5",
-        "lowest": "#804357",
-        "x": 2,
-        "y": 4,
-        "offset": "-32px -64px",
-        "name_eng": "pink_wool",
-        "low_rgb": [
-          170,
-          89,
-          116
-        ],
-        "normal_rgb": [
-          208,
-          109,
-          142
-        ],
-        "high_rgb": [
-          242,
-          127,
-          165
-        ],
-        "lowest_rgb": [
-          128,
-          67,
-          87
-        ]
-      },
-      {
-        "name": "灰色羊毛",
-        "low": "#353535",
-        "normal": "#414141",
-        "high": "#4C4C4C",
-        "lowest": "#282828",
-        "x": 26,
-        "y": 3,
-        "offset": "-416px -48px",
-        "name_eng": "gray_wool",
-        "low_rgb": [
-          53,
-          53,
-          53
-        ],
-        "normal_rgb": [
-          65,
-          65,
-          65
-        ],
-        "high_rgb": [
-          76,
-          76,
-          76
-        ],
-        "lowest_rgb": [
-          40,
-          40,
-          40
-        ]
-      },
-      {
-        "name": "淡灰色羊毛",
-        "low": "#6C6C6C",
-        "normal": "#848484",
-        "high": "#999999",
-        "lowest": "#515151",
-        "x": 1,
-        "y": 7,
-        "offset": "-16px -112px",
-        "name_eng": "light_gray_wool",
-        "low_rgb": [
-          108,
-          108,
-          108
-        ],
-        "normal_rgb": [
-          132,
-          132,
-          132
-        ],
-        "high_rgb": [
-          153,
-          153,
-          153
-        ],
-        "lowest_rgb": [
-          81,
-          81,
-          81
-        ]
-      },
-      {
-        "name": "青色羊毛",
-        "low": "#35596C",
-        "normal": "#416D84",
-        "high": "#4C7F99",
-        "lowest": "#284351",
-        "x": 25,
-        "y": 6,
-        "offset": "-400px -96px",
-        "name_eng": "cyan_wool",
-        "low_rgb": [
-          53,
-          89,
-          108
-        ],
-        "normal_rgb": [
-          65,
-          109,
-          132
-        ],
-        "high_rgb": [
-          76,
-          127,
-          153
-        ],
-        "lowest_rgb": [
-          40,
-          67,
-          81
-        ]
-      },
-      {
-        "name": "紫色羊毛",
-        "low": "#592C7D",
-        "normal": "#6D3699",
-        "high": "#7F3FB2",
-        "lowest": "#43215E",
-        "x": 1,
-        "y": 6,
-        "offset": "-16px -96px",
-        "name_eng": "purple_wool",
-        "low_rgb": [
-          89,
-          44,
-          125
-        ],
-        "normal_rgb": [
-          109,
-          54,
-          153
-        ],
-        "high_rgb": [
-          127,
-          63,
-          178
-        ],
-        "lowest_rgb": [
-          67,
-          33,
-          94
-        ]
-      },
-      {
-        "name": "蓝色羊毛",
-        "low": "#24357D",
-        "normal": "#2C4199",
-        "high": "#334CB2",
-        "lowest": "#1B285E",
-        "x": 25,
-        "y": 5,
-        "offset": "-400px -80px",
-        "name_eng": "blue_wool",
-        "low_rgb": [
-          36,
-          53,
-          125
-        ],
-        "normal_rgb": [
-          44,
-          65,
-          153
-        ],
-        "high_rgb": [
-          51,
-          76,
-          178
-        ],
-        "lowest_rgb": [
-          27,
-          40,
-          94
-        ]
-      },
-      {
-        "name": "棕色羊毛",
-        "low": "#483524",
-        "normal": "#58412C",
-        "high": "#664C33",
-        "lowest": "#36281B",
-        "x": 1,
-        "y": 5,
-        "offset": "-16px -80px",
-        "name_eng": "brown_wool",
-        "low_rgb": [
-          72,
-          53,
-          36
-        ],
-        "normal_rgb": [
-          88,
-          65,
-          44
-        ],
-        "high_rgb": [
-          102,
-          76,
-          51
-        ],
-        "lowest_rgb": [
-          54,
-          40,
-          27
-        ]
-      },
-      {
-        "name": "绿色羊毛",
-        "low": "#485924",
-        "normal": "#586D2C",
-        "high": "#667F33",
-        "lowest": "#36431B",
-        "x": 25,
-        "y": 4,
-        "offset": "-400px -64px",
-        "name_eng": "green_wool",
-        "low_rgb": [
-          72,
-          89,
-          36
-        ],
-        "normal_rgb": [
-          88,
-          109,
-          44
-        ],
-        "high_rgb": [
-          102,
-          127,
-          51
-        ],
-        "lowest_rgb": [
-          54,
-          67,
-          27
-        ]
-      },
-      {
-        "name": "红色羊毛",
-        "low": "#6C2424",
-        "normal": "#842C2C",
-        "high": "#993333",
-        "lowest": "#511B1B",
-        "x": 1,
-        "y": 4,
-        "offset": "-16px -64px",
-        "name_eng": "red_wool",
-        "low_rgb": [
-          108,
-          36,
-          36
-        ],
-        "normal_rgb": [
-          132,
-          44,
-          44
-        ],
-        "high_rgb": [
-          153,
-          51,
-          51
-        ],
-        "lowest_rgb": [
-          81,
-          27,
-          27
-        ]
-      },
-      {
-        "name": "黑色羊毛",
-        "low": "#111111",
-        "normal": "#151515",
-        "high": "#191919",
-        "lowest": "#0D0D0D",
-        "x": 25,
-        "y": 3,
-        "offset": "-400px -48px",
-        "name_eng": "black_wool",
-        "low_rgb": [
-          17,
-          17,
-          17
-        ],
-        "normal_rgb": [
-          21,
-          21,
-          21
-        ],
-        "high_rgb": [
-          25,
-          25,
-          25
-        ],
-        "lowest_rgb": [
-          13,
-          13,
-          13
-        ]
-      }
-    ]
+{
+  "wool": {
+    "white_wool": {
+      "low_rgb": [
+        245,
+        247,
+        247
+      ],
+      "normal_rgb": [
+        222,
+        226,
+        227
+      ],
+      "high_rgb": [
+        245,
+        247,
+        247
+      ],
+      "lowest_rgb": [
+        249,
+        250,
+        250
+      ],
+      "average_rgb": [
+        233,
+        236,
+        236
+      ]
+    },
+    "light_gray_wool": {
+      "low_rgb": [
+        150,
+        150,
+        144
+      ],
+      "normal_rgb": [
+        134,
+        134,
+        126
+      ],
+      "high_rgb": [
+        150,
+        150,
+        144
+      ],
+      "lowest_rgb": [
+        153,
+        153,
+        147
+      ],
+      "average_rgb": [
+        142,
+        142,
+        134
+      ]
+    },
+    "orange_wool": {
+      "low_rgb": [
+        248,
+        125,
+        27
+      ],
+      "normal_rgb": [
+        235,
+        107,
+        10
+      ],
+      "high_rgb": [
+        248,
+        125,
+        27
+      ],
+      "lowest_rgb": [
+        249,
+        130,
+        30
+      ],
+      "average_rgb": [
+        240,
+        118,
+        19
+      ]
+    },
+    "cyan_wool": {
+      "low_rgb": [
+        21,
+        146,
+        149
+      ],
+      "normal_rgb": [
+        21,
+        129,
+        141
+      ],
+      "high_rgb": [
+        21,
+        146,
+        149
+      ],
+      "lowest_rgb": [
+        22,
+        150,
+        152
+      ],
+      "average_rgb": [
+        21,
+        137,
+        145
+      ]
+    },
+    "magenta_wool": {
+      "low_rgb": [
+        197,
+        76,
+        187
+      ],
+      "normal_rgb": [
+        180,
+        59,
+        170
+      ],
+      "high_rgb": [
+        197,
+        76,
+        187
+      ],
+      "lowest_rgb": [
+        201,
+        80,
+        191
+      ],
+      "average_rgb": [
+        189,
+        68,
+        179
+      ]
+    },
+    "purple_wool": {
+      "low_rgb": [
+        130,
+        45,
+        178
+      ],
+      "normal_rgb": [
+        111,
+        36,
+        164
+      ],
+      "high_rgb": [
+        130,
+        45,
+        178
+      ],
+      "lowest_rgb": [
+        133,
+        47,
+        180
+      ],
+      "average_rgb": [
+        121,
+        42,
+        172
+      ]
+    },
+    "light_blue_wool": {
+      "low_rgb": [
+        68,
+        190,
+        225
+      ],
+      "normal_rgb": [
+        48,
+        162,
+        210
+      ],
+      "high_rgb": [
+        68,
+        190,
+        225
+      ],
+      "lowest_rgb": [
+        72,
+        193,
+        228
+      ],
+      "average_rgb": [
+        58,
+        175,
+        217
+      ]
+    },
+    "blue_wool": {
+      "low_rgb": [
+        57,
+        61,
+        163
+      ],
+      "normal_rgb": [
+        49,
+        51,
+        150
+      ],
+      "high_rgb": [
+        57,
+        61,
+        163
+      ],
+      "lowest_rgb": [
+        58,
+        64,
+        166
+      ],
+      "average_rgb": [
+        53,
+        57,
+        157
+      ]
+    },
+    "yellow_wool": {
+      "low_rgb": [
+        252,
+        208,
+        48
+      ],
+      "normal_rgb": [
+        246,
+        188,
+        30
+      ],
+      "high_rgb": [
+        252,
+        208,
+        48
+      ],
+      "lowest_rgb": [
+        253,
+        211,
+        52
+      ],
+      "average_rgb": [
+        248,
+        197,
+        39
+      ]
+    },
+    "brown_wool": {
+      "low_rgb": [
+        123,
+        77,
+        45
+      ],
+      "normal_rgb": [
+        106,
+        66,
+        36
+      ],
+      "high_rgb": [
+        123,
+        77,
+        45
+      ],
+      "lowest_rgb": [
+        126,
+        80,
+        47
+      ],
+      "average_rgb": [
+        114,
+        71,
+        40
+      ]
+    },
+    "lime_wool": {
+      "low_rgb": [
+        120,
+        192,
+        25
+      ],
+      "normal_rgb": [
+        103,
+        177,
+        24
+      ],
+      "high_rgb": [
+        120,
+        192,
+        25
+      ],
+      "lowest_rgb": [
+        123,
+        195,
+        27
+      ],
+      "average_rgb": [
+        112,
+        185,
+        25
+      ]
+    },
+    "green_wool": {
+      "low_rgb": [
+        89,
+        117,
+        23
+      ],
+      "normal_rgb": [
+        79,
+        101,
+        31
+      ],
+      "high_rgb": [
+        89,
+        117,
+        23
+      ],
+      "lowest_rgb": [
+        91,
+        120,
+        22
+      ],
+      "average_rgb": [
+        84,
+        109,
+        27
+      ]
+    },
+    "pink_wool": {
+      "low_rgb": [
+        244,
+        158,
+        185
+      ],
+      "normal_rgb": [
+        234,
+        124,
+        159
+      ],
+      "high_rgb": [
+        244,
+        158,
+        185
+      ],
+      "lowest_rgb": [
+        244,
+        165,
+        190
+      ],
+      "average_rgb": [
+        237,
+        141,
+        172
+      ]
+    },
+    "red_wool": {
+      "low_rgb": [
+        169,
+        42,
+        35
+      ],
+      "normal_rgb": [
+        152,
+        35,
+        33
+      ],
+      "high_rgb": [
+        169,
+        42,
+        35
+      ],
+      "lowest_rgb": [
+        172,
+        43,
+        36
+      ],
+      "average_rgb": [
+        160,
+        39,
+        34
+      ]
+    },
+    "gray_wool": {
+      "low_rgb": [
+        67,
+        73,
+        76
+      ],
+      "normal_rgb": [
+        59,
+        63,
+        66
+      ],
+      "high_rgb": [
+        67,
+        73,
+        76
+      ],
+      "lowest_rgb": [
+        68,
+        75,
+        78
+      ],
+      "average_rgb": [
+        62,
+        68,
+        71
+      ]
+    },
+    "black_wool": {
+      "low_rgb": [
+        26,
+        26,
+        30
+      ],
+      "normal_rgb": [
+        14,
+        15,
+        20
+      ],
+      "high_rgb": [
+        26,
+        26,
+        30
+      ],
+      "lowest_rgb": [
+        28,
+        28,
+        32
+      ],
+      "average_rgb": [
+        20,
+        21,
+        25
+      ]
+    }
   },
-  {
-    "bid": 2,
-    "bname": "地毯",
-    "bname_eng": "carpet",
-    "bclass": [
-      {
-        "name": "白色地毯",
-        "low": "#8C8C8C",
-        "normal": "#ABABAB",
-        "high": "#C7C7C7",
-        "lowest": "#696969",
-        "x": 4,
-        "y": 23,
-        "offset": "-64px -368px",
-        "name_eng": "white_carpet",
-        "low_rgb": [
-          140,
-          140,
-          140
-        ],
-        "normal_rgb": [
-          171,
-          171,
-          171
-        ],
-        "high_rgb": [
-          199,
-          199,
-          199
-        ],
-        "lowest_rgb": [
-          105,
-          105,
-          105
-        ]
-      },
-      {
-        "name": "橙色地毯",
-        "low": "#985924",
-        "normal": "#BA6D2C",
-        "high": "#D87F33",
-        "lowest": "#72431B",
-        "x": 1,
-        "y": 23,
-        "offset": "-16px -368px",
-        "name_eng": "orange_carpet",
-        "low_rgb": [
-          152,
-          89,
-          36
-        ],
-        "normal_rgb": [
-          186,
-          109,
-          44
-        ],
-        "high_rgb": [
-          216,
-          127,
-          51
-        ],
-        "lowest_rgb": [
-          114,
-          67,
-          27
-        ]
-      },
-      {
-        "name": "品红色地毯",
-        "low": "#7D3598",
-        "normal": "#9941BA",
-        "high": "#B24CD8",
-        "lowest": "#5E2872",
-        "x": 0,
-        "y": 23,
-        "offset": "-0px -368px",
-        "name_eng": "magenta_carpet",
-        "low_rgb": [
-          125,
-          53,
-          152
-        ],
-        "normal_rgb": [
-          153,
-          65,
-          186
-        ],
-        "high_rgb": [
-          178,
-          76,
-          216
-        ],
-        "lowest_rgb": [
-          94,
-          40,
-          114
-        ]
-      },
-      {
-        "name": "淡蓝色地毯",
-        "low": "#486C98",
-        "normal": "#5884BA",
-        "high": "#6699D8",
-        "lowest": "#365172",
-        "x": 10,
-        "y": 11,
-        "offset": "-160px -176px",
-        "name_eng": "light_blue_carpet",
-        "low_rgb": [
-          72,
-          108,
-          152
-        ],
-        "normal_rgb": [
-          88,
-          132,
-          186
-        ],
-        "high_rgb": [
-          102,
-          153,
-          216
-        ],
-        "lowest_rgb": [
-          54,
-          81,
-          114
-        ]
-      },
-      {
-        "name": "黄色地毯",
-        "low": "#A1A124",
-        "normal": "#C5C52C",
-        "high": "#E5E533",
-        "lowest": "#79791B",
-        "x": 5,
-        "y": 23,
-        "offset": "-80px -368px",
-        "name_eng": "yellow_carpet",
-        "low_rgb": [
-          161,
-          161,
-          36
-        ],
-        "normal_rgb": [
-          197,
-          197,
-          44
-        ],
-        "high_rgb": [
-          229,
-          229,
-          51
-        ],
-        "lowest_rgb": [
-          121,
-          121,
-          27
-        ]
-      },
-      {
-        "name": "黄绿色地毯",
-        "low": "#599011",
-        "normal": "#6DB015",
-        "high": "#7FCC19",
-        "lowest": "#436C0D",
-        "x": 47,
-        "y": 22,
-        "offset": "-752px -352px",
-        "name_eng": "lime_carpet",
-        "low_rgb": [
-          89,
-          144,
-          17
-        ],
-        "normal_rgb": [
-          109,
-          176,
-          21
-        ],
-        "high_rgb": [
-          127,
-          204,
-          25
-        ],
-        "lowest_rgb": [
-          67,
-          108,
-          13
-        ]
-      },
-      {
-        "name": "粉红色地毯",
-        "low": "#AA5974",
-        "normal": "#D06D8E",
-        "high": "#F27FA5",
-        "lowest": "#804357",
-        "x": 2,
-        "y": 23,
-        "offset": "-32px -368px",
-        "name_eng": "pink_carpet",
-        "low_rgb": [
-          170,
-          89,
-          116
-        ],
-        "normal_rgb": [
-          208,
-          109,
-          142
-        ],
-        "high_rgb": [
-          242,
-          127,
-          165
-        ],
-        "lowest_rgb": [
-          128,
-          67,
-          87
-        ]
-      },
-      {
-        "name": "灰色地毯",
-        "low": "#353535",
-        "normal": "#414141",
-        "high": "#4C4C4C",
-        "lowest": "#282828",
-        "x": 44,
-        "y": 22,
-        "offset": "-704px -352px",
-        "name_eng": "gray_carpet",
-        "low_rgb": [
-          53,
-          53,
-          53
-        ],
-        "normal_rgb": [
-          65,
-          65,
-          65
-        ],
-        "high_rgb": [
-          76,
-          76,
-          76
-        ],
-        "lowest_rgb": [
-          40,
-          40,
-          40
-        ]
-      },
-      {
-        "name": "淡灰色地毯",
-        "low": "#6C6C6C",
-        "normal": "#848484",
-        "high": "#999999",
-        "lowest": "#515151",
-        "x": 46,
-        "y": 22,
-        "offset": "-736px -352px",
-        "name_eng": "light_gray_carpet",
-        "low_rgb": [
-          108,
-          108,
-          108
-        ],
-        "normal_rgb": [
-          132,
-          132,
-          132
-        ],
-        "high_rgb": [
-          153,
-          153,
-          153
-        ],
-        "lowest_rgb": [
-          81,
-          81,
-          81
-        ]
-      },
-      {
-        "name": "青色地毯",
-        "low": "#35596C",
-        "normal": "#416D84",
-        "high": "#4C7F99",
-        "lowest": "#284351",
-        "x": 43,
-        "y": 22,
-        "offset": "-688px -352px",
-        "name_eng": "cyan_carpet",
-        "low_rgb": [
-          53,
-          89,
-          108
-        ],
-        "normal_rgb": [
-          65,
-          109,
-          132
-        ],
-        "high_rgb": [
-          76,
-          127,
-          153
-        ],
-        "lowest_rgb": [
-          40,
-          67,
-          81
-        ]
-      },
-      {
-        "name": "紫色地毯",
-        "low": "#592C7D",
-        "normal": "#6D3699",
-        "high": "#7F3FB2",
-        "lowest": "#43215E",
-        "x": 1,
-        "y": 24,
-        "offset": "-16px -384px",
-        "name_eng": "purple_carpet",
-        "low_rgb": [
-          89,
-          44,
-          125
-        ],
-        "normal_rgb": [
-          109,
-          54,
-          153
-        ],
-        "high_rgb": [
-          127,
-          63,
-          178
-        ],
-        "lowest_rgb": [
-          67,
-          33,
-          94
-        ]
-      },
-      {
-        "name": "蓝色地毯",
-        "low": "#24357D",
-        "normal": "#2C4199",
-        "high": "#334CB2",
-        "lowest": "#1B285E",
-        "x": 41,
-        "y": 22,
-        "offset": "-656px -352px",
-        "name_eng": "blue_carpet",
-        "low_rgb": [
-          36,
-          53,
-          125
-        ],
-        "normal_rgb": [
-          44,
-          65,
-          153
-        ],
-        "high_rgb": [
-          51,
-          76,
-          178
-        ],
-        "lowest_rgb": [
-          27,
-          40,
-          94
-        ]
-      },
-      {
-        "name": "棕色地毯",
-        "low": "#483524",
-        "normal": "#58412C",
-        "high": "#664C33",
-        "lowest": "#36281B",
-        "x": 42,
-        "y": 22,
-        "offset": "-672px -352px",
-        "name_eng": "brown_carpet",
-        "low_rgb": [
-          72,
-          53,
-          36
-        ],
-        "normal_rgb": [
-          88,
-          65,
-          44
-        ],
-        "high_rgb": [
-          102,
-          76,
-          51
-        ],
-        "lowest_rgb": [
-          54,
-          40,
-          27
-        ]
-      },
-      {
-        "name": "绿色地毯",
-        "low": "#485924",
-        "normal": "#586D2C",
-        "high": "#667F33",
-        "lowest": "#36431B",
-        "x": 45,
-        "y": 22,
-        "offset": "-720px -352px",
-        "name_eng": "green_carpet",
-        "low_rgb": [
-          72,
-          89,
-          36
-        ],
-        "normal_rgb": [
-          88,
-          109,
-          44
-        ],
-        "high_rgb": [
-          102,
-          127,
-          51
-        ],
-        "lowest_rgb": [
-          54,
-          67,
-          27
-        ]
-      },
-      {
-        "name": "红色地毯",
-        "low": "#6C2424",
-        "normal": "#842C2C",
-        "high": "#993333",
-        "lowest": "#511B1B",
-        "x": 3,
-        "y": 23,
-        "offset": "-48px -368px",
-        "name_eng": "red_carpet",
-        "low_rgb": [
-          108,
-          36,
-          36
-        ],
-        "normal_rgb": [
-          132,
-          44,
-          44
-        ],
-        "high_rgb": [
-          153,
-          51,
-          51
-        ],
-        "lowest_rgb": [
-          81,
-          27,
-          27
-        ]
-      },
-      {
-        "name": "黑色地毯",
-        "low": "#111111",
-        "normal": "#151515",
-        "high": "#191919",
-        "lowest": "#0D0D0D",
-        "x": 40,
-        "y": 22,
-        "offset": "-640px -352px",
-        "name_eng": "black_carpet",
-        "low_rgb": [
-          17,
-          17,
-          17
-        ],
-        "normal_rgb": [
-          21,
-          21,
-          21
-        ],
-        "high_rgb": [
-          25,
-          25,
-          25
-        ],
-        "lowest_rgb": [
-          13,
-          13,
-          13
-        ]
-      }
-    ]
+  "wood": {
+    "oak_log": {
+      "low_rgb": [
+        116,
+        90,
+        54
+      ],
+      "normal_rgb": [
+        116,
+        90,
+        54
+      ],
+      "high_rgb": [
+        116,
+        90,
+        54
+      ],
+      "lowest_rgb": [
+        145,
+        113,
+        66
+      ],
+      "average_rgb": [
+        109,
+        85,
+        50
+      ]
+    },
+    "stripped_oak_log": {
+      "low_rgb": [
+        174,
+        142,
+        82
+      ],
+      "normal_rgb": [
+        185,
+        149,
+        88
+      ],
+      "high_rgb": [
+        192,
+        157,
+        98
+      ],
+      "lowest_rgb": [
+        186,
+        151,
+        90
+      ],
+      "average_rgb": [
+        177,
+        144,
+        86
+      ]
+    },
+    "oak_planks": {
+      "low_rgb": [
+        194,
+        157,
+        98
+      ],
+      "normal_rgb": [
+        194,
+        157,
+        98
+      ],
+      "high_rgb": [
+        175,
+        143,
+        85
+      ],
+      "lowest_rgb": [
+        194,
+        157,
+        98
+      ],
+      "average_rgb": [
+        162,
+        130,
+        78
+      ]
+    },
+    "spruce_log": {
+      "low_rgb": [
+        59,
+        39,
+        19
+      ],
+      "normal_rgb": [
+        59,
+        39,
+        19
+      ],
+      "high_rgb": [
+        59,
+        39,
+        19
+      ],
+      "lowest_rgb": [
+        77,
+        51,
+        23
+      ],
+      "average_rgb": [
+        58,
+        37,
+        16
+      ]
+    },
+    "stripped_spruce_log": {
+      "low_rgb": [
+        121,
+        91,
+        55
+      ],
+      "normal_rgb": [
+        134,
+        98,
+        56
+      ],
+      "high_rgb": [
+        103,
+        86,
+        49
+      ],
+      "lowest_rgb": [
+        103,
+        86,
+        49
+      ],
+      "average_rgb": [
+        115,
+        89,
+        52
+      ]
+    },
+    "spruce_planks": {
+      "low_rgb": [
+        136,
+        101,
+        57
+      ],
+      "normal_rgb": [
+        136,
+        101,
+        57
+      ],
+      "high_rgb": [
+        122,
+        90,
+        52
+      ],
+      "lowest_rgb": [
+        136,
+        101,
+        57
+      ],
+      "average_rgb": [
+        114,
+        84,
+        48
+      ]
+    },
+    "birch_log": {
+      "low_rgb": [
+        190,
+        190,
+        174
+      ],
+      "normal_rgb": [
+        238,
+        241,
+        234
+      ],
+      "high_rgb": [
+        240,
+        238,
+        235
+      ],
+      "lowest_rgb": [
+        240,
+        238,
+        235
+      ],
+      "average_rgb": [
+        216,
+        215,
+        210
+      ]
+    },
+    "stripped_birch_log": {
+      "low_rgb": [
+        196,
+        172,
+        114
+      ],
+      "normal_rgb": [
+        205,
+        184,
+        125
+      ],
+      "high_rgb": [
+        203,
+        181,
+        122
+      ],
+      "lowest_rgb": [
+        211,
+        196,
+        135
+      ],
+      "average_rgb": [
+        196,
+        176,
+        118
+      ]
+    },
+    "birch_planks": {
+      "low_rgb": [
+        215,
+        203,
+        141
+      ],
+      "normal_rgb": [
+        215,
+        203,
+        141
+      ],
+      "high_rgb": [
+        200,
+        183,
+        122
+      ],
+      "lowest_rgb": [
+        215,
+        203,
+        141
+      ],
+      "average_rgb": [
+        192,
+        175,
+        121
+      ]
+    },
+    "jungle_log": {
+      "low_rgb": [
+        89,
+        70,
+        26
+      ],
+      "normal_rgb": [
+        62,
+        48,
+        19
+      ],
+      "high_rgb": [
+        99,
+        88,
+        32
+      ],
+      "lowest_rgb": [
+        125,
+        93,
+        38
+      ],
+      "average_rgb": [
+        85,
+        67,
+        25
+      ]
+    },
+    "stripped_jungle_log": {
+      "low_rgb": [
+        155,
+        128,
+        73
+      ],
+      "normal_rgb": [
+        159,
+        132,
+        77
+      ],
+      "high_rgb": [
+        187,
+        141,
+        97
+      ],
+      "lowest_rgb": [
+        180,
+        134,
+        90
+      ],
+      "average_rgb": [
+        171,
+        132,
+        84
+      ]
+    },
+    "jungle_planks": {
+      "low_rgb": [
+        191,
+        142,
+        107
+      ],
+      "normal_rgb": [
+        191,
+        142,
+        107
+      ],
+      "high_rgb": [
+        170,
+        121,
+        84
+      ],
+      "lowest_rgb": [
+        191,
+        142,
+        107
+      ],
+      "average_rgb": [
+        160,
+        115,
+        80
+      ]
+    },
+    "acacia_log": {
+      "low_rgb": [
+        105,
+        98,
+        89
+      ],
+      "normal_rgb": [
+        105,
+        98,
+        89
+      ],
+      "high_rgb": [
+        105,
+        98,
+        89
+      ],
+      "lowest_rgb": [
+        123,
+        115,
+        104
+      ],
+      "average_rgb": [
+        103,
+        96,
+        86
+      ]
+    },
+    "stripped_acacia_log": {
+      "low_rgb": [
+        172,
+        96,
+        63
+      ],
+      "normal_rgb": [
+        178,
+        91,
+        59
+      ],
+      "high_rgb": [
+        162,
+        92,
+        58
+      ],
+      "lowest_rgb": [
+        196,
+        99,
+        64
+      ],
+      "average_rgb": [
+        174,
+        92,
+        59
+      ]
+    },
+    "acacia_planks": {
+      "low_rgb": [
+        194,
+        109,
+        63
+      ],
+      "normal_rgb": [
+        194,
+        109,
+        63
+      ],
+      "high_rgb": [
+        173,
+        93,
+        50
+      ],
+      "lowest_rgb": [
+        194,
+        109,
+        63
+      ],
+      "average_rgb": [
+        168,
+        90,
+        50
+      ]
+    },
+    "dark_oak_log": {
+      "low_rgb": [
+        63,
+        49,
+        29
+      ],
+      "normal_rgb": [
+        63,
+        49,
+        29
+      ],
+      "high_rgb": [
+        63,
+        49,
+        29
+      ],
+      "lowest_rgb": [
+        74,
+        56,
+        30
+      ],
+      "average_rgb": [
+        60,
+        46,
+        26
+      ]
+    },
+    "stripped_dark_oak_log": {
+      "low_rgb": [
+        103,
+        80,
+        51
+      ],
+      "normal_rgb": [
+        96,
+        75,
+        49
+      ],
+      "high_rgb": [
+        109,
+        84,
+        53
+      ],
+      "lowest_rgb": [
+        91,
+        72,
+        48
+      ],
+      "average_rgb": [
+        96,
+        76,
+        49
+      ]
+    },
+    "dark_oak_planks": {
+      "low_rgb": [
+        83,
+        56,
+        26
+      ],
+      "normal_rgb": [
+        83,
+        56,
+        26
+      ],
+      "high_rgb": [
+        73,
+        47,
+        23
+      ],
+      "lowest_rgb": [
+        83,
+        56,
+        26
+      ],
+      "average_rgb": [
+        66,
+        43,
+        20
+      ]
+    },
+    "crimson_hyphae_log": {
+      "low_rgb": [
+        123,
+        0,
+        0
+      ],
+      "normal_rgb": [
+        68,
+        33,
+        49
+      ],
+      "high_rgb": [
+        82,
+        24,
+        16
+      ],
+      "lowest_rgb": [
+        82,
+        24,
+        16
+      ],
+      "average_rgb": [
+        93,
+        26,
+        30
+      ]
+    },
+    "stripped_crimson_hyphae_log": {
+      "low_rgb": [
+        130,
+        56,
+        90
+      ],
+      "normal_rgb": [
+        137,
+        57,
+        91
+      ],
+      "high_rgb": [
+        150,
+        62,
+        98
+      ],
+      "lowest_rgb": [
+        160,
+        68,
+        104
+      ],
+      "average_rgb": [
+        137,
+        57,
+        90
+      ]
+    },
+    "crimson_planks": {
+      "low_rgb": [
+        134,
+        62,
+        90
+      ],
+      "normal_rgb": [
+        134,
+        62,
+        90
+      ],
+      "high_rgb": [
+        106,
+        52,
+        75
+      ],
+      "lowest_rgb": [
+        134,
+        62,
+        90
+      ],
+      "average_rgb": [
+        101,
+        48,
+        70
+      ]
+    },
+    "warped_hyphae_log": {
+      "low_rgb": [
+        22,
+        97,
+        91
+      ],
+      "normal_rgb": [
+        68,
+        33,
+        49
+      ],
+      "high_rgb": [
+        69,
+        45,
+        92
+      ],
+      "lowest_rgb": [
+        69,
+        45,
+        92
+      ],
+      "average_rgb": [
+        57,
+        59,
+        77
+      ]
+    },
+    "stripped_warped_hyphae_log": {
+      "low_rgb": [
+        54,
+        148,
+        142
+      ],
+      "normal_rgb": [
+        59,
+        153,
+        151
+      ],
+      "high_rgb": [
+        68,
+        161,
+        159
+      ],
+      "lowest_rgb": [
+        61,
+        169,
+        166
+      ],
+      "average_rgb": [
+        57,
+        150,
+        147
+      ]
+    },
+    "warped_planks": {
+      "low_rgb": [
+        58,
+        142,
+        140
+      ],
+      "normal_rgb": [
+        58,
+        142,
+        140
+      ],
+      "high_rgb": [
+        40,
+        112,
+        103
+      ],
+      "lowest_rgb": [
+        58,
+        142,
+        140
+      ],
+      "average_rgb": [
+        43,
+        104,
+        99
+      ]
+    },
+    "mangrove_log": {
+      "low_rgb": [
+        78,
+        63,
+        39
+      ],
+      "normal_rgb": [
+        90,
+        72,
+        44
+      ],
+      "high_rgb": [
+        90,
+        72,
+        44
+      ],
+      "lowest_rgb": [
+        78,
+        63,
+        39
+      ],
+      "average_rgb": [
+        83,
+        66,
+        41
+      ]
+    },
+    "stripped_mangrove_log": {
+      "low_rgb": [
+        122,
+        61,
+        47
+      ],
+      "normal_rgb": [
+        117,
+        49,
+        49
+      ],
+      "high_rgb": [
+        122,
+        61,
+        47
+      ],
+      "lowest_rgb": [
+        122,
+        61,
+        47
+      ],
+      "average_rgb": [
+        119,
+        54,
+        47
+      ]
+    },
+    "mangrove_planks": {
+      "low_rgb": [
+        139,
+        77,
+        58
+      ],
+      "normal_rgb": [
+        139,
+        77,
+        58
+      ],
+      "high_rgb": [
+        119,
+        57,
+        52
+      ],
+      "lowest_rgb": [
+        139,
+        77,
+        58
+      ],
+      "average_rgb": [
+        117,
+        54,
+        48
+      ]
+    },
+    "bamboo_block": {
+      "low_rgb": [
+        112,
+        133,
+        53
+      ],
+      "normal_rgb": [
+        128,
+        144,
+        56
+      ],
+      "high_rgb": [
+        173,
+        190,
+        77
+      ],
+      "lowest_rgb": [
+        128,
+        144,
+        56
+      ],
+      "average_rgb": [
+        127,
+        144,
+        57
+      ]
+    },
+    "stripped_bamboo_block": {
+      "low_rgb": [
+        187,
+        168,
+        76
+      ],
+      "normal_rgb": [
+        200,
+        177,
+        77
+      ],
+      "high_rgb": [
+        227,
+        204,
+        106
+      ],
+      "lowest_rgb": [
+        200,
+        177,
+        77
+      ],
+      "average_rgb": [
+        193,
+        173,
+        80
+      ]
+    },
+    "bamboo_planks": {
+      "low_rgb": [
+        200,
+        177,
+        77
+      ],
+      "normal_rgb": [
+        187,
+        168,
+        76
+      ],
+      "high_rgb": [
+        183,
+        171,
+        73
+      ],
+      "lowest_rgb": [
+        187,
+        168,
+        76
+      ],
+      "average_rgb": [
+        193,
+        173,
+        80
+      ]
+    },
+    "bamboo_mosaic": {
+      "low_rgb": [
+        187,
+        168,
+        76
+      ],
+      "normal_rgb": [
+        187,
+        168,
+        76
+      ],
+      "high_rgb": [
+        187,
+        168,
+        76
+      ],
+      "lowest_rgb": [
+        200,
+        177,
+        77
+      ],
+      "average_rgb": [
+        190,
+        170,
+        78
+      ]
+    }
   },
-  {
-    "bid": 3,
-    "bname": "玻璃",
-    "bname_eng": "glass",
-    "bclass": [
-      {
-        "name": "白色玻璃",
-        "low": "#8C8C8C",
-        "normal": "#ABABAB",
-        "high": "#C7C7C7",
-        "lowest": "#696969",
-        "x": 42,
-        "y": 28,
-        "offset": "-672px -448px",
-        "name_eng": "white_stained_glass",
-        "low_rgb": [
-          140,
-          140,
-          140
-        ],
-        "normal_rgb": [
-          171,
-          171,
-          171
-        ],
-        "high_rgb": [
-          199,
-          199,
-          199
-        ],
-        "lowest_rgb": [
-          105,
-          105,
-          105
-        ]
-      },
-      {
-        "name": "橙色玻璃",
-        "low": "#985924",
-        "normal": "#BA6D2C",
-        "high": "#D87F33",
-        "lowest": "#72431B",
-        "x": 38,
-        "y": 28,
-        "offset": "-608px -448px",
-        "name_eng": "orange_stained_glass",
-        "low_rgb": [
-          152,
-          89,
-          36
-        ],
-        "normal_rgb": [
-          186,
-          109,
-          44
-        ],
-        "high_rgb": [
-          216,
-          127,
-          51
-        ],
-        "lowest_rgb": [
-          114,
-          67,
-          27
-        ]
-      },
-      {
-        "name": "品红色玻璃",
-        "low": "#7D3598",
-        "normal": "#9941BA",
-        "high": "#B24CD8",
-        "lowest": "#5E2872",
-        "x": 37,
-        "y": 28,
-        "offset": "-592px -448px",
-        "name_eng": "magenta_stained_glass",
-        "low_rgb": [
-          125,
-          53,
-          152
-        ],
-        "normal_rgb": [
-          153,
-          65,
-          186
-        ],
-        "high_rgb": [
-          178,
-          76,
-          216
-        ],
-        "lowest_rgb": [
-          94,
-          40,
-          114
-        ]
-      },
-      {
-        "name": "淡蓝色玻璃",
-        "low": "#486C98",
-        "normal": "#5884BA",
-        "high": "#6699D8",
-        "lowest": "#365172",
-        "x": 35,
-        "y": 28,
-        "offset": "-560px -448px",
-        "name_eng": "light_blue_stained_glass",
-        "low_rgb": [
-          72,
-          108,
-          152
-        ],
-        "normal_rgb": [
-          88,
-          132,
-          186
-        ],
-        "high_rgb": [
-          102,
-          153,
-          216
-        ],
-        "lowest_rgb": [
-          54,
-          81,
-          114
-        ]
-      },
-      {
-        "name": "黄色玻璃",
-        "low": "#A1A124",
-        "normal": "#C5C52C",
-        "high": "#E5E533",
-        "lowest": "#79791B",
-        "x": 43,
-        "y": 28,
-        "offset": "-688px -448px",
-        "name_eng": "yellow_stained_glass",
-        "low_rgb": [
-          161,
-          161,
-          36
-        ],
-        "normal_rgb": [
-          197,
-          197,
-          44
-        ],
-        "high_rgb": [
-          229,
-          229,
-          51
-        ],
-        "lowest_rgb": [
-          121,
-          121,
-          27
-        ]
-      },
-      {
-        "name": "黄绿色玻璃",
-        "low": "#599011",
-        "normal": "#6DB015",
-        "high": "#7FCC19",
-        "lowest": "#436C0D",
-        "x": 36,
-        "y": 28,
-        "offset": "-576px -448px",
-        "name_eng": "lime_stained_glass",
-        "low_rgb": [
-          89,
-          144,
-          17
-        ],
-        "normal_rgb": [
-          109,
-          176,
-          21
-        ],
-        "high_rgb": [
-          127,
-          204,
-          25
-        ],
-        "lowest_rgb": [
-          67,
-          108,
-          13
-        ]
-      },
-      {
-        "name": "粉红色玻璃",
-        "low": "#AA5974",
-        "normal": "#D06D8E",
-        "high": "#F27FA5",
-        "lowest": "#804357",
-        "x": 39,
-        "y": 28,
-        "offset": "-624px -448px",
-        "name_eng": "pink_stained_glass",
-        "low_rgb": [
-          170,
-          89,
-          116
-        ],
-        "normal_rgb": [
-          208,
-          109,
-          142
-        ],
-        "high_rgb": [
-          242,
-          127,
-          165
-        ],
-        "lowest_rgb": [
-          128,
-          67,
-          87
-        ]
-      },
-      {
-        "name": "灰色玻璃",
-        "low": "#353535",
-        "normal": "#414141",
-        "high": "#4C4C4C",
-        "lowest": "#282828",
-        "x": 32,
-        "y": 28,
-        "offset": "-512px -448px",
-        "name_eng": "gray_stained_glass",
-        "low_rgb": [
-          53,
-          53,
-          53
-        ],
-        "normal_rgb": [
-          65,
-          65,
-          65
-        ],
-        "high_rgb": [
-          76,
-          76,
-          76
-        ],
-        "lowest_rgb": [
-          40,
-          40,
-          40
-        ]
-      },
-      {
-        "name": "淡灰色玻璃",
-        "low": "#6C6C6C",
-        "normal": "#848484",
-        "high": "#999999",
-        "lowest": "#515151",
-        "x": 34,
-        "y": 28,
-        "offset": "-544px -448px",
-        "name_eng": "light_gray_stained_glass",
-        "low_rgb": [
-          108,
-          108,
-          108
-        ],
-        "normal_rgb": [
-          132,
-          132,
-          132
-        ],
-        "high_rgb": [
-          153,
-          153,
-          153
-        ],
-        "lowest_rgb": [
-          81,
-          81,
-          81
-        ]
-      },
-      {
-        "name": "青色玻璃",
-        "low": "#35596C",
-        "normal": "#416D84",
-        "high": "#4C7F99",
-        "lowest": "#284351",
-        "x": 31,
-        "y": 28,
-        "offset": "-496px -448px",
-        "name_eng": "cyan_stained_glass",
-        "low_rgb": [
-          53,
-          89,
-          108
-        ],
-        "normal_rgb": [
-          65,
-          109,
-          132
-        ],
-        "high_rgb": [
-          76,
-          127,
-          153
-        ],
-        "lowest_rgb": [
-          40,
-          67,
-          81
-        ]
-      },
-      {
-        "name": "紫色玻璃",
-        "low": "#592C7D",
-        "normal": "#6D3699",
-        "high": "#7F3FB2",
-        "lowest": "#43215E",
-        "x": 40,
-        "y": 28,
-        "offset": "-640px -448px",
-        "name_eng": "purple_stained_glass",
-        "low_rgb": [
-          89,
-          44,
-          125
-        ],
-        "normal_rgb": [
-          109,
-          54,
-          153
-        ],
-        "high_rgb": [
-          127,
-          63,
-          178
-        ],
-        "lowest_rgb": [
-          67,
-          33,
-          94
-        ]
-      },
-      {
-        "name": "蓝色玻璃",
-        "low": "#24357D",
-        "normal": "#2C4199",
-        "high": "#334CB2",
-        "lowest": "#1B285E",
-        "x": 29,
-        "y": 28,
-        "offset": "-464px -448px",
-        "name_eng": "blue_stained_glass",
-        "low_rgb": [
-          36,
-          53,
-          125
-        ],
-        "normal_rgb": [
-          44,
-          65,
-          153
-        ],
-        "high_rgb": [
-          51,
-          76,
-          178
-        ],
-        "lowest_rgb": [
-          27,
-          40,
-          94
-        ]
-      },
-      {
-        "name": "棕色玻璃",
-        "low": "#483524",
-        "normal": "#58412C",
-        "high": "#664C33",
-        "lowest": "#36281B",
-        "x": 30,
-        "y": 28,
-        "offset": "-480px -448px",
-        "name_eng": "brown_stained_glass",
-        "low_rgb": [
-          72,
-          53,
-          36
-        ],
-        "normal_rgb": [
-          88,
-          65,
-          44
-        ],
-        "high_rgb": [
-          102,
-          76,
-          51
-        ],
-        "lowest_rgb": [
-          54,
-          40,
-          27
-        ]
-      },
-      {
-        "name": "绿色玻璃",
-        "low": "#485924",
-        "normal": "#586D2C",
-        "high": "#667F33",
-        "lowest": "#36431B",
-        "x": 33,
-        "y": 28,
-        "offset": "-528px -448px",
-        "name_eng": "green_stained_glass",
-        "low_rgb": [
-          72,
-          89,
-          36
-        ],
-        "normal_rgb": [
-          88,
-          109,
-          44
-        ],
-        "high_rgb": [
-          102,
-          127,
-          51
-        ],
-        "lowest_rgb": [
-          54,
-          67,
-          27
-        ]
-      },
-      {
-        "name": "红色玻璃",
-        "low": "#6C2424",
-        "normal": "#842C2C",
-        "high": "#993333",
-        "lowest": "#511B1B",
-        "x": 41,
-        "y": 28,
-        "offset": "-656px -448px",
-        "name_eng": "red_stained_glass",
-        "low_rgb": [
-          108,
-          36,
-          36
-        ],
-        "normal_rgb": [
-          132,
-          44,
-          44
-        ],
-        "high_rgb": [
-          153,
-          51,
-          51
-        ],
-        "lowest_rgb": [
-          81,
-          27,
-          27
-        ]
-      },
-      {
-        "name": "黑色玻璃",
-        "low": "#111111",
-        "normal": "#151515",
-        "high": "#191919",
-        "lowest": "#0D0D0D",
-        "x": 28,
-        "y": 28,
-        "offset": "-448px -448px",
-        "name_eng": "black_stained_glass",
-        "low_rgb": [
-          17,
-          17,
-          17
-        ],
-        "normal_rgb": [
-          21,
-          21,
-          21
-        ],
-        "high_rgb": [
-          25,
-          25,
-          25
-        ],
-        "lowest_rgb": [
-          13,
-          13,
-          13
-        ]
-      }
-    ]
+  "stone": {
+    "stone": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        143,
+        143,
+        143
+      ],
+      "high_rgb": [
+        143,
+        143,
+        143
+      ],
+      "lowest_rgb": [
+        127,
+        127,
+        127
+      ],
+      "average_rgb": [
+        125,
+        125,
+        125
+      ]
+    },
+    "cobblestone": {
+      "low_rgb": [
+        181,
+        181,
+        181
+      ],
+      "normal_rgb": [
+        181,
+        181,
+        181
+      ],
+      "high_rgb": [
+        166,
+        166,
+        166
+      ],
+      "lowest_rgb": [
+        110,
+        109,
+        109
+      ],
+      "average_rgb": [
+        127,
+        127,
+        127
+      ]
+    },
+    "mossy_cobblestone": {
+      "low_rgb": [
+        82,
+        93,
+        57
+      ],
+      "normal_rgb": [
+        136,
+        135,
+        136
+      ],
+      "high_rgb": [
+        115,
+        133,
+        82
+      ],
+      "lowest_rgb": [
+        110,
+        109,
+        109
+      ],
+      "average_rgb": [
+        110,
+        118,
+        94
+      ]
+    },
+    "smooth_stone": {
+      "low_rgb": [
+        163,
+        163,
+        163
+      ],
+      "normal_rgb": [
+        168,
+        168,
+        168
+      ],
+      "high_rgb": [
+        176,
+        176,
+        176
+      ],
+      "lowest_rgb": [
+        168,
+        168,
+        168
+      ],
+      "average_rgb": [
+        158,
+        158,
+        158
+      ]
+    },
+    "stone_bricks": {
+      "low_rgb": [
+        120,
+        118,
+        120
+      ],
+      "normal_rgb": [
+        139,
+        137,
+        139
+      ],
+      "high_rgb": [
+        120,
+        118,
+        120
+      ],
+      "lowest_rgb": [
+        120,
+        118,
+        120
+      ],
+      "average_rgb": [
+        122,
+        121,
+        122
+      ]
+    },
+    "mossy_stone_bricks": {
+      "low_rgb": [
+        120,
+        118,
+        120
+      ],
+      "normal_rgb": [
+        139,
+        137,
+        139
+      ],
+      "high_rgb": [
+        120,
+        118,
+        120
+      ],
+      "lowest_rgb": [
+        120,
+        118,
+        120
+      ],
+      "average_rgb": [
+        115,
+        121,
+        105
+      ]
+    },
+    "chiseled_stone_bricks": {
+      "low_rgb": [
+        139,
+        137,
+        139
+      ],
+      "normal_rgb": [
+        90,
+        89,
+        90
+      ],
+      "high_rgb": [
+        99,
+        99,
+        99
+      ],
+      "lowest_rgb": [
+        99,
+        99,
+        99
+      ],
+      "average_rgb": [
+        119,
+        118,
+        119
+      ]
+    },
+    "cracked_stone_bricks": {
+      "low_rgb": [
+        139,
+        137,
+        139
+      ],
+      "normal_rgb": [
+        127,
+        127,
+        127
+      ],
+      "high_rgb": [
+        127,
+        127,
+        127
+      ],
+      "lowest_rgb": [
+        156,
+        153,
+        156
+      ],
+      "average_rgb": [
+        118,
+        117,
+        118
+      ]
+    },
+    "andesite": {
+      "low_rgb": [
+        156,
+        156,
+        156
+      ],
+      "normal_rgb": [
+        138,
+        138,
+        142
+      ],
+      "high_rgb": [
+        127,
+        127,
+        127
+      ],
+      "lowest_rgb": [
+        156,
+        156,
+        156
+      ],
+      "average_rgb": [
+        136,
+        136,
+        136
+      ]
+    },
+    "polished_andesite": {
+      "low_rgb": [
+        134,
+        136,
+        135
+      ],
+      "normal_rgb": [
+        134,
+        136,
+        135
+      ],
+      "high_rgb": [
+        124,
+        127,
+        128
+      ],
+      "lowest_rgb": [
+        138,
+        144,
+        144
+      ],
+      "average_rgb": [
+        132,
+        134,
+        133
+      ]
+    },
+    "diorite": {
+      "low_rgb": [
+        206,
+        206,
+        207
+      ],
+      "normal_rgb": [
+        206,
+        206,
+        207
+      ],
+      "high_rgb": [
+        164,
+        162,
+        162
+      ],
+      "lowest_rgb": [
+        233,
+        233,
+        233
+      ],
+      "average_rgb": [
+        188,
+        188,
+        188
+      ]
+    },
+    "polished_diorite": {
+      "low_rgb": [
+        169,
+        172,
+        169
+      ],
+      "normal_rgb": [
+        186,
+        187,
+        192
+      ],
+      "high_rgb": [
+        186,
+        187,
+        192
+      ],
+      "lowest_rgb": [
+        217,
+        216,
+        217
+      ],
+      "average_rgb": [
+        192,
+        193,
+        194
+      ]
+    },
+    "granite": {
+      "low_rgb": [
+        146,
+        98,
+        81
+      ],
+      "normal_rgb": [
+        169,
+        119,
+        100
+      ],
+      "high_rgb": [
+        146,
+        98,
+        81
+      ],
+      "lowest_rgb": [
+        127,
+        86,
+        70
+      ],
+      "average_rgb": [
+        149,
+        103,
+        85
+      ]
+    },
+    "polished_granite": {
+      "low_rgb": [
+        159,
+        107,
+        88
+      ],
+      "normal_rgb": [
+        169,
+        119,
+        100
+      ],
+      "high_rgb": [
+        159,
+        107,
+        88
+      ],
+      "lowest_rgb": [
+        159,
+        107,
+        88
+      ],
+      "average_rgb": [
+        154,
+        106,
+        89
+      ]
+    },
+    "deepslate": {
+      "low_rgb": [
+        61,
+        61,
+        67
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
+      "high_rgb": [
+        100,
+        100,
+        100
+      ],
+      "lowest_rgb": [
+        81,
+        81,
+        81
+      ],
+      "average_rgb": [
+        80,
+        80,
+        82
+      ]
+    },
+    "cobbled_deepslate": {
+      "low_rgb": [
+        74,
+        74,
+        79
+      ],
+      "normal_rgb": [
+        74,
+        74,
+        79
+      ],
+      "high_rgb": [
+        90,
+        90,
+        90
+      ],
+      "lowest_rgb": [
+        63,
+        63,
+        69
+      ],
+      "average_rgb": [
+        77,
+        77,
+        80
+      ]
+    },
+    "deepslate_tiles": {
+      "low_rgb": [
+        75,
+        76,
+        79
+      ],
+      "normal_rgb": [
+        45,
+        45,
+        45
+      ],
+      "high_rgb": [
+        56,
+        55,
+        55
+      ],
+      "lowest_rgb": [
+        36,
+        36,
+        36
+      ],
+      "average_rgb": [
+        54,
+        54,
+        55
+      ]
+    },
+    "cracked_deepslate_tiles": {
+      "low_rgb": [
+        45,
+        45,
+        45
+      ],
+      "normal_rgb": [
+        45,
+        45,
+        45
+      ],
+      "high_rgb": [
+        56,
+        55,
+        55
+      ],
+      "lowest_rgb": [
+        36,
+        36,
+        36
+      ],
+      "average_rgb": [
+        52,
+        52,
+        52
+      ]
+    },
+    "chiseled_deepslate": {
+      "low_rgb": [
+        36,
+        36,
+        36
+      ],
+      "normal_rgb": [
+        36,
+        36,
+        36
+      ],
+      "high_rgb": [
+        36,
+        36,
+        36
+      ],
+      "lowest_rgb": [
+        75,
+        76,
+        79
+      ],
+      "average_rgb": [
+        54,
+        54,
+        54
+      ]
+    },
+    "polished_deepslate": {
+      "low_rgb": [
+        75,
+        76,
+        79
+      ],
+      "normal_rgb": [
+        88,
+        88,
+        88
+      ],
+      "high_rgb": [
+        88,
+        88,
+        88
+      ],
+      "lowest_rgb": [
+        56,
+        55,
+        55
+      ],
+      "average_rgb": [
+        72,
+        72,
+        73
+      ]
+    },
+    "deepslate_bricks": {
+      "low_rgb": [
+        56,
+        55,
+        55
+      ],
+      "normal_rgb": [
+        88,
+        88,
+        88
+      ],
+      "high_rgb": [
+        75,
+        76,
+        79
+      ],
+      "lowest_rgb": [
+        75,
+        76,
+        79
+      ],
+      "average_rgb": [
+        70,
+        70,
+        71
+      ]
+    },
+    "cracked_deepslate_bricks": {
+      "low_rgb": [
+        36,
+        36,
+        36
+      ],
+      "normal_rgb": [
+        75,
+        76,
+        79
+      ],
+      "high_rgb": [
+        36,
+        36,
+        36
+      ],
+      "lowest_rgb": [
+        75,
+        76,
+        79
+      ],
+      "average_rgb": [
+        64,
+        64,
+        65
+      ]
+    },
+    "dripstone_block": {
+      "low_rgb": [
+        146,
+        121,
+        101
+      ],
+      "normal_rgb": [
+        146,
+        121,
+        101
+      ],
+      "high_rgb": [
+        131,
+        99,
+        86
+      ],
+      "lowest_rgb": [
+        146,
+        121,
+        101
+      ],
+      "average_rgb": [
+        134,
+        107,
+        92
+      ]
+    },
+    "tuff": {
+      "low_rgb": [
+        106,
+        110,
+        111
+      ],
+      "normal_rgb": [
+        133,
+        131,
+        123
+      ],
+      "high_rgb": [
+        77,
+        80,
+        70
+      ],
+      "lowest_rgb": [
+        93,
+        93,
+        82
+      ],
+      "average_rgb": [
+        108,
+        109,
+        102
+      ]
+    },
+    "tuff_bricks": {
+      "low_rgb": [
+        108,
+        113,
+        107
+      ],
+      "normal_rgb": [
+        99,
+        108,
+        109
+      ],
+      "high_rgb": [
+        133,
+        131,
+        122
+      ],
+      "lowest_rgb": [
+        118,
+        119,
+        111
+      ],
+      "average_rgb": [
+        98,
+        102,
+        95
+      ]
+    },
+    "polished_tuff": {
+      "low_rgb": [
+        82,
+        90,
+        81
+      ],
+      "normal_rgb": [
+        99,
+        108,
+        109
+      ],
+      "high_rgb": [
+        91,
+        98,
+        94
+      ],
+      "lowest_rgb": [
+        91,
+        98,
+        94
+      ],
+      "average_rgb": [
+        97,
+        104,
+        99
+      ]
+    },
+    "chiseled_tuff": {
+      "low_rgb": [
+        99,
+        108,
+        109
+      ],
+      "normal_rgb": [
+        91,
+        98,
+        94
+      ],
+      "high_rgb": [
+        82,
+        90,
+        81
+      ],
+      "lowest_rgb": [
+        91,
+        98,
+        94
+      ],
+      "average_rgb": [
+        89,
+        94,
+        86
+      ]
+    },
+    "chiseled_tuff_bricks": {
+      "low_rgb": [
+        133,
+        131,
+        122
+      ],
+      "normal_rgb": [
+        99,
+        108,
+        109
+      ],
+      "high_rgb": [
+        118,
+        119,
+        111
+      ],
+      "lowest_rgb": [
+        133,
+        131,
+        122
+      ],
+      "average_rgb": [
+        98,
+        103,
+        95
+      ]
+    }
   },
-  {
-    "bid": 4,
-    "bname": "混凝土",
-    "bname_eng": "concrete",
-    "bclass": [
-      {
-        "name": "白色混凝土",
-        "low": "#8C8C8C",
-        "normal": "#ABABAB",
-        "high": "#C7C7C7",
-        "lowest": "#696969",
-        "x": 16,
-        "y": 13,
-        "offset": "-256px -208px",
-        "name_eng": "white_concrete",
-        "low_rgb": [
-          140,
-          140,
-          140
-        ],
-        "normal_rgb": [
-          171,
-          171,
-          171
-        ],
-        "high_rgb": [
-          199,
-          199,
-          199
-        ],
-        "lowest_rgb": [
-          105,
-          105,
-          105
-        ]
-      },
-      {
-        "name": "橙色混凝土",
-        "low": "#985924",
-        "normal": "#BA6D2C",
-        "high": "#D87F33",
-        "lowest": "#72431B",
-        "x": 18,
-        "y": 13,
-        "offset": "-288px -208px",
-        "name_eng": "orange_concrete",
-        "low_rgb": [
-          152,
-          89,
-          36
-        ],
-        "normal_rgb": [
-          186,
-          109,
-          44
-        ],
-        "high_rgb": [
-          216,
-          127,
-          51
-        ],
-        "lowest_rgb": [
-          114,
-          67,
-          27
-        ]
-      },
-      {
-        "name": "品红色混凝土",
-        "low": "#7D3598",
-        "normal": "#9941BA",
-        "high": "#B24CD8",
-        "lowest": "#5E2872",
-        "x": 26,
-        "y": 13,
-        "offset": "-416px -208px",
-        "name_eng": "magenta_concrete",
-        "low_rgb": [
-          125,
-          53,
-          152
-        ],
-        "normal_rgb": [
-          153,
-          65,
-          186
-        ],
-        "high_rgb": [
-          178,
-          76,
-          216
-        ],
-        "lowest_rgb": [
-          94,
-          40,
-          114
-        ]
-      },
-      {
-        "name": "淡蓝色混凝土",
-        "low": "#486C98",
-        "normal": "#5884BA",
-        "high": "#6699D8",
-        "lowest": "#365172",
-        "x": 23,
-        "y": 13,
-        "offset": "-368px -208px",
-        "name_eng": "light_blue_concrete",
-        "low_rgb": [
-          72,
-          108,
-          152
-        ],
-        "normal_rgb": [
-          88,
-          132,
-          186
-        ],
-        "high_rgb": [
-          102,
-          153,
-          216
-        ],
-        "lowest_rgb": [
-          54,
-          81,
-          114
-        ]
-      },
-      {
-        "name": "黄色混凝土",
-        "low": "#A1A124",
-        "normal": "#C5C52C",
-        "high": "#E5E533",
-        "lowest": "#79791B",
-        "x": 19,
-        "y": 13,
-        "offset": "-304px -208px",
-        "name_eng": "yellow_concrete",
-        "low_rgb": [
-          161,
-          161,
-          36
-        ],
-        "normal_rgb": [
-          197,
-          197,
-          44
-        ],
-        "high_rgb": [
-          229,
-          229,
-          51
-        ],
-        "lowest_rgb": [
-          121,
-          121,
-          27
-        ]
-      },
-      {
-        "name": "黄绿色混凝土",
-        "low": "#599011",
-        "normal": "#6DB015",
-        "high": "#7FCC19",
-        "lowest": "#436C0D",
-        "x": 20,
-        "y": 13,
-        "offset": "-320px -208px",
-        "name_eng": "lime_concrete",
-        "low_rgb": [
-          89,
-          144,
-          17
-        ],
-        "normal_rgb": [
-          109,
-          176,
-          21
-        ],
-        "high_rgb": [
-          127,
-          204,
-          25
-        ],
-        "lowest_rgb": [
-          67,
-          108,
-          13
-        ]
-      },
-      {
-        "name": "粉红色混凝土",
-        "low": "#AA5974",
-        "normal": "#D06D8E",
-        "high": "#F27FA5",
-        "lowest": "#804357",
-        "x": 27,
-        "y": 13,
-        "offset": "-432px -208px",
-        "name_eng": "pink_concrete",
-        "low_rgb": [
-          170,
-          89,
-          116
-        ],
-        "normal_rgb": [
-          208,
-          109,
-          142
-        ],
-        "high_rgb": [
-          242,
-          127,
-          165
-        ],
-        "lowest_rgb": [
-          128,
-          67,
-          87
-        ]
-      },
-      {
-        "name": "灰色混凝土",
-        "low": "#353535",
-        "normal": "#414141",
-        "high": "#4C4C4C",
-        "lowest": "#282828",
-        "x": 14,
-        "y": 13,
-        "offset": "-224px -208px",
-        "name_eng": "gray_concrete",
-        "low_rgb": [
-          53,
-          53,
-          53
-        ],
-        "normal_rgb": [
-          65,
-          65,
-          65
-        ],
-        "high_rgb": [
-          76,
-          76,
-          76
-        ],
-        "lowest_rgb": [
-          40,
-          40,
-          40
-        ]
-      },
-      {
-        "name": "淡灰色混凝土",
-        "low": "#6C6C6C",
-        "normal": "#848484",
-        "high": "#999999",
-        "lowest": "#515151",
-        "x": 15,
-        "y": 13,
-        "offset": "-240px -208px",
-        "name_eng": "light_gray_concrete",
-        "low_rgb": [
-          108,
-          108,
-          108
-        ],
-        "normal_rgb": [
-          132,
-          132,
-          132
-        ],
-        "high_rgb": [
-          153,
-          153,
-          153
-        ],
-        "lowest_rgb": [
-          81,
-          81,
-          81
-        ]
-      },
-      {
-        "name": "青色混凝土",
-        "low": "#35596C",
-        "normal": "#416D84",
-        "high": "#4C7F99",
-        "lowest": "#284351",
-        "x": 22,
-        "y": 13,
-        "offset": "-352px -208px",
-        "name_eng": "cyan_concrete",
-        "low_rgb": [
-          53,
-          89,
-          108
-        ],
-        "normal_rgb": [
-          65,
-          109,
-          132
-        ],
-        "high_rgb": [
-          76,
-          127,
-          153
-        ],
-        "lowest_rgb": [
-          40,
-          67,
-          81
-        ]
-      },
-      {
-        "name": "紫色混凝土",
-        "low": "#592C7D",
-        "normal": "#6D3699",
-        "high": "#7F3FB2",
-        "lowest": "#43215E",
-        "x": 25,
-        "y": 13,
-        "offset": "-400px -208px",
-        "name_eng": "purple_concrete",
-        "low_rgb": [
-          89,
-          44,
-          125
-        ],
-        "normal_rgb": [
-          109,
-          54,
-          153
-        ],
-        "high_rgb": [
-          127,
-          63,
-          178
-        ],
-        "lowest_rgb": [
-          67,
-          33,
-          94
-        ]
-      },
-      {
-        "name": "蓝色混凝土",
-        "low": "#24357D",
-        "normal": "#2C4199",
-        "high": "#334CB2",
-        "lowest": "#1B285E",
-        "x": 24,
-        "y": 13,
-        "offset": "-384px -208px",
-        "name_eng": "blue_concrete",
-        "low_rgb": [
-          36,
-          53,
-          125
-        ],
-        "normal_rgb": [
-          44,
-          65,
-          153
-        ],
-        "high_rgb": [
-          51,
-          76,
-          178
-        ],
-        "lowest_rgb": [
-          27,
-          40,
-          94
-        ]
-      },
-      {
-        "name": "棕色混凝土",
-        "low": "#483524",
-        "normal": "#58412C",
-        "high": "#664C33",
-        "lowest": "#36281B",
-        "x": 28,
-        "y": 13,
-        "offset": "-448px -208px",
-        "name_eng": "brown_concrete",
-        "low_rgb": [
-          72,
-          53,
-          36
-        ],
-        "normal_rgb": [
-          88,
-          65,
-          44
-        ],
-        "high_rgb": [
-          102,
-          76,
-          51
-        ],
-        "lowest_rgb": [
-          54,
-          40,
-          27
-        ]
-      },
-      {
-        "name": "绿色混凝土",
-        "low": "#485924",
-        "normal": "#586D2C",
-        "high": "#667F33",
-        "lowest": "#36431B",
-        "x": 21,
-        "y": 13,
-        "offset": "-336px -208px",
-        "name_eng": "green_concrete",
-        "low_rgb": [
-          72,
-          89,
-          36
-        ],
-        "normal_rgb": [
-          88,
-          109,
-          44
-        ],
-        "high_rgb": [
-          102,
-          127,
-          51
-        ],
-        "lowest_rgb": [
-          54,
-          67,
-          27
-        ]
-      },
-      {
-        "name": "红色混凝土",
-        "low": "#6C2424",
-        "normal": "#842C2C",
-        "high": "#993333",
-        "lowest": "#511B1B",
-        "x": 17,
-        "y": 13,
-        "offset": "-272px -208px",
-        "name_eng": "red_concrete",
-        "low_rgb": [
-          108,
-          36,
-          36
-        ],
-        "normal_rgb": [
-          132,
-          44,
-          44
-        ],
-        "high_rgb": [
-          153,
-          51,
-          51
-        ],
-        "lowest_rgb": [
-          81,
-          27,
-          27
-        ]
-      },
-      {
-        "name": "黑色混凝土",
-        "low": "#111111",
-        "normal": "#151515",
-        "high": "#191919",
-        "lowest": "#0D0D0D",
-        "x": 13,
-        "y": 13,
-        "offset": "-208px -208px",
-        "name_eng": "black_concrete",
-        "low_rgb": [
-          17,
-          17,
-          17
-        ],
-        "normal_rgb": [
-          21,
-          21,
-          21
-        ],
-        "high_rgb": [
-          25,
-          25,
-          25
-        ],
-        "lowest_rgb": [
-          13,
-          13,
-          13
-        ]
-      }
-    ]
+  "ore": {
+    "iron_block": {
+      "low_rgb": [
+        242,
+        242,
+        242
+      ],
+      "normal_rgb": [
+        230,
+        230,
+        230
+      ],
+      "high_rgb": [
+        230,
+        230,
+        230
+      ],
+      "lowest_rgb": [
+        220,
+        220,
+        220
+      ],
+      "average_rgb": [
+        220,
+        220,
+        220
+      ]
+    },
+    "iron_ore": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        226,
+        192,
+        170
+      ],
+      "high_rgb": [
+        143,
+        143,
+        143
+      ],
+      "lowest_rgb": [
+        104,
+        104,
+        104
+      ],
+      "average_rgb": [
+        136,
+        130,
+        127
+      ]
+    },
+    "deepslate_iron_ore": {
+      "low_rgb": [
+        61,
+        61,
+        67
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
+      "high_rgb": [
+        100,
+        100,
+        100
+      ],
+      "lowest_rgb": [
+        136,
+        116,
+        85
+      ],
+      "average_rgb": [
+        106,
+        99,
+        94
+      ]
+    },
+    "gold_block": {
+      "low_rgb": [
+        255,
+        236,
+        79
+      ],
+      "normal_rgb": [
+        254,
+        224,
+        72
+      ],
+      "high_rgb": [
+        254,
+        224,
+        72
+      ],
+      "lowest_rgb": [
+        255,
+        236,
+        79
+      ],
+      "average_rgb": [
+        246,
+        208,
+        61
+      ]
+    },
+    "raw_gold_block": {
+      "low_rgb": [
+        238,
+        164,
+        26
+      ],
+      "normal_rgb": [
+        201,
+        140,
+        28
+      ],
+      "high_rgb": [
+        255,
+        247,
+        157
+      ],
+      "lowest_rgb": [
+        201,
+        140,
+        28
+      ],
+      "average_rgb": [
+        221,
+        169,
+        46
+      ]
+    },
+    "gold_ore": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        255,
+        255,
+        255
+      ],
+      "high_rgb": [
+        143,
+        143,
+        143
+      ],
+      "lowest_rgb": [
+        104,
+        104,
+        104
+      ],
+      "average_rgb": [
+        143,
+        140,
+        125
+      ]
+    },
+    "deepslate_gold_ore": {
+      "low_rgb": [
+        61,
+        61,
+        67
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
+      "high_rgb": [
+        235,
+        157,
+        14
+      ],
+      "lowest_rgb": [
+        235,
+        157,
+        14
+      ],
+      "average_rgb": [
+        115,
+        102,
+        78
+      ]
+    },
+    "diamond_block": {
+      "low_rgb": [
+        158,
+        254,
+        235
+      ],
+      "normal_rgb": [
+        112,
+        251,
+        240
+      ],
+      "high_rgb": [
+        112,
+        251,
+        240
+      ],
+      "lowest_rgb": [
+        158,
+        254,
+        235
+      ],
+      "average_rgb": [
+        98,
+        237,
+        228
+      ]
+    },
+    "diamond_ore": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        213,
+        255,
+        246
+      ],
+      "high_rgb": [
+        143,
+        143,
+        143
+      ],
+      "lowest_rgb": [
+        104,
+        104,
+        104
+      ],
+      "average_rgb": [
+        125,
+        142,
+        141
+      ]
+    },
+    "deepslate_diamond_ore": {
+      "low_rgb": [
+        61,
+        61,
+        67
+      ],
+      "normal_rgb": [
+        213,
+        255,
+        246
+      ],
+      "high_rgb": [
+        100,
+        100,
+        100
+      ],
+      "lowest_rgb": [
+        49,
+        64,
+        64
+      ],
+      "average_rgb": [
+        83,
+        106,
+        106
+      ]
+    },
+    "coal_block": {
+      "low_rgb": [
+        31,
+        30,
+        30
+      ],
+      "normal_rgb": [
+        31,
+        30,
+        30
+      ],
+      "high_rgb": [
+        21,
+        21,
+        21
+      ],
+      "lowest_rgb": [
+        13,
+        13,
+        13
+      ],
+      "average_rgb": [
+        16,
+        15,
+        15
+      ]
+    },
+    "coal_ore": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        69,
+        69,
+        69
+      ],
+      "high_rgb": [
+        143,
+        143,
+        143
+      ],
+      "lowest_rgb": [
+        104,
+        104,
+        104
+      ],
+      "average_rgb": [
+        116,
+        116,
+        116
+      ]
+    },
+    "deepslate_coal_ore": {
+      "low_rgb": [
+        61,
+        61,
+        67
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
+      "high_rgb": [
+        100,
+        100,
+        100
+      ],
+      "lowest_rgb": [
+        42,
+        42,
+        42
+      ],
+      "average_rgb": [
+        74,
+        74,
+        76
+      ]
+    },
+    "emerald_block": {
+      "low_rgb": [
+        23,
+        197,
+        68
+      ],
+      "normal_rgb": [
+        23,
+        197,
+        68
+      ],
+      "high_rgb": [
+        65,
+        243,
+        132
+      ],
+      "lowest_rgb": [
+        130,
+        246,
+        173
+      ],
+      "average_rgb": [
+        42,
+        203,
+        87
+      ]
+    },
+    "emerald_ore": {
+      "low_rgb": [
+        217,
+        255,
+        235
+      ],
+      "normal_rgb": [
+        127,
+        127,
+        127
+      ],
+      "high_rgb": [
+        23,
+        221,
+        98
+      ],
+      "lowest_rgb": [
+        127,
+        127,
+        127
+      ],
+      "average_rgb": [
+        117,
+        136,
+        124
+      ]
+    },
+    "deepslate_emerald_ore": {
+      "low_rgb": [
+        100,
+        100,
+        100
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
+      "high_rgb": [
+        100,
+        100,
+        100
+      ],
+      "lowest_rgb": [
+        47,
+        47,
+        55
+      ],
+      "average_rgb": [
+        78,
+        104,
+        87
+      ]
+    },
+    "lapis_block": {
+      "low_rgb": [
+        32,
+        74,
+        138
+      ],
+      "normal_rgb": [
+        32,
+        74,
+        138
+      ],
+      "high_rgb": [
+        30,
+        66,
+        133
+      ],
+      "lowest_rgb": [
+        32,
+        74,
+        138
+      ],
+      "average_rgb": [
+        30,
+        67,
+        140
+      ]
+    },
+    "lapis_ore": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        104,
+        104,
+        104
+      ],
+      "high_rgb": [
+        143,
+        143,
+        143
+      ],
+      "lowest_rgb": [
+        143,
+        143,
+        143
+      ],
+      "average_rgb": [
+        99,
+        110,
+        132
+      ]
+    },
+    "deepslate_lapis_ore": {
+      "low_rgb": [
+        61,
+        61,
+        67
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
+      "high_rgb": [
+        100,
+        100,
+        100
+      ],
+      "lowest_rgb": [
+        121,
+        121,
+        121
+      ],
+      "average_rgb": [
+        79,
+        90,
+        115
+      ]
+    },
+    "redstone_block": {
+      "low_rgb": [
+        148,
+        20,
+        0
+      ],
+      "normal_rgb": [
+        115,
+        12,
+        0
+      ],
+      "high_rgb": [
+        164,
+        24,
+        8
+      ],
+      "lowest_rgb": [
+        164,
+        24,
+        8
+      ],
+      "average_rgb": [
+        175,
+        24,
+        5
+      ]
+    },
+    "redstone_ore": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        255,
+        0,
+        0
+      ],
+      "high_rgb": [
+        143,
+        143,
+        143
+      ],
+      "lowest_rgb": [
+        104,
+        104,
+        104
+      ],
+      "average_rgb": [
+        133,
+        107,
+        107
+      ]
+    },
+    "deepslate_redstone_ore": {
+      "low_rgb": [
+        150,
+        6,
+        6
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
+      "high_rgb": [
+        100,
+        100,
+        100
+      ],
+      "lowest_rgb": [
+        247,
+        28,
+        28
+      ],
+      "average_rgb": [
+        104,
+        73,
+        74
+      ]
+    },
+    "copper_block": {
+      "low_rgb": [
+        214,
+        123,
+        91
+      ],
+      "normal_rgb": [
+        154,
+        80,
+        56
+      ],
+      "high_rgb": [
+        167,
+        90,
+        64
+      ],
+      "lowest_rgb": [
+        167,
+        90,
+        64
+      ],
+      "average_rgb": [
+        192,
+        107,
+        79
+      ]
+    },
+    "cut_copper": {
+      "low_rgb": [
+        167,
+        90,
+        64
+      ],
+      "normal_rgb": [
+        227,
+        130,
+        108
+      ],
+      "high_rgb": [
+        167,
+        90,
+        64
+      ],
+      "lowest_rgb": [
+        227,
+        130,
+        108
+      ],
+      "average_rgb": [
+        191,
+        106,
+        80
+      ]
+    },
+    "copper_ore": {
+      "low_rgb": [
+        58,
+        118,
+        99
+      ],
+      "normal_rgb": [
+        143,
+        143,
+        143
+      ],
+      "high_rgb": [
+        116,
+        116,
+        116
+      ],
+      "lowest_rgb": [
+        104,
+        104,
+        104
+      ],
+      "average_rgb": [
+        124,
+        125,
+        120
+      ]
+    },
+    "deepslate_copper_ore": {
+      "low_rgb": [
+        58,
+        118,
+        99
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
+      "high_rgb": [
+        100,
+        100,
+        100
+      ],
+      "lowest_rgb": [
+        81,
+        81,
+        81
+      ],
+      "average_rgb": [
+        92,
+        93,
+        89
+      ]
+    },
+    "raw_copper_block": {
+      "low_rgb": [
+        89,
+        149,
+        129
+      ],
+      "normal_rgb": [
+        214,
+        123,
+        91
+      ],
+      "high_rgb": [
+        132,
+        77,
+        59
+      ],
+      "lowest_rgb": [
+        214,
+        123,
+        91
+      ],
+      "average_rgb": [
+        154,
+        105,
+        79
+      ]
+    },
+    "amethyst_block": {
+      "low_rgb": [
+        93,
+        58,
+        154
+      ],
+      "normal_rgb": [
+        122,
+        91,
+        181
+      ],
+      "high_rgb": [
+        141,
+        106,
+        204
+      ],
+      "lowest_rgb": [
+        254,
+        203,
+        230
+      ],
+      "average_rgb": [
+        133,
+        97,
+        191
+      ]
+    }
   },
-  {
-    "bid": 5,
-    "bname": "陶瓦",
-    "bname_eng": "terracotta",
-    "bclass": [
-      {
-        "name": "白色陶瓦",
-        "low": "#937C71",
-        "normal": "#B4988A",
-        "high": "#D1B1A1",
-        "lowest": "#6E5D55",
-        "x": 17,
-        "y": 7,
-        "offset": "-272px -112px",
-        "name_eng": "white_terracotta",
-        "low_rgb": [
-          147,
-          124,
-          113
-        ],
-        "normal_rgb": [
-          180,
-          152,
-          138
-        ],
-        "high_rgb": [
-          209,
-          177,
-          161
-        ],
-        "lowest_rgb": [
-          110,
-          93,
-          85
-        ]
-      },
-      {
-        "name": "橙色陶瓦",
-        "low": "#703919",
-        "normal": "#89461F",
-        "high": "#9F5224",
-        "lowest": "#542B13",
-        "x": 18,
-        "y": 7,
-        "offset": "-288px -112px",
-        "name_eng": "orange_terracotta",
-        "low_rgb": [
-          112,
-          57,
-          25
-        ],
-        "normal_rgb": [
-          137,
-          70,
-          31
-        ],
-        "high_rgb": [
-          159,
-          82,
-          36
-        ],
-        "lowest_rgb": [
-          84,
-          43,
-          19
-        ]
-      },
-      {
-        "name": "品红色陶瓦",
-        "low": "#693D4C",
-        "normal": "#804B5D",
-        "high": "#95576C",
-        "lowest": "#4E2E39",
-        "x": 19,
-        "y": 7,
-        "offset": "-304px -112px",
-        "name_eng": "magenta_terracotta",
-        "low_rgb": [
-          105,
-          61,
-          76
-        ],
-        "normal_rgb": [
-          128,
-          75,
-          93
-        ],
-        "high_rgb": [
-          149,
-          87,
-          108
-        ],
-        "lowest_rgb": [
-          78,
-          46,
-          57
-        ]
-      },
-      {
-        "name": "淡蓝色陶瓦",
-        "low": "#4F4C61",
-        "normal": "#605D77",
-        "high": "#706C8A",
-        "lowest": "#3B3949",
-        "x": 20,
-        "y": 7,
-        "offset": "-320px -112px",
-        "name_eng": "light_blue_terracotta",
-        "low_rgb": [
-          79,
-          76,
-          97
-        ],
-        "normal_rgb": [
-          96,
-          93,
-          119
-        ],
-        "high_rgb": [
-          112,
-          108,
-          138
-        ],
-        "lowest_rgb": [
-          59,
-          57,
-          73
-        ]
-      },
-      {
-        "name": "黄色陶瓦",
-        "low": "#835D19",
-        "normal": "#A0721F",
-        "high": "#BA8524",
-        "lowest": "#624613",
-        "x": 21,
-        "y": 7,
-        "offset": "-336px -112px",
-        "name_eng": "yellow_terracotta",
-        "low_rgb": [
-          131,
-          93,
-          25
-        ],
-        "normal_rgb": [
-          160,
-          114,
-          31
-        ],
-        "high_rgb": [
-          186,
-          133,
-          36
-        ],
-        "lowest_rgb": [
-          98,
-          70,
-          19
-        ]
-      },
-      {
-        "name": "黄绿色陶瓦",
-        "low": "#485225",
-        "normal": "#58642D",
-        "high": "#677535",
-        "lowest": "#363D1C",
-        "x": 22,
-        "y": 7,
-        "offset": "-352px -112px",
-        "name_eng": "lime_terracotta",
-        "low_rgb": [
-          72,
-          82,
-          37
-        ],
-        "normal_rgb": [
-          88,
-          100,
-          45
-        ],
-        "high_rgb": [
-          103,
-          117,
-          53
-        ],
-        "lowest_rgb": [
-          54,
-          61,
-          28
-        ]
-      },
-      {
-        "name": "粉红色陶瓦",
-        "low": "#703637",
-        "normal": "#8A4243",
-        "high": "#A04D4E",
-        "lowest": "#542829",
-        "x": 23,
-        "y": 7,
-        "offset": "-368px -112px",
-        "name_eng": "pink_terracotta",
-        "low_rgb": [
-          112,
-          54,
-          55
-        ],
-        "normal_rgb": [
-          138,
-          66,
-          67
-        ],
-        "high_rgb": [
-          160,
-          77,
-          78
-        ],
-        "lowest_rgb": [
-          84,
-          40,
-          41
-        ]
-      },
-      {
-        "name": "灰色陶瓦",
-        "low": "#281C18",
-        "normal": "#31231E",
-        "high": "#392923",
-        "lowest": "#1E1512",
-        "x": 40,
-        "y": 7,
-        "offset": "-640px -112px",
-        "name_eng": "gray_terracotta",
-        "low_rgb": [
-          40,
-          28,
-          24
-        ],
-        "normal_rgb": [
-          49,
-          35,
-          30
-        ],
-        "high_rgb": [
-          57,
-          41,
-          35
-        ],
-        "lowest_rgb": [
-          30,
-          21,
-          18
-        ]
-      },
-      {
-        "name": "淡灰色陶瓦",
-        "low": "#5F4B45",
-        "normal": "#745C54",
-        "high": "#876B62",
-        "lowest": "#473833",
-        "x": 41,
-        "y": 7,
-        "offset": "-656px -112px",
-        "name_eng": "light_gray_terracotta",
-        "low_rgb": [
-          95,
-          75,
-          69
-        ],
-        "normal_rgb": [
-          116,
-          92,
-          84
-        ],
-        "high_rgb": [
-          135,
-          107,
-          98
-        ],
-        "lowest_rgb": [
-          71,
-          56,
-          51
-        ]
-      },
-      {
-        "name": "青色陶瓦",
-        "low": "#3D4040",
-        "normal": "#4B4F4F",
-        "high": "#575C5C",
-        "lowest": "#2E3030",
-        "x": 42,
-        "y": 7,
-        "offset": "-672px -112px",
-        "name_eng": "cyan_terracotta",
-        "low_rgb": [
-          61,
-          64,
-          64
-        ],
-        "normal_rgb": [
-          75,
-          79,
-          79
-        ],
-        "high_rgb": [
-          87,
-          92,
-          92
-        ],
-        "lowest_rgb": [
-          46,
-          48,
-          48
-        ]
-      },
-      {
-        "name": "紫色陶瓦",
-        "low": "#56333E",
-        "normal": "#693E4B",
-        "high": "#7A4958",
-        "lowest": "#40262E",
-        "x": 43,
-        "y": 7,
-        "offset": "-688px -112px",
-        "name_eng": "purple_terracotta",
-        "low_rgb": [
-          86,
-          51,
-          62
-        ],
-        "normal_rgb": [
-          105,
-          62,
-          75
-        ],
-        "high_rgb": [
-          122,
-          73,
-          88
-        ],
-        "lowest_rgb": [
-          64,
-          38,
-          46
-        ]
-      },
-      {
-        "name": "蓝色陶瓦",
-        "low": "#352B40",
-        "normal": "#41354F",
-        "high": "#4C3E5C",
-        "lowest": "#282030",
-        "x": 44,
-        "y": 6,
-        "offset": "-704px -96px",
-        "name_eng": "blue_terracotta",
-        "low_rgb": [
-          53,
-          43,
-          64
-        ],
-        "normal_rgb": [
-          65,
-          53,
-          79
-        ],
-        "high_rgb": [
-          76,
-          62,
-          92
-        ],
-        "lowest_rgb": [
-          40,
-          32,
-          48
-        ]
-      },
-      {
-        "name": "棕色陶瓦",
-        "low": "#352318",
-        "normal": "#412B1E",
-        "high": "#4C3223",
-        "lowest": "#281A12",
-        "x": 45,
-        "y": 6,
-        "offset": "-720px -96px",
-        "name_eng": "brown_terracotta",
-        "low_rgb": [
-          53,
-          35,
-          24
-        ],
-        "normal_rgb": [
-          65,
-          43,
-          30
-        ],
-        "high_rgb": [
-          76,
-          50,
-          35
-        ],
-        "lowest_rgb": [
-          40,
-          26,
-          18
-        ]
-      },
-      {
-        "name": "绿色陶瓦",
-        "low": "#35391D",
-        "normal": "#414624",
-        "high": "#4C522A",
-        "lowest": "#282B16",
-        "x": 46,
-        "y": 6,
-        "offset": "-736px -96px",
-        "name_eng": "green_terracotta",
-        "low_rgb": [
-          53,
-          57,
-          29
-        ],
-        "normal_rgb": [
-          65,
-          70,
-          36
-        ],
-        "high_rgb": [
-          76,
-          82,
-          42
-        ],
-        "lowest_rgb": [
-          40,
-          43,
-          22
-        ]
-      },
-      {
-        "name": "红色陶瓦",
-        "low": "#642A20",
-        "normal": "#7A3327",
-        "high": "#8E3C2E",
-        "lowest": "#4B1F18",
-        "x": 47,
-        "y": 6,
-        "offset": "-752px -96px",
-        "name_eng": "red_terracotta",
-        "low_rgb": [
-          100,
-          42,
-          32
-        ],
-        "normal_rgb": [
-          122,
-          51,
-          39
-        ],
-        "high_rgb": [
-          142,
-          60,
-          46
-        ],
-        "lowest_rgb": [
-          75,
-          31,
-          24
-        ]
-      },
-      {
-        "name": "黑色陶瓦",
-        "low": "#1A0F0B",
-        "normal": "#1F120D",
-        "high": "#251610",
-        "lowest": "#130B08",
-        "x": 16,
-        "y": 7,
-        "offset": "-256px -112px",
-        "name_eng": "black_terracotta",
-        "low_rgb": [
-          26,
-          15,
-          11
-        ],
-        "normal_rgb": [
-          31,
-          18,
-          13
-        ],
-        "high_rgb": [
-          37,
-          22,
-          16
-        ],
-        "lowest_rgb": [
-          19,
-          11,
-          8
-        ]
-      }
-    ]
+  "clay": {
+    "clay": {
+      "low_rgb": [
+        172,
+        174,
+        189
+      ],
+      "normal_rgb": [
+        154,
+        163,
+        179
+      ],
+      "high_rgb": [
+        161,
+        167,
+        177
+      ],
+      "lowest_rgb": [
+        172,
+        174,
+        189
+      ],
+      "average_rgb": [
+        160,
+        166,
+        179
+      ]
+    },
+    "bricks": {
+      "low_rgb": [
+        155,
+        86,
+        67
+      ],
+      "normal_rgb": [
+        155,
+        86,
+        67
+      ],
+      "high_rgb": [
+        155,
+        86,
+        67
+      ],
+      "lowest_rgb": [
+        155,
+        86,
+        67
+      ],
+      "average_rgb": [
+        150,
+        97,
+        83
+      ]
+    },
+    "terracotta": {
+      "low_rgb": [
+        150,
+        93,
+        67
+      ],
+      "normal_rgb": [
+        156,
+        93,
+        65
+      ],
+      "high_rgb": [
+        155,
+        96,
+        69
+      ],
+      "lowest_rgb": [
+        148,
+        91,
+        67
+      ],
+      "average_rgb": [
+        152,
+        94,
+        67
+      ]
+    },
+    "white_terracotta": {
+      "low_rgb": [
+        210,
+        180,
+        162
+      ],
+      "normal_rgb": [
+        209,
+        177,
+        161
+      ],
+      "high_rgb": [
+        210,
+        177,
+        161
+      ],
+      "lowest_rgb": [
+        209,
+        177,
+        160
+      ],
+      "average_rgb": [
+        209,
+        178,
+        161
+      ]
+    },
+    "orange_terracotta": {
+      "low_rgb": [
+        163,
+        85,
+        39
+      ],
+      "normal_rgb": [
+        160,
+        83,
+        37
+      ],
+      "high_rgb": [
+        162,
+        83,
+        37
+      ],
+      "lowest_rgb": [
+        160,
+        83,
+        36
+      ],
+      "average_rgb": [
+        161,
+        83,
+        37
+      ]
+    },
+    "magenta_terracotta": {
+      "low_rgb": [
+        151,
+        89,
+        110
+      ],
+      "normal_rgb": [
+        149,
+        87,
+        108
+      ],
+      "high_rgb": [
+        150,
+        88,
+        108
+      ],
+      "lowest_rgb": [
+        149,
+        88,
+        107
+      ],
+      "average_rgb": [
+        149,
+        88,
+        108
+      ]
+    },
+    "light_blue_terracotta": {
+      "low_rgb": [
+        114,
+        110,
+        138
+      ],
+      "normal_rgb": [
+        112,
+        108,
+        138
+      ],
+      "high_rgb": [
+        114,
+        108,
+        138
+      ],
+      "lowest_rgb": [
+        112,
+        108,
+        137
+      ],
+      "average_rgb": [
+        113,
+        108,
+        137
+      ]
+    },
+    "yellow_terracotta": {
+      "low_rgb": [
+        187,
+        134,
+        36
+      ],
+      "normal_rgb": [
+        185,
+        132,
+        35
+      ],
+      "high_rgb": [
+        186,
+        133,
+        35
+      ],
+      "lowest_rgb": [
+        185,
+        133,
+        34
+      ],
+      "average_rgb": [
+        186,
+        133,
+        35
+      ]
+    },
+    "lime_terracotta": {
+      "low_rgb": [
+        104,
+        119,
+        54
+      ],
+      "normal_rgb": [
+        103,
+        117,
+        52
+      ],
+      "high_rgb": [
+        104,
+        117,
+        52
+      ],
+      "lowest_rgb": [
+        103,
+        117,
+        51
+      ],
+      "average_rgb": [
+        103,
+        117,
+        52
+      ]
+    },
+    "pink_terracotta": {
+      "low_rgb": [
+        163,
+        80,
+        80
+      ],
+      "normal_rgb": [
+        160,
+        77,
+        78
+      ],
+      "high_rgb": [
+        163,
+        78,
+        78
+      ],
+      "lowest_rgb": [
+        160,
+        78,
+        77
+      ],
+      "average_rgb": [
+        161,
+        78,
+        78
+      ]
+    },
+    "gray_terracotta": {
+      "low_rgb": [
+        58,
+        43,
+        36
+      ],
+      "normal_rgb": [
+        57,
+        42,
+        36
+      ],
+      "high_rgb": [
+        58,
+        42,
+        36
+      ],
+      "lowest_rgb": [
+        57,
+        42,
+        35
+      ],
+      "average_rgb": [
+        57,
+        42,
+        35
+      ]
+    },
+    "light_gray_terracotta": {
+      "low_rgb": [
+        136,
+        108,
+        98
+      ],
+      "normal_rgb": [
+        135,
+        106,
+        97
+      ],
+      "high_rgb": [
+        135,
+        107,
+        97
+      ],
+      "lowest_rgb": [
+        135,
+        107,
+        96
+      ],
+      "average_rgb": [
+        135,
+        106,
+        97
+      ]
+    },
+    "cyan_terracotta": {
+      "low_rgb": [
+        88,
+        92,
+        92
+      ],
+      "normal_rgb": [
+        86,
+        90,
+        91
+      ],
+      "high_rgb": [
+        87,
+        91,
+        91
+      ],
+      "lowest_rgb": [
+        86,
+        91,
+        90
+      ],
+      "average_rgb": [
+        86,
+        91,
+        91
+      ]
+    },
+    "purple_terracotta": {
+      "low_rgb": [
+        119,
+        72,
+        87
+      ],
+      "normal_rgb": [
+        118,
+        69,
+        86
+      ],
+      "high_rgb": [
+        119,
+        70,
+        86
+      ],
+      "lowest_rgb": [
+        118,
+        70,
+        84
+      ],
+      "average_rgb": [
+        118,
+        70,
+        86
+      ]
+    },
+    "blue_terracotta": {
+      "low_rgb": [
+        75,
+        61,
+        92
+      ],
+      "normal_rgb": [
+        74,
+        59,
+        91
+      ],
+      "high_rgb": [
+        74,
+        59,
+        91
+      ],
+      "lowest_rgb": [
+        74,
+        59,
+        90
+      ],
+      "average_rgb": [
+        74,
+        59,
+        91
+      ]
+    },
+    "brown_terracotta": {
+      "low_rgb": [
+        78,
+        52,
+        36
+      ],
+      "normal_rgb": [
+        77,
+        50,
+        36
+      ],
+      "high_rgb": [
+        77,
+        51,
+        36
+      ],
+      "lowest_rgb": [
+        77,
+        51,
+        35
+      ],
+      "average_rgb": [
+        77,
+        51,
+        35
+      ]
+    },
+    "green_terracotta": {
+      "low_rgb": [
+        77,
+        84,
+        43
+      ],
+      "normal_rgb": [
+        75,
+        82,
+        42
+      ],
+      "high_rgb": [
+        76,
+        83,
+        42
+      ],
+      "lowest_rgb": [
+        75,
+        83,
+        41
+      ],
+      "average_rgb": [
+        76,
+        83,
+        42
+      ]
+    },
+    "red_terracotta": {
+      "low_rgb": [
+        145,
+        62,
+        48
+      ],
+      "normal_rgb": [
+        142,
+        60,
+        46
+      ],
+      "high_rgb": [
+        144,
+        61,
+        46
+      ],
+      "lowest_rgb": [
+        142,
+        61,
+        46
+      ],
+      "average_rgb": [
+        143,
+        61,
+        46
+      ]
+    },
+    "black_terracotta": {
+      "low_rgb": [
+        38,
+        23,
+        17
+      ],
+      "normal_rgb": [
+        37,
+        22,
+        16
+      ],
+      "high_rgb": [
+        37,
+        23,
+        16
+      ],
+      "lowest_rgb": [
+        37,
+        23,
+        16
+      ],
+      "average_rgb": [
+        37,
+        22,
+        16
+      ]
+    },
+    "white_glazed_terracotta": {
+      "low_rgb": [
+        249,
+        255,
+        254
+      ],
+      "normal_rgb": [
+        35,
+        137,
+        199
+      ],
+      "high_rgb": [
+        254,
+        216,
+        61
+      ],
+      "lowest_rgb": [
+        254,
+        216,
+        61
+      ],
+      "average_rgb": [
+        188,
+        212,
+        202
+      ]
+    },
+    "orange_glazed_terracotta": {
+      "low_rgb": [
+        225,
+        97,
+        0
+      ],
+      "normal_rgb": [
+        249,
+        255,
+        254
+      ],
+      "high_rgb": [
+        249,
+        128,
+        29
+      ],
+      "lowest_rgb": [
+        249,
+        128,
+        29
+      ],
+      "average_rgb": [
+        154,
+        147,
+        91
+      ]
+    },
+    "magenta_glazed_terracotta": {
+      "low_rgb": [
+        169,
+        48,
+        159
+      ],
+      "normal_rgb": [
+        199,
+        78,
+        189
+      ],
+      "high_rgb": [
+        244,
+        181,
+        203
+      ],
+      "lowest_rgb": [
+        199,
+        78,
+        189
+      ],
+      "average_rgb": [
+        208,
+        100,
+        191
+      ]
+    },
+    "light_blue_glazed_terracotta": {
+      "low_rgb": [
+        41,
+        44,
+        133
+      ],
+      "normal_rgb": [
+        33,
+        132,
+        190
+      ],
+      "high_rgb": [
+        35,
+        137,
+        199
+      ],
+      "lowest_rgb": [
+        55,
+        57,
+        155
+      ],
+      "average_rgb": [
+        94,
+        164,
+        208
+      ]
+    },
+    "yellow_glazed_terracotta": {
+      "low_rgb": [
+        254,
+        216,
+        61
+      ],
+      "normal_rgb": [
+        173,
+        124,
+        80
+      ],
+      "high_rgb": [
+        255,
+        240,
+        183
+      ],
+      "lowest_rgb": [
+        255,
+        236,
+        157
+      ],
+      "average_rgb": [
+        234,
+        192,
+        88
+      ]
+    },
+    "lime_glazed_terracotta": {
+      "low_rgb": [
+        94,
+        169,
+        24
+      ],
+      "normal_rgb": [
+        127,
+        204,
+        25
+      ],
+      "high_rgb": [
+        89,
+        160,
+        23
+      ],
+      "lowest_rgb": [
+        89,
+        160,
+        23
+      ],
+      "average_rgb": [
+        162,
+        197,
+        55
+      ]
+    },
+    "pink_glazed_terracotta": {
+      "low_rgb": [
+        244,
+        181,
+        203
+      ],
+      "normal_rgb": [
+        244,
+        151,
+        179
+      ],
+      "high_rgb": [
+        244,
+        181,
+        203
+      ],
+      "lowest_rgb": [
+        244,
+        181,
+        203
+      ],
+      "average_rgb": [
+        235,
+        154,
+        181
+      ]
+    },
+    "gray_glazed_terracotta": {
+      "low_rgb": [
+        74,
+        82,
+        85
+      ],
+      "normal_rgb": [
+        153,
+        153,
+        153
+      ],
+      "high_rgb": [
+        91,
+        108,
+        113
+      ],
+      "lowest_rgb": [
+        71,
+        79,
+        82
+      ],
+      "average_rgb": [
+        83,
+        90,
+        93
+      ]
+    },
+    "light_gray_glazed_terracotta": {
+      "low_rgb": [
+        145,
+        145,
+        145
+      ],
+      "normal_rgb": [
+        193,
+        198,
+        200
+      ],
+      "high_rgb": [
+        153,
+        153,
+        153
+      ],
+      "lowest_rgb": [
+        153,
+        153,
+        153
+      ],
+      "average_rgb": [
+        144,
+        166,
+        167
+      ]
+    },
+    "cyan_glazed_terracotta": {
+      "low_rgb": [
+        58,
+        62,
+        67
+      ],
+      "normal_rgb": [
+        22,
+        163,
+        163
+      ],
+      "high_rgb": [
+        21,
+        119,
+        136
+      ],
+      "lowest_rgb": [
+        54,
+        57,
+        61
+      ],
+      "average_rgb": [
+        52,
+        118,
+        125
+      ]
+    },
+    "purple_glazed_terracotta": {
+      "low_rgb": [
+        137,
+        50,
+        184
+      ],
+      "normal_rgb": [
+        137,
+        50,
+        184
+      ],
+      "high_rgb": [
+        150,
+        54,
+        201
+      ],
+      "lowest_rgb": [
+        137,
+        50,
+        184
+      ],
+      "average_rgb": [
+        109,
+        48,
+        152
+      ]
+    },
+    "blue_glazed_terracotta": {
+      "low_rgb": [
+        35,
+        137,
+        199
+      ],
+      "normal_rgb": [
+        69,
+        119,
+        211
+      ],
+      "high_rgb": [
+        69,
+        119,
+        211
+      ],
+      "lowest_rgb": [
+        35,
+        30,
+        67
+      ],
+      "average_rgb": [
+        47,
+        64,
+        139
+      ]
+    },
+    "brown_glazed_terracotta": {
+      "low_rgb": [
+        131,
+        84,
+        50
+      ],
+      "normal_rgb": [
+        148,
+        106,
+        69
+      ],
+      "high_rgb": [
+        71,
+        79,
+        82
+      ],
+      "lowest_rgb": [
+        71,
+        79,
+        82
+      ],
+      "average_rgb": [
+        119,
+        106,
+        85
+      ]
+    },
+    "green_glazed_terracotta": {
+      "low_rgb": [
+        204,
+        208,
+        210
+      ],
+      "normal_rgb": [
+        73,
+        91,
+        36
+      ],
+      "high_rgb": [
+        97,
+        129,
+        22
+      ],
+      "lowest_rgb": [
+        94,
+        124,
+        22
+      ],
+      "average_rgb": [
+        117,
+        142,
+        67
+      ]
+    },
+    "red_glazed_terracotta": {
+      "low_rgb": [
+        206,
+        75,
+        68
+      ],
+      "normal_rgb": [
+        176,
+        46,
+        38
+      ],
+      "high_rgb": [
+        209,
+        86,
+        80
+      ],
+      "lowest_rgb": [
+        176,
+        46,
+        38
+      ],
+      "average_rgb": [
+        181,
+        59,
+        53
+      ]
+    },
+    "black_glazed_terracotta": {
+      "low_rgb": [
+        47,
+        47,
+        53
+      ],
+      "normal_rgb": [
+        44,
+        44,
+        50
+      ],
+      "high_rgb": [
+        142,
+        32,
+        32
+      ],
+      "lowest_rgb": [
+        153,
+        34,
+        34
+      ],
+      "average_rgb": [
+        67,
+        30,
+        32
+      ]
+    }
   },
-  {
-    "bid": 6,
-    "bname": "矿物",
-    "bname_eng": "mine",
-    "bclass": [
-      {
-        "name": "红石块",
-        "low": "#B40000",
-        "normal": "#DC0000",
-        "high": "#FF0000",
-        "lowest": "#870000",
-        "x": 10,
-        "y": 29,
-        "offset": "-160px -464px",
-        "name_eng": "redstone_block",
-        "low_rgb": [
-          180,
-          0,
-          0
-        ],
-        "normal_rgb": [
-          220,
-          0,
-          0
-        ],
-        "high_rgb": [
-          255,
-          0,
-          0
-        ],
-        "lowest_rgb": [
-          135,
-          0,
-          0
-        ]
-      },
-      {
-        "name": "铁块",
-        "low": "#757575",
-        "normal": "#909090",
-        "high": "#A7A7A7",
-        "lowest": "#585858",
-        "x": 8,
-        "y": 29,
-        "offset": "-128px -464px",
-        "name_eng": "iron_block",
-        "low_rgb": [
-          117,
-          117,
-          117
-        ],
-        "normal_rgb": [
-          144,
-          144,
-          144
-        ],
-        "high_rgb": [
-          167,
-          167,
-          167
-        ],
-        "lowest_rgb": [
-          88,
-          88,
-          88
-        ]
-      },
-      {
-        "name": "石英块",
-        "low": "#B4B1AC",
-        "normal": "#DCD9D3",
-        "high": "#FFFCF5",
-        "lowest": "#878581",
-        "x": 27,
-        "y": 31,
-        "offset": "-432px -496px",
-        "name_eng": "quartz_block",
-        "low_rgb": [
-          180,
-          177,
-          172
-        ],
-        "normal_rgb": [
-          220,
-          217,
-          211
-        ],
-        "high_rgb": [
-          255,
-          252,
-          245
-        ],
-        "lowest_rgb": [
-          135,
-          133,
-          129
-        ]
-      },
-      {
-        "name": "金块",
-        "low": "#B0A836",
-        "normal": "#D7CD42",
-        "high": "#FAEE4D",
-        "lowest": "#847E28",
-        "x": 7,
-        "y": 29,
-        "offset": "-112px -464px",
-        "name_eng": "gold_block",
-        "low_rgb": [
-          176,
-          168,
-          54
-        ],
-        "normal_rgb": [
-          215,
-          205,
-          66
-        ],
-        "high_rgb": [
-          250,
-          238,
-          77
-        ],
-        "lowest_rgb": [
-          132,
-          126,
-          40
-        ]
-      },
-      {
-        "name": "钻石块",
-        "low": "#409A96",
-        "normal": "#4FBCB7",
-        "high": "#5CDBD5",
-        "lowest": "#307370",
-        "x": 5,
-        "y": 29,
-        "offset": "-80px -464px",
-        "name_eng": "diamond_block",
-        "low_rgb": [
-          64,
-          154,
-          150
-        ],
-        "normal_rgb": [
-          79,
-          188,
-          183
-        ],
-        "high_rgb": [
-          92,
-          219,
-          213
-        ],
-        "lowest_rgb": [
-          48,
-          115,
-          112
-        ]
-      },
-      {
-        "name": "青金石块",
-        "low": "#345AB4",
-        "normal": "#3F6EDC",
-        "high": "#4A80FF",
-        "lowest": "#274387",
-        "x": 9,
-        "y": 29,
-        "offset": "-144px -464px",
-        "name_eng": "lapis_block",
-        "low_rgb": [
-          52,
-          90,
-          180
-        ],
-        "normal_rgb": [
-          63,
-          110,
-          220
-        ],
-        "high_rgb": [
-          74,
-          128,
-          255
-        ],
-        "lowest_rgb": [
-          39,
-          67,
-          135
-        ]
-      },
-      {
-        "name": "绿宝石块",
-        "low": "#009928",
-        "normal": "#00BB32",
-        "high": "#00D93A",
-        "lowest": "#00721E",
-        "x": 6,
-        "y": 29,
-        "offset": "-96px -464px",
-        "name_eng": "emerald_block",
-        "low_rgb": [
-          0,
-          153,
-          40
-        ],
-        "normal_rgb": [
-          0,
-          187,
-          50
-        ],
-        "high_rgb": [
-          0,
-          217,
-          58
-        ],
-        "lowest_rgb": [
-          0,
-          114,
-          30
-        ]
-      },
-      {
-        "name": "铁矿",
-        "low": "#987B67",
-        "normal": "#BA967E",
-        "high": "#D8AF93",
-        "lowest": "#725C4D",
-        "x": 0,
-        "y": 29,
-        "offset": "-0px -464px",
-        "name_eng": "raw_iron_block",
-        "low_rgb": [
-          152,
-          123,
-          103
-        ],
-        "normal_rgb": [
-          186,
-          150,
-          126
-        ],
-        "high_rgb": [
-          216,
-          175,
-          147
-        ],
-        "lowest_rgb": [
-          114,
-          92,
-          77
-        ]
-      }
-    ]
+  "concrete": {
+    "black_concrete": {
+      "low_rgb": [
+        9,
+        11,
+        16
+      ],
+      "normal_rgb": [
+        9,
+        11,
+        16
+      ],
+      "high_rgb": [
+        8,
+        10,
+        15
+      ],
+      "lowest_rgb": [
+        8,
+        10,
+        15
+      ],
+      "average_rgb": [
+        8,
+        10,
+        15
+      ]
+    },
+    "blue_concrete": {
+      "low_rgb": [
+        45,
+        47,
+        144
+      ],
+      "normal_rgb": [
+        44,
+        46,
+        142
+      ],
+      "high_rgb": [
+        45,
+        47,
+        144
+      ],
+      "lowest_rgb": [
+        44,
+        46,
+        143
+      ],
+      "average_rgb": [
+        44,
+        46,
+        143
+      ]
+    },
+    "brown_concrete": {
+      "low_rgb": [
+        96,
+        59,
+        31
+      ],
+      "normal_rgb": [
+        96,
+        59,
+        31
+      ],
+      "high_rgb": [
+        97,
+        60,
+        32
+      ],
+      "lowest_rgb": [
+        96,
+        59,
+        31
+      ],
+      "average_rgb": [
+        96,
+        59,
+        31
+      ]
+    },
+    "cyan_concrete": {
+      "low_rgb": [
+        21,
+        119,
+        136
+      ],
+      "normal_rgb": [
+        22,
+        120,
+        137
+      ],
+      "high_rgb": [
+        21,
+        119,
+        136
+      ],
+      "lowest_rgb": [
+        21,
+        118,
+        135
+      ],
+      "average_rgb": [
+        21,
+        119,
+        136
+      ]
+    },
+    "gray_concrete": {
+      "low_rgb": [
+        55,
+        58,
+        62
+      ],
+      "normal_rgb": [
+        55,
+        58,
+        62
+      ],
+      "high_rgb": [
+        56,
+        59,
+        63
+      ],
+      "lowest_rgb": [
+        54,
+        57,
+        61
+      ],
+      "average_rgb": [
+        54,
+        57,
+        61
+      ]
+    },
+    "green_concrete": {
+      "low_rgb": [
+        73,
+        90,
+        36
+      ],
+      "normal_rgb": [
+        73,
+        91,
+        36
+      ],
+      "high_rgb": [
+        73,
+        91,
+        36
+      ],
+      "lowest_rgb": [
+        73,
+        91,
+        36
+      ],
+      "average_rgb": [
+        73,
+        91,
+        36
+      ]
+    },
+    "light_blue_concrete": {
+      "low_rgb": [
+        36,
+        138,
+        200
+      ],
+      "normal_rgb": [
+        36,
+        138,
+        200
+      ],
+      "high_rgb": [
+        35,
+        137,
+        199
+      ],
+      "lowest_rgb": [
+        37,
+        138,
+        200
+      ],
+      "average_rgb": [
+        35,
+        137,
+        198
+      ]
+    },
+    "light_gray_concrete": {
+      "low_rgb": [
+        125,
+        125,
+        115
+      ],
+      "normal_rgb": [
+        126,
+        126,
+        116
+      ],
+      "high_rgb": [
+        124,
+        124,
+        114
+      ],
+      "lowest_rgb": [
+        125,
+        125,
+        115
+      ],
+      "average_rgb": [
+        125,
+        125,
+        115
+      ]
+    },
+    "lime_concrete": {
+      "low_rgb": [
+        94,
+        169,
+        24
+      ],
+      "normal_rgb": [
+        93,
+        168,
+        24
+      ],
+      "high_rgb": [
+        95,
+        170,
+        25
+      ],
+      "lowest_rgb": [
+        95,
+        170,
+        25
+      ],
+      "average_rgb": [
+        94,
+        168,
+        24
+      ]
+    },
+    "magenta_concrete": {
+      "low_rgb": [
+        170,
+        49,
+        160
+      ],
+      "normal_rgb": [
+        169,
+        48,
+        159
+      ],
+      "high_rgb": [
+        170,
+        50,
+        160
+      ],
+      "lowest_rgb": [
+        170,
+        49,
+        160
+      ],
+      "average_rgb": [
+        169,
+        48,
+        159
+      ]
+    },
+    "orange_concrete": {
+      "low_rgb": [
+        223,
+        96,
+        0
+      ],
+      "normal_rgb": [
+        225,
+        98,
+        1
+      ],
+      "high_rgb": [
+        225,
+        97,
+        0
+      ],
+      "lowest_rgb": [
+        225,
+        98,
+        2
+      ],
+      "average_rgb": [
+        224,
+        97,
+        0
+      ]
+    },
+    "pink_concrete": {
+      "low_rgb": [
+        214,
+        101,
+        143
+      ],
+      "normal_rgb": [
+        214,
+        101,
+        143
+      ],
+      "high_rgb": [
+        214,
+        101,
+        143
+      ],
+      "lowest_rgb": [
+        214,
+        101,
+        143
+      ],
+      "average_rgb": [
+        213,
+        101,
+        142
+      ]
+    },
+    "purple_concrete": {
+      "low_rgb": [
+        100,
+        31,
+        156
+      ],
+      "normal_rgb": [
+        101,
+        32,
+        157
+      ],
+      "high_rgb": [
+        101,
+        32,
+        157
+      ],
+      "lowest_rgb": [
+        100,
+        31,
+        156
+      ],
+      "average_rgb": [
+        100,
+        31,
+        156
+      ]
+    },
+    "red_concrete": {
+      "low_rgb": [
+        143,
+        34,
+        34
+      ],
+      "normal_rgb": [
+        143,
+        34,
+        34
+      ],
+      "high_rgb": [
+        143,
+        35,
+        35
+      ],
+      "lowest_rgb": [
+        142,
+        32,
+        32
+      ],
+      "average_rgb": [
+        142,
+        32,
+        32
+      ]
+    },
+    "white_concrete": {
+      "low_rgb": [
+        208,
+        214,
+        215
+      ],
+      "normal_rgb": [
+        208,
+        214,
+        215
+      ],
+      "high_rgb": [
+        208,
+        214,
+        215
+      ],
+      "lowest_rgb": [
+        208,
+        214,
+        215
+      ],
+      "average_rgb": [
+        207,
+        213,
+        214
+      ]
+    },
+    "yellow_concrete": {
+      "low_rgb": [
+        242,
+        177,
+        23
+      ],
+      "normal_rgb": [
+        242,
+        176,
+        21
+      ],
+      "high_rgb": [
+        242,
+        176,
+        21
+      ],
+      "lowest_rgb": [
+        242,
+        177,
+        23
+      ],
+      "average_rgb": [
+        240,
+        175,
+        21
+      ]
+    },
+    "black_concrete_powder": {
+      "low_rgb": [
+        18,
+        21,
+        27
+      ],
+      "normal_rgb": [
+        28,
+        30,
+        34
+      ],
+      "high_rgb": [
+        27,
+        28,
+        33
+      ],
+      "lowest_rgb": [
+        35,
+        35,
+        40
+      ],
+      "average_rgb": [
+        25,
+        26,
+        31
+      ]
+    },
+    "blue_concrete_powder": {
+      "low_rgb": [
+        67,
+        70,
+        166
+      ],
+      "normal_rgb": [
+        62,
+        65,
+        156
+      ],
+      "high_rgb": [
+        69,
+        70,
+        163
+      ],
+      "lowest_rgb": [
+        63,
+        66,
+        161
+      ],
+      "average_rgb": [
+        70,
+        73,
+        166
+      ]
+    },
+    "brown_concrete_powder": {
+      "low_rgb": [
+        139,
+        95,
+        61
+      ],
+      "normal_rgb": [
+        119,
+        80,
+        50
+      ],
+      "high_rgb": [
+        126,
+        83,
+        54
+      ],
+      "lowest_rgb": [
+        120,
+        81,
+        50
+      ],
+      "average_rgb": [
+        125,
+        84,
+        53
+      ]
+    },
+    "cyan_concrete_powder": {
+      "low_rgb": [
+        38,
+        154,
+        163
+      ],
+      "normal_rgb": [
+        35,
+        145,
+        154
+      ],
+      "high_rgb": [
+        37,
+        157,
+        161
+      ],
+      "lowest_rgb": [
+        37,
+        147,
+        156
+      ],
+      "average_rgb": [
+        36,
+        147,
+        157
+      ]
+    },
+    "gray_concrete_powder": {
+      "low_rgb": [
+        81,
+        85,
+        89
+      ],
+      "normal_rgb": [
+        74,
+        78,
+        82
+      ],
+      "high_rgb": [
+        73,
+        76,
+        80
+      ],
+      "lowest_rgb": [
+        81,
+        86,
+        90
+      ],
+      "average_rgb": [
+        76,
+        81,
+        84
+      ]
+    },
+    "green_concrete_powder": {
+      "low_rgb": [
+        105,
+        130,
+        43
+      ],
+      "normal_rgb": [
+        104,
+        127,
+        37
+      ],
+      "high_rgb": [
+        99,
+        121,
+        43
+      ],
+      "lowest_rgb": [
+        95,
+        116,
+        48
+      ],
+      "average_rgb": [
+        97,
+        119,
+        44
+      ]
+    },
+    "light_blue_concrete_powder": {
+      "low_rgb": [
+        81,
+        193,
+        221
+      ],
+      "normal_rgb": [
+        63,
+        166,
+        206
+      ],
+      "high_rgb": [
+        78,
+        188,
+        215
+      ],
+      "lowest_rgb": [
+        73,
+        180,
+        213
+      ],
+      "average_rgb": [
+        74,
+        180,
+        213
+      ]
+    },
+    "light_gray_concrete_powder": {
+      "low_rgb": [
+        154,
+        154,
+        146
+      ],
+      "normal_rgb": [
+        156,
+        156,
+        151
+      ],
+      "high_rgb": [
+        147,
+        147,
+        139
+      ],
+      "lowest_rgb": [
+        154,
+        154,
+        147
+      ],
+      "average_rgb": [
+        154,
+        154,
+        148
+      ]
+    },
+    "lime_concrete_powder": {
+      "low_rgb": [
+        125,
+        193,
+        44
+      ],
+      "normal_rgb": [
+        133,
+        194,
+        41
+      ],
+      "high_rgb": [
+        145,
+        201,
+        50
+      ],
+      "lowest_rgb": [
+        114,
+        182,
+        41
+      ],
+      "average_rgb": [
+        125,
+        189,
+        41
+      ]
+    },
+    "magenta_concrete_powder": {
+      "low_rgb": [
+        206,
+        96,
+        197
+      ],
+      "normal_rgb": [
+        188,
+        80,
+        180
+      ],
+      "high_rgb": [
+        184,
+        72,
+        175
+      ],
+      "lowest_rgb": [
+        194,
+        82,
+        185
+      ],
+      "average_rgb": [
+        192,
+        83,
+        184
+      ]
+    },
+    "orange_concrete_powder": {
+      "low_rgb": [
+        238,
+        149,
+        48
+      ],
+      "normal_rgb": [
+        220,
+        120,
+        19
+      ],
+      "high_rgb": [
+        229,
+        133,
+        37
+      ],
+      "lowest_rgb": [
+        232,
+        139,
+        40
+      ],
+      "average_rgb": [
+        227,
+        131,
+        31
+      ]
+    },
+    "pink_concrete_powder": {
+      "low_rgb": [
+        234,
+        153,
+        183
+      ],
+      "normal_rgb": [
+        223,
+        139,
+        170
+      ],
+      "high_rgb": [
+        220,
+        133,
+        167
+      ],
+      "lowest_rgb": [
+        226,
+        140,
+        172
+      ],
+      "average_rgb": [
+        228,
+        153,
+        181
+      ]
+    },
+    "purple_concrete_powder": {
+      "low_rgb": [
+        126,
+        52,
+        177
+      ],
+      "normal_rgb": [
+        125,
+        50,
+        171
+      ],
+      "high_rgb": [
+        130,
+        55,
+        176
+      ],
+      "lowest_rgb": [
+        136,
+        57,
+        180
+      ],
+      "average_rgb": [
+        131,
+        55,
+        177
+      ]
+    },
+    "red_concrete_powder": {
+      "low_rgb": [
+        172,
+        55,
+        51
+      ],
+      "normal_rgb": [
+        170,
+        55,
+        48
+      ],
+      "high_rgb": [
+        164,
+        51,
+        50
+      ],
+      "lowest_rgb": [
+        166,
+        52,
+        50
+      ],
+      "average_rgb": [
+        168,
+        54,
+        50
+      ]
+    },
+    "white_concrete_powder": {
+      "low_rgb": [
+        232,
+        234,
+        234
+      ],
+      "normal_rgb": [
+        216,
+        218,
+        219
+      ],
+      "high_rgb": [
+        236,
+        237,
+        237
+      ],
+      "lowest_rgb": [
+        225,
+        226,
+        227
+      ],
+      "average_rgb": [
+        225,
+        227,
+        227
+      ]
+    },
+    "yellow_concrete_powder": {
+      "low_rgb": [
+        238,
+        206,
+        57
+      ],
+      "normal_rgb": [
+        230,
+        195,
+        50
+      ],
+      "high_rgb": [
+        231,
+        195,
+        50
+      ],
+      "lowest_rgb": [
+        233,
+        195,
+        47
+      ],
+      "average_rgb": [
+        232,
+        199,
+        54
+      ]
+    }
   },
-  {
-    "bid": 7,
-    "bname": "其他",
-    "bname_eng": "others",
-    "bclass": [
-      {
-        "name": "草方块",
-        "low": "#597D27",
-        "normal": "#6D9930",
-        "high": "#7FB238",
-        "lowest": "#435E1D",
-        "x": 12,
-        "y": 26,
-        "offset": "-192px -416px",
-        "name_eng": "grass_block",
-        "low_rgb": [
-          89,
-          125,
-          39
-        ],
-        "normal_rgb": [
-          109,
-          153,
-          48
-        ],
-        "high_rgb": [
-          127,
-          178,
-          56
-        ],
-        "lowest_rgb": [
-          67,
-          94,
-          29
-        ]
-      },
-      {
-        "name": "沙石",
-        "low": "#AEA473",
-        "normal": "#D5C98C",
-        "high": "#F7E9A3",
-        "lowest": "#827B56",
-        "x": 30,
-        "y": 26,
-        "offset": "-480px -416px",
-        "name_eng": "sandstone",
-        "low_rgb": [
-          174,
-          164,
-          115
-        ],
-        "normal_rgb": [
-          213,
-          201,
-          140
-        ],
-        "high_rgb": [
-          247,
-          233,
-          163
-        ],
-        "lowest_rgb": [
-          130,
-          123,
-          86
-        ]
-      },
-      {
-        "name": "浮冰",
-        "low": "#7070B4",
-        "normal": "#8A8ADC",
-        "high": "#A0A0FF",
-        "lowest": "#545487",
-        "x": 24,
-        "y": 16,
-        "offset": "-384px -256px",
-        "name_eng": "packed_ice",
-        "low_rgb": [
-          112,
-          112,
-          180
-        ],
-        "normal_rgb": [
-          138,
-          138,
-          220
-        ],
-        "high_rgb": [
-          160,
-          160,
-          255
-        ],
-        "lowest_rgb": [
-          84,
-          84,
-          135
-        ]
-      },
-      {
-        "name": "树叶",
-        "low": "#005700",
-        "normal": "#006A00",
-        "high": "#007C00",
-        "lowest": "#004100",
-        "x": 45,
-        "y": 7,
-        "offset": "-720px -112px",
-        "name_eng": "oak_leaves",
-        "low_rgb": [
-          0,
-          87,
-          0
-        ],
-        "normal_rgb": [
-          0,
-          106,
-          0
-        ],
-        "high_rgb": [
-          0,
-          124,
-          0
-        ],
-        "lowest_rgb": [
-          0,
-          65,
-          0
-        ]
-      },
-      {
-        "name": "雪块",
-        "low": "#B4B4B4",
-        "normal": "#DCDCDC",
-        "high": "#FFFFFF",
-        "lowest": "#878787",
-        "x": 34,
-        "y": 26,
-        "offset": "-544px -416px",
-        "name_eng": "snow_block",
-        "low_rgb": [
-          180,
-          180,
-          180
-        ],
-        "normal_rgb": [
-          220,
-          220,
-          220
-        ],
-        "high_rgb": [
-          255,
-          255,
-          255
-        ],
-        "lowest_rgb": [
-          135,
-          135,
-          135
-        ]
-      },
-      {
-        "name": "黏土块",
-        "low": "#737681",
-        "normal": "#8D909E",
-        "high": "#A4A8B8",
-        "lowest": "#565861",
-        "x": 21,
-        "y": 27,
-        "offset": "-336px -432px",
-        "name_eng": "clay",
-        "low_rgb": [
-          115,
-          118,
-          129
-        ],
-        "normal_rgb": [
-          141,
-          144,
-          158
-        ],
-        "high_rgb": [
-          164,
-          168,
-          184
-        ],
-        "lowest_rgb": [
-          86,
-          88,
-          97
-        ]
-      },
-      {
-        "name": "土径",
-        "low": "#6A4C36",
-        "normal": "#825E42",
-        "high": "#976D4D",
-        "lowest": "#4F3928",
-        "x": 17,
-        "y": 10,
-        "offset": "-272px -160px",
-        "name_eng": "dirt_path",
-        "low_rgb": [
-          106,
-          76,
-          54
-        ],
-        "normal_rgb": [
-          130,
-          94,
-          66
-        ],
-        "high_rgb": [
-          151,
-          109,
-          77
-        ],
-        "lowest_rgb": [
-          79,
-          57,
-          40
-        ]
-      },
-      {
-        "name": "石头",
-        "low": "#4F4F4F",
-        "normal": "#606060",
-        "high": "#707070",
-        "lowest": "#3B3B3B",
-        "x": 42,
-        "y": 25,
-        "offset": "-672px -400px",
-        "name_eng": "stone",
-        "low_rgb": [
-          79,
-          79,
-          79
-        ],
-        "normal_rgb": [
-          96,
-          96,
-          96
-        ],
-        "high_rgb": [
-          112,
-          112,
-          112
-        ],
-        "lowest_rgb": [
-          59,
-          59,
-          59
-        ]
-      },
-      {
-        "name": "木头",
-        "low": "#645432",
-        "normal": "#7B663E",
-        "high": "#8F7748",
-        "lowest": "#4B3F26",
-        "x": 7,
-        "y": 27,
-        "offset": "-112px -432px",
-        "name_eng": "oak_wood",
-        "low_rgb": [
-          100,
-          84,
-          50
-        ],
-        "normal_rgb": [
-          123,
-          102,
-          62
-        ],
-        "high_rgb": [
-          143,
-          119,
-          72
-        ],
-        "lowest_rgb": [
-          75,
-          63,
-          38
-        ]
-      },
-      {
-        "name": "灰化土",
-        "low": "#5B3C22",
-        "normal": "#6F4A2A",
-        "high": "#815631",
-        "lowest": "#442D19",
-        "x": 16,
-        "y": 8,
-        "offset": "-256px -128px",
-        "name_eng": "podzol",
-        "low_rgb": [
-          91,
-          60,
-          34
-        ],
-        "normal_rgb": [
-          111,
-          74,
-          42
-        ],
-        "high_rgb": [
-          129,
-          86,
-          49
-        ],
-        "lowest_rgb": [
-          68,
-          45,
-          25
-        ]
-      },
-      {
-        "name": "下界岩",
-        "low": "#4F0100",
-        "normal": "#600100",
-        "high": "#700200",
-        "lowest": "#3B0100",
-        "x": 19,
-        "y": 26,
-        "offset": "-304px -416px",
-        "name_eng": "netherrack",
-        "low_rgb": [
-          79,
-          1,
-          0
-        ],
-        "normal_rgb": [
-          96,
-          1,
-          0
-        ],
-        "high_rgb": [
-          112,
-          2,
-          0
-        ],
-        "lowest_rgb": [
-          59,
-          1,
-          0
-        ]
-      },
-      {
-        "name": "绯红菌岩",
-        "low": "#852122",
-        "normal": "#A3292A",
-        "high": "#BD3031",
-        "lowest": "#641919",
-        "x": 2,
-        "y": 44,
-        "offset": "-32px -704px",
-        "name_eng": "crimson_nylium",
-        "low_rgb": [
-          133,
-          33,
-          34
-        ],
-        "normal_rgb": [
-          163,
-          41,
-          42
-        ],
-        "high_rgb": [
-          189,
-          48,
-          49
-        ],
-        "lowest_rgb": [
-          100,
-          25,
-          25
-        ]
-      },
-      {
-        "name": "绯红菌柄",
-        "low": "#682C44",
-        "normal": "#7F3653",
-        "high": "#943F61",
-        "lowest": "#4E2133",
-        "x": 2,
-        "y": 44,
-        "offset": "-32px -704px",
-        "name_eng": "crimson_stem",
-        "low_rgb": [
-          104,
-          44,
-          68
-        ],
-        "normal_rgb": [
-          127,
-          54,
-          83
-        ],
-        "high_rgb": [
-          148,
-          63,
-          97
-        ],
-        "lowest_rgb": [
-          78,
-          33,
-          51
-        ]
-      },
-      {
-        "name": "绯红菌核",
-        "low": "#401114",
-        "normal": "#4F1519",
-        "high": "#5C191D",
-        "lowest": "#300D0F",
-        "x": 2,
-        "y": 44,
-        "offset": "-32px -704px",
-        "name_eng": "crimson_hyphae",
-        "low_rgb": [
-          64,
-          17,
-          20
-        ],
-        "normal_rgb": [
-          79,
-          21,
-          25
-        ],
-        "high_rgb": [
-          92,
-          25,
-          29
-        ],
-        "lowest_rgb": [
-          48,
-          13,
-          15
-        ]
-      },
-      {
-        "name": "诡异菌岩",
-        "low": "#0F585E",
-        "normal": "#126C73",
-        "high": "#167E86",
-        "lowest": "#0B4246",
-        "x": 0,
-        "y": 44,
-        "offset": "-0px -704px",
-        "name_eng": "warped_nylium",
-        "low_rgb": [
-          15,
-          88,
-          94
-        ],
-        "normal_rgb": [
-          18,
-          108,
-          115
-        ],
-        "high_rgb": [
-          22,
-          126,
-          134
-        ],
-        "lowest_rgb": [
-          11,
-          66,
-          70
-        ]
-      },
-      {
-        "name": "诡异菌柄",
-        "low": "#286462",
-        "normal": "#327A78",
-        "high": "#3A8E8C",
-        "lowest": "#1E4B4A",
-        "x": 8,
-        "y": 44,
-        "offset": "-128px -704px",
-        "name_eng": "warped_stem",
-        "low_rgb": [
-          40,
-          100,
-          98
-        ],
-        "normal_rgb": [
-          50,
-          122,
-          120
-        ],
-        "high_rgb": [
-          58,
-          142,
-          140
-        ],
-        "lowest_rgb": [
-          30,
-          75,
-          74
-        ]
-      },
-      {
-        "name": "诡异菌核",
-        "low": "#3C1F2B",
-        "normal": "#4A2535",
-        "high": "#562C3E",
-        "lowest": "#2D1720",
-        "x": 8,
-        "y": 44,
-        "offset": "-128px -704px",
-        "name_eng": "warped_hyphae",
-        "low_rgb": [
-          60,
-          31,
-          43
-        ],
-        "normal_rgb": [
-          74,
-          37,
-          53
-        ],
-        "high_rgb": [
-          86,
-          44,
-          62
-        ],
-        "lowest_rgb": [
-          45,
-          23,
-          32
-        ]
-      },
-      {
-        "name": "诡异疣块",
-        "low": "#0E7F5D",
-        "normal": "#119B72",
-        "high": "#14B485",
-        "lowest": "#0A5F46",
-        "x": 39,
-        "y": 43,
-        "offset": "-624px -688px",
-        "name_eng": "warped_wart_block",
-        "low_rgb": [
-          14,
-          127,
-          93
-        ],
-        "normal_rgb": [
-          17,
-          155,
-          114
-        ],
-        "high_rgb": [
-          20,
-          180,
-          133
-        ],
-        "lowest_rgb": [
-          10,
-          95,
-          70
-        ]
-      },
-      {
-        "name": "深板岩",
-        "low": "#464646",
-        "normal": "#565656",
-        "high": "#646464",
-        "lowest": "#343434",
-        "x": 33,
-        "y": 3,
-        "offset": "-528px -48px",
-        "name_eng": "deepslate",
-        "low_rgb": [
-          70,
-          70,
-          70
-        ],
-        "normal_rgb": [
-          86,
-          86,
-          86
-        ],
-        "high_rgb": [
-          100,
-          100,
-          100
-        ],
-        "lowest_rgb": [
-          52,
-          52,
-          52
-        ]
-      }
-    ]
+  "natural": {
+    "dirt": {
+      "low_rgb": [
+        89,
+        61,
+        41
+      ],
+      "normal_rgb": [
+        121,
+        85,
+        58
+      ],
+      "high_rgb": [
+        121,
+        85,
+        58
+      ],
+      "lowest_rgb": [
+        150,
+        108,
+        74
+      ],
+      "average_rgb": [
+        134,
+        96,
+        67
+      ]
+    },
+    "coarse_dirt": {
+      "low_rgb": [
+        85,
+        58,
+        39
+      ],
+      "normal_rgb": [
+        97,
+        68,
+        46
+      ],
+      "high_rgb": [
+        121,
+        85,
+        58
+      ],
+      "lowest_rgb": [
+        112,
+        80,
+        55
+      ],
+      "average_rgb": [
+        119,
+        85,
+        59
+      ]
+    },
+    "farmland": {
+      "low_rgb": [
+        89,
+        61,
+        41
+      ],
+      "normal_rgb": [
+        185,
+        133,
+        92
+      ],
+      "high_rgb": [
+        89,
+        61,
+        41
+      ],
+      "lowest_rgb": [
+        121,
+        85,
+        58
+      ],
+      "average_rgb": [
+        143,
+        102,
+        70
+      ]
+    },
+    "gravel": {
+      "low_rgb": [
+        150,
+        142,
+        142
+      ],
+      "normal_rgb": [
+        137,
+        129,
+        126
+      ],
+      "high_rgb": [
+        129,
+        127,
+        127
+      ],
+      "lowest_rgb": [
+        129,
+        127,
+        127
+      ],
+      "average_rgb": [
+        131,
+        127,
+        126
+      ]
+    },
+    "suspicious_gravel": {
+      "low_rgb": [
+        150,
+        142,
+        142
+      ],
+      "normal_rgb": [
+        106,
+        98,
+        97
+      ],
+      "high_rgb": [
+        129,
+        127,
+        127
+      ],
+      "lowest_rgb": [
+        129,
+        127,
+        127
+      ],
+      "average_rgb": [
+        129,
+        125,
+        124
+      ]
+    },
+    "ice": {
+      "low_rgb": [
+        146,
+        185,
+        254
+      ],
+      "normal_rgb": [
+        140,
+        179,
+        254
+      ],
+      "high_rgb": [
+        140,
+        179,
+        254
+      ],
+      "lowest_rgb": [
+        134,
+        174,
+        253
+      ],
+      "average_rgb": [
+        145,
+        183,
+        253
+      ]
+    },
+    "packed_ice": {
+      "low_rgb": [
+        124,
+        165,
+        244
+      ],
+      "normal_rgb": [
+        133,
+        173,
+        248
+      ],
+      "high_rgb": [
+        133,
+        173,
+        248
+      ],
+      "lowest_rgb": [
+        124,
+        165,
+        244
+      ],
+      "average_rgb": [
+        141,
+        180,
+        250
+      ]
+    },
+    "blue_ice": {
+      "low_rgb": [
+        116,
+        171,
+        254
+      ],
+      "normal_rgb": [
+        108,
+        163,
+        253
+      ],
+      "high_rgb": [
+        108,
+        163,
+        253
+      ],
+      "lowest_rgb": [
+        108,
+        163,
+        253
+      ],
+      "average_rgb": [
+        116,
+        167,
+        253
+      ]
+    },
+    "pumpkin": {
+      "low_rgb": [
+        160,
+        86,
+        11
+      ],
+      "normal_rgb": [
+        160,
+        86,
+        11
+      ],
+      "high_rgb": [
+        227,
+        138,
+        29
+      ],
+      "lowest_rgb": [
+        126,
+        61,
+        14
+      ],
+      "average_rgb": [
+        195,
+        114,
+        24
+      ]
+    },
+    "carved_pumpkin": {
+      "low_rgb": [
+        68,
+        19,
+        0
+      ],
+      "normal_rgb": [
+        196,
+        118,
+        20
+      ],
+      "high_rgb": [
+        45,
+        0,
+        3
+      ],
+      "lowest_rgb": [
+        68,
+        19,
+        0
+      ],
+      "average_rgb": [
+        150,
+        84,
+        17
+      ]
+    },
+    "melon_block": {
+      "low_rgb": [
+        111,
+        147,
+        35
+      ],
+      "normal_rgb": [
+        82,
+        129,
+        28
+      ],
+      "high_rgb": [
+        82,
+        129,
+        28
+      ],
+      "lowest_rgb": [
+        167,
+        172,
+        29
+      ],
+      "average_rgb": [
+        114,
+        146,
+        30
+      ]
+    },
+    "brown_mushroom_block": {
+      "low_rgb": [
+        156,
+        121,
+        90
+      ],
+      "normal_rgb": [
+        148,
+        109,
+        82
+      ],
+      "high_rgb": [
+        148,
+        109,
+        82
+      ],
+      "lowest_rgb": [
+        148,
+        109,
+        82
+      ],
+      "average_rgb": [
+        149,
+        111,
+        81
+      ]
+    },
+    "red_mushroom_block": {
+      "low_rgb": [
+        255,
+        191,
+        191
+      ],
+      "normal_rgb": [
+        190,
+        35,
+        33
+      ],
+      "high_rgb": [
+        195,
+        40,
+        38
+      ],
+      "lowest_rgb": [
+        195,
+        40,
+        38
+      ],
+      "average_rgb": [
+        200,
+        46,
+        45
+      ]
+    },
+    "mushroom_stem": {
+      "low_rgb": [
+        194,
+        188,
+        172
+      ],
+      "normal_rgb": [
+        205,
+        198,
+        189
+      ],
+      "high_rgb": [
+        205,
+        198,
+        189
+      ],
+      "lowest_rgb": [
+        194,
+        188,
+        172
+      ],
+      "average_rgb": [
+        203,
+        196,
+        185
+      ]
+    },
+    "mycelium": {
+      "low_rgb": [
+        131,
+        105,
+        106
+      ],
+      "normal_rgb": [
+        58,
+        41,
+        28
+      ],
+      "high_rgb": [
+        106,
+        101,
+        106
+      ],
+      "lowest_rgb": [
+        150,
+        108,
+        74
+      ],
+      "average_rgb": [
+        113,
+        87,
+        71
+      ]
+    },
+    "obsidian": {
+      "low_rgb": [
+        16,
+        12,
+        28
+      ],
+      "normal_rgb": [
+        39,
+        30,
+        61
+      ],
+      "high_rgb": [
+        6,
+        3,
+        11
+      ],
+      "lowest_rgb": [
+        0,
+        0,
+        1
+      ],
+      "average_rgb": [
+        15,
+        10,
+        24
+      ]
+    },
+    "crying_obsidian": {
+      "low_rgb": [
+        43,
+        1,
+        120
+      ],
+      "normal_rgb": [
+        39,
+        30,
+        61
+      ],
+      "high_rgb": [
+        6,
+        3,
+        11
+      ],
+      "lowest_rgb": [
+        0,
+        0,
+        1
+      ],
+      "average_rgb": [
+        32,
+        10,
+        60
+      ]
+    },
+    "bee_nest": {
+      "low_rgb": [
+        247,
+        206,
+        70
+      ],
+      "normal_rgb": [
+        247,
+        206,
+        70
+      ],
+      "high_rgb": [
+        234,
+        166,
+        22
+      ],
+      "lowest_rgb": [
+        234,
+        166,
+        22
+      ],
+      "average_rgb": [
+        194,
+        151,
+        75
+      ]
+    },
+    "beehive": {
+      "low_rgb": [
+        250,
+        171,
+        28
+      ],
+      "normal_rgb": [
+        194,
+        157,
+        98
+      ],
+      "high_rgb": [
+        250,
+        171,
+        28
+      ],
+      "lowest_rgb": [
+        194,
+        157,
+        98
+      ],
+      "average_rgb": [
+        167,
+        131,
+        74
+      ]
+    },
+    "honey_block": {
+      "low_rgb": [
+        250,
+        171,
+        28
+      ],
+      "normal_rgb": [
+        253,
+        193,
+        52
+      ],
+      "high_rgb": [
+        247,
+        153,
+        9
+      ],
+      "lowest_rgb": [
+        246,
+        219,
+        112
+      ],
+      "average_rgb": [
+        250,
+        188,
+        57
+      ]
+    },
+    "honeycomb_block": {
+      "low_rgb": [
+        216,
+        120,
+        3
+      ],
+      "normal_rgb": [
+        216,
+        120,
+        3
+      ],
+      "high_rgb": [
+        232,
+        140,
+        8
+      ],
+      "lowest_rgb": [
+        216,
+        120,
+        3
+      ],
+      "average_rgb": [
+        229,
+        148,
+        29
+      ]
+    },
+    "calcite": {
+      "low_rgb": [
+        201,
+        201,
+        196
+      ],
+      "normal_rgb": [
+        217,
+        219,
+        215
+      ],
+      "high_rgb": [
+        240,
+        245,
+        244
+      ],
+      "lowest_rgb": [
+        217,
+        219,
+        215
+      ],
+      "average_rgb": [
+        223,
+        224,
+        220
+      ]
+    },
+    "moss_block": {
+      "low_rgb": [
+        73,
+        94,
+        39
+      ],
+      "normal_rgb": [
+        100,
+        114,
+        51
+      ],
+      "high_rgb": [
+        112,
+        146,
+        45
+      ],
+      "lowest_rgb": [
+        100,
+        114,
+        51
+      ],
+      "average_rgb": [
+        89,
+        109,
+        45
+      ]
+    },
+    "podzol": {
+      "low_rgb": [
+        93,
+        73,
+        30
+      ],
+      "normal_rgb": [
+        121,
+        85,
+        58
+      ],
+      "high_rgb": [
+        121,
+        85,
+        58
+      ],
+      "lowest_rgb": [
+        150,
+        108,
+        74
+      ],
+      "average_rgb": [
+        122,
+        87,
+        57
+      ]
+    },
+    "snow": {
+      "low_rgb": [
+        240,
+        253,
+        253
+      ],
+      "normal_rgb": [
+        240,
+        253,
+        253
+      ],
+      "high_rgb": [
+        255,
+        255,
+        255
+      ],
+      "lowest_rgb": [
+        247,
+        254,
+        254
+      ],
+      "average_rgb": [
+        249,
+        254,
+        254
+      ]
+    },
+    "powder_snow": {
+      "low_rgb": [
+        236,
+        251,
+        251
+      ],
+      "normal_rgb": [
+        236,
+        251,
+        251
+      ],
+      "high_rgb": [
+        255,
+        255,
+        255
+      ],
+      "lowest_rgb": [
+        244,
+        252,
+        252
+      ],
+      "average_rgb": [
+        248,
+        253,
+        253
+      ]
+    },
+    "shroomlight": {
+      "low_rgb": [
+        253,
+        244,
+        180
+      ],
+      "normal_rgb": [
+        254,
+        135,
+        56
+      ],
+      "high_rgb": [
+        254,
+        172,
+        109
+      ],
+      "lowest_rgb": [
+        254,
+        172,
+        109
+      ],
+      "average_rgb": [
+        240,
+        146,
+        70
+      ]
+    },
+    "bone_block": {
+      "low_rgb": [
+        233,
+        230,
+        212
+      ],
+      "normal_rgb": [
+        233,
+        230,
+        212
+      ],
+      "high_rgb": [
+        230,
+        226,
+        210
+      ],
+      "lowest_rgb": [
+        233,
+        230,
+        212
+      ],
+      "average_rgb": [
+        229,
+        225,
+        207
+      ]
+    },
+    "mud": {
+      "low_rgb": [
+        58,
+        56,
+        61
+      ],
+      "normal_rgb": [
+        51,
+        50,
+        58
+      ],
+      "high_rgb": [
+        70,
+        64,
+        62
+      ],
+      "lowest_rgb": [
+        58,
+        56,
+        61
+      ],
+      "average_rgb": [
+        60,
+        57,
+        60
+      ]
+    },
+    "packed_mud": {
+      "low_rgb": [
+        149,
+        113,
+        80
+      ],
+      "normal_rgb": [
+        137,
+        101,
+        77
+      ],
+      "high_rgb": [
+        137,
+        101,
+        77
+      ],
+      "lowest_rgb": [
+        125,
+        91,
+        69
+      ],
+      "average_rgb": [
+        142,
+        106,
+        79
+      ]
+    },
+    "mud_bricks": {
+      "low_rgb": [
+        149,
+        113,
+        80
+      ],
+      "normal_rgb": [
+        171,
+        134,
+        97
+      ],
+      "high_rgb": [
+        157,
+        120,
+        92
+      ],
+      "lowest_rgb": [
+        126,
+        93,
+        72
+      ],
+      "average_rgb": [
+        137,
+        103,
+        79
+      ]
+    },
+    "muddy_mangrove_roots": {
+      "low_rgb": [
+        58,
+        56,
+        61
+      ],
+      "normal_rgb": [
+        51,
+        50,
+        58
+      ],
+      "high_rgb": [
+        70,
+        64,
+        62
+      ],
+      "lowest_rgb": [
+        58,
+        56,
+        61
+      ],
+      "average_rgb": [
+        68,
+        58,
+        48
+      ]
+    },
+    "sculk_catalyst": {
+      "low_rgb": [
+        17,
+        27,
+        33
+      ],
+      "normal_rgb": [
+        209,
+        214,
+        182
+      ],
+      "high_rgb": [
+        13,
+        18,
+        23
+      ],
+      "lowest_rgb": [
+        162,
+        175,
+        134
+      ],
+      "average_rgb": [
+        76,
+        93,
+        90
+      ]
+    }
+  },
+  "crafted": {
+    "bookshelf": {
+      "low_rgb": [
+        188,
+        22,
+        22
+      ],
+      "normal_rgb": [
+        155,
+        119,
+        66
+      ],
+      "high_rgb": [
+        49,
+        99,
+        163
+      ],
+      "lowest_rgb": [
+        49,
+        99,
+        163
+      ],
+      "average_rgb": [
+        117,
+        94,
+        59
+      ]
+    },
+    "crafting_table": {
+      "low_rgb": [
+        194,
+        157,
+        98
+      ],
+      "normal_rgb": [
+        75,
+        43,
+        24
+      ],
+      "high_rgb": [
+        175,
+        143,
+        85
+      ],
+      "lowest_rgb": [
+        194,
+        157,
+        98
+      ],
+      "average_rgb": [
+        129,
+        105,
+        70
+      ]
+    },
+    "loom": {
+      "low_rgb": [
+        179,
+        140,
+        81
+      ],
+      "normal_rgb": [
+        202,
+        166,
+        113
+      ],
+      "high_rgb": [
+        179,
+        140,
+        81
+      ],
+      "lowest_rgb": [
+        82,
+        65,
+        39
+      ],
+      "average_rgb": [
+        148,
+        118,
+        82
+      ]
+    },
+    "cartography_table": {
+      "low_rgb": [
+        44,
+        44,
+        176
+      ],
+      "normal_rgb": [
+        62,
+        41,
+        18
+      ],
+      "high_rgb": [
+        79,
+        50,
+        24
+      ],
+      "lowest_rgb": [
+        70,
+        45,
+        21
+      ],
+      "average_rgb": [
+        72,
+        50,
+        34
+      ]
+    },
+    "furnace": {
+      "low_rgb": [
+        17,
+        17,
+        17
+      ],
+      "normal_rgb": [
+        93,
+        91,
+        91
+      ],
+      "high_rgb": [
+        60,
+        59,
+        59
+      ],
+      "lowest_rgb": [
+        17,
+        17,
+        17
+      ],
+      "average_rgb": [
+        91,
+        91,
+        91
+      ]
+    },
+    "blast_furnace": {
+      "low_rgb": [
+        89,
+        88,
+        88
+      ],
+      "normal_rgb": [
+        17,
+        17,
+        17
+      ],
+      "high_rgb": [
+        63,
+        62,
+        66
+      ],
+      "lowest_rgb": [
+        114,
+        121,
+        110
+      ],
+      "average_rgb": [
+        107,
+        107,
+        107
+      ]
+    },
+    "dispenser": {
+      "low_rgb": [
+        176,
+        176,
+        176
+      ],
+      "normal_rgb": [
+        16,
+        16,
+        16
+      ],
+      "high_rgb": [
+        197,
+        197,
+        197
+      ],
+      "lowest_rgb": [
+        157,
+        157,
+        157
+      ],
+      "average_rgb": [
+        122,
+        121,
+        121
+      ]
+    },
+    "dropper": {
+      "low_rgb": [
+        176,
+        176,
+        176
+      ],
+      "normal_rgb": [
+        168,
+        168,
+        168
+      ],
+      "high_rgb": [
+        197,
+        197,
+        197
+      ],
+      "lowest_rgb": [
+        157,
+        157,
+        157
+      ],
+      "average_rgb": [
+        122,
+        121,
+        121
+      ]
+    },
+    "lodestone": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        74,
+        74,
+        83
+      ],
+      "high_rgb": [
+        127,
+        127,
+        127
+      ],
+      "lowest_rgb": [
+        143,
+        143,
+        143
+      ],
+      "average_rgb": [
+        119,
+        119,
+        123
+      ]
+    },
+    "fletching_table": {
+      "low_rgb": [
+        158,
+        139,
+        97
+      ],
+      "normal_rgb": [
+        174,
+        159,
+        118
+      ],
+      "high_rgb": [
+        216,
+        216,
+        216
+      ],
+      "lowest_rgb": [
+        158,
+        139,
+        97
+      ],
+      "average_rgb": [
+        173,
+        155,
+        111
+      ]
+    },
+    "hay_block": {
+      "low_rgb": [
+        138,
+        115,
+        32
+      ],
+      "normal_rgb": [
+        171,
+        146,
+        37
+      ],
+      "high_rgb": [
+        138,
+        115,
+        32
+      ],
+      "lowest_rgb": [
+        138,
+        115,
+        32
+      ],
+      "average_rgb": [
+        166,
+        136,
+        38
+      ]
+    },
+    "target": {
+      "low_rgb": [
+        164,
+        52,
+        52
+      ],
+      "normal_rgb": [
+        185,
+        50,
+        50
+      ],
+      "high_rgb": [
+        239,
+        226,
+        208
+      ],
+      "lowest_rgb": [
+        239,
+        226,
+        208
+      ],
+      "average_rgb": [
+        229,
+        176,
+        168
+      ]
+    },
+    "jukebox": {
+      "low_rgb": [
+        148,
+        93,
+        65
+      ],
+      "normal_rgb": [
+        148,
+        93,
+        65
+      ],
+      "high_rgb": [
+        123,
+        80,
+        57
+      ],
+      "lowest_rgb": [
+        123,
+        80,
+        57
+      ],
+      "average_rgb": [
+        88,
+        58,
+        40
+      ]
+    },
+    "note_block": {
+      "low_rgb": [
+        148,
+        93,
+        65
+      ],
+      "normal_rgb": [
+        148,
+        93,
+        65
+      ],
+      "high_rgb": [
+        123,
+        80,
+        57
+      ],
+      "lowest_rgb": [
+        123,
+        80,
+        57
+      ],
+      "average_rgb": [
+        88,
+        58,
+        40
+      ]
+    },
+    "observer": {
+      "low_rgb": [
+        41,
+        38,
+        38
+      ],
+      "normal_rgb": [
+        157,
+        157,
+        157
+      ],
+      "high_rgb": [
+        41,
+        38,
+        38
+      ],
+      "lowest_rgb": [
+        175,
+        175,
+        175
+      ],
+      "average_rgb": [
+        103,
+        103,
+        103
+      ]
+    },
+    "piston": {
+      "low_rgb": [
+        53,
+        53,
+        53
+      ],
+      "normal_rgb": [
+        119,
+        119,
+        119
+      ],
+      "high_rgb": [
+        68,
+        68,
+        68
+      ],
+      "lowest_rgb": [
+        133,
+        133,
+        133
+      ],
+      "average_rgb": [
+        110,
+        104,
+        96
+      ]
+    },
+    "respawn_anchor": {
+      "low_rgb": [
+        33,
+        27,
+        49
+      ],
+      "normal_rgb": [
+        87,
+        63,
+        127
+      ],
+      "high_rgb": [
+        44,
+        41,
+        67
+      ],
+      "lowest_rgb": [
+        0,
+        0,
+        1
+      ],
+      "average_rgb": [
+        39,
+        23,
+        62
+      ]
+    },
+    "slime_block": {
+      "low_rgb": [
+        90,
+        170,
+        67
+      ],
+      "normal_rgb": [
+        115,
+        194,
+        98
+      ],
+      "high_rgb": [
+        115,
+        194,
+        98
+      ],
+      "lowest_rgb": [
+        123,
+        202,
+        98
+      ],
+      "average_rgb": [
+        111,
+        192,
+        91
+      ]
+    },
+    "smithing_table": {
+      "low_rgb": [
+        66,
+        28,
+        23
+      ],
+      "normal_rgb": [
+        64,
+        66,
+        83
+      ],
+      "high_rgb": [
+        66,
+        28,
+        23
+      ],
+      "lowest_rgb": [
+        74,
+        31,
+        26
+      ],
+      "average_rgb": [
+        56,
+        37,
+        38
+      ]
+    },
+    "smoker": {
+      "low_rgb": [
+        197,
+        197,
+        197
+      ],
+      "normal_rgb": [
+        171,
+        172,
+        171
+      ],
+      "high_rgb": [
+        104,
+        104,
+        104
+      ],
+      "lowest_rgb": [
+        103,
+        80,
+        44
+      ],
+      "average_rgb": [
+        87,
+        75,
+        57
+      ]
+    },
+    "tnt": {
+      "low_rgb": [
+        219,
+        47,
+        26
+      ],
+      "normal_rgb": [
+        55,
+        54,
+        86
+      ],
+      "high_rgb": [
+        219,
+        47,
+        26
+      ],
+      "lowest_rgb": [
+        219,
+        47,
+        26
+      ],
+      "average_rgb": [
+        182,
+        88,
+        84
+      ]
+    },
+    "barrel": {
+      "low_rgb": [
+        48,
+        44,
+        41
+      ],
+      "normal_rgb": [
+        128,
+        94,
+        54
+      ],
+      "high_rgb": [
+        40,
+        34,
+        28
+      ],
+      "lowest_rgb": [
+        48,
+        44,
+        41
+      ],
+      "average_rgb": [
+        107,
+        81,
+        50
+      ]
+    }
+  },
+  "desert": {
+    "sand": {
+      "low_rgb": [
+        213,
+        196,
+        150
+      ],
+      "normal_rgb": [
+        213,
+        196,
+        150
+      ],
+      "high_rgb": [
+        213,
+        196,
+        150
+      ],
+      "lowest_rgb": [
+        213,
+        196,
+        150
+      ],
+      "average_rgb": [
+        219,
+        207,
+        163
+      ]
+    },
+    "suspicious_sand": {
+      "low_rgb": [
+        213,
+        196,
+        150
+      ],
+      "normal_rgb": [
+        209,
+        186,
+        138
+      ],
+      "high_rgb": [
+        213,
+        196,
+        150
+      ],
+      "lowest_rgb": [
+        213,
+        196,
+        150
+      ],
+      "average_rgb": [
+        217,
+        204,
+        159
+      ]
+    },
+    "red_sand": {
+      "low_rgb": [
+        178,
+        96,
+        31
+      ],
+      "normal_rgb": [
+        178,
+        96,
+        31
+      ],
+      "high_rgb": [
+        178,
+        96,
+        31
+      ],
+      "lowest_rgb": [
+        178,
+        96,
+        31
+      ],
+      "average_rgb": [
+        190,
+        102,
+        33
+      ]
+    },
+    "sandstone": {
+      "low_rgb": [
+        218,
+        210,
+        163
+      ],
+      "normal_rgb": [
+        227,
+        219,
+        176
+      ],
+      "high_rgb": [
+        218,
+        210,
+        163
+      ],
+      "lowest_rgb": [
+        231,
+        228,
+        187
+      ],
+      "average_rgb": [
+        216,
+        203,
+        155
+      ]
+    },
+    "smooth_sandstone": {
+      "low_rgb": [
+        223,
+        212,
+        167
+      ],
+      "normal_rgb": [
+        218,
+        207,
+        163
+      ],
+      "high_rgb": [
+        227,
+        219,
+        176
+      ],
+      "lowest_rgb": [
+        227,
+        219,
+        176
+      ],
+      "average_rgb": [
+        223,
+        214,
+        170
+      ]
+    },
+    "cut_sandstone": {
+      "low_rgb": [
+        227,
+        219,
+        176
+      ],
+      "normal_rgb": [
+        218,
+        210,
+        163
+      ],
+      "high_rgb": [
+        218,
+        210,
+        163
+      ],
+      "lowest_rgb": [
+        227,
+        219,
+        176
+      ],
+      "average_rgb": [
+        217,
+        206,
+        159
+      ]
+    },
+    "chiseled_sandstone": {
+      "low_rgb": [
+        218,
+        210,
+        163
+      ],
+      "normal_rgb": [
+        227,
+        219,
+        176
+      ],
+      "high_rgb": [
+        218,
+        210,
+        163
+      ],
+      "lowest_rgb": [
+        209,
+        186,
+        138
+      ],
+      "average_rgb": [
+        216,
+        202,
+        155
+      ]
+    },
+    "red_sandstone": {
+      "low_rgb": [
+        192,
+        104,
+        34
+      ],
+      "normal_rgb": [
+        203,
+        110,
+        36
+      ],
+      "high_rgb": [
+        192,
+        104,
+        34
+      ],
+      "lowest_rgb": [
+        210,
+        117,
+        43
+      ],
+      "average_rgb": [
+        186,
+        99,
+        29
+      ]
+    },
+    "smooth_red_sandstone": {
+      "low_rgb": [
+        178,
+        96,
+        31
+      ],
+      "normal_rgb": [
+        172,
+        91,
+        28
+      ],
+      "high_rgb": [
+        187,
+        102,
+        34
+      ],
+      "lowest_rgb": [
+        187,
+        102,
+        34
+      ],
+      "average_rgb": [
+        181,
+        97,
+        31
+      ]
+    },
+    "cut_red_sandstone": {
+      "low_rgb": [
+        203,
+        110,
+        36
+      ],
+      "normal_rgb": [
+        192,
+        104,
+        34
+      ],
+      "high_rgb": [
+        192,
+        104,
+        34
+      ],
+      "lowest_rgb": [
+        203,
+        110,
+        36
+      ],
+      "average_rgb": [
+        189,
+        101,
+        31
+      ]
+    },
+    "chiseled_red_sandstone": {
+      "low_rgb": [
+        203,
+        110,
+        36
+      ],
+      "normal_rgb": [
+        172,
+        87,
+        18
+      ],
+      "high_rgb": [
+        192,
+        104,
+        34
+      ],
+      "lowest_rgb": [
+        178,
+        96,
+        31
+      ],
+      "average_rgb": [
+        183,
+        96,
+        27
+      ]
+    }
+  },
+  "nether": {
+    "netherrack": {
+      "low_rgb": [
+        80,
+        27,
+        27
+      ],
+      "normal_rgb": [
+        101,
+        40,
+        40
+      ],
+      "high_rgb": [
+        80,
+        27,
+        27
+      ],
+      "lowest_rgb": [
+        80,
+        27,
+        27
+      ],
+      "average_rgb": [
+        97,
+        38,
+        38
+      ]
+    },
+    "soul_sand": {
+      "low_rgb": [
+        106,
+        82,
+        68
+      ],
+      "normal_rgb": [
+        73,
+        55,
+        44
+      ],
+      "high_rgb": [
+        73,
+        55,
+        44
+      ],
+      "lowest_rgb": [
+        53,
+        41,
+        34
+      ],
+      "average_rgb": [
+        81,
+        62,
+        50
+      ]
+    },
+    "soul_soil": {
+      "low_rgb": [
+        91,
+        69,
+        56
+      ],
+      "normal_rgb": [
+        73,
+        55,
+        44
+      ],
+      "high_rgb": [
+        73,
+        55,
+        44
+      ],
+      "lowest_rgb": [
+        73,
+        55,
+        44
+      ],
+      "average_rgb": [
+        75,
+        57,
+        46
+      ]
+    },
+    "glowstone": {
+      "low_rgb": [
+        255,
+        240,
+        218
+      ],
+      "normal_rgb": [
+        133,
+        80,
+        41
+      ],
+      "high_rgb": [
+        115,
+        78,
+        38
+      ],
+      "lowest_rgb": [
+        111,
+        69,
+        34
+      ],
+      "average_rgb": [
+        171,
+        131,
+        84
+      ]
+    },
+    "redstone_lamp": {
+      "low_rgb": [
+        175,
+        105,
+        59
+      ],
+      "normal_rgb": [
+        147,
+        88,
+        49
+      ],
+      "high_rgb": [
+        134,
+        78,
+        41
+      ],
+      "lowest_rgb": [
+        134,
+        78,
+        41
+      ],
+      "average_rgb": [
+        95,
+        54,
+        30
+      ]
+    },
+    "magma": {
+      "low_rgb": [
+        230,
+        100,
+        16
+      ],
+      "normal_rgb": [
+        230,
+        100,
+        16
+      ],
+      "high_rgb": [
+        101,
+        40,
+        40
+      ],
+      "lowest_rgb": [
+        230,
+        100,
+        16
+      ],
+      "average_rgb": [
+        141,
+        62,
+        30
+      ]
+    },
+    "nether_wart_block": {
+      "low_rgb": [
+        123,
+        0,
+        0
+      ],
+      "normal_rgb": [
+        123,
+        0,
+        0
+      ],
+      "high_rgb": [
+        106,
+        4,
+        0
+      ],
+      "lowest_rgb": [
+        106,
+        4,
+        0
+      ],
+      "average_rgb": [
+        114,
+        2,
+        2
+      ]
+    },
+    "crimson_nylium": {
+      "low_rgb": [
+        90,
+        0,
+        0
+      ],
+      "normal_rgb": [
+        123,
+        0,
+        0
+      ],
+      "high_rgb": [
+        90,
+        0,
+        0
+      ],
+      "lowest_rgb": [
+        90,
+        0,
+        0
+      ],
+      "average_rgb": [
+        107,
+        26,
+        26
+      ]
+    },
+    "warped_nylium": {
+      "low_rgb": [
+        48,
+        60,
+        53
+      ],
+      "normal_rgb": [
+        62,
+        79,
+        88
+      ],
+      "high_rgb": [
+        48,
+        60,
+        53
+      ],
+      "lowest_rgb": [
+        48,
+        60,
+        53
+      ],
+      "average_rgb": [
+        72,
+        61,
+        59
+      ]
+    },
+    "ancient_debris": {
+      "low_rgb": [
+        74,
+        44,
+        35
+      ],
+      "normal_rgb": [
+        101,
+        71,
+        64
+      ],
+      "high_rgb": [
+        101,
+        71,
+        64
+      ],
+      "lowest_rgb": [
+        93,
+        52,
+        44
+      ],
+      "average_rgb": [
+        95,
+        63,
+        55
+      ]
+    },
+    "netherite_block": {
+      "low_rgb": [
+        76,
+        65,
+        67
+      ],
+      "normal_rgb": [
+        72,
+        69,
+        72
+      ],
+      "high_rgb": [
+        67,
+        64,
+        67
+      ],
+      "lowest_rgb": [
+        72,
+        69,
+        72
+      ],
+      "average_rgb": [
+        66,
+        61,
+        63
+      ]
+    },
+    "nether_gold_ore": {
+      "low_rgb": [
+        252,
+        238,
+        75
+      ],
+      "normal_rgb": [
+        101,
+        40,
+        40
+      ],
+      "high_rgb": [
+        80,
+        27,
+        27
+      ],
+      "lowest_rgb": [
+        80,
+        27,
+        27
+      ],
+      "average_rgb": [
+        115,
+        54,
+        42
+      ]
+    },
+    "nether_quartz_ore": {
+      "low_rgb": [
+        234,
+        229,
+        222
+      ],
+      "normal_rgb": [
+        101,
+        40,
+        40
+      ],
+      "high_rgb": [
+        80,
+        27,
+        27
+      ],
+      "lowest_rgb": [
+        80,
+        27,
+        27
+      ],
+      "average_rgb": [
+        117,
+        65,
+        62
+      ]
+    },
+    "quartz_block": {
+      "low_rgb": [
+        238,
+        230,
+        222
+      ],
+      "normal_rgb": [
+        238,
+        230,
+        222
+      ],
+      "high_rgb": [
+        234,
+        226,
+        218
+      ],
+      "lowest_rgb": [
+        238,
+        230,
+        222
+      ],
+      "average_rgb": [
+        235,
+        229,
+        222
+      ]
+    },
+    "quartz_bricks": {
+      "low_rgb": [
+        238,
+        230,
+        222
+      ],
+      "normal_rgb": [
+        238,
+        234,
+        230
+      ],
+      "high_rgb": [
+        234,
+        226,
+        218
+      ],
+      "lowest_rgb": [
+        238,
+        234,
+        230
+      ],
+      "average_rgb": [
+        234,
+        229,
+        221
+      ]
+    },
+    "quartz_pillar": {
+      "low_rgb": [
+        226,
+        222,
+        208
+      ],
+      "normal_rgb": [
+        234,
+        226,
+        218
+      ],
+      "high_rgb": [
+        234,
+        226,
+        218
+      ],
+      "lowest_rgb": [
+        234,
+        226,
+        218
+      ],
+      "average_rgb": [
+        235,
+        230,
+        224
+      ]
+    },
+    "chiseled_quartz_block": {
+      "low_rgb": [
+        226,
+        222,
+        208
+      ],
+      "normal_rgb": [
+        238,
+        230,
+        222
+      ],
+      "high_rgb": [
+        221,
+        217,
+        203
+      ],
+      "lowest_rgb": [
+        238,
+        234,
+        230
+      ],
+      "average_rgb": [
+        231,
+        226,
+        218
+      ]
+    },
+    "basalt": {
+      "low_rgb": [
+        79,
+        75,
+        79
+      ],
+      "normal_rgb": [
+        92,
+        92,
+        92
+      ],
+      "high_rgb": [
+        79,
+        75,
+        79
+      ],
+      "lowest_rgb": [
+        92,
+        92,
+        92
+      ],
+      "average_rgb": [
+        73,
+        72,
+        77
+      ]
+    },
+    "smooth_basalt": {
+      "low_rgb": [
+        58,
+        59,
+        72
+      ],
+      "normal_rgb": [
+        79,
+        75,
+        79
+      ],
+      "high_rgb": [
+        58,
+        59,
+        72
+      ],
+      "lowest_rgb": [
+        105,
+        105,
+        105
+      ],
+      "average_rgb": [
+        72,
+        72,
+        78
+      ]
+    },
+    "polished_basalt": {
+      "low_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        116,
+        116,
+        116
+      ],
+      "high_rgb": [
+        92,
+        92,
+        92
+      ],
+      "lowest_rgb": [
+        92,
+        92,
+        92
+      ],
+      "average_rgb": [
+        88,
+        88,
+        91
+      ]
+    },
+    "nether_bricks": {
+      "low_rgb": [
+        33,
+        17,
+        20
+      ],
+      "normal_rgb": [
+        33,
+        17,
+        20
+      ],
+      "high_rgb": [
+        33,
+        17,
+        20
+      ],
+      "lowest_rgb": [
+        25,
+        13,
+        16
+      ],
+      "average_rgb": [
+        44,
+        21,
+        26
+      ]
+    },
+    "red_nether_bricks": {
+      "low_rgb": [
+        52,
+        1,
+        3
+      ],
+      "normal_rgb": [
+        52,
+        1,
+        3
+      ],
+      "high_rgb": [
+        52,
+        1,
+        3
+      ],
+      "lowest_rgb": [
+        46,
+        0,
+        1
+      ],
+      "average_rgb": [
+        69,
+        7,
+        9
+      ]
+    },
+    "cracked_nether_bricks": {
+      "low_rgb": [
+        33,
+        17,
+        20
+      ],
+      "normal_rgb": [
+        25,
+        13,
+        16
+      ],
+      "high_rgb": [
+        33,
+        17,
+        20
+      ],
+      "lowest_rgb": [
+        25,
+        13,
+        16
+      ],
+      "average_rgb": [
+        40,
+        20,
+        23
+      ]
+    },
+    "chiseled_nether_bricks": {
+      "low_rgb": [
+        62,
+        30,
+        36
+      ],
+      "normal_rgb": [
+        62,
+        30,
+        36
+      ],
+      "high_rgb": [
+        33,
+        17,
+        20
+      ],
+      "lowest_rgb": [
+        25,
+        13,
+        16
+      ],
+      "average_rgb": [
+        47,
+        23,
+        28
+      ]
+    },
+    "blackstone": {
+      "low_rgb": [
+        60,
+        57,
+        71
+      ],
+      "normal_rgb": [
+        49,
+        44,
+        54
+      ],
+      "high_rgb": [
+        31,
+        18,
+        27
+      ],
+      "lowest_rgb": [
+        60,
+        57,
+        71
+      ],
+      "average_rgb": [
+        42,
+        35,
+        40
+      ]
+    },
+    "gilded_blackstone": {
+      "low_rgb": [
+        60,
+        57,
+        71
+      ],
+      "normal_rgb": [
+        49,
+        44,
+        54
+      ],
+      "high_rgb": [
+        218,
+        145,
+        15
+      ],
+      "lowest_rgb": [
+        60,
+        57,
+        71
+      ],
+      "average_rgb": [
+        56,
+        43,
+        38
+      ]
+    },
+    "polished_blackstone": {
+      "low_rgb": [
+        39,
+        34,
+        28
+      ],
+      "normal_rgb": [
+        60,
+        57,
+        71
+      ],
+      "high_rgb": [
+        39,
+        34,
+        28
+      ],
+      "lowest_rgb": [
+        49,
+        44,
+        54
+      ],
+      "average_rgb": [
+        53,
+        48,
+        56
+      ]
+    },
+    "chiseled_polished_blackstone": {
+      "low_rgb": [
+        60,
+        57,
+        71
+      ],
+      "normal_rgb": [
+        60,
+        57,
+        71
+      ],
+      "high_rgb": [
+        39,
+        34,
+        28
+      ],
+      "lowest_rgb": [
+        39,
+        34,
+        28
+      ],
+      "average_rgb": [
+        53,
+        48,
+        56
+      ]
+    },
+    "polished_blackstone_bricks": {
+      "low_rgb": [
+        49,
+        44,
+        54
+      ],
+      "normal_rgb": [
+        31,
+        18,
+        27
+      ],
+      "high_rgb": [
+        31,
+        18,
+        27
+      ],
+      "lowest_rgb": [
+        39,
+        34,
+        28
+      ],
+      "average_rgb": [
+        46,
+        41,
+        48
+      ]
+    },
+    "cracked_polished_blackstone_bricks": {
+      "low_rgb": [
+        49,
+        44,
+        54
+      ],
+      "normal_rgb": [
+        31,
+        18,
+        27
+      ],
+      "high_rgb": [
+        39,
+        34,
+        28
+      ],
+      "lowest_rgb": [
+        49,
+        44,
+        54
+      ],
+      "average_rgb": [
+        43,
+        37,
+        43
+      ]
+    }
+  },
+  "the_end": {
+    "end_stone": {
+      "low_rgb": [
+        238,
+        246,
+        180
+      ],
+      "normal_rgb": [
+        197,
+        190,
+        139
+      ],
+      "high_rgb": [
+        213,
+        218,
+        148
+      ],
+      "lowest_rgb": [
+        238,
+        246,
+        180
+      ],
+      "average_rgb": [
+        219,
+        222,
+        158
+      ]
+    },
+    "end_stone_bricks": {
+      "low_rgb": [
+        236,
+        251,
+        175
+      ],
+      "normal_rgb": [
+        169,
+        162,
+        116
+      ],
+      "high_rgb": [
+        232,
+        244,
+        178
+      ],
+      "lowest_rgb": [
+        214,
+        214,
+        149
+      ],
+      "average_rgb": [
+        218,
+        224,
+        162
+      ]
+    },
+    "purpur_block": {
+      "low_rgb": [
+        172,
+        123,
+        172
+      ],
+      "normal_rgb": [
+        199,
+        168,
+        199
+      ],
+      "high_rgb": [
+        172,
+        123,
+        172
+      ],
+      "lowest_rgb": [
+        172,
+        123,
+        172
+      ],
+      "average_rgb": [
+        169,
+        125,
+        169
+      ]
+    },
+    "purpur_pillar": {
+      "low_rgb": [
+        199,
+        168,
+        199
+      ],
+      "normal_rgb": [
+        199,
+        168,
+        199
+      ],
+      "high_rgb": [
+        199,
+        168,
+        199
+      ],
+      "lowest_rgb": [
+        199,
+        168,
+        199
+      ],
+      "average_rgb": [
+        171,
+        129,
+        171
+      ]
+    },
+    "shulker_box": {
+      "low_rgb": [
+        151,
+        105,
+        151
+      ],
+      "normal_rgb": [
+        151,
+        103,
+        151
+      ],
+      "high_rgb": [
+        151,
+        103,
+        151
+      ],
+      "lowest_rgb": [
+        151,
+        106,
+        151
+      ],
+      "average_rgb": [
+        139,
+        96,
+        139
+      ]
+    },
+    "black_shulker_box": {
+      "low_rgb": [
+        31,
+        31,
+        35
+      ],
+      "normal_rgb": [
+        31,
+        31,
+        35
+      ],
+      "high_rgb": [
+        31,
+        31,
+        35
+      ],
+      "lowest_rgb": [
+        31,
+        31,
+        35
+      ],
+      "average_rgb": [
+        25,
+        25,
+        29
+      ]
+    },
+    "blue_shulker_box": {
+      "low_rgb": [
+        51,
+        53,
+        155
+      ],
+      "normal_rgb": [
+        50,
+        53,
+        154
+      ],
+      "high_rgb": [
+        50,
+        53,
+        154
+      ],
+      "lowest_rgb": [
+        51,
+        53,
+        155
+      ],
+      "average_rgb": [
+        43,
+        45,
+        140
+      ]
+    },
+    "brown_shulker_box": {
+      "low_rgb": [
+        115,
+        72,
+        40
+      ],
+      "normal_rgb": [
+        114,
+        71,
+        40
+      ],
+      "high_rgb": [
+        114,
+        71,
+        40
+      ],
+      "lowest_rgb": [
+        115,
+        72,
+        40
+      ],
+      "average_rgb": [
+        106,
+        66,
+        35
+      ]
+    },
+    "cyan_shulker_box": {
+      "low_rgb": [
+        22,
+        135,
+        146
+      ],
+      "normal_rgb": [
+        22,
+        134,
+        145
+      ],
+      "high_rgb": [
+        22,
+        134,
+        145
+      ],
+      "lowest_rgb": [
+        22,
+        135,
+        146
+      ],
+      "average_rgb": [
+        20,
+        121,
+        135
+      ]
+    },
+    "gray_shulker_box": {
+      "low_rgb": [
+        62,
+        66,
+        70
+      ],
+      "normal_rgb": [
+        61,
+        66,
+        69
+      ],
+      "high_rgb": [
+        61,
+        66,
+        69
+      ],
+      "lowest_rgb": [
+        62,
+        66,
+        70
+      ],
+      "average_rgb": [
+        55,
+        58,
+        62
+      ]
+    },
+    "green_shulker_box": {
+      "low_rgb": [
+        84,
+        109,
+        28
+      ],
+      "normal_rgb": [
+        84,
+        108,
+        29
+      ],
+      "high_rgb": [
+        84,
+        108,
+        29
+      ],
+      "lowest_rgb": [
+        84,
+        109,
+        28
+      ],
+      "average_rgb": [
+        79,
+        100,
+        31
+      ]
+    },
+    "light_blue_shulker_box": {
+      "low_rgb": [
+        59,
+        180,
+        219
+      ],
+      "normal_rgb": [
+        58,
+        179,
+        218
+      ],
+      "high_rgb": [
+        58,
+        179,
+        218
+      ],
+      "lowest_rgb": [
+        59,
+        180,
+        219
+      ],
+      "average_rgb": [
+        49,
+        163,
+        212
+      ]
+    },
+    "light_gray_shulker_box": {
+      "low_rgb": [
+        140,
+        140,
+        131
+      ],
+      "normal_rgb": [
+        139,
+        139,
+        130
+      ],
+      "high_rgb": [
+        139,
+        139,
+        130
+      ],
+      "lowest_rgb": [
+        140,
+        140,
+        131
+      ],
+      "average_rgb": [
+        124,
+        124,
+        115
+      ]
+    },
+    "lime_shulker_box": {
+      "low_rgb": [
+        113,
+        188,
+        24
+      ],
+      "normal_rgb": [
+        111,
+        187,
+        24
+      ],
+      "high_rgb": [
+        111,
+        187,
+        24
+      ],
+      "lowest_rgb": [
+        113,
+        188,
+        24
+      ],
+      "average_rgb": [
+        99,
+        172,
+        23
+      ]
+    },
+    "magenta_shulker_box": {
+      "low_rgb": [
+        186,
+        63,
+        175
+      ],
+      "normal_rgb": [
+        185,
+        62,
+        174
+      ],
+      "high_rgb": [
+        185,
+        62,
+        174
+      ],
+      "lowest_rgb": [
+        186,
+        63,
+        175
+      ],
+      "average_rgb": [
+        173,
+        54,
+        163
+      ]
+    },
+    "orange_shulker_box": {
+      "low_rgb": [
+        245,
+        116,
+        16
+      ],
+      "normal_rgb": [
+        244,
+        115,
+        15
+      ],
+      "high_rgb": [
+        244,
+        115,
+        15
+      ],
+      "lowest_rgb": [
+        245,
+        116,
+        16
+      ],
+      "average_rgb": [
+        234,
+        106,
+        8
+      ]
+    },
+    "pink_shulker_box": {
+      "low_rgb": [
+        243,
+        139,
+        170
+      ],
+      "normal_rgb": [
+        242,
+        137,
+        168
+      ],
+      "high_rgb": [
+        242,
+        137,
+        168
+      ],
+      "lowest_rgb": [
+        243,
+        139,
+        170
+      ],
+      "average_rgb": [
+        230,
+        121,
+        157
+      ]
+    },
+    "purple_shulker_box": {
+      "low_rgb": [
+        116,
+        38,
+        169
+      ],
+      "normal_rgb": [
+        114,
+        37,
+        168
+      ],
+      "high_rgb": [
+        114,
+        37,
+        168
+      ],
+      "lowest_rgb": [
+        116,
+        38,
+        169
+      ],
+      "average_rgb": [
+        103,
+        32,
+        156
+      ]
+    },
+    "red_shulker_box": {
+      "low_rgb": [
+        156,
+        37,
+        34
+      ],
+      "normal_rgb": [
+        154,
+        36,
+        34
+      ],
+      "high_rgb": [
+        154,
+        36,
+        34
+      ],
+      "lowest_rgb": [
+        156,
+        37,
+        34
+      ],
+      "average_rgb": [
+        140,
+        31,
+        30
+      ]
+    },
+    "white_shulker_box": {
+      "low_rgb": [
+        230,
+        234,
+        234
+      ],
+      "normal_rgb": [
+        228,
+        233,
+        233
+      ],
+      "high_rgb": [
+        228,
+        233,
+        233
+      ],
+      "lowest_rgb": [
+        230,
+        234,
+        234
+      ],
+      "average_rgb": [
+        215,
+        220,
+        221
+      ]
+    },
+    "yellow_shulker_box": {
+      "low_rgb": [
+        252,
+        199,
+        36
+      ],
+      "normal_rgb": [
+        252,
+        198,
+        35
+      ],
+      "high_rgb": [
+        252,
+        198,
+        35
+      ],
+      "lowest_rgb": [
+        252,
+        199,
+        36
+      ],
+      "average_rgb": [
+        248,
+        188,
+        29
+      ]
+    }
+  },
+  "ocean": {
+    "prismarine": {
+      "low_rgb": [
+        70,
+        137,
+        116
+      ],
+      "normal_rgb": [
+        94,
+        164,
+        150
+      ],
+      "high_rgb": [
+        94,
+        164,
+        150
+      ],
+      "lowest_rgb": [
+        121,
+        183,
+        171
+      ],
+      "average_rgb": [
+        98,
+        162,
+        145
+      ]
+    },
+    "prismarine_bricks": {
+      "low_rgb": [
+        110,
+        185,
+        174
+      ],
+      "normal_rgb": [
+        110,
+        185,
+        174
+      ],
+      "high_rgb": [
+        90,
+        175,
+        164
+      ],
+      "lowest_rgb": [
+        149,
+        207,
+        199
+      ],
+      "average_rgb": [
+        99,
+        171,
+        158
+      ]
+    },
+    "dark_prismarine": {
+      "low_rgb": [
+        59,
+        130,
+        104
+      ],
+      "normal_rgb": [
+        56,
+        98,
+        81
+      ],
+      "high_rgb": [
+        59,
+        130,
+        104
+      ],
+      "lowest_rgb": [
+        63,
+        109,
+        92
+      ],
+      "average_rgb": [
+        51,
+        91,
+        75
+      ]
+    },
+    "sponge": {
+      "low_rgb": [
+        225,
+        227,
+        81
+      ],
+      "normal_rgb": [
+        193,
+        188,
+        78
+      ],
+      "high_rgb": [
+        193,
+        188,
+        78
+      ],
+      "lowest_rgb": [
+        225,
+        227,
+        81
+      ],
+      "average_rgb": [
+        195,
+        192,
+        74
+      ]
+    },
+    "wet_sponge": {
+      "low_rgb": [
+        205,
+        206,
+        74
+      ],
+      "normal_rgb": [
+        150,
+        168,
+        70
+      ],
+      "high_rgb": [
+        150,
+        168,
+        70
+      ],
+      "lowest_rgb": [
+        205,
+        206,
+        74
+      ],
+      "average_rgb": [
+        171,
+        181,
+        70
+      ]
+    },
+    "dried_kelp_block": {
+      "low_rgb": [
+        44,
+        56,
+        32
+      ],
+      "normal_rgb": [
+        19,
+        33,
+        19
+      ],
+      "high_rgb": [
+        35,
+        47,
+        23
+      ],
+      "lowest_rgb": [
+        44,
+        56,
+        32
+      ],
+      "average_rgb": [
+        38,
+        48,
+        29
+      ]
+    },
+    "sea_lantern": {
+      "low_rgb": [
+        222,
+        234,
+        228
+      ],
+      "normal_rgb": [
+        226,
+        234,
+        226
+      ],
+      "high_rgb": [
+        215,
+        228,
+        224
+      ],
+      "lowest_rgb": [
+        215,
+        230,
+        225
+      ],
+      "average_rgb": [
+        172,
+        200,
+        190
+      ]
+    },
+    "brain_coral_block": {
+      "low_rgb": [
+        172,
+        51,
+        130
+      ],
+      "normal_rgb": [
+        214,
+        84,
+        155
+      ],
+      "high_rgb": [
+        228,
+        126,
+        185
+      ],
+      "lowest_rgb": [
+        191,
+        70,
+        146
+      ],
+      "average_rgb": [
+        207,
+        91,
+        159
+      ]
+    },
+    "bubble_coral_block": {
+      "low_rgb": [
+        145,
+        22,
+        145
+      ],
+      "normal_rgb": [
+        200,
+        25,
+        186
+      ],
+      "high_rgb": [
+        145,
+        22,
+        145
+      ],
+      "lowest_rgb": [
+        145,
+        22,
+        145
+      ],
+      "average_rgb": [
+        165,
+        26,
+        162
+      ]
+    },
+    "fire_coral_block": {
+      "low_rgb": [
+        164,
+        34,
+        47
+      ],
+      "normal_rgb": [
+        164,
+        34,
+        47
+      ],
+      "high_rgb": [
+        226,
+        63,
+        54
+      ],
+      "lowest_rgb": [
+        121,
+        26,
+        38
+      ],
+      "average_rgb": [
+        163,
+        35,
+        46
+      ]
+    },
+    "horn_coral_block": {
+      "low_rgb": [
+        209,
+        179,
+        65
+      ],
+      "normal_rgb": [
+        190,
+        160,
+        53
+      ],
+      "high_rgb": [
+        209,
+        179,
+        65
+      ],
+      "lowest_rgb": [
+        213,
+        203,
+        62
+      ],
+      "average_rgb": [
+        216,
+        199,
+        66
+      ]
+    },
+    "tube_coral_block": {
+      "low_rgb": [
+        33,
+        67,
+        164
+      ],
+      "normal_rgb": [
+        33,
+        67,
+        164
+      ],
+      "high_rgb": [
+        33,
+        67,
+        164
+      ],
+      "lowest_rgb": [
+        63,
+        108,
+        229
+      ],
+      "average_rgb": [
+        49,
+        87,
+        206
+      ]
+    },
+    "dead_brain_coral_block": {
+      "low_rgb": [
+        93,
+        90,
+        89
+      ],
+      "normal_rgb": [
+        116,
+        106,
+        102
+      ],
+      "high_rgb": [
+        153,
+        147,
+        141
+      ],
+      "lowest_rgb": [
+        104,
+        100,
+        99
+      ],
+      "average_rgb": [
+        124,
+        117,
+        114
+      ]
+    },
+    "dead_bubble_coral_block": {
+      "low_rgb": [
+        116,
+        106,
+        102
+      ],
+      "normal_rgb": [
+        153,
+        147,
+        141
+      ],
+      "high_rgb": [
+        116,
+        106,
+        102
+      ],
+      "lowest_rgb": [
+        116,
+        106,
+        102
+      ],
+      "average_rgb": [
+        131,
+        123,
+        119
+      ]
+    },
+    "dead_fire_coral_block": {
+      "low_rgb": [
+        134,
+        123,
+        119
+      ],
+      "normal_rgb": [
+        134,
+        123,
+        119
+      ],
+      "high_rgb": [
+        164,
+        160,
+        156
+      ],
+      "lowest_rgb": [
+        104,
+        100,
+        99
+      ],
+      "average_rgb": [
+        131,
+        123,
+        119
+      ]
+    },
+    "dead_horn_coral_block": {
+      "low_rgb": [
+        134,
+        123,
+        119
+      ],
+      "normal_rgb": [
+        104,
+        100,
+        99
+      ],
+      "high_rgb": [
+        134,
+        123,
+        119
+      ],
+      "lowest_rgb": [
+        116,
+        106,
+        102
+      ],
+      "average_rgb": [
+        133,
+        126,
+        122
+      ]
+    },
+    "dead_tube_coral_block": {
+      "low_rgb": [
+        104,
+        100,
+        99
+      ],
+      "normal_rgb": [
+        104,
+        100,
+        99
+      ],
+      "high_rgb": [
+        104,
+        100,
+        99
+      ],
+      "lowest_rgb": [
+        153,
+        147,
+        141
+      ],
+      "average_rgb": [
+        130,
+        123,
+        119
+      ]
+    }
   }
-]
+}
