@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use crate::building_gadges::to_bg_schematic::ToBgSchematic;
 use crate::create::to_create_schematic::ToCreateSchematic;
 use crate::data_files::files::FileManager;
@@ -9,6 +10,7 @@ use crate::utils::minecraft_data::je_blocks_data::{BlocksData, SubData};
 use crate::word_edit::to_we_schematic::ToWeSchematic;
 use std::path::PathBuf;
 use tauri::State;
+use crate::utils::minecraft_data::map_art_data::{BlockColorData, MapArtsData};
 
 #[tauri::command]
 pub async fn get_schematic_convert_data(
@@ -39,6 +41,18 @@ pub async fn get_je_blocks(
     }
     .await
     .map_err(|e: anyhow::Error| e.to_string())
+}
+
+#[tauri::command]
+pub async fn get_map_arts(
+    map_arts: State<'_, MapArtsData>,
+) -> anyhow::Result<HashMap<String, HashMap<String, BlockColorData>>, String> {
+    async move {
+        let data = map_arts.categories.clone();
+        Ok(data)
+    }
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())
 }
 
 #[tauri::command]

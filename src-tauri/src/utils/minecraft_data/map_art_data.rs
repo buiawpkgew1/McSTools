@@ -5,27 +5,30 @@ use std::fs;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BlockColorData {
-    #[serde(rename = "low_rgb")]
+    #[serde(rename = "left_top")]
     pub low: Vec<u8>,
-    #[serde(rename = "normal_rgb")]
+    #[serde(rename = "center")]
     pub normal: Vec<u8>,
-    #[serde(rename = "high_rgb")]
+    #[serde(rename = "right_top")]
     pub high: Vec<u8>,
-    #[serde(rename = "lowest_rgb")]
+    #[serde(rename = "left_bottom")]
     pub lowest: Vec<u8>,
     #[serde(rename = "average_rgb")]
     pub average: Vec<u8>,
+    #[serde(rename = "average_rgb_hex")]
+    pub average_hex: String,
+    pub zh_cn: String,
 }
 
 pub type CategoryBlocks = HashMap<String, HashMap<String, BlockColorData>>;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct BlockDatabase {
+pub struct MapArtsData {
     #[serde(flatten)]
     pub categories: CategoryBlocks,
 }
 
-impl BlockDatabase {
+impl MapArtsData {
 
     pub fn new() -> Result<Self> {
         let path = "./data/blocks_art.json";

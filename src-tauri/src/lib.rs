@@ -18,7 +18,7 @@ use database::db_apis::logs_api::{add_logs, get_logs};
 use database::db_apis::schematic_data_api::{get_schematic_requirements, get_unique_block};
 use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics};
 use database::db_apis::user_api::get_user_data;
-use modules::convert::{convert, get_je_blocks, get_schematic_convert_data};
+use modules::convert::{convert, get_je_blocks, get_schematic_convert_data, get_map_arts};
 use modules::history::get_history;
 use modules::replace::schematic_replacement;
 use modules::schematic::{
@@ -30,6 +30,7 @@ use tauri::Manager;
 use modules::modules_data;
 use utils::loading::close_splashscreen;
 use utils::minecraft_data::versions_data::VersionData;
+use crate::utils::minecraft_data::map_art_data::MapArtsData;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -51,6 +52,8 @@ pub fn run() {
             app.manage(version_data);
             let je_blocks = BlocksData::new()?;
             app.manage(je_blocks);
+            let map_arts = MapArtsData::new()?;
+            app.manage(map_arts);
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
@@ -67,6 +70,7 @@ pub fn run() {
             add_logs,
             schematic_replacement,
             get_je_blocks,
+            get_map_arts,
             get_logs,
             add_schematic,
             get_schematic,

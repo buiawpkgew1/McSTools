@@ -2,4 +2,4 @@ pub mod convert;
 pub mod history;
 pub mod replace;
 pub mod schematic;
-mod modules_data;
+pub(crate) mod modules_data;

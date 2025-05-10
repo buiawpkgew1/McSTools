@@ -43,11 +43,3 @@ const encode_image = async (file: File | undefined) => {
     };
 };
 
-type ImageInfo = {
-    name: string;
-    ext: string;
-    data: Uint8Array;
-    width: number;
-    height: number;
-    image: HTMLImageElement;
-}

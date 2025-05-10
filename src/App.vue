@@ -108,6 +108,7 @@ import {fetchUserData} from "./modules/user_data.ts";
 import {relaunch} from "@tauri-apps/plugin-process";
 import {appData, getAppVersion} from "./modules/app_data.ts";
 import {toast} from "./modules/others.ts";
+import {fetchMapArtsData, mapArtData} from "./modules/map_art/map_art_data.ts";
 const selectedTheme = ref('grey')
 const updateDialog = ref(false);
 const updateProgress = ref(0);
@@ -190,7 +191,8 @@ onMounted(async () => {
   await checkUpdate()
   appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
-
+  mapArtData.value = await fetchMapArtsData()
+  console.log(mapArtData.value)
 })
 
 watchEffect(() => {
