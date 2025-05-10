@@ -284,7 +284,7 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgb(2, 154, 209);
 }
 
 canvas {
