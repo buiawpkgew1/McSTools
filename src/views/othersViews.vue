@@ -28,8 +28,9 @@ onBeforeRouteLeave(navigationGuard)
           <v-divider vertical inset class="mx-4"/>
 
           <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1">
-            <v-tab value="img">地图画</v-tab>
             <v-tab value="music">红石音乐</v-tab>
+            <v-tab value="img">地图画</v-tab>
+
           </v-tabs>
         </v-toolbar>
         <v-window v-model="active">

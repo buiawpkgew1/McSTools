@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {mapArtData} from "../../modules/map_art/map_art_data.ts"
 import {getBlockImg} from "../../modules/others.ts";
 const exportSettings = ref({
@@ -12,6 +12,7 @@ const selectedBlocks = ref<string[]>([]);
 const expandedCategories = ref<string[]>([])
 const mapImg = ref<File>();
 const previewImage = ref<string>("");
+const blocksLoaded = ref(false);
 
 const toggleBlock = (blockId: string) => {
   const index = selectedBlocks.value.indexOf(blockId)
@@ -48,7 +49,11 @@ const isCategorySelected = (categoryName: string) => {
       selectedBlocks.value.includes(item.id)
   ) ?? false
 }
-
+onMounted(async () => {
+  setTimeout(() => {
+    blocksLoaded.value = true;
+  }, 100);
+})
 </script>
 
 <template>
@@ -140,7 +145,7 @@ const isCategorySelected = (categoryName: string) => {
           </template>
         </v-switch>
       </div>
-      <v-card>
+      <v-card v-if="blocksLoaded">
         <v-toolbar density="compact">
           <v-toolbar-title>方块选择器</v-toolbar-title>
         </v-toolbar>
