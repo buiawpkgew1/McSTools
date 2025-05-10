@@ -12,14 +12,53 @@ export interface BlockColorData {
     zh_cn: string;
 }
 
-export const mapArtData = ref<CategoryBlocks>()
+export interface SubData {
+    low_rgb: number[];
+    normal_rgb: number[];
+    high_rgb: number[];
+    lowest_rgb: number[];
+    average_rgb: number[];
+    average_rgb_hex: string;
+    zh_cn: string;
+    id: string;
+}
+
+const categoryData = {
+    "wool": "羊毛",
+    "clay": "粘土",
+    "concrete": "混凝土",
+    "stone": "石材",
+    "crafted": "工艺制品",
+    "desert": "沙漠建材",
+    "wood": "木材",
+    "ore": "矿石",
+    "the_end": "末地建材",
+    "natural": "主世界",
+    "nether": "地狱建材",
+    "ocean": "海洋建材"
+}
+export interface RawData {
+    name: string;
+    zh_cn: string;
+    items: SubData[];
+}
+
+export const mapArtData = ref<RawData[]>()
 
 export type CategoryBlocks = Record<string, Record<string, BlockColorData>>;
 
 export async function fetchMapArtsData(
-): Promise<CategoryBlocks> {
+): Promise<RawData[]> {
     try {
-        return await invoke<CategoryBlocks>('get_map_arts')
+        let data = await invoke<CategoryBlocks>('get_map_arts')
+        return Object.entries(data).map(([category, blocks]) => ({
+            name: category,
+            zh_cn: categoryData[category],
+            items: Object.entries(blocks).map(([id, data]) => ({
+                id,
+                ...data
+            }))
+        }))
     } catch (error) {
         toast.error(`发生了一个错误:${error}`, {
             timeout: 3000

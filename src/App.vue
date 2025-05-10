@@ -192,7 +192,6 @@ onMounted(async () => {
   appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
   mapArtData.value = await fetchMapArtsData()
-  console.log(mapArtData.value)
 })
 
 watchEffect(() => {
