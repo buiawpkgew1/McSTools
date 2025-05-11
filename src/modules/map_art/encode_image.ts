@@ -6,18 +6,38 @@ const encode_image = async (file: File | undefined) => {
     const arrayBuffer = await file.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
 
+    const mimeTypeMap: Record<string, string> = {
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        bmp: 'image/bmp',
+        gif: 'image/gif',
+        webp: 'image/webp'
+    };
+
+    const base64String = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const dataUrl = reader.result as string;
+            const base64Data = dataUrl.split(',')[1];
+            resolve(base64Data);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(new Blob([arrayBuffer], { type: file.type }));
+    });
+
+    const mimeType = mimeTypeMap[ext] || file.type || 'application/octet-stream';
+
     const { width, height, image } = await new Promise<{
         width: number;
         height: number;
         image: HTMLImageElement
     }>((resolve, reject) => {
-        const blob = new Blob([uint8Array], { type: file.type });
-        const url = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(new Blob([uint8Array]));
         const img = new Image();
 
         img.onload = () => {
             URL.revokeObjectURL(url);
-
             resolve({
                 width: img.naturalWidth,
                 height: img.naturalHeight,
@@ -39,7 +59,7 @@ const encode_image = async (file: File | undefined) => {
         data: uint8Array,
         width,
         height,
-        image
+        image,
+        base64: `data:${mimeType};base64,${base64String}`
     };
 };
-
