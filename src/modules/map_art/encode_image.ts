@@ -1,4 +1,7 @@
-const encode_image = async (file: File | undefined) => {
+import {ref} from "vue";
+
+export const image_data = ref<ProcessedImage>()
+export const encode_image = async (file: File | undefined): Promise<ProcessedImage> => {
     if (!file) return;
 
     const ext = file.name.split('.').pop()?.toLowerCase() || 'png';
@@ -52,14 +55,23 @@ const encode_image = async (file: File | undefined) => {
 
         img.src = url;
     });
-
     return {
         name,
         ext,
-        data: uint8Array,
+        rawData: uint8Array,
         width,
         height,
         image,
         base64: `data:${mimeType};base64,${base64String}`
     };
 };
+
+export interface ProcessedImage {
+    name: string;
+    ext: string;
+    rawData: Uint8Array;
+    width: number;
+    height: number;
+    image: HTMLImageElement;
+    base64: string;
+}
