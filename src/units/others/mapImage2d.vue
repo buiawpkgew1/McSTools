@@ -18,6 +18,7 @@ const selectedBlocks = ref<string[]>([]);
 const expandedCategories = ref<string[]>([])
 const imageBuild = ref<MapArtProcessor>();
 const mapImg = ref<File>();
+const targetRotation = ref<0 | 90 | 180 | 270>(0);
 const previewImage = ref<string>("");
 const blocksLoaded = ref(false);
 const toggleBlock = (blockId: string) => {
@@ -57,11 +58,8 @@ const refreshImage = async () => {
   try {
     isProcessing.value = true
     hasImage.value = true
-    exportSettings.height = image_data.value.height
-    exportSettings.width = image_data.value.width
     imageBuild.value.updateBlocksData(selectedBlocks.value)
-    await updateSize()
-    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering);
+    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, targetRotation.value);
     const ctx = previewCanvas.value.getContext('2d')
     if (!ctx) return
 
@@ -89,7 +87,7 @@ const uploadImage = async(file: File | undefined) => {
     exportSettings.width = image_data.value.width
     imageBuild.value.updateBlocksData(selectedBlocks.value)
     await updateSize()
-    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering);
+    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, targetRotation.value);
     const ctx = previewCanvas.value.getContext('2d')
     if (!ctx) return
 
@@ -158,10 +156,12 @@ onMounted(async () => {
             </v-list-item>
           </v-list>
         </v-col>
-        <v-col cols="12" class="d-flex justify-center">
+        <v-col cols="12" class="d-flex align-center justify-center gap-2" style="padding: 0px !important;">
+          <v-icon color="blue" icon="mdi-arrow-expand" class="mt-1"></v-icon>
           <v-btn-toggle
               v-model="resize"
               color="primary"
+              class="d-flex align-center"
               mandatory
               @update:model-value="updateSize"
           >
@@ -176,6 +176,28 @@ onMounted(async () => {
             </v-btn>
             <v-btn :value="1/8" size="large" class="px-6">
               <span class="font-weight-bold">1/8</span>
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+        <v-col cols="12" class="d-flex align-center justify-center gap-2" style="padding: 6px !important;">
+          <v-icon color="blue" icon="mdi-rotate-right"  class="mt-1"></v-icon>
+          <v-btn-toggle
+              v-model="targetRotation"
+              color="primary"
+              mandatory
+              class="d-flex align-center"
+          >
+            <v-btn :value="0" size="large" class="px-6">
+              <span class="font-weight-bold">0</span>
+            </v-btn>
+            <v-btn :value="90" size="large" class="px-6">
+              <span class="font-weight-bold">90</span>
+            </v-btn>
+            <v-btn :value="180" size="large" class="px-6">
+              <span class="font-weight-bold">180</span>
+            </v-btn>
+            <v-btn :value="270" size="large" class="px-6">
+              <span class="font-weight-bold">270</span>
             </v-btn>
           </v-btn-toggle>
         </v-col>

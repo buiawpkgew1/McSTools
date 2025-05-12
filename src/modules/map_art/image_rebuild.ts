@@ -104,14 +104,15 @@ export class MapArtProcessor {
         sourceImage: HTMLImageElement,
         blockSize: number = 16,
         targetSize?: { width: number; height: number },
-        useDithering: boolean = true
+        useDithering: boolean = true,
+        rotation?: 0 | 90 | 180 | 270
     ): Promise<HTMLCanvasElement> {
         const selectedBlocks = this.getSelectedBlocks()
         if (selectedBlocks.length === 0) {
             throw new Error('未选择任何方块')
         }
 
-        const resizedImage = await this.resizeImage(sourceImage, targetSize)
+        const resizedImage = await this.resizeImage(sourceImage, targetSize, rotation)
 
         const { data, width, height } = this.getImageData(resizedImage)
         const blockImages = await loadBlockImages(selectedBlocks)
@@ -143,36 +144,57 @@ export class MapArtProcessor {
 
     private async resizeImage(
         image: HTMLImageElement,
-        targetSize?: { width: number; height: number }
+        targetSize?: { width: number; height: number },
+        rotation?: 0 | 90 | 180 | 270
     ): Promise<HTMLImageElement> {
         return new Promise((resolve) => {
-            if (!targetSize ||
-                (targetSize.width === image.naturalWidth &&
-                    targetSize.height === image.naturalHeight)) {
-                resolve(image)
-                return
-            }
+
+            const [baseWidth, baseHeight] = rotation % 180 === 90
+                ? [image.naturalHeight, image.naturalWidth]
+                : [image.naturalWidth, image.naturalHeight]
+
+            const finalWidth = targetSize?.width || baseWidth
+            const finalHeight = targetSize?.height || baseHeight
 
             const canvas = document.createElement('canvas')
             const ctx = canvas.getContext('2d', { willReadFrequently: false })
             if (!ctx) throw new Error('无法创建临时画布')
 
-            canvas.width = targetSize.width
-            canvas.height = targetSize.height
+            canvas.width = finalWidth
+            canvas.height = finalHeight
 
             ctx.imageSmoothingQuality = 'high'
             ctx.imageSmoothingEnabled = true
 
+            ctx.save()
+
+            ctx.translate(canvas.width / 2, canvas.height / 2)
+            ctx.rotate((rotation * Math.PI) / 180)
+
+            const scaleX = finalWidth / baseWidth
+            const scaleY = finalHeight / baseHeight
+            const scale = Math.min(scaleX, scaleY)
+
+            ctx.scale(scale, scale)
             ctx.drawImage(
                 image,
-                0, 0, image.naturalWidth, image.naturalHeight,
-                0, 0, targetSize.width, targetSize.height
+                -baseWidth / 2,
+                -baseHeight / 2,
+                image.naturalWidth,
+                image.naturalHeight
             )
+
+            ctx.restore()
 
             const resizedImage = new Image()
             resizedImage.onload = () => {
                 canvas.remove()
                 resolve(resizedImage)
+            }
+            resizedImage.onerror = (err) => {
+                console.error('图像加载失败:', err)
+                canvas.remove()
+                resolve(image)
             }
             resizedImage.src = canvas.toDataURL('image/png')
         })
