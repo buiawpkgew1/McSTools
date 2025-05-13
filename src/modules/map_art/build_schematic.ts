@@ -31,7 +31,6 @@ export class BlockStatePosList {
         });
         return this;
     }
-
     addBlockByNameYZ(y:number, z:number, name: string): this {
         this.elements.push({
             pos: { x:0, y:y, z:z },
@@ -39,7 +38,6 @@ export class BlockStatePosList {
         });
         return this;
     }
-
 
     addBlock(pos: BlockPos, block: BlockDataNew): this {
         this.elements.push({
@@ -52,14 +50,6 @@ export class BlockStatePosList {
     addBlocks(blocks: BlockStatePos[]): this {
         blocks.forEach(b => this.addBlock(b.pos, b.block));
         return this;
-    }
-
-    findBlock(pos: BlockPos): BlockStatePos | undefined {
-        return this.elements.find(e =>
-            e.pos.x === pos.x &&
-            e.pos.y === pos.y &&
-            e.pos.z === pos.z
-        );
     }
 
     removeBlock(pos: BlockPos): boolean {

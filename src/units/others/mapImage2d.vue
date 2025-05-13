@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onBeforeMount, onMounted, reactive, ref} from "vue";
+import {computed, onBeforeMount, onMounted, reactive, ref} from "vue";
 import {mapArtData} from "../../modules/map_art/map_art_data.ts"
 import {getBlockImg, toast} from "../../modules/others.ts";
 import {encode_image, image_data} from "../../modules/map_art/encode_image.ts";
@@ -8,17 +8,64 @@ const exportSettings = reactive({
   width: 128,
   height: 128,
   dithering: true,
-  maxResolution: 4096
+  maxResolution: 4096,
+  schematic_type: 1,
+  sub_type: -1,
+  axios: 'y',
+  targetRotation: 0
 });
+const schematicType = ref()
+const subType = ref()
+const schematicTypes = ref([
+  {
+    value: 1,
+    label: '香草结构',
+    subtypes: [
+      { value: -1, label: '默认格式' }
+    ]
+  },
+  {
+    value: 2,
+    label: '投影结构',
+    subtypes: [
+      { value: -1, label: 'Litematica格式' }
+    ]
+  },
+  {
+    value: 3,
+    label: '创世神',
+    subtypes: [
+      { value: 1, label: '1.20+' },
+      { value: 2, label: '1.16+' }
+    ]
+  },
+  {
+    value: 4,
+    label: '建筑小帮手',
+    subtypes: [
+      { value: 1, label: '1.20+' },
+      //{ value: 2, label: '1.16+' },
+      //{ value: 3, label: '1.12+' }
+    ]
+  }//,
+  //{
+    //value: 5,
+    //label: 'MC BE',
+    //subtypes: [
+      //{ value: 1, label: '默认格式' },
+    //]
+  //}
+])
 const hasImage = ref(false)
 const previewCanvas = ref<HTMLCanvasElement | null>(null)
 const resize = ref(1)
 const isProcessing = ref(false)
+const exportLoading = ref(false)
+const dialog = ref(false)
 const selectedBlocks = ref<string[]>([]);
 const expandedCategories = ref<string[]>([])
 const imageBuild = ref<MapArtProcessor>();
 const mapImg = ref<File>();
-const targetRotation = ref<0 | 90 | 180 | 270>(0);
 const previewImage = ref<string>("");
 const blocksLoaded = ref(false);
 const toggleBlock = (blockId: string) => {
@@ -48,6 +95,19 @@ const toggleCategory = (categoryName: string) => {
     selectedBlocks.value = [...selectedBlocks.value, ...newItems]
   }
 }
+const currentSubTypes = computed(() => {
+  const mainType = schematicTypes.value.find(
+      t => t.value === exportSettings.schematic_type
+  )
+  return mainType?.subtypes || []
+})
+const onMainTypeChange = (data: any) => {
+  exportSettings.schematic_type = data.value
+  if (currentSubTypes.value.length > 0) {
+    exportSettings.sub_type = currentSubTypes.value[0].value
+    subType.value = data.subtypes[0]
+  }
+}
 const isCategorySelected = (categoryName: string) => {
   const category = mapArtData.value.find(c => c.name === categoryName)
   return category?.items.every(item =>
@@ -59,7 +119,7 @@ const refreshImage = async () => {
     isProcessing.value = true
     hasImage.value = true
     imageBuild.value.updateBlocksData(selectedBlocks.value)
-    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, targetRotation.value);
+    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, exportSettings.targetRotation as 0 | 90 | 180| 270);
     const ctx = previewCanvas.value.getContext('2d')
     if (!ctx) return
 
@@ -88,7 +148,7 @@ const uploadImage = async(file: File | undefined) => {
     if (exportSettings.height*16 * exportSettings.width*16 >= 16384* 16384) resize.value = 0.5
     imageBuild.value.updateBlocksData(selectedBlocks.value)
     await updateSize()
-    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, targetRotation.value);
+    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, exportSettings.targetRotation as 0 | 90 | 180| 270);
     const ctx = previewCanvas.value.getContext('2d')
     if (!ctx) return
 
@@ -110,7 +170,28 @@ const updateSize = async() => {
   exportSettings.width = image_data.value.width * resize.value;
   exportSettings.height = image_data.value.height * resize.value
 }
+const exportSchematicData = async() => {
+  exportLoading.value = true
+  console.log(exportSettings)
+  try {
+    await imageBuild.value.exportSchematic(
+        image_data.value.image,
+        exportSettings.schematic_type,
+        exportSettings.sub_type,
+        {width: exportSettings.width, height:exportSettings.height},
+        exportSettings.targetRotation as 0 | 90 | 180| 270,
+        exportSettings.dithering,
+        exportSettings.axios as 'x' | 'y' | 'z'
+    )
+  }catch (err) {
+    toast.error(`导出失败:${err}`, {
+      timeout: 3000
+    });
+  }finally {
+    exportLoading.value = false
+  }
 
+}
 onMounted(async () => {
   setTimeout(() => {
     blocksLoaded.value = true;
@@ -199,7 +280,7 @@ onBeforeMount(async() => {
         <v-col cols="12" class="d-flex align-center justify-center gap-2" style="padding: 6px !important;">
           <v-icon color="blue" icon="mdi-rotate-right"  class="mt-1"></v-icon>
           <v-btn-toggle
-              v-model="targetRotation"
+              v-model="exportSettings.targetRotation"
               color="primary"
               mandatory
               class="d-flex align-center"
@@ -311,6 +392,17 @@ onBeforeMount(async() => {
         <v-icon left>mdi-refresh</v-icon>
         刷新
       </v-btn>
+
+      <v-btn
+          :disabled="!hasImage"
+          variant="outlined"
+          block
+          color="green"
+          @click="dialog = true;"
+      >
+        <v-icon left>mdi-download</v-icon>
+        导出
+      </v-btn>
       <v-card v-if="blocksLoaded">
         <v-toolbar density="compact">
           <v-toolbar-title>方块选择器</v-toolbar-title>
@@ -347,7 +439,7 @@ onBeforeMount(async() => {
                 :key="block.id"
                 class="block-item"
                 @click="toggleBlock(block.id)"
-                style="padding-inline-start: 0px !important;"
+                style="padding-inline-start: 0 !important;"
             >
               <template v-slot:prepend>
                 <v-checkbox
@@ -438,6 +530,84 @@ onBeforeMount(async() => {
 
     </v-col>
   </v-row>
+  <v-dialog
+      v-model="dialog"
+      max-width="500"
+      persistent
+  >
+    <v-card
+        max-width="500"
+        width="500"
+    >
+      <v-card-title class="text-subtitle-1">
+        <v-icon icon="mdi-history" class="mr-2"></v-icon>
+        导出蓝图
+      </v-card-title>
+      <v-card-subtitle class="text-caption text-grey-darken-1">
+        导出到指定类型蓝图.
+      </v-card-subtitle>
+      <v-card-text>
+        <v-row no-gutters>
+          <v-col cols="12" class="pr-2">
+            <v-combobox
+                v-model="schematicType"
+                :items="schematicTypes"
+                item-title="label"
+                item-value="value"
+                return-object
+                density="compact"
+                label="主类型"
+                @update:modelValue="v => onMainTypeChange(v)"
+            ></v-combobox>
+          </v-col>
+
+          <v-col cols="12" class="pl-2">
+            <v-combobox
+                v-model="subType"
+                :items="currentSubTypes"
+                :disabled="!exportSettings.schematic_type"
+                item-title="label"
+                item-value="value"
+                density="compact"
+                label="子类型"
+            ></v-combobox>
+          </v-col>
+          <v-col cols="12" class="d-flex align-center justify-center gap-2" style="padding: 0 !important;">
+            <span>法线轴朝向</span>
+            <v-icon color="blue" icon="mdi-axis-arrow" class="mt-1"></v-icon>
+            <v-btn-toggle
+                v-model="exportSettings.axios"
+                color="primary"
+                class="d-flex align-center"
+                mandatory
+            >
+              <v-btn :value="'x'" size="large" class="px-6">
+                <span class="font-weight-bold">X</span>
+              </v-btn>
+              <v-btn :value="'y'" size="large" class="px-6">
+                <span class="font-weight-bold">Y</span>
+              </v-btn>
+              <v-btn :value="'z'" size="large" class="px-6">
+                <span class="font-weight-bold">Z</span>
+              </v-btn>
+            </v-btn-toggle>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <template v-slot:actions>
+        <v-spacer/>
+        <v-btn @click="dialog = false">取消</v-btn>
+        <v-btn
+            class="ms-auto"
+            text="确认导出"
+            color="primary"
+            :loading="exportLoading"
+            @click="exportSchematicData"
+        >
+        </v-btn>
+      </template>
+    </v-card>
+  </v-dialog>
 </template>
 
 <style scoped>

@@ -1,5 +1,6 @@
 import {RawData, SubData} from "./map_art_data.ts";
 import {colorDistance, hexToRgb, loadBlockImages, clamp} from "./image_utils.ts";
+import {BlockStatePosList} from "./build_schematic.ts";
 
 export class MapArtProcessor {
     private mapData: RawData[]
@@ -103,13 +104,13 @@ export class MapArtProcessor {
 
     async exportSchematic(
         sourceImage: HTMLImageElement,
+        schematic_type: number,
+        sub_type: number,
         targetSize?: { width: number; height: number },
         rotation?: 0 | 90 | 180 | 270,
         useDithering: boolean = true,
         axios?: 'x' | 'y' | 'z',
-        schematic_type: number,
-        sub_type: number,
-    ){
+    ): Promise<BlockStatePosList> {
         const resizedImage = await this.resizeImage(sourceImage, targetSize, rotation)
 
         const { data, width, height } = this.getImageData(resizedImage)
@@ -118,6 +119,7 @@ export class MapArtProcessor {
             ? this.applyDithering(data, width, height, colorTable)
             : data
         const batchSize = 1000
+        let blockList = new BlockStatePosList()
         for (let i = 0; i < width * height; i += batchSize) {
             await this.processSchematic(i, Math.min(i + batchSize, width * height), {
                 data: processedData,
@@ -126,9 +128,12 @@ export class MapArtProcessor {
                 colorTable,
                 schematic_type,
                 sub_type,
+                blockList,
                 axios
             })
         }
+        console.log(blockList.elements)
+        return blockList
     }
     async generatePixelArt(
         sourceImage: HTMLImageElement,
@@ -327,6 +332,7 @@ export class MapArtProcessor {
             colorTable: Array<{ rgb: { r: number; g: number; b: number }, blockId: string }>
             schematic_type: number,
             sub_type: number,
+            blockList: BlockStatePosList
             axios?: 'x' | 'y' | 'z',
         }
     ) {
@@ -353,7 +359,13 @@ export class MapArtProcessor {
             }
 
             if (closestBlockId) {
-
+                if (context.axios == 'x'){
+                    context.blockList.addBlockByNameYZ(x, y, closestBlockId)
+                }else if(context.axios == 'y'){
+                    context.blockList.addBlockByNameXZ(x, y, closestBlockId)
+                }else if(context.axios == 'z'){
+                    context.blockList.addBlockByNameXY(x, y, closestBlockId)
+                }
             }
         }
     }
