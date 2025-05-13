@@ -1,4 +1,4 @@
-use crate::utils::block_state_pos_list::BlockStatePosList;
+use crate::utils::block_state_pos_list::{BlockPos, BlockStatePosList};
 use crate::utils::tile_entities::TileEntitiesList;
 use flate2::CompressError;
 use flate2::DecompressError;
@@ -45,9 +45,15 @@ pub enum SchematicError {
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
 pub struct Size {
-    pub(crate) width: i32,
-    pub(crate) height: i32,
-    pub(crate) length: i32,
+    pub width: i32,
+    pub height: i32,
+    pub length: i32,
+}
+
+impl Size {
+    pub fn to_string(&self) -> String {
+        format!("{},{},{}", self.width, self.height, self.length)
+    }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SchematicData {

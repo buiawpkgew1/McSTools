@@ -39,6 +39,13 @@ export class BlockStatePosList {
         return this;
     }
 
+    addBlockByPos(x:number, y:number, z:number, name: string): this {
+        this.elements.push({
+            pos: { x:x, y:y, z:z },
+            block: { id:{name: `minecraft:${name}`} , properties: {} }
+        });
+        return this;
+    }
     addBlock(pos: BlockPos, block: BlockDataNew): this {
         this.elements.push({
             pos: { ...pos },

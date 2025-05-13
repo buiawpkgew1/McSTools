@@ -172,10 +172,10 @@ const updateSize = async() => {
 }
 const exportSchematicData = async() => {
   exportLoading.value = true
-  console.log(exportSettings)
   try {
-    await imageBuild.value.exportSchematic(
+    let result = await imageBuild.value.exportSchematic(
         image_data.value.image,
+        image_data.value.name,
         exportSettings.schematic_type,
         exportSettings.sub_type,
         {width: exportSettings.width, height:exportSettings.height},
@@ -183,6 +183,12 @@ const exportSchematicData = async() => {
         exportSettings.dithering,
         exportSettings.axios as 'x' | 'y' | 'z'
     )
+    if (result){
+      toast.success(`已成功导出蓝图可前往仓库查看`, {
+        timeout: 3000
+      });
+      dialog.value = false
+    }
   }catch (err) {
     toast.error(`导出失败:${err}`, {
       timeout: 3000
@@ -250,7 +256,7 @@ onBeforeMount(async() => {
                 <v-icon>mdi-arrow-expand</v-icon>
               </template>
               <v-list-item-title>分辨率</v-list-item-title>
-              <v-list-item-subtitle>{{ `${exportSettings.width} x ${exportSettings.height}` }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ `${image_data.width} x ${image_data.height}` }}</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-col>

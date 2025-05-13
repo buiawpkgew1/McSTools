@@ -1,5 +1,5 @@
 import {RawData, SubData} from "./map_art_data.ts";
-import {colorDistance, hexToRgb, loadBlockImages, clamp} from "./image_utils.ts";
+import {clamp, colorDistance, createMapArt, hexToRgb, loadBlockImages} from "./image_utils.ts";
 import {BlockStatePosList} from "./build_schematic.ts";
 
 export class MapArtProcessor {
@@ -104,13 +104,14 @@ export class MapArtProcessor {
 
     async exportSchematic(
         sourceImage: HTMLImageElement,
+        file_name: string,
         schematic_type: number,
         sub_type: number,
         targetSize?: { width: number; height: number },
         rotation?: 0 | 90 | 180 | 270,
         useDithering: boolean = true,
         axios?: 'x' | 'y' | 'z',
-    ): Promise<BlockStatePosList> {
+    ): Promise<boolean> {
         const resizedImage = await this.resizeImage(sourceImage, targetSize, rotation)
 
         const { data, width, height } = this.getImageData(resizedImage)
@@ -129,11 +130,19 @@ export class MapArtProcessor {
                 schematic_type,
                 sub_type,
                 blockList,
-                axios
+                axios,
+                base: {x: 0, y: 0, z: 0}
+
             })
         }
-        console.log(blockList.elements)
-        return blockList
+        let size = axios == 'x'? {width: 1, height: targetSize.height, length: targetSize.width} : axios == 'y'? {width: targetSize.width, height: 1, length: targetSize.height} : {width: targetSize.width, height: targetSize.height, length: 1}
+        return await createMapArt(
+            blockList.elements,
+            file_name,
+            size,
+            schematic_type,
+            sub_type
+        )
     }
     async generatePixelArt(
         sourceImage: HTMLImageElement,
@@ -334,38 +343,78 @@ export class MapArtProcessor {
             sub_type: number,
             blockList: BlockStatePosList
             axios?: 'x' | 'y' | 'z',
+            base?: { x: number; y: number; z: number },
+            flipX?: boolean,
+            flipY?: boolean
         }
     ) {
+        let {
+            width,
+            height,
+            axios = 'y',
+            base = { x: 0, y: 0, z: 0 },
+            flipX = false,
+            flipY = false
+        } = context;
+
         for (let i = start; i < end; i++) {
-            const x = i % context.width
-            const y = Math.floor(i / context.width)
-            const index = i * 4
+            const rawX = i % width;
+            const rawY = Math.floor(i / width);
 
-            const r = context.data[index]
-            const g = context.data[index + 1]
-            const b = context.data[index + 2]
+            let imageX = rawX, imageY = rawY;
+            switch(axios.toLowerCase()) {
+                case 'x':
+                    imageY = height - rawY - 1;
+                    break;
+                case 'y':
+                    break;
+                case 'z':
+                    imageY = height - rawY - 1;
+                    break;
+            }
 
-            let minDistance = Infinity
-            let closestBlockId = ''
+            imageX = flipX ? width - imageX - 1 : imageX;
+            imageY = flipY ? height - imageY - 1 : imageY;
+
+            let x3d: number, y3d: number, z3d: number;
+            switch(axios.toLowerCase()) {
+                case 'x':
+                    x3d = base.x;
+                    y3d = base.y + imageY;
+                    z3d = base.z + imageX;
+                    break;
+                case 'y':
+                    x3d = base.x + imageX;
+                    y3d = base.y;
+                    z3d = base.z + imageY;
+                    break;
+                case 'z':
+                    x3d = base.x + imageX;
+                    y3d = base.y + imageY;
+                    z3d = base.z;
+                    break;
+            }
+
+            const index = i * 4;
+            const [r, g, b] = context.data.slice(index, index + 3);
+
+            let minDistance = Infinity;
+            let closestBlockId = '';
             for (const entry of context.colorTable) {
-                const distance = colorDistance(
-                    r, g, b,
-                    entry.rgb.r, entry.rgb.g, entry.rgb.b
-                )
+                const distance = colorDistance(r, g, b, entry.rgb.r, entry.rgb.g, entry.rgb.b);
                 if (distance < minDistance) {
-                    minDistance = distance
-                    closestBlockId = entry.blockId
+                    minDistance = distance;
+                    closestBlockId = entry.blockId;
                 }
             }
 
             if (closestBlockId) {
-                if (context.axios == 'x'){
-                    context.blockList.addBlockByNameYZ(x, y, closestBlockId)
-                }else if(context.axios == 'y'){
-                    context.blockList.addBlockByNameXZ(x, y, closestBlockId)
-                }else if(context.axios == 'z'){
-                    context.blockList.addBlockByNameXY(x, y, closestBlockId)
-                }
+                context.blockList.addBlockByPos(
+                    x3d,
+                    y3d,
+                    z3d,
+                    closestBlockId
+                );
             }
         }
     }

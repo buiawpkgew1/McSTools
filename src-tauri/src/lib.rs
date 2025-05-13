@@ -21,9 +21,8 @@ use database::db_apis::user_api::get_user_data;
 use modules::convert::{convert, get_je_blocks, get_schematic_convert_data, get_map_arts};
 use modules::history::get_history;
 use modules::replace::schematic_replacement;
-use modules::schematic::{
-    copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_data,
-};
+use modules::schematic::{copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_data};
+use modules::map_art::create_map_art;
 use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
 use tauri::Manager;
@@ -64,6 +63,7 @@ pub fn run() {
             get_history,
             update_config,
             encode_uploaded_schematic,
+            create_map_art,
             get_user_data,
             copy_schematic,
             delete_schematic,
