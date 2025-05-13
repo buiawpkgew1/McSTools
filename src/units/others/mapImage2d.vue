@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, reactive, ref} from "vue";
+import {onBeforeMount, onMounted, reactive, ref} from "vue";
 import {mapArtData} from "../../modules/map_art/map_art_data.ts"
 import {getBlockImg, toast} from "../../modules/others.ts";
 import {encode_image, image_data} from "../../modules/map_art/encode_image.ts";
@@ -85,6 +85,7 @@ const uploadImage = async(file: File | undefined) => {
     image_data.value = await encode_image(file);
     exportSettings.height = image_data.value.height
     exportSettings.width = image_data.value.width
+    if (exportSettings.height*16 * exportSettings.width*16 >= 16384* 16384) resize.value = 0.5
     imageBuild.value.updateBlocksData(selectedBlocks.value)
     await updateSize()
     const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, targetRotation.value);
@@ -109,6 +110,7 @@ const updateSize = async() => {
   exportSettings.width = image_data.value.width * resize.value;
   exportSettings.height = image_data.value.height * resize.value
 }
+
 onMounted(async () => {
   setTimeout(() => {
     blocksLoaded.value = true;
@@ -116,6 +118,21 @@ onMounted(async () => {
   toggleCategory("wool")
   imageBuild.value = new MapArtProcessor(mapArtData.value, selectedBlocks.value)
 
+})
+const cleanImage = async() => {
+  image_data.value = undefined;
+  hasImage.value = false;
+  const canvas = previewCanvas.value;
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+onBeforeMount(async() => {
+  await cleanImage()
 })
 
 </script>
@@ -152,7 +169,7 @@ onMounted(async () => {
                 <v-icon>mdi-arrow-expand</v-icon>
               </template>
               <v-list-item-title>分辨率</v-list-item-title>
-              <v-list-item-subtitle>{{ `${exportSettings.width} x ${image_data.height}` }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ `${exportSettings.width} x ${exportSettings.height}` }}</v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-col>
@@ -211,6 +228,7 @@ onMounted(async () => {
             density="compact"
             prepend-icon="mdi-folder-open"
             @update:model-value="uploadImage(mapImg)"
+            @click:clear="cleanImage"
             class="mb-4"
         ></v-file-input>
         <v-alert

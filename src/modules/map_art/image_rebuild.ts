@@ -6,7 +6,8 @@ export class MapArtProcessor {
 
     private idToBlockMap: Map<string, SubData>
     private colorToIdsMap: Map<string, Set<string>>
-
+    private MAX_CANVAS_PIXELS = 4096 * 4096;
+    private MAX_DIMENSION = 2048;
     private selectedIds: Set<string>
 
     constructor(mapData: RawData[], blocks: string[] = []) {
@@ -100,12 +101,41 @@ export class MapArtProcessor {
         return this.mapData
     }
 
+    async exportSchematic(
+        sourceImage: HTMLImageElement,
+        targetSize?: { width: number; height: number },
+        rotation?: 0 | 90 | 180 | 270,
+        useDithering: boolean = true,
+        axios?: 'x' | 'y' | 'z',
+        schematic_type: number,
+        sub_type: number,
+    ){
+        const resizedImage = await this.resizeImage(sourceImage, targetSize, rotation)
+
+        const { data, width, height } = this.getImageData(resizedImage)
+        const colorTable = this.createColorLookupTable()
+        const processedData = useDithering
+            ? this.applyDithering(data, width, height, colorTable)
+            : data
+        const batchSize = 1000
+        for (let i = 0; i < width * height; i += batchSize) {
+            await this.processSchematic(i, Math.min(i + batchSize, width * height), {
+                data: processedData,
+                width,
+                height,
+                colorTable,
+                schematic_type,
+                sub_type,
+                axios
+            })
+        }
+    }
     async generatePixelArt(
         sourceImage: HTMLImageElement,
         blockSize: number = 16,
         targetSize?: { width: number; height: number },
         useDithering: boolean = true,
-        rotation?: 0 | 90 | 180 | 270
+        rotation?: 0 | 90 | 180 | 270,
     ): Promise<HTMLCanvasElement> {
         const selectedBlocks = this.getSelectedBlocks()
         if (selectedBlocks.length === 0) {
@@ -120,9 +150,10 @@ export class MapArtProcessor {
         const processedData = useDithering
             ? this.applyDithering(data, width, height, colorTable)
             : data
-        const outputCanvas = document.createElement('canvas')
+        let outputCanvas = document.createElement('canvas')
         outputCanvas.width = width * blockSize
         outputCanvas.height = height * blockSize
+        if (outputCanvas.width * outputCanvas.height >= 16384 * 16384) throw new Error('原始画布过大')
         const ctx = outputCanvas.getContext('2d')
         if (!ctx) throw new Error('无法创建画布上下文')
 
@@ -137,6 +168,19 @@ export class MapArtProcessor {
                 colorTable,
                 blockImages
             })
+        }
+        if (outputCanvas.width * outputCanvas.height >= 4096 * 4096){
+            const scaleFactor = Math.min(
+                this.MAX_DIMENSION / outputCanvas.width,
+                this.MAX_DIMENSION / outputCanvas.height,
+                Math.sqrt(this.MAX_CANVAS_PIXELS / outputCanvas.width * outputCanvas.height)
+            );
+
+            const targetSize = {
+                width: Math.floor(outputCanvas.width * scaleFactor),
+                height: Math.floor(outputCanvas.height * scaleFactor)
+            };
+            outputCanvas = await this.resizeImageCanvas(outputCanvas, targetSize);
         }
 
         return outputCanvas
@@ -200,6 +244,48 @@ export class MapArtProcessor {
         })
     }
 
+    private async resizeImageCanvas(
+        originalCanvas: HTMLCanvasElement,
+        targetSize?: { width: number; height: number }
+    ): Promise<HTMLCanvasElement> {
+        if (!targetSize ||
+            (targetSize.width === originalCanvas.width &&
+                targetSize.height === originalCanvas.height)) {
+            return originalCanvas.cloneNode(true) as HTMLCanvasElement;
+        }
+
+        const sourceCanvas = document.createElement('canvas');
+        const sourceCtx = sourceCanvas.getContext('2d');
+        if (!sourceCtx) throw new Error('Failed to create source canvas context');
+
+        sourceCanvas.width = originalCanvas.width;
+        sourceCanvas.height = originalCanvas.height;
+        sourceCtx.drawImage(originalCanvas, 0, 0);
+
+        const targetCanvas = document.createElement('canvas');
+        targetCanvas.width = targetSize.width;
+        targetCanvas.height = targetSize.height;
+
+        const targetCtx = targetCanvas.getContext('2d', {
+            willReadFrequently: false
+        });
+        if (!targetCtx) throw new Error('Failed to create target canvas context');
+
+        targetCtx.imageSmoothingEnabled = true;
+        targetCtx.imageSmoothingQuality = 'high';
+
+        targetCtx.drawImage(
+            sourceCanvas,
+            0, 0, sourceCanvas.width, sourceCanvas.height,
+            0, 0, targetSize.width, targetSize.height
+        );
+
+        sourceCanvas.width = 0;
+        sourceCanvas.height = 0;
+
+        return targetCanvas;
+    }
+
     private getImageData(image: HTMLImageElement): ImageData {
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
@@ -231,6 +317,46 @@ export class MapArtProcessor {
         return table
     }
 
+    private async processSchematic(
+        start: number,
+        end: number,
+        context: {
+            data: Uint8ClampedArray
+            width: number
+            height: number
+            colorTable: Array<{ rgb: { r: number; g: number; b: number }, blockId: string }>
+            schematic_type: number,
+            sub_type: number,
+            axios?: 'x' | 'y' | 'z',
+        }
+    ) {
+        for (let i = start; i < end; i++) {
+            const x = i % context.width
+            const y = Math.floor(i / context.width)
+            const index = i * 4
+
+            const r = context.data[index]
+            const g = context.data[index + 1]
+            const b = context.data[index + 2]
+
+            let minDistance = Infinity
+            let closestBlockId = ''
+            for (const entry of context.colorTable) {
+                const distance = colorDistance(
+                    r, g, b,
+                    entry.rgb.r, entry.rgb.g, entry.rgb.b
+                )
+                if (distance < minDistance) {
+                    minDistance = distance
+                    closestBlockId = entry.blockId
+                }
+            }
+
+            if (closestBlockId) {
+
+            }
+        }
+    }
     private async processBatch(
         start: number,
         end: number,
