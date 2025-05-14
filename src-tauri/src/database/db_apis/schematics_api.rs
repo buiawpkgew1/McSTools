@@ -61,6 +61,33 @@ pub fn update_schematic(
 
     Ok(schematic.id)
 }
+
+pub fn update_schematic_name(
+    conn: &mut PooledConnection<SqliteConnectionManager>,
+    name: String,
+    description: String,
+    schematic_id: i64
+) -> Result<i64> {
+    let tx = conn.transaction()?;
+
+    tx.execute(
+        r#"UPDATE schematics
+        SET
+            name = ?1,
+            description = ?2,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?3"#,
+        params![
+            name,
+            description,
+            schematic_id
+        ],
+    )?;
+
+    tx.commit()?;
+
+    Ok(schematic_id)
+}
 pub fn new_schematic(
     mut conn: &mut PooledConnection<SqliteConnectionManager>,
     schematic: Schematic,

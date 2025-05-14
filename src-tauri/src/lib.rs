@@ -21,7 +21,7 @@ use database::db_apis::user_api::get_user_data;
 use modules::convert::{convert, get_je_blocks, get_schematic_convert_data, get_map_arts};
 use modules::history::get_history;
 use modules::replace::schematic_replacement;
-use modules::schematic::{copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_data};
+use modules::schematic::{copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_data, update_schematic_name_description};
 use modules::map_art::create_map_art;
 use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
@@ -64,6 +64,7 @@ pub fn run() {
             update_config,
             encode_uploaded_schematic,
             create_map_art,
+            update_schematic_name_description,
             get_user_data,
             copy_schematic,
             delete_schematic,

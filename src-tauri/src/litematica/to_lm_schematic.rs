@@ -11,6 +11,8 @@ use rayon::prelude::*;
 use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::sync::atomic::{AtomicI32, AtomicU64, Ordering};
 use std::sync::Arc;
+use chrono::Utc;
+
 #[derive(Debug)]
 pub struct ToLmSchematic {
     blocks: VecDeque<BlockStatePos>,
@@ -260,23 +262,21 @@ impl ToLmSchematic {
     }
     pub fn lm_metadata(&self) -> Value {
         let mut metadata = HashMap::new();
-
+        let timestamp_sec = Utc::now().timestamp();
         let mut enclosing_size = HashMap::new();
         enclosing_size.insert("x".to_string(), Value::Int(self.width));
         enclosing_size.insert("y".to_string(), Value::Int(self.height));
         enclosing_size.insert("z".to_string(), Value::Int(self.length));
         metadata.insert("EnclosingSize".to_string(), Compound(enclosing_size));
 
-        metadata.insert(
-            "Description".to_string(),
-            Value::String("来自蓝图站www.mcschematic.top自动转换,不保留实体".to_string()),
-        );
+        metadata.insert("Description".to_string(), Value::String("来自蓝图站www.mcschematic.top自动转换,不保留实体".to_string()), );
         metadata.insert("RegionCount".to_string(), Value::Int(1));
         metadata.insert("Name".to_string(), Value::String("null".to_string()));
-        metadata.insert(
-            "Author".to_string(),
-            Value::String("www.mcschematic.top".to_string()),
-        );
+        metadata.insert("Author".to_string(), Value::String("www.mcschematic.top".to_string()));
+        metadata.insert("TotalVolume".to_string(), Value::Int(0));
+        metadata.insert("TotalBlocks".to_string(), Value::Int(0));
+        metadata.insert("TimeModified".to_string(), Value::Long(timestamp_sec));
+        metadata.insert("TimeCreated".to_string(), Value::Long(timestamp_sec));
 
         Compound(metadata)
     }

@@ -83,6 +83,7 @@ const formatInfo = computed(() => {
 const convertSchematic = async (schematicType: number) => {
   try {
     isLoading.value = true;
+    console.log(lmVersion.value)
     const result = await invoke<boolean>('convert', {
       id: schematic_id.value,
       schematicType: schematicType,

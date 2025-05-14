@@ -8,6 +8,7 @@ import tauri from "../static/img/tauri.png"
 import guapi from "../static/img/guapi.png"
 import {openLink} from "../modules/others.ts";
 import ifdian from "../static/img/ifdian.png"
+import {checkUpdate, chuckLoading} from "../modules/chuck_update.ts";
 onBeforeRouteLeave(navigationGuard)
 
 
@@ -62,7 +63,8 @@ onBeforeRouteLeave(navigationGuard)
                       <v-btn
                           variant="outlined"
                           prepend-icon="mdi-update"
-                          @click=""
+                          :loading="chuckLoading"
+                          @click="checkUpdate(false)"
                       >
                         检测更新
                       </v-btn>
@@ -72,7 +74,7 @@ onBeforeRouteLeave(navigationGuard)
                           color="secondary"
                           variant="outlined"
                           prepend-icon="mdi-text-box"
-                          @click=""
+                          @click="openLink('https://github.com/guapi-exe/McSTools/commits/master/')"
                       >
                         更新日志
                       </v-btn>

@@ -3,9 +3,7 @@ use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
 use crate::database::db_apis::history_api::{new_history, update_history};
 use crate::database::db_apis::schematic_data_api::{new_schematic_data, update_schematic_data};
-use crate::database::db_apis::schematics_api::{
-    delete_schematic_data, find_schematic, get_schematic_version, new_schematic, update_schematic,
-};
+use crate::database::db_apis::schematics_api::{delete_schematic_data, find_schematic, get_schematic_version, new_schematic, update_schematic, update_schematic_name};
 use crate::database::db_apis::user_api::add_user_schematic;
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
@@ -22,6 +20,7 @@ use rusqlite::version;
 use std::path::Path;
 use tauri::State;
 use tauri_plugin_updater::target;
+use crate::utils::schematic_data::SchematicError;
 
 #[tauri::command]
 pub async fn encode_uploaded_schematic(
@@ -551,4 +550,19 @@ pub async fn copy_schematic(
     }
     .await
     .map_err(|e: anyhow::Error| e.to_string())
+}
+#[tauri::command]
+pub async fn update_schematic_name_description(
+    db: State<'_, DatabaseState>,
+    schematic_id: i64,
+    name: String,
+    description: String,
+) -> Result<bool, String> {
+    async move {
+        let mut conn = db.0.get()?;
+        update_schematic_name(&mut conn, name, description, schematic_id)?;
+        Ok(true)
+    }
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())
 }

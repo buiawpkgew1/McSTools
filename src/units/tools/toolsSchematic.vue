@@ -1,20 +1,50 @@
 <script setup lang="ts">
-import {defineProps} from "vue";
+import {defineProps, onMounted, reactive, ref} from "vue";
 import {SchematicsData, schematicTypeList} from "../../modules/schematics_data.ts";
 import dayjs from "dayjs";
 import {files, handleUpload, progressValue, uploadError, uploadStatus} from "../../modules/upload_schematic.ts";
+import {update_schematic_name} from "../../modules/update_schematic.ts";
+import {schematic_id} from "../../modules/tools_data.ts";
+import {toast} from "../../modules/others.ts";
 
 const props = defineProps<{
   data: SchematicsData | undefined,
 }>()
+const editing = ref(false)
+const editLoading = ref(false)
 const parseDimensions = (sizeStr: string) => {
   const [length, width, height] = sizeStr.split(',').map(Number);
   return [`X${length}`, `Y${width}`, `Z${height}`]
 };
+const schematicEdit = reactive({
+  name: '',
+  description: ''
+})
 const formatTime = (time: any) => {
   return dayjs(time).format('YYYY/MM/DD HH:mm')
 }
-
+const saveEdit = async () => {
+  editing.value = false
+  editLoading.value = true
+  try {
+    let result = await update_schematic_name(schematic_id.value, schematicEdit.name, schematicEdit.description);
+    if (result){
+      toast.success(`数据已更新`, {
+        timeout: 3000
+      });
+      props.data.name = schematicEdit.name
+      props.data.description = schematicEdit.description
+    }
+  }catch (e) {
+    console.log(e)
+  }finally {
+    editing.value = false
+  }
+}
+onMounted(async ()=> {
+  schematicEdit.name = props.data.name;
+  schematicEdit.description = props.data.description
+})
 </script>
 
 <template>
@@ -32,8 +62,42 @@ const formatTime = (time: any) => {
               <v-list-item-title>ID：{{ props.data.id }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item>
-              <v-list-item-title>名称：{{ props.data.name }}</v-list-item-title>
+            <v-list-item  v-if="!editing">
+              <v-list-item-title class="d-flex align-center">
+                <span>名称：{{ props.data.name }}</span>
+              </v-list-item-title>
+              <template v-slot:append>
+
+                <v-list-item-action class="ml-2">
+                  <v-btn
+                      variant="text"
+                      size="x-small"
+                      icon="mdi-pencil"
+                      @click="editing = true"
+                  ></v-btn>
+                </v-list-item-action>
+              </template>
+            </v-list-item>
+            <v-list-item v-else>
+              <v-text-field
+                  v-model="schematicEdit.name"
+                  variant="underlined"
+                  density="compact"
+                  autofocus
+                  @keydown.enter="saveEdit"
+              ></v-text-field>
+              <template v-slot:append>
+
+                <v-list-item-action class="d-flex gap-2">
+                  <v-btn
+                      variant="text"
+                      size="x-small"
+                      icon="mdi-check"
+                      color="success"
+                      @click="saveEdit"
+                  ></v-btn>
+                </v-list-item-action>
+              </template>
             </v-list-item>
 
             <v-list-item>
@@ -100,10 +164,12 @@ const formatTime = (time: any) => {
       </v-row>
 
       <v-textarea
-          readonly
-          :value="props.data.description"
+          :readonly="!editing"
+          :model-value="schematicEdit.description"
           label="蓝图描述"
+          clearable
           auto-grow
+          @keydown.enter="saveEdit"
           class="mt-4"
       ></v-textarea>
 

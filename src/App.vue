@@ -98,7 +98,6 @@ import AppLayout from "./layout/AppLayout.vue";
 import {onMounted, ref, watchEffect} from "vue";
 import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
-import {check, Update} from '@tauri-apps/plugin-updater';
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 const theme = useTheme()
 
@@ -107,70 +106,19 @@ import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";
 import {relaunch} from "@tauri-apps/plugin-process";
 import {appData, getAppVersion} from "./modules/app_data.ts";
-import {toast} from "./modules/others.ts";
 import {fetchMapArtsData, mapArtData} from "./modules/map_art/map_art_data.ts";
+import {
+  restartDialog,
+  updateDialog,
+  updateState,
+  UpdateState,
+  confirmUpdate,
+  updateInfo,
+  updateProgress,
+  checkUpdate
+} from "./modules/chuck_update.ts";
 const selectedTheme = ref('grey')
-const updateDialog = ref(false);
-const updateProgress = ref(0);
-const updateInfo = ref<Update | null>(null);
-const restartDialog = ref(false);
-enum UpdateState {
-  Pending,
-  Downloading,
-  Ready
-}
-const updateState = ref(UpdateState.Pending);
-const checkUpdate = async () => {
-  try {
-    const update = await check();
-    if (update) {
-      toast.info(`发现新版本: ${update?.version} from ${update?.date} with notes ${update?.body}`, {
-        timeout: 3000
-      });
-      updateInfo.value = update;
-      updateState.value = UpdateState.Pending;
-      updateDialog.value = true;
-    }
-  } catch (error) {
-    toast.error(`检查更新失败: ${error}`, {
-      timeout: 3000
-    });
-    console.error('检查更新失败:', error);
-  }
-};
 
-const confirmUpdate = async () => {
-  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-  try {
-    updateState.value = UpdateState.Downloading;
-    const update = await check();
-
-    await update.downloadAndInstall((event) => {
-      if (event.event === 'Progress') {
-
-        updateProgress.value += Math.round(
-            event.data.chunkLength
-        );
-      }
-    });
-
-    updateState.value = UpdateState.Ready;
-    updateDialog.value = false;
-    restartDialog.value = true;
-    toast.info(`更新完毕即将重启`, {
-      timeout: 3000
-    });
-    await delay(3000);
-    await relaunch();
-  } catch (error) {
-    toast.error(`检查更新失败: ${error}`, {
-      timeout: 3000
-    });
-
-    console.error('更新下载失败:', error);
-    updateState.value = UpdateState.Pending;
-  }
-};
 
 const backgroundStyle = ref({
   backgroundColor: '',
@@ -188,7 +136,7 @@ onMounted(async () => {
   await initTheme()
   await invoke("close_splashscreen")
   await fetchUserData()
-  await checkUpdate()
+  await checkUpdate(true)
   appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
   mapArtData.value = await fetchMapArtsData()
