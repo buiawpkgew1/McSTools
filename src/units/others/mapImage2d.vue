@@ -76,7 +76,7 @@ const toggleBlock = (blockId: string) => {
     selectedBlocks.value.splice(index, 1)
   }
 }
-const toggleCategory = (categoryName: string) => {
+const toggleCategory = async (categoryName: string) => {
   const category = mapArtData.value.find(c => c.name === categoryName)
   if (!category) return
 
@@ -202,7 +202,7 @@ onMounted(async () => {
   setTimeout(() => {
     blocksLoaded.value = true;
   }, 100);
-  toggleCategory("wool")
+  await toggleCategory("wool")
   imageBuild.value = new MapArtProcessor(mapArtData.value, selectedBlocks.value)
 
 })

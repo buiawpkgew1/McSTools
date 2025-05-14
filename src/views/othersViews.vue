@@ -6,6 +6,7 @@ import {ref} from "vue";
 import {onBeforeRouteLeave} from "vue-router";
 import mapImage2d from "../units/others/mapImage2d.vue";
 import redStoneMusic from "../units/others/redStoneMusic.vue";
+import {mapArtData} from "../modules/map_art/map_art_data.ts";
 
 const active = ref(0)
 
@@ -33,7 +34,7 @@ onBeforeRouteLeave(navigationGuard)
         </v-toolbar>
         <v-window v-model="active">
           <v-window-item value="img">
-            <map-image2d />
+            <map-image2d v-if="mapArtData" />
           </v-window-item>
           <v-window-item value="music">
             <redStoneMusic />
