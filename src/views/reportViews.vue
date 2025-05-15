@@ -3,7 +3,9 @@ import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {onBeforeRouteLeave} from "vue-router";
 import {opacity} from "../modules/theme.ts";
 import {openLink, toast} from "../modules/others.ts";
-
+const qqln = async () => {
+  toast.info(`还莫有，这只是个占位符`, {timeout: 3000});
+}
 onBeforeRouteLeave(navigationGuard)
 </script>
 
@@ -103,7 +105,7 @@ onBeforeRouteLeave(navigationGuard)
                 <template v-slot:default="{ isHovering, props }">
                   <v-card
                       v-bind="props"
-                      @click="toast.info(`还莫有，这只是个占位符`, {timeout: 3000});"
+                      @click="qqln"
                   >
                     <v-toolbar
                         density="compact"
