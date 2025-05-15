@@ -2,13 +2,20 @@
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {opacity} from "../modules/theme.ts";
 import {onBeforeRouteLeave} from "vue-router";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import {appStore} from "../modules/store.ts";
 const autoUpdateEnabled = ref(true);
 const updateSources = ref([
   'https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json'
 ]);
 const selectedSource = ref('https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json');
 onBeforeRouteLeave(navigationGuard)
+onMounted(async () => {
+  autoUpdateEnabled.value = await appStore.get('autoUpdate', true)
+})
+const updateData = async () => {
+  await appStore.set('autoUpdate', autoUpdateEnabled.value)
+}
 </script>
 
 <template class="page-wrapper">
@@ -47,6 +54,7 @@ onBeforeRouteLeave(navigationGuard)
                 <v-switch
                     v-model="autoUpdateEnabled"
                     color="primary"
+                    @update:model-value="updateData"
                 ></v-switch>
               </template>
             </v-list-item>

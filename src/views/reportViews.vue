@@ -2,7 +2,7 @@
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {onBeforeRouteLeave} from "vue-router";
 import {opacity} from "../modules/theme.ts";
-import {openLink} from "../modules/others.ts";
+import {openLink, toast} from "../modules/others.ts";
 
 onBeforeRouteLeave(navigationGuard)
 </script>
@@ -101,7 +101,10 @@ onBeforeRouteLeave(navigationGuard)
             <v-col cols="12">
               <v-hover>
                 <template v-slot:default="{ isHovering, props }">
-                  <v-card v-bind="props">
+                  <v-card
+                      v-bind="props"
+                      @click="toast.info(`还莫有，这只是个占位符`, {timeout: 3000});"
+                  >
                     <v-toolbar
                         density="compact"
                         class="pa-2 hover-toolbar"

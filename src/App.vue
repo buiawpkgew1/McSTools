@@ -118,8 +118,7 @@ import {
   checkUpdate
 } from "./modules/chuck_update.ts";
 const selectedTheme = ref('grey')
-
-
+const autoUpdateEnabled = ref(true);
 const backgroundStyle = ref({
   backgroundColor: '',
   backgroundImage: '',
@@ -132,11 +131,14 @@ const backgroundStyle = ref({
 
 onMounted(async () => {
   selectedTheme.value = await appStore.get('selectedTheme', 'grey')
+  autoUpdateEnabled.value = await appStore.get('autoUpdate', true)
   theme.global.name.value = selectedTheme.value
   await initTheme()
   await invoke("close_splashscreen")
   await fetchUserData()
-  await checkUpdate(true)
+  if (autoUpdateEnabled.value){
+    await checkUpdate(true)
+  }
   appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
   mapArtData.value = await fetchMapArtsData()
