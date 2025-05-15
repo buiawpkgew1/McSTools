@@ -5,7 +5,7 @@ const vuetify = createVuetify({
         defaultSet: 'mdi',
     },
     theme: {
-        defaultTheme: 'grey',
+        defaultTheme: 'blue',
         themes: {
             grey: {
                 colors: {

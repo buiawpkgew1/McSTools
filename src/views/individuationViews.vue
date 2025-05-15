@@ -38,7 +38,7 @@ const themes = [
 
 onBeforeRouteLeave(navigationGuard)
 onMounted(async () => {
-  selectedTheme.value = await appStore.get('selectedTheme', 'grey');
+  selectedTheme.value = await appStore.get('selectedTheme', 'blue');
   backgroundImage.value = await appStore.get('backgroundImage', 'null');
   backgroundSize.value = await appStore.get('backgroundSize', 0);
   backgroundDimensions.value = await appStore.get('backgroundDimensions', "null")

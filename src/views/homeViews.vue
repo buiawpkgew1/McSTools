@@ -4,7 +4,7 @@ import createImg from '../static/img/create.jpg'
 import lmImg from '../static/img/Litematica.jpg'
 import weImg from '../static/img/wordEdit.png'
 import beImg from '../static/img/grass_block.png'
-import {onBeforeUnmount} from "vue";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 import {opacity} from "../modules/theme.ts";
 import {onBeforeRouteLeave} from 'vue-router'
 import {
@@ -18,6 +18,7 @@ import {
 import {userData} from "../modules/user_data.ts";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {createTimeManager} from '../modules/time_data.ts'
+import {messageList} from "../modules/messages.ts";
 
 const timeManager = createTimeManager()
 const {
@@ -27,14 +28,70 @@ const {
   seconds,
   isNewSecond,
 } = timeManager.useInComponent()
+const currentIndex = ref(0)
+const displayText = ref('')
+const isAnimating = ref(false)
+let intervalId: number | null = null
+let timeoutId: number | null = null
+const randomHanChar = () => {
+  const symbols = '~!@#$%^&*()_+?？；;，。.、你更下二一三四我'
+  return Math.random() > 0.3
+      ? symbols[Math.floor(Math.random() * symbols.length)]
+      : String.fromCharCode(0x4e00 + Math.floor(Math.random() * 20902))
+}
 
-onBeforeRouteLeave(navigationGuard)
+const generateNoise = (length: number) => {
+  return Array.from({ length }, () => randomHanChar()).join('')
+}
+
+const revealText = (target: string) => {
+  let index = 0
+  const targetArr = target.split('')
+  const noiseArr = generateNoise(target.length).split('')
+
+  intervalId = setInterval(() => {
+    if (index >= target.length) {
+      clearInterval(intervalId!)
+      intervalId = null
+      isAnimating.value = false
+      return
+    }
+
+    noiseArr[index] = targetArr[index]
+    displayText.value = noiseArr.join('')
+    index++
+  }, 50)
+}
+
+const switchMessage = () => {
+  isAnimating.value = true
+  const target = messageList.value[currentIndex.value]
+
+  displayText.value = generateNoise(target.length)
+
+  timeoutId = setTimeout(() => {
+    revealText(target)
+    timeoutId = null
+  }, 300)
+}
+
+onMounted(() => {
+  setInterval(() => {
+    currentIndex.value = (currentIndex.value + 1) % messageList.value.length
+    switchMessage()
+  }, 10000)
+
+  switchMessage()
+})
 
 onBeforeUnmount(() => {
     if (progressTimer.value) {
       window.clearInterval(progressTimer.value)
     }
+  if (intervalId) clearInterval(intervalId)
+  if (timeoutId) clearTimeout(timeoutId)
 })
+onBeforeRouteLeave(navigationGuard)
 </script>
 
 <template class="page-wrapper">
@@ -158,11 +215,11 @@ onBeforeUnmount(() => {
           </v-row>
           <v-alert
               variant="tonal"
-              color="info"
-              icon="mdi-information"
-              class="mt-4"
+              color="blue"
+              icon="mdi-information-outline"
+              class="mt-4 monospace-font"
           >
-            新版本 v0.2.3 已发布！
+            {{ displayText }}
           </v-alert>
         </v-card-text>
       </v-card>
