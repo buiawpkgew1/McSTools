@@ -278,6 +278,16 @@ watch(() => [state.globalReplace, state.selectedOriginal], ([global, selected]) 
                 :loading="!jeBlocks"
                 clearable
             >
+              <template v-slot:selection="{ item }">
+                <div class="d-flex align-center">
+                  <v-avatar size="32" rounded="0" class="mr-2">
+                    <img :src="getBlockIcon(`minecraft:${item.raw.block_name}`)" :alt="item.raw.zh_cn">
+                  </v-avatar>
+                  <div>
+                    <span class="text-body-2">{{ item.raw.zh_cn }}</span>
+                  </div>
+                </div>
+              </template>
               <template v-slot:item="{ props: itemProps, item }">
                 <template v-if="typeof item.raw === 'object'">
                   <v-list-item v-bind="itemProps">

@@ -110,6 +110,7 @@ export class MapArtProcessor {
         targetSize?: { width: number; height: number },
         rotation?: 0 | 90 | 180 | 270,
         useDithering: boolean = true,
+        replaceAir: boolean = false,
         axios?: 'x' | 'y' | 'z',
     ): Promise<boolean> {
         const resizedImage = await this.resizeImage(sourceImage, targetSize, rotation)
@@ -131,8 +132,8 @@ export class MapArtProcessor {
                 sub_type,
                 blockList,
                 axios,
-                base: {x: 0, y: 0, z: 0}
-
+                base: {x: 0, y: 0, z: 0},
+                replaceAir
             })
         }
         let size = axios == 'x'? {width: 1, height: targetSize.height, length: targetSize.width} : axios == 'y'? {width: targetSize.width, height: 1, length: targetSize.height} : {width: targetSize.width, height: targetSize.height, length: 1}
@@ -149,6 +150,7 @@ export class MapArtProcessor {
         blockSize: number = 16,
         targetSize?: { width: number; height: number },
         useDithering: boolean = true,
+        replaceAir: boolean = false,
         rotation?: 0 | 90 | 180 | 270,
     ): Promise<HTMLCanvasElement> {
         const selectedBlocks = this.getSelectedBlocks()
@@ -180,7 +182,8 @@ export class MapArtProcessor {
                 blockSize,
                 ctx,
                 colorTable,
-                blockImages
+                blockImages,
+                replaceAir
             })
         }
         if (outputCanvas.width * outputCanvas.height >= 4096 * 4096){
@@ -346,6 +349,7 @@ export class MapArtProcessor {
             base?: { x: number; y: number; z: number },
             flipX?: boolean,
             flipY?: boolean
+            replaceAir: boolean
         }
     ) {
         let {
@@ -400,14 +404,17 @@ export class MapArtProcessor {
 
             let minDistance = Infinity;
             let closestBlockId = '';
-            for (const entry of context.colorTable) {
-                const distance = colorDistance(r, g, b, entry.rgb.r, entry.rgb.g, entry.rgb.b);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestBlockId = entry.blockId;
+            if (context[index + 3] == 0 && context.replaceAir){
+                closestBlockId = 'air';
+            }else {
+                for (const entry of context.colorTable) {
+                    const distance = colorDistance(r, g, b, entry.rgb.r, entry.rgb.g, entry.rgb.b);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestBlockId = entry.blockId;
+                    }
                 }
             }
-
             if (closestBlockId) {
                 context.blockList.addBlockByPos(
                     x3d,
@@ -429,6 +436,7 @@ export class MapArtProcessor {
             ctx: CanvasRenderingContext2D
             colorTable: Array<{ rgb: { r: number; g: number; b: number }, blockId: string }>
             blockImages: Map<string, HTMLImageElement>
+            replaceAir: boolean
         }
     ) {
         for (let i = start; i < end; i++) {
@@ -439,6 +447,7 @@ export class MapArtProcessor {
             const r = context.data[index]
             const g = context.data[index + 1]
             const b = context.data[index + 2]
+
 
             let minDistance = Infinity
             let closestBlockId = ''
@@ -452,19 +461,29 @@ export class MapArtProcessor {
                     closestBlockId = entry.blockId
                 }
             }
-
-            if (closestBlockId) {
-                const img = context.blockImages.get(closestBlockId)
-                if (img) {
-                    context.ctx.drawImage(
-                        img,
-                        x * context.blockSize,
-                        y * context.blockSize,
-                        context.blockSize,
-                        context.blockSize
-                    )
+            if (context.data[index + 3] == 0 && context.replaceAir) {
+                context.ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                context.ctx.fillRect(
+                    x * context.blockSize,
+                    y * context.blockSize,
+                    context.blockSize,
+                    context.blockSize
+                );
+            }else {
+                if (closestBlockId) {
+                    const img = context.blockImages.get(closestBlockId)
+                    if (img) {
+                        context.ctx.drawImage(
+                            img,
+                            x * context.blockSize,
+                            y * context.blockSize,
+                            context.blockSize,
+                            context.blockSize
+                        )
+                    }
                 }
             }
+
         }
     }
 

@@ -14,6 +14,7 @@ const exportSettings = reactive({
   axios: 'y',
   targetRotation: 0
 });
+const replaceAir = ref(false)
 const schematicType = ref()
 const subType = ref()
 const schematicTypes = ref([
@@ -119,7 +120,7 @@ const refreshImage = async () => {
     isProcessing.value = true
     hasImage.value = true
     imageBuild.value.updateBlocksData(selectedBlocks.value)
-    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, exportSettings.targetRotation as 0 | 90 | 180| 270);
+    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, replaceAir.value, exportSettings.targetRotation as 0 | 90 | 180| 270);
     const ctx = previewCanvas.value.getContext('2d')
     if (!ctx) return
 
@@ -148,7 +149,7 @@ const uploadImage = async(file: File | undefined) => {
     if (exportSettings.height*16 * exportSettings.width*16 >= 16384* 16384) resize.value = 0.5
     imageBuild.value.updateBlocksData(selectedBlocks.value)
     await updateSize()
-    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, exportSettings.targetRotation as 0 | 90 | 180| 270);
+    const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, replaceAir.value, exportSettings.targetRotation as 0 | 90 | 180| 270);
     const ctx = previewCanvas.value.getContext('2d')
     if (!ctx) return
 
@@ -181,6 +182,7 @@ const exportSchematicData = async() => {
         {width: exportSettings.width, height:exportSettings.height},
         exportSettings.targetRotation as 0 | 90 | 180| 270,
         exportSettings.dithering,
+        replaceAir.value,
         exportSettings.axios as 'x' | 'y' | 'z'
     )
     if (result){
@@ -388,6 +390,30 @@ onBeforeMount(async() => {
             </v-tooltip>
           </template>
         </v-switch>
+
+        <v-switch
+            class="ml-4"
+            v-model="replaceAir"
+            label="空气方块"
+            color="primary"
+            density="compact"
+            hint="将透明SRGBA替换为空气方块"
+            persistent-hint
+        >
+          <template v-slot:append>
+            <v-tooltip location="bottom">
+              <template v-slot:activator="{ props }">
+                <v-icon
+                    v-bind="props"
+                    icon="mdi-information-outline"
+                    size="small"
+                    class="ml-2"
+                ></v-icon>
+              </template>
+              <span>减少整体工作量，改变风格</span>
+            </v-tooltip>
+          </template>
+        </v-switch>
       </div>
       <v-btn
           variant="outlined"
@@ -518,8 +544,8 @@ onBeforeMount(async() => {
               ref="previewCanvas"
               class="pixel-canvas"
               :style="{
-          opacity: isProcessing ? 0.5 : 1,
-          cursor: isProcessing ? 'wait' : 'default'
+              opacity: isProcessing ? 0.5 : 1,
+              cursor: isProcessing ? 'wait' : 'default'
         }"
           ></canvas>
         </div>
@@ -618,8 +644,8 @@ onBeforeMount(async() => {
 
 <style scoped>
 .preview-container {
+  display: inline-block;
   position: relative;
-  height: 66vh;
   background: repeating-conic-gradient(#f5f5f5 0% 25%, white 0% 50%) 50% / 20px 20px;
 }
 
@@ -635,14 +661,6 @@ onBeforeMount(async() => {
   justify-content: center;
   background: rgba(255, 255, 255, 0.8);
   z-index: 2;
-}
-
-.empty-state {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
 }
 
 .pixel-canvas {
