@@ -127,7 +127,7 @@ pub async fn schematic_replacement(
                     requirements_str,
                     unique_blocks,
                 )?;
-                file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
+                file_manager.save_nbt_value(new_id, data, 0, sub_version, v_type, true)?;
             }
             2 => {
                 let requirement = get_requirements(&data.blocks)?;
@@ -152,7 +152,7 @@ pub async fn schematic_replacement(
                     requirements_str,
                     unique_blocks,
                 )?;
-                file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
+                file_manager.save_nbt_value(new_id, data, 0, sub_version, v_type, true)?;
             }
             3 => {
                 let requirement = get_requirements(&data.blocks)?;
@@ -177,7 +177,7 @@ pub async fn schematic_replacement(
                     requirements_str,
                     unique_blocks,
                 )?;
-                file_manager.save_nbt_value(new_id, data, version, sub_version, v_type, true)?;
+                file_manager.save_nbt_value(new_id, data, 0, sub_version, v_type, true)?;
             }
             4 => {
                 let requirement = get_requirements(&data.blocks)?;
@@ -202,7 +202,7 @@ pub async fn schematic_replacement(
                     requirements_str,
                     unique_blocks,
                 )?;
-                file_manager.save_json_value(new_id, data, version, sub_version, v_type)?;
+                file_manager.save_json_value(new_id, data, 0, sub_version, v_type)?;
             }
             //5 => {}
             _ => return Err(anyhow::anyhow!("unknow type: {}", v_type)),
