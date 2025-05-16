@@ -80,7 +80,7 @@ pub async fn convert(
                     id,
                     data,
                     version,
-                    sub_version,
+                    -1,
                     schematic_type as i32,
                     true,
                 )?;
@@ -91,7 +91,7 @@ pub async fn convert(
                     id,
                     data,
                     version,
-                    sub_version,
+                    -1,
                     schematic_type as i32,
                     true,
                 )?;

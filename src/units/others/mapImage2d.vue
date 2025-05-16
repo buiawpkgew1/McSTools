@@ -36,17 +36,17 @@ const schematicTypes = ref([
     value: 3,
     label: '创世神',
     subtypes: [
-      { value: 1, label: '1.20+' },
-      { value: 2, label: '1.16+' }
+      { value: 0, label: '1.20+' },
+      { value: 1, label: '1.16+' }
     ]
   },
   {
     value: 4,
     label: '建筑小帮手',
     subtypes: [
-      { value: 1, label: '1.20+' },
-      //{ value: 2, label: '1.16+' },
-      //{ value: 3, label: '1.12+' }
+      { value: 0, label: '1.20+' },
+      { value: 1, label: '1.16+' },
+      { value: 2, label: '1.12+' }
     ]
   }//,
   //{
@@ -108,6 +108,9 @@ const onMainTypeChange = (data: any) => {
     exportSettings.sub_type = currentSubTypes.value[0].value
     subType.value = data.subtypes[0]
   }
+}
+const onSubTypeChange = (data: any) => {
+  exportSettings.sub_type = data.value
 }
 const isCategorySelected = (categoryName: string) => {
   const category = mapArtData.value.find(c => c.name === categoryName)
@@ -602,6 +605,7 @@ onBeforeMount(async() => {
                 item-value="value"
                 density="compact"
                 label="子类型"
+                @update:modelValue="v => onSubTypeChange(v)"
             ></v-combobox>
           </v-col>
           <v-col cols="12" class="d-flex align-center justify-center gap-2" style="padding: 0 !important;">

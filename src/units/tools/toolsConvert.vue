@@ -99,9 +99,11 @@ const convertSchematic = async (schematicType: number) => {
       timeout: 3000
     });
   } catch (err) {
+
     toast.error(`发生了一个错误:${err}`, {
       timeout: 3000
     });
+    throw err
   } finally {
     isLoading.value = false;
   }
@@ -791,7 +793,6 @@ const convertSchematic = async (schematicType: number) => {
                       <v-btn
                           variant="text"
                           color="primary"
-                          :disabled="true"
                           @click="dialogVersions4 = true; bgVersion = 1"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
@@ -831,7 +832,6 @@ const convertSchematic = async (schematicType: number) => {
                       <v-btn
                           variant="text"
                           color="primary"
-                          :disabled="true"
                           @click="dialogVersions4 = true; bgVersion = 2"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>

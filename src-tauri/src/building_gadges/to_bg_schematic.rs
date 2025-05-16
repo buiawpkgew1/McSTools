@@ -173,6 +173,7 @@ impl ToBgSchematic {
             compound.insert("mapSlot".to_string(), Value::Short(count as i16));
             compound.insert("mapState".to_string(), Compound(map_state));
             palette.push(Compound(compound));
+            count += 1;
         }
 
         Value::List(palette)
@@ -231,9 +232,9 @@ impl ToBgSchematic {
                     .map(|v| *v as i32)
                     .unwrap_or(air_index);
                 let long_val = ((state_id as i64 & B3_BYTE_MASK) << 40)
-                    | ((dx as i64 & B2_BYTE_MASK) << 24)
-                    | ((dy as i64 & B1_BYTE_MASK) << 16)
-                    | (dz as i64 & B2_BYTE_MASK);
+                    | ((block.pos.x as i64 & B2_BYTE_MASK) << 24)
+                    | ((block.pos.y as i64 & B1_BYTE_MASK) << 16)
+                    | (block.pos.z as i64 & B2_BYTE_MASK);
 
                 atomic_block_list[id as usize].store(long_val, Ordering::Relaxed);
             }
@@ -270,7 +271,7 @@ impl ToBgSchematic {
                     .map(|v| *v as i32)
                     .unwrap_or(air_index);
                 let pos_id = rel_pos_to_int(self.start_pos, BlockPos{ x: block.pos.x, y: block.pos.y, z: block.pos.z });
-                atomic_block_list[id as usize].store(state_id, Ordering::Relaxed);
+                atomic_block_list[id as usize].store(state_id + 1, Ordering::Relaxed);
                 atomic_block_pos_list[id as usize].store(pos_id, Ordering::Relaxed);
             }
         });
