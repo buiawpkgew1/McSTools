@@ -12,7 +12,7 @@ use flate2::read::GzDecoder;
 use serde_json::Value as JsonValue;
 use std::collections::BTreeMap;
 use std::fs;
-use std::io::{Cursor, Read};
+use std::io::Read;
 use std::sync::Arc;
 
 #[derive(Debug)]

@@ -15,6 +15,7 @@ use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
 use utils::extend_write::to_writer_gzip;
 use utils::requirements::get_requirements;
+use crate::building_gadges::bg_schematic::BgSchematic;
 
 pub mod building_gadges;
 pub mod create;
@@ -88,16 +89,16 @@ fn bg_schematic_write() -> Result<(), SchematicError> {
     let start_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let start_time = Instant::now();
     let mut schematic3 =
-        WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
+        BgSchematic::new("./schematic/384046fd-ac85-4d97-bfca-0d2d41482cab_type1.json")?;
     let schem3 = schematic3.get_blocks_pos()?;
 
-    let bg = ToBgSchematic::new(&schem3);
-    let data = bg.bg_schematic()?;
-    let output_path = "./schematic/out.json";
-    let file = File::create(output_path)?;
-    let writer = BufWriter::new(file);
+    //let bg = ToBgSchematic::new(&schem3);
+    //let data = bg.bg_schematic()?;
+    //let output_path = "./schematic/out.json";
+    //let file = File::create(output_path)?;
+    //let writer = BufWriter::new(file);
 
-    serde_json::to_writer_pretty(writer, &data)?;
+    //serde_json::to_writer_pretty(writer, &data)?;
     sys.refresh_processes(ProcessesToUpdate::All, false);
     let end_mem = sys.process(pid).map(|p| p.memory()).unwrap_or(0);
     let duration = start_time.elapsed();
@@ -172,17 +173,3 @@ fn lm_big_schematic_write() -> Result<(), SchematicError> {
     Ok(())
 }
 
-#[test]
-fn block_data_test() {
-    let json_data = r#"[{
-        "v":100,"b":2,"n":"空气","id":"num.0,107.air","zj":"yn"
-    },{
-        "v":100,"b":1,"n":"石头","id":"num.1,107.stone","t":"0,2","oP":"113"
-    },{
-        "v":108,"b":1,"n":"花岗岩","id":"num.1_1,108.stone,113.granite","t":"0,2","oP":"113"
-    }]"#;
-
-    let data = BlocksData::parse(json_data).map_err(|e| format!("err: {}", e));
-
-    println!("Version Map: {:#?}", data);
-}

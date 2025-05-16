@@ -1,14 +1,20 @@
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos};
 use crate::utils::schematic_data::{SchematicData, SchematicError};
-use fastnbt::Value;
+use fastnbt::{to_bytes, Value};
 use fastnbt::Value::Compound;
 use fastsnbt::to_string;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
 use serde_json::{json, Value as JsonValue};
 use std::collections::{BTreeMap, HashMap, VecDeque};
-use std::sync::atomic::{AtomicI32, Ordering};
+use std::io::Write;
+use std::sync::atomic::{AtomicI32, AtomicI64, Ordering};
 use std::sync::Arc;
+use base64::Engine;
+use flate2::Compression;
+use flate2::write::GzEncoder;
+use crate::building_gadges::template_json_representation::{rel_pos_to_int, B1_BYTE_MASK, B2_BYTE_MASK, B3_BYTE_MASK};
+
 #[derive(Debug)]
 pub struct ToBgSchematic {
     blocks: VecDeque<BlockStatePos>,
@@ -125,6 +131,53 @@ impl ToBgSchematic {
         Value::List(palette)
     }
 
+    pub fn bg_palette_type1(&self) -> Value {
+        let mut palette = Vec::new();
+
+        for block in &self.unique_block_states {
+            let mut compound:HashMap<String, Value> = HashMap::new();
+            let mut state = HashMap::new();
+            state.insert("Name".to_string(), Value::String(block.id.name.to_string()));
+
+            if !block.properties.is_empty() {
+                let mut props = HashMap::new();
+                for (k, v) in &block.properties {
+                    props.insert(k.to_string(), Value::String(v.to_string()));
+                }
+                state.insert("Properties".to_string(), Compound(props));
+            }
+            compound.insert("state".to_string(), Compound(state));
+            compound.insert("data".to_string(), Compound(HashMap::new()));
+            compound.insert("serializer".to_string(), Value::Int(0));
+            palette.push(Compound(compound));
+        }
+
+        Value::List(palette)
+    }
+
+    pub fn bg_palette_type2(&self) -> Value {
+        let mut palette = Vec::new();
+        let mut count = 1;
+        for block in &self.unique_block_states {
+            let mut compound = HashMap::new();
+            let mut map_state = HashMap::new();
+            map_state.insert("Name".to_string(), Value::String(block.id.name.to_string()));
+
+            if !block.properties.is_empty() {
+                let mut props = HashMap::new();
+                for (k, v) in &block.properties {
+                    props.insert(k.to_string(), Value::String(v.to_string()));
+                }
+                map_state.insert("Properties".to_string(), Compound(props));
+            }
+            compound.insert("mapSlot".to_string(), Value::Short(count as i16));
+            compound.insert("mapState".to_string(), Compound(map_state));
+            palette.push(Compound(compound));
+        }
+
+        Value::List(palette)
+    }
+
     pub fn get_block_id_list(&self) -> Vec<i32> {
         let total_blocks = (self.length * self.width * self.height) as usize;
         let air_index = self.air_index as i32;
@@ -157,6 +210,95 @@ impl ToBgSchematic {
             .collect()
     }
 
+    pub fn get_block_longs(&self) -> Vec<i64> {
+        let total_blocks = (self.length * self.width * self.height) as usize;
+        let air_index = self.air_index as i32;
+        let atomic_block_list: Vec<AtomicI64> =
+            (0..total_blocks).map(|_| AtomicI64::new(0)).collect();
+        let atomic_block_list = Arc::new(atomic_block_list);
+
+        self.blocks.par_iter().for_each(|block| {
+            let dx = block.pos.x - self.start_pos.x;
+            let dy = block.pos.y - self.start_pos.y;
+            let dz = block.pos.z - self.start_pos.z;
+
+            let id = (dy * self.width * self.length) + (dz * self.width) + dx;
+
+            if id >= 0 && (id as usize) < atomic_block_list.len() {
+                let state_id = self
+                    .block_state_to_index
+                    .get(&block.block)
+                    .map(|v| *v as i32)
+                    .unwrap_or(air_index);
+                let long_val = ((state_id as i64 & B3_BYTE_MASK) << 40)
+                    | ((dx as i64 & B2_BYTE_MASK) << 24)
+                    | ((dy as i64 & B1_BYTE_MASK) << 16)
+                    | (dz as i64 & B2_BYTE_MASK);
+
+                atomic_block_list[id as usize].store(long_val, Ordering::Relaxed);
+            }
+        });
+
+        Arc::try_unwrap(atomic_block_list)
+            .unwrap()
+            .into_iter()
+            .map(|atomic| atomic.into_inner())
+            .collect()
+    }
+
+    pub fn get_block_and_pos(&self) -> (Vec<i32>, Vec<i32>) {
+        let total_blocks = (self.length * self.width * self.height) as usize;
+        let air_index = self.air_index as i32;
+        let atomic_block_list: Vec<AtomicI32> =
+            (0..total_blocks).map(|_| AtomicI32::new(0)).collect();
+        let atomic_block_list = Arc::new(atomic_block_list);
+        let atomic_block_pos_list: Vec<AtomicI32> =
+            (0..total_blocks).map(|_| AtomicI32::new(0)).collect();
+        let atomic_block_pos_list = Arc::new(atomic_block_pos_list);
+
+        self.blocks.par_iter().for_each(|block| {
+            let dx = block.pos.x - self.start_pos.x;
+            let dy = block.pos.y - self.start_pos.y;
+            let dz = block.pos.z - self.start_pos.z;
+
+            let id = (dy * self.width * self.length) + (dz * self.width) + dx;
+
+            if id >= 0 && (id as usize) < atomic_block_list.len() {
+                let state_id = self
+                    .block_state_to_index
+                    .get(&block.block)
+                    .map(|v| *v as i32)
+                    .unwrap_or(air_index);
+                let pos_id = rel_pos_to_int(self.start_pos, BlockPos{ x: block.pos.x, y: block.pos.y, z: block.pos.z });
+                atomic_block_list[id as usize].store(state_id, Ordering::Relaxed);
+                atomic_block_pos_list[id as usize].store(pos_id, Ordering::Relaxed);
+            }
+        });
+
+        (
+            Arc::try_unwrap(atomic_block_list)
+                .unwrap()
+                .into_iter()
+                .map(|atomic| atomic.into_inner())
+                .collect(),
+            Arc::try_unwrap(atomic_block_pos_list)
+                .unwrap()
+                .into_iter()
+                .map(|atomic| atomic.into_inner())
+                .collect()
+        )
+    }
+
+    pub fn to_base64(&self, value: &Value) -> Result<String, SchematicError> {
+        let nbt_bytes = to_bytes(value)?;
+
+        let mut encoder = GzEncoder::new(Vec::new(), Compression::default());
+        encoder.write_all(&nbt_bytes)?;
+        let compressed = encoder.finish()?;
+        let base64_str = base64::engine::general_purpose::STANDARD.encode(compressed);
+        Ok(base64_str)
+    }
+
     pub fn state_pos_array_list(&self) -> Result<String, SchematicError> {
         let mut region = HashMap::new();
         let int_array: Vec<i32> = self.get_block_id_list();
@@ -178,13 +320,83 @@ impl ToBgSchematic {
         Ok(to_string(&region)?)
     }
 
-    pub fn bg_schematic(&self) -> Result<JsonValue, SchematicError> {
-        let state_pos_array_list = self.state_pos_array_list()?;
-        let dynamic_json = json!({
-            "name": "null",
-            "statePosArrayList": state_pos_array_list,
+    pub fn base64_original_data(&self) -> Result<Value, SchematicError> {
+        let mut compound:HashMap<String, Value> = HashMap::new();
+        let mut header:HashMap<String, Value> = HashMap::new();
+        header.insert("author".to_string(), Value::String("MCSTools".to_string()));
+        let mut bounds:HashMap<String, Value> = HashMap::new();
+        bounds.insert("maxX".to_string(), Value::Int(self.end_pos.x));
+        bounds.insert("maxY".to_string(), Value::Int(self.end_pos.y));
+        bounds.insert("maxZ".to_string(), Value::Int(self.end_pos.z));
+        bounds.insert("minX".to_string(), Value::Int(self.start_pos.x));
+        bounds.insert("minY".to_string(), Value::Int(self.start_pos.y));
+        bounds.insert("minZ".to_string(), Value::Int(self.start_pos.z));
+        header.insert("bounds".to_string(), Compound(bounds));
+        header.insert("name".to_string(), Value::String("null".to_string()));
+        let longs = self.get_block_longs();
+        let mut blocks = Vec::new();
+        for id in longs {
+            blocks.push(Value::Long(id));
+        }
+        compound.insert("pos".to_string(), Value::List(blocks));
+        compound.insert("header".to_string(), Compound(header));
+        compound.insert("data".to_string(), self.bg_palette_type1());
+        Ok(Compound(compound))
+    }
 
-        });
-        Ok(dynamic_json)
+    pub fn state_pos_list_to_nbt_map_array_type1(&self) -> Result<Value, SchematicError> {
+        let mut tag:HashMap<String, Value> = HashMap::new();
+        let mut header:HashMap<String, Value> = HashMap::new();
+        header.insert("version".to_string(), Value::String("".to_string()));
+        header.insert("mc_version".to_string(), Value::String("".to_string()));
+        header.insert("name".to_string(), Value::String("".to_string()));
+        header.insert("author".to_string(), Value::String("MCSTools".to_string()));
+        let mut material_list:HashMap<String, Value> = HashMap::new();
+        material_list.insert("root_type".to_string(), Value::String("buildinggadgets:entries".to_string()));
+        material_list.insert("root_entry".to_string(), Value::List(vec![]));
+        header.insert("material_list".to_string(), Compound(material_list));
+        tag.insert("header".to_string(), Compound(header));
+        let data = self.base64_original_data()?;
+        let base64_data = self.to_base64(&data)?;
+        tag.insert("body".to_string(), Value::String(base64_data));
+        Ok(Compound(tag))
+    }
+
+    pub fn state_pos_list_to_nbt_map_array_type2(&self) -> Result<Value, SchematicError>{
+        let mut tag:HashMap<String, Value> = HashMap::new();
+        let mut end_pos = HashMap::new();
+        end_pos.insert("X".to_string(), Value::Int(self.end_pos.x));
+        end_pos.insert("Y".to_string(), Value::Int(self.end_pos.y));
+        end_pos.insert("Z".to_string(), Value::Int(self.end_pos.z));
+        let mut start_pos = HashMap::new();
+        start_pos.insert("X".to_string(), Value::Int(self.start_pos.x));
+        start_pos.insert("Y".to_string(), Value::Int(self.start_pos.y));
+        start_pos.insert("Z".to_string(), Value::Int(self.start_pos.z));
+        tag.insert("startPos".to_string(), Compound(start_pos));
+        tag.insert("endPos".to_string(), Compound(end_pos));
+        tag.insert("mapIntState".to_string(), self.bg_palette_type2());
+        let (state_int_array, pos_int_array) = self.get_block_and_pos();
+        tag.insert("stateIntArray".to_string(), Value::IntArray(fastnbt::IntArray::new(state_int_array)));
+        tag.insert("posIntArray".to_string(), Value::IntArray(fastnbt::IntArray::new(pos_int_array)));
+        Ok(Compound(tag))
+    }
+
+    pub fn bg_schematic(&self, sub_type: i32) -> Result<String, SchematicError> {
+        if sub_type == 0 {
+            let state_pos_array_list = self.state_pos_array_list()?;
+            let dynamic_json = json!({
+                "name": "null",
+                "statePosArrayList": state_pos_array_list,
+            });
+            Ok(dynamic_json.to_string())
+        }else if sub_type == 1 {
+            let data = self.state_pos_list_to_nbt_map_array_type1()?;
+            Ok(to_string(&data)?)
+        }else if sub_type == 2 {
+            let data = self.state_pos_list_to_nbt_map_array_type2()?;
+            Ok(to_string(&data)?)
+        }else {
+            Err(SchematicError::InvalidFormat("bg_schematic unknown type"))
+        }
     }
 }

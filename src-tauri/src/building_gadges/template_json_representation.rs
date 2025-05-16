@@ -6,9 +6,9 @@ use fastnbt::Value::Compound;
 use std::collections::{BTreeMap, HashMap};
 use std::sync::Arc;
 
-const B1_BYTE_MASK: i64 = 0xFF;
-const B2_BYTE_MASK: i64 = 0xFFFF;
-const B3_BYTE_MASK: i64 = 0xFFFFFF;
+pub const B1_BYTE_MASK: i64 = 0xFF;
+pub const B2_BYTE_MASK: i64 = 0xFFFF;
+pub const B3_BYTE_MASK: i64 = 0xFFFFFF;
 
 pub fn deserialize(nbt: HashMap<String, Value>) -> Result<BlockStatePosList, SchematicError> {
     let mut block_list = BlockStatePosList::default();
@@ -84,4 +84,11 @@ pub fn int_to_rel_pos(start_pos: BlockPos, p: i32) -> BlockPos {
         y: start_pos.y.wrapping_add(dy),
         z: start_pos.z.wrapping_add(dz),
     }
+}
+pub fn rel_pos_to_int(start_pos: BlockPos, rel_pos: BlockPos) -> i32 {
+    let dx = (rel_pos.x - start_pos.x) & 0xFF;
+    let dy = (rel_pos.y - start_pos.y) & 0xFF;
+    let dz = (rel_pos.z - start_pos.z) & 0xFF;
+
+    (dx << 16) | (dy << 8) | dz
 }

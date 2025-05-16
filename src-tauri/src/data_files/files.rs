@@ -146,7 +146,7 @@ impl FileManager {
     pub fn save_json_value(
         &self,
         id: i64,
-        data: serde_json::Value,
+        data: String,
         version: i32,
         sub_version: i32,
         v_type: i32,
@@ -159,10 +159,8 @@ impl FileManager {
         );
         let final_path = schematic_dir.join(final_filename);
         let out_path = final_path.clone();
-        let file = File::create(final_path)?;
-        let writer = BufWriter::new(file);
-
-        serde_json::to_writer_pretty(writer, &data)?;
+        let mut file = File::create(final_path)?;
+        file.write_all(data.as_bytes())?; 
         Ok(out_path)
     }
 

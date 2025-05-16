@@ -108,7 +108,7 @@ pub async fn convert(
                 )?;
             }
             4 => {
-                let data = ToBgSchematic::new(&data).bg_schematic()?;
+                let data = ToBgSchematic::new(&data).bg_schematic(bg_version as i32)?;
                 file_manager.save_json_value(
                     id,
                     data,
