@@ -431,7 +431,7 @@ onBeforeRouteLeave(navigationGuard)
                 <span class="font-weight-bold">创世神</span>
               </template>
               <template v-slot:subtitle>
-                老牌建筑工具，延用至今，新版axios也采用了这种蓝图格式
+                老牌建筑工具，延用至今，新版axiom也采用了这种蓝图格式
               </template>
             </v-list-item>
             <v-list-item

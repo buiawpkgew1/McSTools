@@ -83,7 +83,7 @@ onBeforeRouteLeave(navigationGuard)
                 </v-col>
                 <v-col cols="12">
                   <p class="text-body-1 text-grey-darken-2">
-                    软件使用tuari 后端基于rust，前端使用vue.
+                    软件使用tauri 后端基于rust，前端使用vue.
                     <br/>
                     分离化设计让软件性能得到保障，rust安全设计，性能更好，内存安全高效。
                   </p>
