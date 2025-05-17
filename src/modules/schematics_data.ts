@@ -25,6 +25,15 @@ export let schematicTypeList = {
     4: "建筑小帮手",
 }
 
+export let schematicTypeListWeb = {
+    0: "香草结构",
+    1: "投影蓝图",
+    2: "建筑小帮手",
+    3: "创世神",
+    4: "MC BE",
+
+}
+
 interface PaginatedResult<T> {
     data: T[];
     page: number;

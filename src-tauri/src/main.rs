@@ -16,17 +16,14 @@ use sysinfo::{Pid, ProcessesToUpdate, System};
 use utils::extend_write::to_writer_gzip;
 use utils::requirements::get_requirements;
 use crate::building_gadges::bg_schematic::BgSchematic;
-
 pub mod building_gadges;
 pub mod create;
 pub mod litematica;
 pub mod utils;
 pub mod word_edit;
-
 fn main() {
     rust_lib::run()
 }
-
 #[test]
 fn test_lm_schematic() -> Result<(), SchematicError> {
     let mut sys = System::new_all();

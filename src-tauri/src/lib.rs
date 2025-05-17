@@ -8,6 +8,7 @@ mod map_art;
 pub mod modules;
 pub mod utils;
 mod word_edit;
+mod CMS;
 
 use crate::database::db_control;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -25,6 +26,7 @@ use modules::schematic::{copy_schematic, delete_schematic, encode_uploaded_schem
 use modules::map_art::create_map_art;
 use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
+use CMS::get_cms_data::perform_search;
 use tauri::Manager;
 use modules::modules_data;
 use utils::loading::close_splashscreen;
@@ -71,6 +73,7 @@ pub fn run() {
             add_logs,
             schematic_replacement,
             get_je_blocks,
+            perform_search,
             get_map_arts,
             get_logs,
             add_schematic,

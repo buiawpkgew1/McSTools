@@ -1,100 +1,27 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import dayjs from 'dayjs'
-import {onBeforeRouteLeave, useRouter} from "vue-router";
+import {onBeforeRouteLeave} from "vue-router";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
-import {fetchSchematics, SchematicsData, schematicTypeList} from "../modules/schematics_data.ts";
-import {clear_tools, fetch_data} from "../modules/tools_data.ts"
-import {activeTab} from "../modules/layout.ts";
-import {opacity} from "../modules/theme.ts";
-import {userData} from "../modules/user_data.ts";
-import {delete_schematic} from "../modules/delete_schematic.ts";
-import {copySchematic} from "../modules/copy_file.ts";
-const router = useRouter()
-const autoPage = ref(1)
-const showDeleteDialog = ref(false)
-const selectedBpId = ref(null)
-const selectedBpName = ref('')
-const hasMore = ref(true);
-const isLoading = ref(false);
-let schematics = ref<SchematicsData[]>([])
-const parseDimensions = (sizeStr: string) => {
-  const [length, width, height] = sizeStr.split(',').map(Number);
-  return [`X${length}`, `Y${width}`, `Z${height}`]
-};
-
-const selectSchematic = async(id: number) => {
-    clear_tools()
-    await fetch_data(id)
-    await router.push("/tools")
-    activeTab.value = 'tools'
-}
-interface LoadParams {
-  done: (status: 'ok' | 'error' | 'empty') => void
-}
-
-const schematic_load = async ({ done }: LoadParams) => {
-  if (!hasMore.value) {
-    done('empty')
-    return
+import LocalData from "../units/schematics/localData.vue";
+import WebData from "../units/schematics/webData.vue";
+import MCS from "../static/img/fav512.png"
+import CMS from "../static/img/CMS.png"
+import {selectedSite} from "../modules/web_schematic/web_data.ts";
+const active = ref()
+const siteOptions = [
+  {
+    title: 'MCS:www.mcschematic.top',
+    value: 'MCS',
+    img: MCS
+  },
+  {
+    title: 'CMS:www.creativemechanicserver.com',
+    value: 'CMS',
+    img: CMS
   }
-  if (!hasMore.value || isLoading.value) return;
-
-  try {
-    isLoading.value = true;
-    const total = userData.value.schematics
-
-    const { data, page, page_size } = await fetchSchematics({
-      filter: '',
-      page: autoPage.value,
-      page_size: 20
-    });
-
-    schematics.value = [...schematics.value, ...data];
-    autoPage.value += 1;
-
-    hasMore.value = (page * page_size) < total;
-    done('ok')
-  } catch (error) {
-    console.error('加载失败:', error);
-    done('error')
-  } finally {
-    isLoading.value = false;
-  }
-}
-
-const openDeleteDialog = (bp: SchematicsData) => {
-  selectedBpId.value = bp.id
-  selectedBpName.value = bp?.name || '未命名蓝图'
-  showDeleteDialog.value = true
-}
-
-const confirmDelete = async () => {
-  try {
-    await delete_schematic(selectedBpId.value)
-    const index = schematics.value.findIndex(
-        item => item.id === selectedBpId.value
-    )
-    userData.value.schematics -= 1;
-    if (index !== -1) {
-      schematics.value.splice(index, 1)
-
-      userData.value.schematics = Math.max(
-          userData.value.schematics - 1,
-          0
-      )
-    }
-    showDeleteDialog.value = false
-  } catch (error) {
-    console.error('删除失败:', error)
-  }
-}
-
+]
 onBeforeRouteLeave(navigationGuard)
 
-const formatTime = (time: any) => {
-  return dayjs(time).format('YYYY/MM/DD HH:mm')
-}
 </script>
 
 <template class="page-wrapper">
@@ -103,204 +30,91 @@ const formatTime = (time: any) => {
          :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col>
-      <v-card class="mx-auto v-theme--custom text-primary " :style="{ '--surface-alpha': opacity }" elevation="4" style="height: 99vh">
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
-          <v-toolbar-title>
+      <v-card class="mx-auto v-theme--custom text-primary" elevation="4" style="height: 100vh">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 px-4 py-3">
+          <div class="d-flex align-center">
             <v-icon icon="mdi-warehouse" class="mr-2"></v-icon>
-            <span class="text-h5">蓝图仓库</span>
-          </v-toolbar-title>
-          <v-btn variant="text" icon="mdi-cloud-upload" title="上传蓝图"/>
-        </v-toolbar>
+            <span class="text-h5 ml-2 font-weight-medium">蓝图仓库</span>
+            <v-divider vertical inset class="mx-4" thickness="2"/>
+          </div>
 
-        <v-list class="mc-blueprint-list">
-          <v-infinite-scroll
-              :items="schematics"
-              @load="schematic_load"
-              :has-more="hasMore"
-          >
-            <v-list-item
-                v-for="(bp) in schematics"
-                :key="bp.id"
-                class="py-2"
-                :title="bp.name"
+          <div class="toolbar-controls" v-if="active == 'web'">
+            <v-select
+                v-model="selectedSite"
+                :items="siteOptions"
+                label="站点源"
+                density="comfortable"
+                variant="underlined"
+                class="source-select"
+                hide-details
             >
-              <template v-slot:prepend>
-                <v-icon
-                    icon="mdi-cube-scan"
-                    size="60"
-                    class="app-logo"
-                />
-              </template>
-
-              <template #title >
-                <div class="d-flex align-center flex-wrap" @click="selectSchematic(bp.id)">
-                  <span v-if="bp.schematic_type == -1" class="text-h6 text-red-lighten-1">未解析</span>
-                  <span class="text-h6 text-blue-darken-4">{{ bp.name }}</span>
-                  <div class="ms-3 d-flex align-center ga-1">
-                    <v-chip
-                        variant="outlined"
-                        color="green-darken-2"
-                        size="small"
-                        class="me-2"
-                    >
-                      <v-icon start icon="mdi-account"></v-icon>
-                      {{ bp.user }}
-                    </v-chip>
-                    <v-chip
-                        color="orange-lighten-4"
-                        size="small"
-                        class="text-orange-darken-4"
-                    >
-                      <v-icon start icon="mdi-cube"></v-icon>
-                      {{ bp.game_version }}
-                    </v-chip>
-                    <v-chip
-                        color="deep-purple"
-                        variant="outlined"
-                        size="small"
-                        class="dimension-chip"
-                    >
-                      <div class="d-flex align-center">
-                        <v-icon icon="mdi-axis-arrow" class="mr-1"></v-icon>
-                        <div class="dimension-values">
-                        <span v-for="(dim, index) in parseDimensions(bp.sizes)" :key="index">
-                          {{ dim }}
-                          <v-icon v-if="index < 2" icon="mdi-close" size="x-small" class="mx-1"></v-icon>
-                        </span>
-                        </div>
-                      </div>
-                    </v-chip>
-                    <v-chip
-                        color="blue"
-                        size="small"
-                    >
-                      <v-icon size="24" start icon="mdi-identifier"></v-icon>
-                      {{ bp.id }}
-                    </v-chip>
-                  </div>
+              <template v-slot:selection="{ item }">
+                <div class="d-flex align-center">
+                  <v-avatar size="32" rounded="1" class="mr-2">
+                    <v-img :src="item.raw.img" style="height: 32px; width: 32px" />
+                  </v-avatar>
+                  {{ item.title }}
                 </div>
               </template>
 
-              <template #subtitle>
-                <div class="d-flex flex-column mt-1" @click="selectSchematic(bp.id)">
-                  <p class="text-caption mb-1">
-                    {{ bp.description }}
-                  </p>
-
-                  <div class="d-flex align-center flex-wrap gap-3">
-                    <div class="d-flex align-center">
-                      <v-icon icon="mdi-format-list-bulleted-type" size="small" class="me-1"></v-icon>
-                      <span class="text-caption">{{ schematicTypeList[bp.schematic_type as 1 | 2 | 3 | 4] }}</span>
-                    </div>
-
-                    <div class="d-flex align-center flex-wrap gap-3">
-                      <div class="d-flex align-center">
-                        <v-icon icon="mdi-tag" size="small" class="me-1"></v-icon>
-                        <span class="text-caption">
-                        v{{ bp.version }}
-                        <v-chip size="x-small" color="green" class="ms-1">当前版本</v-chip>
-                      </span>
-                      </div>
-                    </div>
-
-                    <div class="d-flex align-center">
-                      <v-icon icon="mdi-clock-outline" size="small" class="me-1"></v-icon>
-                      <span class="text-caption">{{ formatTime(bp.updated_at) }}</span>
-                    </div>
-                  </div>
-                </div>
+              <template v-slot:item="{ item, props }">
+                <v-list-item v-bind="props">
+                  <template v-slot:prepend>
+                    <v-avatar size="32" rounded="1" class="mr-2">
+                      <v-img :src="item.raw.img" style="height: 32px; width: 32px" />
+                    </v-avatar>
+                  </template>
+                </v-list-item>
               </template>
+            </v-select>
+          </div>
 
-              <template v-slot:append>
-                <div class="d-flex flex-column align-center ga-2">
-                  <v-btn
-                      variant="tonal"
-                      color="primary"
-                      prepend-icon="mdi-download"
-                      size="small"
-                      @click="copySchematic(bp.id, bp.sub_type, bp.version, bp.schematic_type)"
-                  >
-                    导出
-                  </v-btn>
-                  <div class="d-flex ga-1">
-                    <v-btn
-                        variant="text"
-                        color="grey-darken-1"
-                        icon="mdi-pencil"
-                        density="comfortable"
-                        @click="selectSchematic(bp.id)"
-                    ></v-btn>
-                    <v-btn
-                        variant="text"
-                        color="red-lighten-1"
-                        icon="mdi-delete"
-                        density="comfortable"
-                        @click="openDeleteDialog(bp)"
-                    ></v-btn>
+          <v-spacer/>
 
+          <div class="d-flex align-center">
+            <v-tabs v-model="active" color="blue-lighten-1" slider-color="blue-darken-2">
+              <v-tab value="local">本地蓝图</v-tab>
+              <v-tab value="web">网络蓝图</v-tab>
+            </v-tabs>
+            <v-btn
+                variant="text"
+                icon="mdi-cloud-upload"
+                title="上传蓝图"
+                class="ml-4"
+                size="small"
+            />
+          </div>
+        </v-toolbar>
+        <v-window v-model="active">
+          <v-window-item value="local">
+            <local-data />
+          </v-window-item>
+          <v-window-item value="web">
+            <web-data />
+          </v-window-item>
+        </v-window>
 
-                  </div>
-                </div>
-              </template>
-            </v-list-item>
-            <template v-slot:load-more>
-              <div class="text-center py-4">
-                <v-progress-circular
-                    indeterminate
-                    color="primary"
-                    size="24"
-                ></v-progress-circular>
-                  <span class="ml-2 text-caption">正在加载更多数据...</span>
-              </div>
-            </template>
-            <template v-slot:empty>
-              <div class="text-center py-4 text-grey">
-                <v-icon icon="mdi-check-circle" class="mr-2"></v-icon>
-                已经到底了，没有更多数据啦~
-              </div>
-            </template>
-          </v-infinite-scroll>
-
-        </v-list>
       </v-card>
     </v-col>
   </v-row>
-  <v-dialog v-model="showDeleteDialog" max-width="600" persistent>
-    <v-card>
-      <v-card-title class="headline">
-        <v-icon color="error" class="mr-2">mdi-alert-circle</v-icon>
-        确认删除
-      </v-card-title>
-
-      <v-card-text>
-        确定要永久删除蓝图 <strong>{{ selectedBpName }}</strong> (ID: {{ selectedBpId }}) 吗？此操作不可恢复！
-      </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-            color="grey-darken-1"
-            @click="showDeleteDialog = false"
-        >
-          取消
-        </v-btn>
-        <v-btn
-            color="error"
-            @click="confirmDelete"
-        >
-          确认删除
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-
 </template>
 
 <style scoped>
-.mc-blueprint-list {
-  --v-list-item-padding: 12px;
 
-  max-height: calc(99vh - 64px);
-  overflow-y: auto;
+.toolbar-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 600px;
+  margin-left: 16px;
 }
+
+.source-select {
+  width: 100%;
+
+  :deep(.v-field__prepend-inner) {
+    padding-right: 8px;
+  }
+}
+
 </style>

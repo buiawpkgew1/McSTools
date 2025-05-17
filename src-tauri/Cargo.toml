@@ -44,6 +44,7 @@ tauri-plugin-process = "2"
 dunce = "1.0.5"
 tauri-plugin-dialog = "2"
 tauri-plugin-shell = "2"
+reqwest = { version = "0.12.15", features = ["multipart", "cookies"] }
 
 [profile.release]
 opt-level = 3
