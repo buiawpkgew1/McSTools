@@ -20,6 +20,13 @@
     {
       "identifier": "fs:allow-app-read-recursive",
       "allow": [{ "path": "$APPDATA/mcSchematic/*" }]
+    },
+    {
+      "identifier": "http:default",
+      "allow": [
+        { "url": "https://*.mcschematic.top" },
+        { "url": "https://*.creativemechanicserver.com" }
+      ]
     }
   ]
 }
