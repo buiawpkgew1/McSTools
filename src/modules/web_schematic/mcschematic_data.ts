@@ -1,4 +1,5 @@
 import { fetch } from '@tauri-apps/plugin-http';
+import {toast} from "../others.ts";
 
 export interface McSchematicData {
     author: string
@@ -60,7 +61,10 @@ export const fetchMcSchematics = async (
         }));
 
     } catch (error) {
-        console.error('获取MC图纸数据失败:', error);
+        toast.error(`获取数据失败:${error}`, {
+            timeout: 3000
+        });
+        console.error('获取数据失败:', error);
         return [];
     }
 };

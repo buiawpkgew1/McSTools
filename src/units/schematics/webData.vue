@@ -119,13 +119,15 @@ const schematic_load_MCS = async ({ done }: LoadParams) => {
     hasMore_MCS.value = data.length <= 15;
     done('ok')
   } catch (error) {
+    toast.error(`加载失败:${error}`, {
+      timeout: 3000
+    });
     console.error('加载失败:', error);
     done('error')
   } finally {
     isLoading_MCS.value = false;
   }
 }
-
 const downloadAndUpload =async  (uuid: string, type:number) => {
   try {
     downLoading_MCS.value = true
@@ -183,6 +185,9 @@ const schematic_load_CMS = async ({ done }: LoadParams) => {
     hasMore_CMS.value = schematic.length <= 20;
     done('ok')
   } catch (error) {
+    toast.error(`加载失败:${error}`, {
+      timeout: 3000
+    });
     console.error('加载失败:', error);
     done('error')
   } finally {
@@ -217,13 +222,15 @@ const reload_CMS = async () => {
 
     hasMore_CMS.value = schematic.length <= 20;
   } catch (error) {
+    toast.error(`加载失败:${error}`, {
+      timeout: 3000
+    });
     console.error('加载失败:', error);
   } finally {
     isLoading_CMS.value = false;
   }
 }
 const reload_MCS = async () => {
-  console.log("reload_MCS")
   autoPage_MCS.value = 0
   hasMore_MCS.value = true;
   isLoading_MCS.value = false;
@@ -248,6 +255,9 @@ const reload_MCS = async () => {
 
     hasMore_MCS.value = data.length <= 15;
   } catch (error) {
+    toast.error(`加载失败:${error}`, {
+      timeout: 3000
+    });
     console.error('加载失败:', error);
   } finally {
     isLoading_MCS.value = false;
@@ -726,7 +736,7 @@ watch(
 .mc-blueprint-list {
   --v-list-item-padding: 12px;
 
-  max-height: calc(99vh - 64px);
+  max-height: calc(93vh - 64px);
   overflow-y: auto;
 }
 </style>
