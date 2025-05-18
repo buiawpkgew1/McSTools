@@ -6,7 +6,9 @@ pub async fn open_dev(
 ) -> Result<(), String> {
     #[cfg(all(debug_assertions, target_os = "windows"))]
     {
-        let window = app.get_webview_window("main").unwrap();
+        let window = app.get_webview_window("main")
+            .ok_or("Failed to get main window")?;
+
         window.open_devtools();
     }
 
