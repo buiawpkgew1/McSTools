@@ -35,6 +35,7 @@ use tauri::Manager;
 use utils::loading::close_splashscreen;
 use utils::minecraft_data::versions_data::VersionData;
 use CMS::get_cms_data::perform_search;
+use utils::open_dev::open_dev;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -68,6 +69,7 @@ pub fn run() {
             convert,
             get_history,
             update_config,
+            open_dev,
             encode_uploaded_schematic,
             create_map_art,
             update_schematic_name_description,

@@ -6,3 +6,4 @@ pub mod minecraft_data;
 pub mod requirements;
 pub mod schematic_data;
 pub mod tile_entities;
+pub mod open_dev;
