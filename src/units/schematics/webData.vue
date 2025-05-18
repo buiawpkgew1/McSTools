@@ -497,7 +497,7 @@ watch(
                   class="me-2"
               >
                 <v-avatar size="24" rounded="1" class="mr-2">
-                  <img :src="bp.avatarUrl" style="height: 24px; width: 24px" :alt="bp.uuid">
+                  <img :src="bp.avatarUrl.replace('http', 'https')" style="height: 24px; width: 24px" :alt="bp.uuid">
                 </v-avatar>
                 {{ bp.nickName }}
               </v-chip>

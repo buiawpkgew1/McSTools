@@ -28,7 +28,7 @@
       "allow": [
         { "url": "https://*.mcschematic.top" },
         { "url": "https://*.creativemechanicserver.com" },
-        { "url": "http://*.qlogo.cn" }
+        { "url": "https://*.qlogo.cn" }
       ]
     }
   ]
