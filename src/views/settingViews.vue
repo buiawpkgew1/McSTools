@@ -4,7 +4,6 @@ import {opacity} from "../modules/theme.ts";
 import {onBeforeRouteLeave} from "vue-router";
 import {onMounted, ref} from "vue";
 import {appStore} from "../modules/store.ts";
-import {checkUpdate, chuckLoading} from "../modules/chuck_update.ts";
 import {openDev} from "../modules/dev_mode.ts";
 const autoUpdateEnabled = ref(true);
 const devMode = ref(false);
