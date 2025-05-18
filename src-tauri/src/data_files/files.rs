@@ -160,7 +160,7 @@ impl FileManager {
         let final_path = schematic_dir.join(final_filename);
         let out_path = final_path.clone();
         let mut file = File::create(final_path)?;
-        file.write_all(data.as_bytes())?; 
+        file.write_all(data.as_bytes())?;
         Ok(out_path)
     }
 

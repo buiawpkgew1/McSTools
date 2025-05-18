@@ -9,7 +9,7 @@ const qqln = async () => {
 onBeforeRouteLeave(navigationGuard)
 </script>
 
-<template class="page-wrapper">
+<template class="page-wrapper full-screen-page">
   <v-row no-gutters
          class="mb-4 animate-row"
          :class="{ 'animate-row-out': isLeaving }"

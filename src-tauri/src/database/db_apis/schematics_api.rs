@@ -66,7 +66,7 @@ pub fn update_schematic_name(
     conn: &mut PooledConnection<SqliteConnectionManager>,
     name: String,
     description: String,
-    schematic_id: i64
+    schematic_id: i64,
 ) -> Result<i64> {
     let tx = conn.transaction()?;
 
@@ -77,11 +77,7 @@ pub fn update_schematic_name(
             description = ?2,
             updated_at = CURRENT_TIMESTAMP
         WHERE id = ?3"#,
-        params![
-            name,
-            description,
-            schematic_id
-        ],
+        params![name, description, schematic_id],
     )?;
 
     tx.commit()?;

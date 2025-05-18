@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use crate::building_gadges::to_bg_schematic::ToBgSchematic;
 use crate::create::to_create_schematic::ToCreateSchematic;
 use crate::data_files::files::FileManager;
@@ -7,10 +6,11 @@ use crate::database::db_control::DatabaseState;
 use crate::litematica::to_lm_schematic::ToLmSchematic;
 use crate::modules::modules_data::convert_data::ConvertData;
 use crate::utils::minecraft_data::je_blocks_data::{BlocksData, SubData};
+use crate::utils::minecraft_data::map_art_data::{BlockColorData, MapArtsData};
 use crate::word_edit::to_we_schematic::ToWeSchematic;
+use std::collections::HashMap;
 use std::path::PathBuf;
 use tauri::State;
-use crate::utils::minecraft_data::map_art_data::{BlockColorData, MapArtsData};
 
 #[tauri::command]
 pub async fn get_schematic_convert_data(
@@ -51,8 +51,8 @@ pub async fn get_map_arts(
         let data = map_arts.categories.clone();
         Ok(data)
     }
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
+    .await
+    .map_err(|e: anyhow::Error| e.to_string())
 }
 
 #[tauri::command]
@@ -76,25 +76,11 @@ pub async fn convert(
         match schematic_type {
             1 => {
                 let data = ToCreateSchematic::new(&data).create_schematic(vi_air);
-                file_manager.save_nbt_value(
-                    id,
-                    data,
-                    version,
-                    -1,
-                    schematic_type as i32,
-                    true,
-                )?;
+                file_manager.save_nbt_value(id, data, version, -1, schematic_type as i32, true)?;
             }
             2 => {
                 let data = ToLmSchematic::new(&data).lm_schematic(lm_version as i32);
-                file_manager.save_nbt_value(
-                    id,
-                    data,
-                    version,
-                    -1,
-                    schematic_type as i32,
-                    true,
-                )?;
+                file_manager.save_nbt_value(id, data, version, -1, schematic_type as i32, true)?;
             }
             3 => {
                 let data = ToWeSchematic::new(&data).we_schematic(we_version as i32)?;

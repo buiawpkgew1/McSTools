@@ -19,13 +19,17 @@ pub struct SearchResult {
 pub async fn perform_search(
     filter: String,
     page: i64,
+    order: String,
     sort: String,
 ) -> Result<SearchResult, String> {
     async move {
         let client = reqwest::Client::new();
 
         let form = reqwest::multipart::Form::new()
-            .text("csrfmiddlewaretoken", "jslSdvIXi6Xr7oTmLqLXa0ldpQRoYuGZCUk7dh4fws8EYwJC9EGiELBW4KsAaMWE")
+            .text(
+                "csrfmiddlewaretoken",
+                "jslSdvIXi6Xr7oTmLqLXa0ldpQRoYuGZCUk7dh4fws8EYwJC9EGiELBW4KsAaMWE",
+            )
             .text("search_type", "t")
             .text("q", filter)
             .text("consume", "")
@@ -38,15 +42,15 @@ pub async fn perform_search(
             .text("y_size", "")
             .text("function", "")
             .text("grid_col", "1")
-            .text("sort", "time")
-            .text("order", sort)
+            .text("sort", sort)
+            .text("order", order)
             .text("page", page.to_string());
 
         let response = client
             .post("https://www.creativemechanicserver.com/search/")
             .multipart(form)
-            .header(header::COOKIE, "csrftoken=tC9paWwsowln1i0qyo5vEVqTP4LmmsqP", )
-            .header(header::REFERER, "https://www.creativemechanicserver.com/", )
+            .header(header::COOKIE, "csrftoken=tC9paWwsowln1i0qyo5vEVqTP4LmmsqP")
+            .header(header::REFERER, "https://www.creativemechanicserver.com/")
             .send()
             .await?;
 
@@ -54,7 +58,11 @@ pub async fn perform_search(
             return Ok(SearchResult {
                 success: false,
                 data: None,
-                error: Some(format!("HTTP Error: {}, data:{}", response.status(), response.text().await.unwrap())),
+                error: Some(format!(
+                    "HTTP Error: {}, data:{}",
+                    response.status(),
+                    response.text().await.unwrap()
+                )),
             });
         }
 
@@ -66,6 +74,6 @@ pub async fn perform_search(
             error: None,
         })
     }
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
+    .await
+    .map_err(|e: anyhow::Error| e.to_string())
 }

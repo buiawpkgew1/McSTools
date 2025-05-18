@@ -29,7 +29,6 @@ pub struct MapArtsData {
 }
 
 impl MapArtsData {
-
     pub fn new() -> Result<Self> {
         let path = "./data/blocks_art.json";
         let str = fs::read_to_string(path)?;

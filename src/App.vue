@@ -90,12 +90,24 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-fab-transition>
+      <v-fab
+          v-show="showBackToTop"
+          color="primary"
+          :absolute="true"
+          icon="mdi-up"
+          size="large"
+          location="right bottom"
+          class="back-to-top"
+          @click="scrollToTop"
+      />
+    </v-fab-transition>
   </v-app>
 </template>
 
 <script setup lang="ts">
 import AppLayout from "./layout/AppLayout.vue";
-import {onMounted, ref, watchEffect} from "vue";
+import {onMounted, ref, watchEffect, onUnmounted, nextTick} from "vue";
 import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
@@ -129,7 +141,52 @@ const backgroundStyle = ref({
   transform: 'translateZ(0)',
 })
 
+const showBackToTop = ref(false)
+
+const checkScroll = () => {
+  const mainContent = document.getElementById('app') as HTMLElement
+  const scrollY = mainContent?.scrollTop || 0
+  console.log(scrollY)
+  showBackToTop.value = scrollY > 300
+}
+
+const scrollToTop = () => {
+  const mainContent = document.getElementById('app') as HTMLElement
+  if (!mainContent) return
+
+  const startPosition = mainContent.scrollTop
+  const startTime = performance.now()
+
+  const animate = (currentTime: number) => {
+    const elapsed = currentTime - startTime
+    const progress = Math.min(elapsed / 600, 1)
+    const ease = 1 - Math.pow(1 - progress, 4)
+
+    mainContent.scrollTop = startPosition * (1 - ease)
+
+    if (progress < 1) {
+      requestAnimationFrame(animate)
+    }
+  }
+
+  requestAnimationFrame(animate)
+}
+
+onUnmounted(() => {
+  const mainContent = document.getElementById('app')
+  if (mainContent) {
+    mainContent.removeEventListener('scroll', checkScroll)
+  }
+})
+
+
 onMounted(async () => {
+  nextTick(() => {
+    const mainContent = document.getElementById('app')
+    if (mainContent) {
+      mainContent.addEventListener('scroll', checkScroll)
+    }
+  })
   selectedTheme.value = await appStore.get('selectedTheme', 'grey')
   autoUpdateEnabled.value = await appStore.get('autoUpdate', true)
   theme.global.name.value = selectedTheme.value

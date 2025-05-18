@@ -1,8 +1,14 @@
+use crate::building_gadges::template_json_representation::{
+    rel_pos_to_int, B1_BYTE_MASK, B2_BYTE_MASK, B3_BYTE_MASK,
+};
 use crate::utils::block_state_pos_list::{BlockData, BlockId, BlockPos, BlockStatePos};
 use crate::utils::schematic_data::{SchematicData, SchematicError};
-use fastnbt::{to_bytes, Value};
+use base64::Engine;
 use fastnbt::Value::Compound;
+use fastnbt::{to_bytes, Value};
 use fastsnbt::to_string;
+use flate2::write::GzEncoder;
+use flate2::Compression;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
 use serde_json::{json, Value as JsonValue};
@@ -10,10 +16,6 @@ use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::io::Write;
 use std::sync::atomic::{AtomicI32, AtomicI64, Ordering};
 use std::sync::Arc;
-use base64::Engine;
-use flate2::Compression;
-use flate2::write::GzEncoder;
-use crate::building_gadges::template_json_representation::{rel_pos_to_int, B1_BYTE_MASK, B2_BYTE_MASK, B3_BYTE_MASK};
 
 #[derive(Debug)]
 pub struct ToBgSchematic {
@@ -135,7 +137,7 @@ impl ToBgSchematic {
         let mut palette = Vec::new();
 
         for block in &self.unique_block_states {
-            let mut compound:HashMap<String, Value> = HashMap::new();
+            let mut compound: HashMap<String, Value> = HashMap::new();
             let mut state = HashMap::new();
             state.insert("Name".to_string(), Value::String(block.id.name.to_string()));
 
@@ -270,7 +272,14 @@ impl ToBgSchematic {
                     .get(&block.block)
                     .map(|v| *v as i32)
                     .unwrap_or(air_index);
-                let pos_id = rel_pos_to_int(self.start_pos, BlockPos{ x: block.pos.x, y: block.pos.y, z: block.pos.z });
+                let pos_id = rel_pos_to_int(
+                    self.start_pos,
+                    BlockPos {
+                        x: block.pos.x,
+                        y: block.pos.y,
+                        z: block.pos.z,
+                    },
+                );
                 atomic_block_list[id as usize].store(state_id + 1, Ordering::Relaxed);
                 atomic_block_pos_list[id as usize].store(pos_id, Ordering::Relaxed);
             }
@@ -286,7 +295,7 @@ impl ToBgSchematic {
                 .unwrap()
                 .into_iter()
                 .map(|atomic| atomic.into_inner())
-                .collect()
+                .collect(),
         )
     }
 
@@ -322,10 +331,10 @@ impl ToBgSchematic {
     }
 
     pub fn base64_original_data(&self) -> Result<Value, SchematicError> {
-        let mut compound:HashMap<String, Value> = HashMap::new();
-        let mut header:HashMap<String, Value> = HashMap::new();
+        let mut compound: HashMap<String, Value> = HashMap::new();
+        let mut header: HashMap<String, Value> = HashMap::new();
         header.insert("author".to_string(), Value::String("MCSTools".to_string()));
-        let mut bounds:HashMap<String, Value> = HashMap::new();
+        let mut bounds: HashMap<String, Value> = HashMap::new();
         bounds.insert("maxX".to_string(), Value::Int(self.end_pos.x));
         bounds.insert("maxY".to_string(), Value::Int(self.end_pos.y));
         bounds.insert("maxZ".to_string(), Value::Int(self.end_pos.z));
@@ -346,14 +355,17 @@ impl ToBgSchematic {
     }
 
     pub fn state_pos_list_to_nbt_map_array_type1(&self) -> Result<Value, SchematicError> {
-        let mut tag:HashMap<String, Value> = HashMap::new();
-        let mut header:HashMap<String, Value> = HashMap::new();
+        let mut tag: HashMap<String, Value> = HashMap::new();
+        let mut header: HashMap<String, Value> = HashMap::new();
         header.insert("version".to_string(), Value::String("".to_string()));
         header.insert("mc_version".to_string(), Value::String("".to_string()));
         header.insert("name".to_string(), Value::String("".to_string()));
         header.insert("author".to_string(), Value::String("MCSTools".to_string()));
-        let mut material_list:HashMap<String, Value> = HashMap::new();
-        material_list.insert("root_type".to_string(), Value::String("buildinggadgets:entries".to_string()));
+        let mut material_list: HashMap<String, Value> = HashMap::new();
+        material_list.insert(
+            "root_type".to_string(),
+            Value::String("buildinggadgets:entries".to_string()),
+        );
         material_list.insert("root_entry".to_string(), Value::List(vec![]));
         header.insert("material_list".to_string(), Compound(material_list));
         tag.insert("header".to_string(), Compound(header));
@@ -363,8 +375,8 @@ impl ToBgSchematic {
         Ok(Compound(tag))
     }
 
-    pub fn state_pos_list_to_nbt_map_array_type2(&self) -> Result<Value, SchematicError>{
-        let mut tag:HashMap<String, Value> = HashMap::new();
+    pub fn state_pos_list_to_nbt_map_array_type2(&self) -> Result<Value, SchematicError> {
+        let mut tag: HashMap<String, Value> = HashMap::new();
         let mut end_pos = HashMap::new();
         end_pos.insert("X".to_string(), Value::Int(self.end_pos.x));
         end_pos.insert("Y".to_string(), Value::Int(self.end_pos.y));
@@ -377,8 +389,14 @@ impl ToBgSchematic {
         tag.insert("endPos".to_string(), Compound(end_pos));
         tag.insert("mapIntState".to_string(), self.bg_palette_type2());
         let (state_int_array, pos_int_array) = self.get_block_and_pos();
-        tag.insert("stateIntArray".to_string(), Value::IntArray(fastnbt::IntArray::new(state_int_array)));
-        tag.insert("posIntArray".to_string(), Value::IntArray(fastnbt::IntArray::new(pos_int_array)));
+        tag.insert(
+            "stateIntArray".to_string(),
+            Value::IntArray(fastnbt::IntArray::new(state_int_array)),
+        );
+        tag.insert(
+            "posIntArray".to_string(),
+            Value::IntArray(fastnbt::IntArray::new(pos_int_array)),
+        );
         Ok(Compound(tag))
     }
 
@@ -390,13 +408,13 @@ impl ToBgSchematic {
                 "statePosArrayList": state_pos_array_list,
             });
             Ok(dynamic_json.to_string())
-        }else if sub_type == 1 {
+        } else if sub_type == 1 {
             let data = self.state_pos_list_to_nbt_map_array_type1()?;
             Ok(to_string(&data)?)
-        }else if sub_type == 2 {
+        } else if sub_type == 2 {
             let data = self.state_pos_list_to_nbt_map_array_type2()?;
             Ok(to_string(&data)?)
-        }else {
+        } else {
             Err(SchematicError::InvalidFormat("bg_schematic unknown type"))
         }
     }

@@ -26,11 +26,11 @@ onBeforeRouteLeave(navigationGuard)
 
 <template class="page-wrapper">
   <v-row no-gutters
-         class="mb-4 animate-row"
+         class="mb-4 animate-row full-screen-card"
          :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col>
-      <v-card class="mx-auto v-theme--custom text-primary" elevation="4" style="height: 100vh">
+      <v-card class="mx-auto v-theme--custom text-primary"  elevation="4">
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 px-4 py-3">
           <div class="d-flex align-center">
             <v-icon icon="mdi-warehouse" class="mr-2"></v-icon>
@@ -67,8 +67,8 @@ onBeforeRouteLeave(navigationGuard)
                 </v-list-item>
               </template>
             </v-select>
-          </div>
 
+          </div>
           <v-spacer/>
 
           <div class="d-flex align-center">
@@ -116,5 +116,18 @@ onBeforeRouteLeave(navigationGuard)
     padding-right: 8px;
   }
 }
+.v-card-item,
+.v-window {
+  flex: 1;
+  min-height: 0;
+}
 
+.v-window-item {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.v-toolbar {
+  flex-shrink: 0;
+}
 </style>

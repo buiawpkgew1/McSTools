@@ -2,3 +2,15 @@
 [data-v-app] .v-card--variant-flat {
     background: rgba(var(--v-theme-surface), var(--surface-alpha, 1)) !important;
 }
+
+.full-screen-card {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}

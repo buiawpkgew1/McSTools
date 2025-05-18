@@ -3,7 +3,8 @@ import {invoke} from "@tauri-apps/api/core";
 export interface SearchParams {
     filter: string;
     page: number;
-    sort: 'up' | 'down';
+    order: 'up' | 'down'
+    sort: 'time' | 'speed' | 'download';
 }
 export interface CMSchematicData {
     id: number
@@ -44,6 +45,7 @@ export async function performSearch(
         const result = await invoke<SearchResult>('perform_search', {
             filter: params.filter,
             page: params.page,
+            order: params.order,
             sort: params.sort
         });
 

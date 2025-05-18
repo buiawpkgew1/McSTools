@@ -1,6 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use crate::building_gadges::bg_schematic::BgSchematic;
 use crate::building_gadges::to_bg_schematic::ToBgSchematic;
 use crate::create::create_schematic::CreateSchematic;
 use crate::create::to_create_schematic::ToCreateSchematic;
@@ -15,7 +16,6 @@ use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
 use utils::extend_write::to_writer_gzip;
 use utils::requirements::get_requirements;
-use crate::building_gadges::bg_schematic::BgSchematic;
 pub mod building_gadges;
 pub mod create;
 pub mod litematica;
@@ -169,4 +169,3 @@ fn lm_big_schematic_write() -> Result<(), SchematicError> {
     );
     Ok(())
 }
-

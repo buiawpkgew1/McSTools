@@ -1,11 +1,12 @@
 <script setup lang="ts">
 
 import {schematicTypeListWeb} from "../../modules/schematics_data.ts";
-import {onMounted, ref} from "vue";
+import {nextTick, ref, watch} from "vue";
 import dayjs from "dayjs";
 import {fetchMcSchematics, McSchematicData} from "../../modules/web_schematic/mcschematic_data.ts";
 import {CMSchematicData, performSearch} from "../../modules/web_schematic/get_cms.ts";
 import {selectedSite} from "../../modules/web_schematic/web_data.ts";
+import { fetch } from '@tauri-apps/plugin-http';
 import bgImg from '../../static/img/bg.jpg'
 import createImg from '../../static/img/create.jpg'
 import lmImg from '../../static/img/Litematica.jpg'
@@ -23,6 +24,53 @@ const isLoading_CMS = ref(false);
 const downLoading_MCS = ref(false)
 let schematics_MCS = ref<McSchematicData[]>([])
 let schematics_CMS = ref<CMSchematicData[]>([])
+const filters_MCS = ref({
+  keyword: '',
+  type: 0,
+  sortBy: false
+})
+
+const filters_CMS = ref({
+  filter: '',
+  sort: 'time',
+  sortType: 'down'
+})
+const blueprintTypes_CMS = ref([
+  { text: '逆向排序', value: 'down' },
+  { text: '正向排序', value: 'up' }
+])
+const typeLabels_CMS: Record<string, string> = {
+  'down': '逆向排序',
+  'up': '正向排序',
+}
+const sortOptions_CMS = ref([
+  { text: '发布日期', value: 'time' },
+  { text: '产量', value: 'speed' },
+  { text: '下载量', value: 'download' },
+])
+const getSortLabel_CMS: Record<string, string> ={
+  'time': '发布日期',
+  'speed': '产量',
+  'download': '下载量',
+}
+const blueprintTypes_MCS = ref([
+  { text: '公开蓝图', value: 0 },
+  { text: '优选蓝图', value: 1 }
+])
+
+const sortOptions_MCS = ref([
+  { text: '时间排序', value: false },
+  { text: '热度排序', value: true },
+])
+const getSortLabel_MCS = (value: boolean) => {
+  return value ? '热度排序' : '时间排序'
+}
+const panelExpanded_MCS = ref(false)
+const panelExpanded_CMS = ref(false)
+const typeLabels_MCS: Record<number, string> = {
+  0: '公开蓝图',
+  1: '优选蓝图',
+}
 const IMAGE_MAPPING: Record<number, string> = {
   0: createImg,
   1: lmImg,
@@ -39,11 +87,11 @@ const fileExt: Record<number, string> = {
 };
 const parseDimensions = (sizeStr: string) => {
   let data = JSON.parse(sizeStr)
-  return [`X${data[0]}`, `Y${data[1]}`, `Z${data[2]}`];
+  return [`${data[0]}`, `${data[1]}`, `${data[2]}`];
 };
 const parseDimensions_CMS = (sizeStr: string) => {
   const [length, width, height] = sizeStr.split('✖').map(Number);
-  return [`X${length}`, `Y${width}`, `Z${height}`]
+  return [`${length}`, `${width}`, `${height}`]
 };
 interface LoadParams {
   done: (status: 'ok' | 'error' | 'empty') => void
@@ -59,9 +107,10 @@ const schematic_load_MCS = async ({ done }: LoadParams) => {
     isLoading_MCS.value = true;
 
     const data = await fetchMcSchematics({
-      filter: '',
+      filter: filters_MCS.value.keyword,
       page: autoPage_MCS.value,
-      sort: false
+      sort: filters_MCS.value.sortBy,
+      type: filters_MCS.value.type
     });
 
     schematics_MCS.value = [...schematics_MCS.value, ...data];
@@ -83,7 +132,6 @@ const downloadAndUpload =async  (uuid: string, type:number) => {
     const url = `https://www.mcschematic.top/api/schematicFile?uuid=${uuid}`
 
     const response = await fetch(url)
-    console.log(response)
     if (!response.ok) {
       throw new Error(`下载失败: ${response.status} ${response.statusText}`)
     }
@@ -120,9 +168,10 @@ const schematic_load_CMS = async ({ done }: LoadParams) => {
     isLoading_CMS.value = true;
 
     const data = await performSearch({
-      filter: '',
+      filter: filters_CMS.value.filter,
       page: autoPage_CMS.value,
-      sort: 'down'
+      order: filters_CMS.value.sortType as "down" | "up",
+      sort: filters_CMS.value.sort as "time" | "download" | "speed"
     },{
           parseHTML: true
         }
@@ -140,28 +189,274 @@ const schematic_load_CMS = async ({ done }: LoadParams) => {
     isLoading_CMS.value = false;
   }
 }
+const reload_CMS = async () => {
+  autoPage_CMS.value = 0;
+  hasMore_CMS.value = true;
+  isLoading_CMS.value = false;
+  schematics_CMS.value = []
+  if (!hasMore_CMS.value) {
+    return
+  }
+  if (!hasMore_CMS.value || isLoading_CMS.value) return;
 
+  try {
+    isLoading_CMS.value = true;
+
+    const data = await performSearch({
+          filter: filters_CMS.value.filter,
+          page: autoPage_CMS.value,
+          order: filters_CMS.value.sortType as "down" | "up",
+          sort: filters_CMS.value.sort as "time" | "download" | "speed"
+        },{
+          parseHTML: true
+        }
+    );
+    const schematic = data.data as CMSchematicData[]
+    schematics_CMS.value = [...schematics_CMS.value, ...schematic ];
+    autoPage_CMS.value += 1;
+
+    hasMore_CMS.value = schematic.length <= 20;
+  } catch (error) {
+    console.error('加载失败:', error);
+  } finally {
+    isLoading_CMS.value = false;
+  }
+}
+const reload_MCS = async () => {
+  console.log("reload_MCS")
+  autoPage_MCS.value = 0
+  hasMore_MCS.value = true;
+  isLoading_MCS.value = false;
+  schematics_MCS.value = []
+  if (!hasMore_MCS.value) {
+    return
+  }
+  if (!hasMore_MCS.value || isLoading_MCS.value) return;
+
+  try {
+    isLoading_MCS.value = true;
+
+    const data = await fetchMcSchematics({
+      filter: filters_MCS.value.keyword,
+      page: autoPage_MCS.value,
+      sort: filters_MCS.value.sortBy,
+      type: filters_MCS.value.type
+    });
+
+    schematics_MCS.value = [...schematics_MCS.value, ...data];
+    autoPage_MCS.value += 1;
+
+    hasMore_MCS.value = data.length <= 15;
+  } catch (error) {
+    console.error('加载失败:', error);
+  } finally {
+    isLoading_MCS.value = false;
+  }
+}
 const formatTime = (time: any) => {
   return dayjs(time).format('YYYY/MM/DD HH:mm')
 }
-
 const getMcSchematicPreview = (uuid: string) => {
   return `https://www.mcschematic.top/api/preview?uuid=${uuid}`
 }
-onMounted(async () => {
-  let data = await performSearch({
-    filter: '',
-    page: 1,
-    sort: "down"
-  },{
-    parseHTML: true
-  }
-  )
-  console.log(data)
-})
+watch(
+    [
+      () => filters_MCS.value.keyword,
+      () => filters_MCS.value.sortBy,
+      () => filters_MCS.value.type,
+    ],
+    async () => {
+      await nextTick()
+      await reload_MCS()
+    },
+    { flush: 'post' }
+)
+watch(
+    [
+      () => filters_CMS.value.filter,
+      () => filters_CMS.value.sortType,
+      () => filters_CMS.value.sort,
+    ],
+    async () => {
+      await nextTick()
+      await reload_CMS()
+    },
+    { flush: 'post' }
+)
 </script>
 
 <template>
+  <v-expansion-panels  v-if="selectedSite == 'MCS'">
+    <v-expansion-panel>
+      <v-expansion-panel-title>
+        <div class="d-flex align-center gap-2" style="flex: 1">
+          <template v-if="!panelExpanded_MCS">
+            <div class="active-filters">
+              <v-chip
+                  v-if="filters_MCS.keyword"
+                  size="small"
+                  class="mr-2"
+              >
+                <v-icon start icon="mdi-magnify"></v-icon>
+                {{ filters_MCS.keyword }}
+              </v-chip>
+
+              <v-chip
+                  size="small"
+                  class="mr-2"
+              >
+                {{ typeLabels_MCS[filters_MCS.type] }}
+              </v-chip>
+
+              <v-chip
+                  size="small"
+                  class="mr-2"
+              >
+                <v-icon start icon="mdi-sort"></v-icon>
+                {{ getSortLabel_MCS(filters_MCS.sortBy) }}
+              </v-chip>
+            </div>
+          </template>
+
+          <span v-if="!panelExpanded_MCS" class="text-grey">
+          点击展开筛选条件
+        </span>
+        </div>
+      </v-expansion-panel-title>
+      <v-expansion-panel-text>
+        <v-container class="filter-container">
+          <v-row>
+            <v-col cols="12" md="4">
+              <v-text-field
+                  v-model="filters_MCS.keyword"
+                  label="关键词筛选"
+                  placeholder="输入蓝图名称或描述"
+                  clearable
+                  density="compact"
+                  variant="outlined"
+                  prepend-inner-icon="mdi-magnify"
+              ></v-text-field>
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-select
+                  v-model="filters_MCS.type"
+                  :items="blueprintTypes_MCS"
+                  label="蓝图类型"
+                  clearable
+                  density="compact"
+                  variant="outlined"
+                  prepend-inner-icon="mdi-shape"
+                  item-title="text"
+                  item-value="value"
+              >
+              </v-select>
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-select
+                  v-model="filters_MCS.sortBy"
+                  :items="sortOptions_MCS"
+                  label="排序方式"
+                  density="compact"
+                  variant="outlined"
+                  prepend-inner-icon="mdi-sort"
+                  item-title="text"
+                  item-value="value"
+              ></v-select>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+  </v-expansion-panels>
+  <v-expansion-panels  v-if="selectedSite == 'CMS'">
+    <v-expansion-panel>
+      <v-expansion-panel-title>
+        <div class="d-flex align-center gap-2" style="flex: 1">
+          <template v-if="!panelExpanded_CMS">
+            <div class="active-filters">
+              <v-chip
+                  v-if="filters_CMS.filter"
+                  size="small"
+                  class="mr-2"
+              >
+                <v-icon start icon="mdi-magnify"></v-icon>
+                {{ filters_CMS.filter }}
+              </v-chip>
+
+              <v-chip
+                  size="small"
+                  class="mr-2"
+              >
+                {{ typeLabels_CMS[filters_CMS.sortType] }}
+              </v-chip>
+
+              <v-chip
+                  size="small"
+                  class="mr-2"
+              >
+                <v-icon start icon="mdi-sort"></v-icon>
+                {{ getSortLabel_CMS[filters_CMS.sort] }}
+              </v-chip>
+            </div>
+          </template>
+
+          <span v-if="!panelExpanded_MCS" class="text-grey">
+          点击展开筛选条件
+        </span>
+        </div>
+      </v-expansion-panel-title>
+      <v-expansion-panel-text>
+        <v-container class="filter-container">
+          <v-row>
+            <v-col cols="12" md="4">
+              <v-text-field
+                  v-model="filters_CMS.filter"
+                  label="关键词筛选"
+                  placeholder="输入蓝图名称或描述"
+                  clearable
+                  density="compact"
+                  variant="outlined"
+                  prepend-inner-icon="mdi-magnify"
+                  @change="reload_CMS"
+              ></v-text-field>
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-select
+                  v-model="filters_CMS.sortType"
+                  :items="blueprintTypes_CMS"
+                  label="蓝图类型"
+                  clearable
+                  density="compact"
+                  variant="outlined"
+                  prepend-inner-icon="mdi-shape"
+                  item-title="text"
+                  item-value="value"
+                  @change="reload_CMS"
+              >
+              </v-select>
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-select
+                  v-model="filters_CMS.sort"
+                  :items="sortOptions_CMS"
+                  label="排序方式"
+                  density="compact"
+                  variant="outlined"
+                  prepend-inner-icon="mdi-sort"
+                  item-title="text"
+                  item-value="value"
+                  @change="reload_CMS"
+              ></v-select>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+  </v-expansion-panels>
   <v-list class="mc-blueprint-list" v-if="selectedSite == 'MCS'">
     <v-infinite-scroll
         :items="schematics_MCS"

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {opacity} from "../../modules/theme.ts";
 import {schematicTypeList} from "../../modules/schematics_data.ts";
 import {computed, defineProps, ref} from "vue";
 import {HistoryRecordData} from "../../modules/history_data.ts";
@@ -84,105 +83,103 @@ const showDiff = (index: number) => {
          class="mb-4"
   >
     <v-col>
-      <v-card class="mx-auto v-theme--custom text-primary" :style="{ '--surface-alpha': opacity }" elevation="4" style="min-height: 99vh">
-        <v-timeline side="end" align="start" line-color="grey-lighten-2">
-          <v-timeline-item
-              v-for="(bp, index) in reversedSchematics"
-              :key="bp.id"
-              size="x-small"
-              fill-dot
-              icon="mdi-cube-scan"
-              dot-color="primary"
-          >
-            <template #opposite>
-              <span class="text-caption text-grey-darken-1">{{ formatTime(bp.updated_at) }}</span>
-            </template>
+      <v-timeline side="end" align="start" line-color="grey-lighten-2">
+        <v-timeline-item
+            v-for="(bp, index) in reversedSchematics"
+            :key="bp.id"
+            size="x-small"
+            fill-dot
+            icon="mdi-cube-scan"
+            dot-color="primary"
+        >
+          <template #opposite>
+            <span class="text-caption text-grey-darken-1">{{ formatTime(bp.updated_at) }}</span>
+          </template>
 
-            <div class="d-flex justify-space-between align-start">
-              <div class="flex-grow-1">
-                <div class="d-flex align-center flex-wrap ga-2 mb-2">
-                  <span v-if="bp.schematic_type == -1" class="text-subtitle-1 text-red-lighten-1">未解析</span>
-                  <span class="text-h6 text-blue-darken-4">{{ bp.name }}</span>
-                  <v-chip
-                      variant="outlined"
-                      color="green-darken-2"
-                      size="small"
-                  >
-                    <v-icon start icon="mdi-account"></v-icon>
-                    {{ bp.user }}
-                  </v-chip>
-                </div>
+          <div class="d-flex justify-space-between align-start">
+            <div class="flex-grow-1">
+              <div class="d-flex align-center flex-wrap ga-2 mb-2">
+                <span v-if="bp.schematic_type == -1" class="text-subtitle-1 text-red-lighten-1">未解析</span>
+                <span class="text-h6 text-blue-darken-4">{{ bp.name }}</span>
+                <v-chip
+                    variant="outlined"
+                    color="green-darken-2"
+                    size="small"
+                >
+                  <v-icon start icon="mdi-account"></v-icon>
+                  {{ bp.user }}
+                </v-chip>
+              </div>
 
-                <div class="d-flex flex-wrap align-center ga-2 mb-2">
-                  <v-chip
-                      color="orange-lighten-4"
-                      size="small"
-                      class="text-orange-darken-4"
-                  >
-                    <v-icon start icon="mdi-cube"></v-icon>
-                    {{ bp.game_version }}
-                  </v-chip>
-                  <v-chip
-                      color="deep-purple"
-                      variant="outlined"
-                      size="small"
-                      class="dimension-chip"
-                  >
-                    <div class="d-flex align-center">
-                      <v-icon icon="mdi-axis-arrow" class="mr-1"></v-icon>
-                      <div class="dimension-values">
+              <div class="d-flex flex-wrap align-center ga-2 mb-2">
+                <v-chip
+                    color="orange-lighten-4"
+                    size="small"
+                    class="text-orange-darken-4"
+                >
+                  <v-icon start icon="mdi-cube"></v-icon>
+                  {{ bp.game_version }}
+                </v-chip>
+                <v-chip
+                    color="deep-purple"
+                    variant="outlined"
+                    size="small"
+                    class="dimension-chip"
+                >
+                  <div class="d-flex align-center">
+                    <v-icon icon="mdi-axis-arrow" class="mr-1"></v-icon>
+                    <div class="dimension-values">
                             <span v-for="(dim, index) in parseDimensions(bp.sizes)" :key="index">
                               {{ dim }}
                               <v-icon v-if="index < 2" icon="mdi-close" size="x-small" class="mx-1"></v-icon>
                             </span>
-                      </div>
                     </div>
-                  </v-chip>
-                </div>
-
-                <p class="text-caption text-grey-darken-2 mb-2">
-                  {{ bp.description }}
-                </p>
-
-                <div class="d-flex flex-wrap align-center ga-3">
-                  <div class="d-flex align-center">
-                    <v-icon icon="mdi-format-list-bulleted-type" size="small" class="me-1"></v-icon>
-                    <span class="text-caption">{{ schematicTypeList[bp.schematic_type as 1 | 2 | 3 | 4] }}</span>
                   </div>
-                  <div class="d-flex align-center">
-                    <v-icon icon="mdi-tag" size="small" class="me-1"></v-icon>
-                    <span class="text-caption">v{{ bp.version }}</span>
-                  </div>
-                </div>
+                </v-chip>
               </div>
 
-              <div class="d-flex flex-column align-center ga-2 ml-4">
-                <v-btn
-                    variant="tonal"
-                    color="primary"
-                    prepend-icon="mdi-download"
-                    size="small"
-                    @click="copySchematic(bp.id, bp.sub_type, bp.version, bp.schematic_type)"
-                >
-                  导出蓝图
-                </v-btn>
-                <div class="d-flex ga-1">
-                  <v-btn
-                      variant="tonal"
-                      color="green"
-                      prepend-icon="mdi-compare-horizontal"
-                      size="small"
-                      @click.stop="showDiff(index); indexId = index"
-                      :disabled="index >= reversedSchematics.length - 1"
-                  >
-                    差异对比
-                  </v-btn>
+              <p class="text-caption text-grey-darken-2 mb-2">
+                {{ bp.description }}
+              </p>
+
+              <div class="d-flex flex-wrap align-center ga-3">
+                <div class="d-flex align-center">
+                  <v-icon icon="mdi-format-list-bulleted-type" size="small" class="me-1"></v-icon>
+                  <span class="text-caption">{{ schematicTypeList[bp.schematic_type as 1 | 2 | 3 | 4] }}</span>
+                </div>
+                <div class="d-flex align-center">
+                  <v-icon icon="mdi-tag" size="small" class="me-1"></v-icon>
+                  <span class="text-caption">v{{ bp.version }}</span>
                 </div>
               </div>
             </div>
-          </v-timeline-item>
-        </v-timeline>
-      </v-card>
+
+            <div class="d-flex flex-column align-center ga-2 ml-4">
+              <v-btn
+                  variant="tonal"
+                  color="primary"
+                  prepend-icon="mdi-download"
+                  size="small"
+                  @click="copySchematic(bp.id, bp.sub_type, bp.version, bp.schematic_type)"
+              >
+                导出蓝图
+              </v-btn>
+              <div class="d-flex ga-1">
+                <v-btn
+                    variant="tonal"
+                    color="green"
+                    prepend-icon="mdi-compare-horizontal"
+                    size="small"
+                    @click.stop="showDiff(index); indexId = index"
+                    :disabled="index >= reversedSchematics.length - 1"
+                >
+                  差异对比
+                </v-btn>
+              </div>
+            </div>
+          </div>
+        </v-timeline-item>
+      </v-timeline>
     </v-col>
   </v-row>
   <v-dialog v-model="compareDialog" max-width="1100" scrollable>

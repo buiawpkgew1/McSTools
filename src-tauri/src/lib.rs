@@ -1,3 +1,4 @@
+mod CMS;
 mod be_schematic;
 mod building_gadges;
 pub mod create;
@@ -8,34 +9,37 @@ mod map_art;
 pub mod modules;
 pub mod utils;
 mod word_edit;
-mod CMS;
 
 use crate::database::db_control;
 use crate::litematica::lm_schematic::LmSchematic;
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
+use crate::utils::minecraft_data::map_art_data::MapArtsData;
 use crate::utils::schematic_data::SchematicError;
 use data_files::{config, config::get_config, config::update_config, files::FileManager};
 use database::db_apis::logs_api::{add_logs, get_logs};
 use database::db_apis::schematic_data_api::{get_schematic_requirements, get_unique_block};
 use database::db_apis::schematics_api::{add_schematic, get_schematic, get_schematics};
 use database::db_apis::user_api::get_user_data;
-use modules::convert::{convert, get_je_blocks, get_schematic_convert_data, get_map_arts};
+use modules::convert::{convert, get_je_blocks, get_map_arts, get_schematic_convert_data};
 use modules::history::get_history;
-use modules::replace::schematic_replacement;
-use modules::schematic::{copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_data, update_schematic_name_description};
 use modules::map_art::create_map_art;
+use modules::modules_data;
+use modules::replace::schematic_replacement;
+use modules::schematic::{
+    copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_data,
+    update_schematic_name_description,
+};
 use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
-use CMS::get_cms_data::perform_search;
 use tauri::Manager;
-use modules::modules_data;
 use utils::loading::close_splashscreen;
 use utils::minecraft_data::versions_data::VersionData;
-use crate::utils::minecraft_data::map_art_data::MapArtsData;
+use CMS::get_cms_data::perform_search;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_process::init())

@@ -1,7 +1,3 @@
-use std::collections::VecDeque;
-use chrono::Local;
-use rusqlite::version;
-use tauri::State;
 use crate::building_gadges::to_bg_schematic::ToBgSchematic;
 use crate::create::to_create_schematic::ToCreateSchematic;
 use crate::data_files::files::FileManager;
@@ -19,6 +15,10 @@ use crate::utils::requirements::{get_requirements, RequirementStr};
 use crate::utils::schematic_data::{SchematicData, Size};
 use crate::utils::tile_entities::TileEntitiesList;
 use crate::word_edit::to_we_schematic::ToWeSchematic;
+use chrono::Local;
+use rusqlite::version;
+use std::collections::VecDeque;
+use tauri::State;
 
 #[tauri::command]
 pub async fn create_map_art(
@@ -34,7 +34,9 @@ pub async fn create_map_art(
     async move {
         let now = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
         let mut conn = db.0.get()?;
-        let block_data = BlockStatePosList{elements: VecDeque::from(blocks) };
+        let block_data = BlockStatePosList {
+            elements: VecDeque::from(blocks),
+        };
         let data = SchematicData::new(block_data, TileEntitiesList::default(), size);
         match schematic_type {
             1 => {
@@ -221,7 +223,7 @@ pub async fn create_map_art(
                     data,
                     0,
                     sub_version as i32,
-                    schematic_type as i32
+                    schematic_type as i32,
                 )?;
             }
             //5 => {}
@@ -231,6 +233,6 @@ pub async fn create_map_art(
         }
         Ok(true)
     }
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
+    .await
+    .map_err(|e: anyhow::Error| e.to_string())
 }

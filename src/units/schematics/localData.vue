@@ -24,7 +24,7 @@ const isLoading = ref(false);
 let schematics = ref<SchematicsData[]>([])
 const parseDimensions = (sizeStr: string) => {
   const [length, width, height] = sizeStr.split(',').map(Number);
-  return [`X${length}`, `Y${width}`, `Z${height}`]
+  return [`${length}`, `${width}`, `${height}`]
 };
 const IMAGE_MAPPING: Record<number, string> = {
   1: createImg,

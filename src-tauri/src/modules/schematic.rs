@@ -3,7 +3,10 @@ use crate::create::create_schematic::CreateSchematic;
 use crate::data_files::files::FileManager;
 use crate::database::db_apis::history_api::{new_history, update_history};
 use crate::database::db_apis::schematic_data_api::{new_schematic_data, update_schematic_data};
-use crate::database::db_apis::schematics_api::{delete_schematic_data, find_schematic, get_schematic_version, new_schematic, update_schematic, update_schematic_name};
+use crate::database::db_apis::schematics_api::{
+    delete_schematic_data, find_schematic, get_schematic_version, new_schematic, update_schematic,
+    update_schematic_name,
+};
 use crate::database::db_apis::user_api::add_user_schematic;
 use crate::database::db_control::DatabaseState;
 use crate::database::db_data::Schematic;
@@ -12,6 +15,7 @@ use crate::modules::modules_data::convert_data::get_unique_block_str;
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 use crate::utils::minecraft_data::versions_data::VersionData;
 use crate::utils::requirements::{get_requirements, RequirementStr};
+use crate::utils::schematic_data::SchematicError;
 use crate::word_edit::we_schematic::WeSchematic;
 use anyhow::Result;
 use chrono::{DateTime, Local, NaiveDateTime};
@@ -20,7 +24,6 @@ use rusqlite::version;
 use std::path::Path;
 use tauri::State;
 use tauri_plugin_updater::target;
-use crate::utils::schematic_data::SchematicError;
 
 #[tauri::command]
 pub async fn encode_uploaded_schematic(
@@ -563,6 +566,6 @@ pub async fn update_schematic_name_description(
         update_schematic_name(&mut conn, name, description, schematic_id)?;
         Ok(true)
     }
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
+    .await
+    .map_err(|e: anyhow::Error| e.to_string())
 }
