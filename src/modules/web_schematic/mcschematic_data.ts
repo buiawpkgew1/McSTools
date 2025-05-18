@@ -55,7 +55,9 @@ export const fetchMcSchematics = async (
         }
 
         const data = await response.json() as any[];
-
+        toast.info(`data:${data}`, {
+            timeout: 3000
+        });
         return data.map(item => ({
             ...item
         }));
