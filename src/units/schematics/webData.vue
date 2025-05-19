@@ -101,8 +101,7 @@ const schematic_load_MCS = async ({ done }: LoadParams) => {
     done('empty')
     return
   }
-  if (!hasMore_MCS.value || isLoading_MCS.value) return;
-
+  if (!hasMore_MCS.value) return;
   try {
     isLoading_MCS.value = true;
 
@@ -116,7 +115,7 @@ const schematic_load_MCS = async ({ done }: LoadParams) => {
     schematics_MCS.value = [...schematics_MCS.value, ...data];
     autoPage_MCS.value += 1;
 
-    hasMore_MCS.value = data.length <= 15;
+    hasMore_MCS.value = data.length >= 15;
     done('ok')
   } catch (error) {
     toast.error(`加载失败:${error}`, {
@@ -164,7 +163,7 @@ const schematic_load_CMS = async ({ done }: LoadParams) => {
     done('empty')
     return
   }
-  if (!hasMore_CMS.value || isLoading_CMS.value) return;
+  if (!hasMore_CMS.value) return;
 
   try {
     isLoading_CMS.value = true;
@@ -182,7 +181,7 @@ const schematic_load_CMS = async ({ done }: LoadParams) => {
     schematics_CMS.value = [...schematics_CMS.value, ...schematic ];
     autoPage_CMS.value += 1;
 
-    hasMore_CMS.value = schematic.length <= 20;
+    hasMore_CMS.value = schematic.length >= 20;
     done('ok')
   } catch (error) {
     toast.error(`加载失败:${error}`, {
