@@ -565,7 +565,7 @@ const convertSchematic = async (schematicType: number) => {
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">子版本:</span>
-                        <span class="text-caption font-weight-medium">0</span>
+                        <span class="text-caption font-weight-medium">0: WE最新格式</span>
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">已存在:</span>
@@ -604,7 +604,7 @@ const convertSchematic = async (schematicType: number) => {
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">子版本:</span>
-                        <span class="text-caption font-weight-medium">1</span>
+                        <span class="text-caption font-weight-medium">1: WE 1.16-</span>
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">已存在:</span>
@@ -735,7 +735,7 @@ const convertSchematic = async (schematicType: number) => {
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">子版本:</span>
-                        <span class="text-caption font-weight-medium">0</span>
+                        <span class="text-caption font-weight-medium">0: 小帮手最新格式</span>
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">已存在:</span>
@@ -774,7 +774,7 @@ const convertSchematic = async (schematicType: number) => {
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">子版本:</span>
-                        <span class="text-caption font-weight-medium">1</span>
+                        <span class="text-caption font-weight-medium">1: 小帮手1.16+</span>
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">已存在:</span>
@@ -813,7 +813,7 @@ const convertSchematic = async (schematicType: number) => {
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">子版本:</span>
-                        <span class="text-caption font-weight-medium">2</span>
+                        <span class="text-caption font-weight-medium">2: 小帮手1.12+</span>
                       </div>
                       <div class="d-flex justify-space-between mt-1">
                         <span class="text-caption ">已存在:</span>

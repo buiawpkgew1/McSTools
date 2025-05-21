@@ -185,7 +185,7 @@ impl ToBgSchematic {
         let total_blocks = (self.length * self.width * self.height) as usize;
         let air_index = self.air_index as i32;
         let atomic_block_list: Vec<AtomicI32> =
-            (0..total_blocks).map(|_| AtomicI32::new(0)).collect();
+            (0..total_blocks).map(|_| AtomicI32::new(air_index)).collect();
         let atomic_block_list = Arc::new(atomic_block_list);
 
         self.blocks.par_iter().for_each(|block| {
