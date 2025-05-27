@@ -69,6 +69,7 @@ const expandedCategories = ref<string[]>([])
 const imageBuild = ref<MapArtProcessor>();
 const mapImg = ref<File>();
 const finallyImage = ref<HTMLCanvasElement>()
+const threeD = ref<boolean>()
 const previewImage = ref<string>("");
 const blocksLoaded = ref(false);
 const toggleBlock = (blockId: string) => {
@@ -190,7 +191,7 @@ const exportSchematicData = async() => {
         exportSettings.targetRotation as 0 | 90 | 180| 270,
         exportSettings.dithering,
         replaceAir.value,
-        true,
+        threeD.value,
         exportSettings.axios as 'x' | 'y' | 'z'
     )
     if (result){
@@ -661,6 +662,31 @@ onBeforeMount(async() => {
                 <span class="font-weight-bold">Z</span>
               </v-btn>
             </v-btn-toggle>
+          </v-col>
+          <v-col  cols="12" class="d-flex align-center justify-center gap-2" style="padding: 0 !important;">
+            <v-switch
+                class="ml-4"
+                v-model="threeD"
+                label="导出立体地图画"
+                color="primary"
+                density="compact"
+                hint="再地图上表现更加细节"
+                persistent-hint
+            >
+              <template v-slot:append>
+                <v-tooltip location="bottom">
+                  <template v-slot:activator="{ props }">
+                    <v-icon
+                        v-bind="props"
+                        icon="mdi-information-outline"
+                        size="small"
+                        class="ml-2"
+                    ></v-icon>
+                  </template>
+                  <span>建筑难度高并且请勿选取重力方块</span>
+                </v-tooltip>
+              </template>
+            </v-switch>
           </v-col>
         </v-row>
       </v-card-text>

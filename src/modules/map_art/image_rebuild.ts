@@ -121,7 +121,7 @@ export class MapArtProcessor {
         const processedData = useDithering
             ? this.applyDithering(data, width, height, threeD, colorTable)
             : data
-        const batchSize = 1000
+        const batchSize = 10000000
         let blockList = new BlockStatePosList()
         let minZ = Infinity
         let maxZ = -Infinity
@@ -139,7 +139,6 @@ export class MapArtProcessor {
                 base: {x: 0, y: 0, z: 0},
                 replaceAir
             })
-            console.log(processSize)
             if (processSize.minZ < minZ){
                 minZ = processSize.minZ
             }
@@ -373,114 +372,117 @@ export class MapArtProcessor {
             flipX = false,
             flipY = false
         } = context;
+        console.log(start, end)
         let maxZ = -Infinity
         let minZ = Infinity
         let lastZ = base.z;
-        for (let i = start; i < end; i++) {
-            const rawX = i % width;
-            const rawY = Math.floor(i / width);
-            if (rawX == 0) lastZ = base.z;
-            let imageX = rawX, imageY = rawY;
-            switch(axios.toLowerCase()) {
-                case 'x':
-                    imageY = height - rawY - 1;
-                    break;
-                case 'y':
-                    break;
-                case 'z':
-                    imageY = height - rawY - 1;
-                    break;
-            }
+        for (let rawX = 0; rawX < width; rawX++) {
+            for (let rawY = 0; rawY < height; rawY++) {
+                let i = rawY * width + rawX
+                if (rawY == 0) lastZ = base.z;
+                let imageX = rawX, imageY = rawY;
+                switch(axios.toLowerCase()) {
+                    case 'x':
+                        imageY = height - rawY - 1;
+                        break;
+                    case 'y':
+                        break;
+                    case 'z':
+                        imageY = height - rawY - 1;
+                        break;
+                }
 
-            imageX = flipX ? width - imageX - 1 : imageX;
-            imageY = flipY ? height - imageY - 1 : imageY;
+                imageX = flipX ? width - imageX - 1 : imageX;
+                imageY = flipY ? height - imageY - 1 : imageY;
 
-            let x3d: number, y3d: number, z3d: number;
+                let x3d: number, y3d: number, z3d: number;
 
-            switch(axios.toLowerCase()) {
-                case 'x':
-                    x3d = base.x;
-                    y3d = base.y + imageY;
-                    z3d = base.z + imageX;
-                    break;
-                case 'y':
-                    x3d = base.x + imageX;
-                    y3d = base.y;
-                    z3d = base.z + imageY;
-                    break;
-                case 'z':
-                    x3d = base.x + imageX;
-                    y3d = base.y + imageY;
-                    z3d = base.z;
-                    break;
-            }
+                switch(axios.toLowerCase()) {
+                    case 'x':
+                        x3d = base.x;
+                        y3d = base.y + imageY;
+                        z3d = base.z + imageX;
+                        break;
+                    case 'y':
+                        x3d = base.x + imageX;
+                        y3d = base.y;
+                        z3d = base.z + imageY;
+                        break;
+                    case 'z':
+                        x3d = base.x + imageX;
+                        y3d = base.y + imageY;
+                        z3d = base.z;
+                        break;
+                }
 
-            const index = i * 4;
-            const [r, g, b] = context.data.slice(index, index + 3);
+                const index = i * 4;
+                const [r, g, b] = context.data.slice(index, index + 3);
 
-            let minDistance = Infinity;
-            let closestBlockId = '';
-            if (context.data[index + 3] === 0 && context.replaceAir) {
-                context.blockList.addBlockByPos(x3d, y3d, z3d, 'air');
-                continue;
-            }
-            const threeDLayers = [
-                { brightness: 255, zOffset: 1 },
-                { brightness: 180, zOffset: -1 },
-                { brightness: 220, zOffset: 0 }
+                let minDistance = Infinity;
+                let closestBlockId = '';
+                if (context.data[index + 3] === 0 && context.replaceAir) {
+                    context.blockList.addBlockByPos(x3d, y3d, z3d, 'air');
+                    continue;
+                }
+                const threeDLayers = [
+                    { brightness: 255, zOffset: 1 },
+                    { brightness: 180, zOffset: -1 },
+                    { brightness: 220, zOffset: 0 }
 
-            ];
-            let tempZ = 0
-            if(context.threeD){
-                for (const layer of threeDLayers) {
+                ];
+                let tempZ = 0
+                if(context.threeD){
+                    for (const layer of threeDLayers) {
+                        for (const entry of context.colorTable) {
+                            const adjustedColor = {
+                                r: Math.round(entry.rgb.r * (layer.brightness / 255)),
+                                g: Math.round(entry.rgb.g * (layer.brightness / 255)),
+                                b: Math.round(entry.rgb.b * (layer.brightness / 255))
+                            };
+                            const distance = colorDistance(
+                                r, g, b,
+                                adjustedColor.r,
+                                adjustedColor.g,
+                                adjustedColor.b
+                            );
+                            if (distance < minDistance) {
+                                minDistance = distance;
+                                closestBlockId = entry.blockId;
+                                tempZ = layer.zOffset;
+                            }
+                        }
+                    }
+                }else {
                     for (const entry of context.colorTable) {
-                        const adjustedColor = {
-                            r: Math.round(entry.rgb.r * (layer.brightness / 255)),
-                            g: Math.round(entry.rgb.g * (layer.brightness / 255)),
-                            b: Math.round(entry.rgb.b * (layer.brightness / 255))
-                        };
-                        const distance = colorDistance(
-                            r, g, b,
-                            adjustedColor.r,
-                            adjustedColor.g,
-                            adjustedColor.b
-                        );
+                        const distance = colorDistance(r, g, b, entry.rgb.r, entry.rgb.g, entry.rgb.b);
                         if (distance < minDistance) {
                             minDistance = distance;
                             closestBlockId = entry.blockId;
-                            tempZ = layer.zOffset;
                         }
                     }
                 }
-            }else {
-                for (const entry of context.colorTable) {
-                    const distance = colorDistance(r, g, b, entry.rgb.r, entry.rgb.g, entry.rgb.b);
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closestBlockId = entry.blockId;
+                lastZ = lastZ + tempZ;
+                if (lastZ < minZ){
+                    minZ = lastZ
+                }
+                if (lastZ > maxZ){
+                    maxZ = lastZ
+                }
+                if (closestBlockId) {
+                    switch(axios.toLowerCase()) {
+                        case 'x':
+                            context.blockList.addBlockByPos(lastZ, y3d, z3d, closestBlockId);
+                            break;
+                        case 'y':
+                            context.blockList.addBlockByPos(x3d, lastZ, z3d, closestBlockId);
+                            break;
+                        case 'z':
+                            context.blockList.addBlockByPos(x3d, y3d, lastZ, closestBlockId);
+                            break;
                     }
                 }
             }
-            lastZ = lastZ + tempZ;
-            if (lastZ < minZ){
-                minZ = lastZ
-            }
-            if (lastZ > maxZ){
-                maxZ = lastZ
-            }
-            if (closestBlockId) {
-                switch(axios.toLowerCase()) {
-                    case 'x':
-                        context.blockList.addBlockByPos(lastZ, y3d, z3d, closestBlockId);
-                        break;
-                    case 'y':
-                        context.blockList.addBlockByPos(x3d, lastZ, z3d, closestBlockId);
-                        break;
-                    case 'z':
-                        context.blockList.addBlockByPos(x3d, y3d, lastZ, closestBlockId);
-                        break;
-                }
-            }
+
         }
         return({minZ, maxZ})
     }
