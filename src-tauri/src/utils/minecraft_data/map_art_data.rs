@@ -5,18 +5,26 @@ use std::fs;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BlockColorData {
-    #[serde(rename = "left_top")]
-    pub low: Vec<u8>,
-    #[serde(rename = "center")]
-    pub normal: Vec<u8>,
-    #[serde(rename = "right_top")]
-    pub high: Vec<u8>,
-    #[serde(rename = "left_bottom")]
-    pub lowest: Vec<u8>,
+    pub left_top: Vec<u8>,
+    pub right_bottom: Vec<u8>,
+    pub right_top: Vec<u8>,
+    pub left_bottom: Vec<u8>,
     #[serde(rename = "average_rgb")]
     pub average: Vec<u8>,
+    #[serde(rename = "low_rgb")]
+    pub low: Vec<u8>,
+    #[serde(rename = "normal_rgb")]
+    pub normal: Vec<u8>,
+    #[serde(rename = "high_rgb")]
+    pub high: Vec<u8>,
     #[serde(rename = "average_rgb_hex")]
     pub average_hex: String,
+    #[serde(rename = "low_rgb_hex")]
+    pub low_hex: String,
+    #[serde(rename = "normal_rgb_hex")]
+    pub normal_hex: String,
+    #[serde(rename = "high_rgb_hex")]
+    pub high_hex: String,
     pub zh_cn: String,
 }
 

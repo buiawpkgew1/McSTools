@@ -3,22 +3,34 @@ import {toast} from "../others.ts";
 import {ref} from "vue";
 
 export interface BlockColorData {
+    left_top: number[];
+    right_bottom: number[];
+    right_top: number[];
+    left_bottom: number[];
+    average_rgb: number[];
     low_rgb: number[];
     normal_rgb: number[];
     high_rgb: number[];
-    lowest_rgb: number[];
-    average_rgb: number[];
     average_rgb_hex: string;
+    low_rgb_hex: string;
+    normal_rgb_hex: string;
+    high_rgb_hex: string;
     zh_cn: string;
 }
 
 export interface SubData {
+    left_top: number[];
+    right_bottom: number[];
+    right_top: number[];
+    left_bottom: number[];
+    average_rgb: number[];
     low_rgb: number[];
     normal_rgb: number[];
     high_rgb: number[];
-    lowest_rgb: number[];
-    average_rgb: number[];
     average_rgb_hex: string;
+    low_rgb_hex: string;
+    normal_rgb_hex: string;
+    high_rgb_hex: string;
     zh_cn: string;
     id: string;
 }

@@ -6,7 +6,7 @@
         247,
         247
       ],
-      "center": [
+      "right_bottom": [
         222,
         226,
         227
@@ -26,7 +26,25 @@
         236,
         236
       ],
+      "low_rgb": [
+        164,
+        166,
+        166
+      ],
+      "high_rgb": [
+        233,
+        236,
+        236
+      ],
+      "normal_rgb": [
+        201,
+        203,
+        203
+      ],
       "average_rgb_hex": "#e9ecec",
+      "low_rgb_hex": "#a4a6a6",
+      "high_rgb_hex": "#e9ecec",
+      "normal_rgb_hex": "#c9cbcb",
       "zh_cn": "白色羊毛"
     },
     "light_gray_wool": {
@@ -35,7 +53,7 @@
         150,
         144
       ],
-      "center": [
+      "right_bottom": [
         134,
         134,
         126
@@ -55,7 +73,25 @@
         142,
         134
       ],
+      "low_rgb": [
+        100,
+        100,
+        94
+      ],
+      "high_rgb": [
+        142,
+        142,
+        134
+      ],
+      "normal_rgb": [
+        122,
+        122,
+        115
+      ],
       "average_rgb_hex": "#8e8e86",
+      "low_rgb_hex": "#64645e",
+      "high_rgb_hex": "#8e8e86",
+      "normal_rgb_hex": "#7a7a73",
       "zh_cn": "淡灰色羊毛"
     },
     "orange_wool": {
@@ -64,7 +100,7 @@
         125,
         27
       ],
-      "center": [
+      "right_bottom": [
         235,
         107,
         10
@@ -84,7 +120,25 @@
         118,
         19
       ],
+      "low_rgb": [
+        169,
+        83,
+        13
+      ],
+      "high_rgb": [
+        240,
+        118,
+        19
+      ],
+      "normal_rgb": [
+        207,
+        101,
+        16
+      ],
       "average_rgb_hex": "#f07613",
+      "low_rgb_hex": "#a9530d",
+      "high_rgb_hex": "#f07613",
+      "normal_rgb_hex": "#cf6510",
       "zh_cn": "橙色羊毛"
     },
     "cyan_wool": {
@@ -93,7 +147,7 @@
         146,
         149
       ],
-      "center": [
+      "right_bottom": [
         21,
         129,
         141
@@ -113,7 +167,25 @@
         137,
         145
       ],
+      "low_rgb": [
+        14,
+        96,
+        102
+      ],
+      "high_rgb": [
+        21,
+        137,
+        145
+      ],
+      "normal_rgb": [
+        18,
+        118,
+        125
+      ],
       "average_rgb_hex": "#158991",
+      "low_rgb_hex": "#0e6066",
+      "high_rgb_hex": "#158991",
+      "normal_rgb_hex": "#12767d",
       "zh_cn": "青色羊毛"
     },
     "magenta_wool": {
@@ -122,7 +194,7 @@
         76,
         187
       ],
-      "center": [
+      "right_bottom": [
         180,
         59,
         170
@@ -142,7 +214,25 @@
         68,
         179
       ],
+      "low_rgb": [
+        133,
+        48,
+        126
+      ],
+      "high_rgb": [
+        189,
+        68,
+        179
+      ],
+      "normal_rgb": [
+        163,
+        58,
+        154
+      ],
       "average_rgb_hex": "#bd44b3",
+      "low_rgb_hex": "#85307e",
+      "high_rgb_hex": "#bd44b3",
+      "normal_rgb_hex": "#a33a9a",
       "zh_cn": "品红色羊毛"
     },
     "purple_wool": {
@@ -151,7 +241,7 @@
         45,
         178
       ],
-      "center": [
+      "right_bottom": [
         111,
         36,
         164
@@ -171,7 +261,25 @@
         42,
         172
       ],
+      "low_rgb": [
+        85,
+        29,
+        121
+      ],
+      "high_rgb": [
+        121,
+        42,
+        172
+      ],
+      "normal_rgb": [
+        104,
+        36,
+        148
+      ],
       "average_rgb_hex": "#792aac",
+      "low_rgb_hex": "#551d79",
+      "high_rgb_hex": "#792aac",
+      "normal_rgb_hex": "#682494",
       "zh_cn": "紫色羊毛"
     },
     "light_blue_wool": {
@@ -180,7 +288,7 @@
         190,
         225
       ],
-      "center": [
+      "right_bottom": [
         48,
         162,
         210
@@ -200,7 +308,25 @@
         175,
         217
       ],
+      "low_rgb": [
+        40,
+        123,
+        153
+      ],
+      "high_rgb": [
+        58,
+        175,
+        217
+      ],
+      "normal_rgb": [
+        50,
+        150,
+        187
+      ],
       "average_rgb_hex": "#3aafd9",
+      "low_rgb_hex": "#287b99",
+      "high_rgb_hex": "#3aafd9",
+      "normal_rgb_hex": "#3296bb",
       "zh_cn": "淡蓝色羊毛"
     },
     "blue_wool": {
@@ -209,7 +335,7 @@
         61,
         163
       ],
-      "center": [
+      "right_bottom": [
         49,
         51,
         150
@@ -229,7 +355,25 @@
         57,
         157
       ],
+      "low_rgb": [
+        37,
+        40,
+        110
+      ],
+      "high_rgb": [
+        53,
+        57,
+        157
+      ],
+      "normal_rgb": [
+        45,
+        49,
+        135
+      ],
       "average_rgb_hex": "#35399d",
+      "low_rgb_hex": "#25286e",
+      "high_rgb_hex": "#35399d",
+      "normal_rgb_hex": "#2d3187",
       "zh_cn": "蓝色羊毛"
     },
     "yellow_wool": {
@@ -238,7 +382,7 @@
         208,
         48
       ],
-      "center": [
+      "right_bottom": [
         246,
         188,
         30
@@ -258,7 +402,25 @@
         197,
         39
       ],
+      "low_rgb": [
+        175,
+        139,
+        27
+      ],
+      "high_rgb": [
+        248,
+        197,
+        39
+      ],
+      "normal_rgb": [
+        213,
+        169,
+        33
+      ],
       "average_rgb_hex": "#f8c527",
+      "low_rgb_hex": "#af8b1b",
+      "high_rgb_hex": "#f8c527",
+      "normal_rgb_hex": "#d5a921",
       "zh_cn": "黄色羊毛"
     },
     "brown_wool": {
@@ -267,7 +429,7 @@
         77,
         45
       ],
-      "center": [
+      "right_bottom": [
         106,
         66,
         36
@@ -287,7 +449,25 @@
         71,
         40
       ],
+      "low_rgb": [
+        80,
+        50,
+        28
+      ],
+      "high_rgb": [
+        114,
+        71,
+        40
+      ],
+      "normal_rgb": [
+        98,
+        61,
+        34
+      ],
       "average_rgb_hex": "#724728",
+      "low_rgb_hex": "#50321c",
+      "high_rgb_hex": "#724728",
+      "normal_rgb_hex": "#623d22",
       "zh_cn": "棕色羊毛"
     },
     "lime_wool": {
@@ -296,7 +476,7 @@
         192,
         25
       ],
-      "center": [
+      "right_bottom": [
         103,
         177,
         24
@@ -316,7 +496,25 @@
         185,
         25
       ],
+      "low_rgb": [
+        79,
+        130,
+        17
+      ],
+      "high_rgb": [
+        112,
+        185,
+        25
+      ],
+      "normal_rgb": [
+        96,
+        159,
+        21
+      ],
       "average_rgb_hex": "#70b919",
+      "low_rgb_hex": "#4f8211",
+      "high_rgb_hex": "#70b919",
+      "normal_rgb_hex": "#609f15",
       "zh_cn": "黄绿色羊毛"
     },
     "green_wool": {
@@ -325,7 +523,7 @@
         117,
         23
       ],
-      "center": [
+      "right_bottom": [
         79,
         101,
         31
@@ -345,7 +543,25 @@
         109,
         27
       ],
+      "low_rgb": [
+        59,
+        76,
+        19
+      ],
+      "high_rgb": [
+        84,
+        109,
+        27
+      ],
+      "normal_rgb": [
+        72,
+        94,
+        23
+      ],
       "average_rgb_hex": "#546d1b",
+      "low_rgb_hex": "#3b4c13",
+      "high_rgb_hex": "#546d1b",
+      "normal_rgb_hex": "#485e17",
       "zh_cn": "绿色羊毛"
     },
     "pink_wool": {
@@ -354,7 +570,7 @@
         158,
         185
       ],
-      "center": [
+      "right_bottom": [
         234,
         124,
         159
@@ -374,7 +590,25 @@
         141,
         172
       ],
+      "low_rgb": [
+        167,
+        99,
+        121
+      ],
+      "high_rgb": [
+        237,
+        141,
+        172
+      ],
+      "normal_rgb": [
+        204,
+        121,
+        148
+      ],
       "average_rgb_hex": "#ed8dac",
+      "low_rgb_hex": "#a76379",
+      "high_rgb_hex": "#ed8dac",
+      "normal_rgb_hex": "#cc7994",
       "zh_cn": "粉红色羊毛"
     },
     "red_wool": {
@@ -383,7 +617,7 @@
         42,
         35
       ],
-      "center": [
+      "right_bottom": [
         152,
         35,
         33
@@ -403,7 +637,25 @@
         39,
         34
       ],
+      "low_rgb": [
+        112,
+        27,
+        24
+      ],
+      "high_rgb": [
+        160,
+        39,
+        34
+      ],
+      "normal_rgb": [
+        138,
+        33,
+        29
+      ],
       "average_rgb_hex": "#a02722",
+      "low_rgb_hex": "#701b18",
+      "high_rgb_hex": "#a02722",
+      "normal_rgb_hex": "#8a211d",
       "zh_cn": "红色羊毛"
     },
     "gray_wool": {
@@ -412,7 +664,7 @@
         73,
         76
       ],
-      "center": [
+      "right_bottom": [
         59,
         63,
         66
@@ -432,7 +684,25 @@
         68,
         71
       ],
+      "low_rgb": [
+        43,
+        48,
+        50
+      ],
+      "high_rgb": [
+        62,
+        68,
+        71
+      ],
+      "normal_rgb": [
+        53,
+        58,
+        61
+      ],
       "average_rgb_hex": "#3e4447",
+      "low_rgb_hex": "#2b3032",
+      "high_rgb_hex": "#3e4447",
+      "normal_rgb_hex": "#353a3d",
       "zh_cn": "灰色羊毛"
     },
     "black_wool": {
@@ -441,7 +711,7 @@
         26,
         30
       ],
-      "center": [
+      "right_bottom": [
         14,
         15,
         20
@@ -461,7 +731,25 @@
         21,
         25
       ],
+      "low_rgb": [
+        14,
+        14,
+        17
+      ],
+      "high_rgb": [
+        20,
+        21,
+        25
+      ],
+      "normal_rgb": [
+        17,
+        18,
+        21
+      ],
       "average_rgb_hex": "#141519",
+      "low_rgb_hex": "#0e0e11",
+      "high_rgb_hex": "#141519",
+      "normal_rgb_hex": "#111215",
       "zh_cn": "黑色羊毛"
     }
   },
@@ -472,7 +760,7 @@
         90,
         54
       ],
-      "center": [
+      "right_bottom": [
         116,
         90,
         54
@@ -492,7 +780,25 @@
         85,
         50
       ],
+      "low_rgb": [
+        76,
+        60,
+        35
+      ],
+      "high_rgb": [
+        109,
+        85,
+        50
+      ],
+      "normal_rgb": [
+        94,
+        73,
+        43
+      ],
       "average_rgb_hex": "#6d5532",
+      "low_rgb_hex": "#4c3c23",
+      "high_rgb_hex": "#6d5532",
+      "normal_rgb_hex": "#5e492b",
       "zh_cn": "橡木原木"
     },
     "stripped_oak_log": {
@@ -501,7 +807,7 @@
         142,
         82
       ],
-      "center": [
+      "right_bottom": [
         185,
         149,
         88
@@ -521,7 +827,25 @@
         144,
         86
       ],
+      "low_rgb": [
+        124,
+        101,
+        60
+      ],
+      "high_rgb": [
+        177,
+        144,
+        86
+      ],
+      "normal_rgb": [
+        152,
+        124,
+        74
+      ],
       "average_rgb_hex": "#b19056",
+      "low_rgb_hex": "#7c653c",
+      "high_rgb_hex": "#b19056",
+      "normal_rgb_hex": "#987c4a",
       "zh_cn": "去皮橡木原木"
     },
     "oak_planks": {
@@ -530,7 +854,7 @@
         157,
         98
       ],
-      "center": [
+      "right_bottom": [
         194,
         157,
         98
@@ -550,7 +874,25 @@
         130,
         78
       ],
+      "low_rgb": [
+        114,
+        91,
+        55
+      ],
+      "high_rgb": [
+        162,
+        130,
+        78
+      ],
+      "normal_rgb": [
+        139,
+        112,
+        67
+      ],
       "average_rgb_hex": "#a2824e",
+      "low_rgb_hex": "#725b37",
+      "high_rgb_hex": "#a2824e",
+      "normal_rgb_hex": "#8b7043",
       "zh_cn": "橡木木板"
     },
     "spruce_log": {
@@ -559,7 +901,7 @@
         39,
         19
       ],
-      "center": [
+      "right_bottom": [
         59,
         39,
         19
@@ -579,7 +921,25 @@
         37,
         16
       ],
+      "low_rgb": [
+        40,
+        26,
+        11
+      ],
+      "high_rgb": [
+        58,
+        37,
+        16
+      ],
+      "normal_rgb": [
+        50,
+        31,
+        13
+      ],
       "average_rgb_hex": "#3a2510",
+      "low_rgb_hex": "#281a0b",
+      "high_rgb_hex": "#3a2510",
+      "normal_rgb_hex": "#321f0d",
       "zh_cn": "云杉原木"
     },
     "stripped_spruce_log": {
@@ -588,7 +948,7 @@
         91,
         55
       ],
-      "center": [
+      "right_bottom": [
         134,
         98,
         56
@@ -608,7 +968,25 @@
         89,
         52
       ],
+      "low_rgb": [
+        81,
+        62,
+        36
+      ],
+      "high_rgb": [
+        115,
+        89,
+        52
+      ],
+      "normal_rgb": [
+        99,
+        76,
+        44
+      ],
       "average_rgb_hex": "#735934",
+      "low_rgb_hex": "#513e24",
+      "high_rgb_hex": "#735934",
+      "normal_rgb_hex": "#634c2c",
       "zh_cn": "去皮云杉原木"
     },
     "spruce_planks": {
@@ -617,7 +995,7 @@
         101,
         57
       ],
-      "center": [
+      "right_bottom": [
         136,
         101,
         57
@@ -637,7 +1015,25 @@
         84,
         48
       ],
+      "low_rgb": [
+        80,
+        59,
+        33
+      ],
+      "high_rgb": [
+        114,
+        84,
+        48
+      ],
+      "normal_rgb": [
+        98,
+        72,
+        41
+      ],
       "average_rgb_hex": "#725430",
+      "low_rgb_hex": "#503b21",
+      "high_rgb_hex": "#725430",
+      "normal_rgb_hex": "#624829",
       "zh_cn": "云杉木板"
     },
     "birch_log": {
@@ -646,7 +1042,7 @@
         190,
         174
       ],
-      "center": [
+      "right_bottom": [
         238,
         241,
         234
@@ -666,7 +1062,25 @@
         215,
         210
       ],
+      "low_rgb": [
+        152,
+        151,
+        148
+      ],
+      "high_rgb": [
+        216,
+        215,
+        210
+      ],
+      "normal_rgb": [
+        186,
+        185,
+        181
+      ],
       "average_rgb_hex": "#d8d7d2",
+      "low_rgb_hex": "#989794",
+      "high_rgb_hex": "#d8d7d2",
+      "normal_rgb_hex": "#bab9b5",
       "zh_cn": "白桦原木"
     },
     "stripped_birch_log": {
@@ -675,7 +1089,7 @@
         172,
         114
       ],
-      "center": [
+      "right_bottom": [
         205,
         184,
         125
@@ -695,7 +1109,25 @@
         176,
         118
       ],
+      "low_rgb": [
+        138,
+        124,
+        83
+      ],
+      "high_rgb": [
+        196,
+        176,
+        118
+      ],
+      "normal_rgb": [
+        169,
+        151,
+        101
+      ],
       "average_rgb_hex": "#c4b076",
+      "low_rgb_hex": "#8a7c53",
+      "high_rgb_hex": "#c4b076",
+      "normal_rgb_hex": "#a99765",
       "zh_cn": "去皮白桦原木"
     },
     "birch_planks": {
@@ -704,7 +1136,7 @@
         203,
         141
       ],
-      "center": [
+      "right_bottom": [
         215,
         203,
         141
@@ -724,7 +1156,25 @@
         175,
         121
       ],
+      "low_rgb": [
+        135,
+        123,
+        85
+      ],
+      "high_rgb": [
+        192,
+        175,
+        121
+      ],
+      "normal_rgb": [
+        165,
+        150,
+        104
+      ],
       "average_rgb_hex": "#c0af79",
+      "low_rgb_hex": "#877b55",
+      "high_rgb_hex": "#c0af79",
+      "normal_rgb_hex": "#a59668",
       "zh_cn": "白桦木板"
     },
     "jungle_log": {
@@ -733,7 +1183,7 @@
         70,
         26
       ],
-      "center": [
+      "right_bottom": [
         62,
         48,
         19
@@ -753,7 +1203,25 @@
         67,
         25
       ],
+      "low_rgb": [
+        60,
+        47,
+        17
+      ],
+      "high_rgb": [
+        85,
+        67,
+        25
+      ],
+      "normal_rgb": [
+        73,
+        57,
+        21
+      ],
       "average_rgb_hex": "#554319",
+      "low_rgb_hex": "#3c2f11",
+      "high_rgb_hex": "#554319",
+      "normal_rgb_hex": "#493915",
       "zh_cn": "丛林原木"
     },
     "stripped_jungle_log": {
@@ -762,7 +1230,7 @@
         128,
         73
       ],
-      "center": [
+      "right_bottom": [
         159,
         132,
         77
@@ -782,7 +1250,25 @@
         132,
         84
       ],
+      "low_rgb": [
+        120,
+        93,
+        59
+      ],
+      "high_rgb": [
+        171,
+        132,
+        84
+      ],
+      "normal_rgb": [
+        147,
+        113,
+        72
+      ],
       "average_rgb_hex": "#ab8454",
+      "low_rgb_hex": "#785d3b",
+      "high_rgb_hex": "#ab8454",
+      "normal_rgb_hex": "#937148",
       "zh_cn": "去皮丛林原木"
     },
     "jungle_planks": {
@@ -791,7 +1277,7 @@
         142,
         107
       ],
-      "center": [
+      "right_bottom": [
         191,
         142,
         107
@@ -811,7 +1297,25 @@
         115,
         80
       ],
+      "low_rgb": [
+        112,
+        81,
+        56
+      ],
+      "high_rgb": [
+        160,
+        115,
+        80
+      ],
+      "normal_rgb": [
+        138,
+        99,
+        69
+      ],
       "average_rgb_hex": "#a07350",
+      "low_rgb_hex": "#705138",
+      "high_rgb_hex": "#a07350",
+      "normal_rgb_hex": "#8a6345",
       "zh_cn": "丛林木板"
     },
     "acacia_log": {
@@ -820,7 +1324,7 @@
         98,
         89
       ],
-      "center": [
+      "right_bottom": [
         105,
         98,
         89
@@ -840,7 +1344,25 @@
         96,
         86
       ],
+      "low_rgb": [
+        72,
+        67,
+        60
+      ],
+      "high_rgb": [
+        103,
+        96,
+        86
+      ],
+      "normal_rgb": [
+        88,
+        82,
+        74
+      ],
       "average_rgb_hex": "#676056",
+      "low_rgb_hex": "#48433c",
+      "high_rgb_hex": "#676056",
+      "normal_rgb_hex": "#58524a",
       "zh_cn": "金合欢原木"
     },
     "stripped_acacia_log": {
@@ -849,7 +1371,7 @@
         96,
         63
       ],
-      "center": [
+      "right_bottom": [
         178,
         91,
         59
@@ -869,7 +1391,25 @@
         92,
         59
       ],
+      "low_rgb": [
+        122,
+        64,
+        41
+      ],
+      "high_rgb": [
+        174,
+        92,
+        59
+      ],
+      "normal_rgb": [
+        150,
+        79,
+        50
+      ],
       "average_rgb_hex": "#ae5c3b",
+      "low_rgb_hex": "#7a4029",
+      "high_rgb_hex": "#ae5c3b",
+      "normal_rgb_hex": "#964f32",
       "zh_cn": "去皮金合欢原木"
     },
     "acacia_planks": {
@@ -878,7 +1418,7 @@
         109,
         63
       ],
-      "center": [
+      "right_bottom": [
         194,
         109,
         63
@@ -898,7 +1438,25 @@
         90,
         50
       ],
+      "low_rgb": [
+        118,
+        63,
+        35
+      ],
+      "high_rgb": [
+        168,
+        90,
+        50
+      ],
+      "normal_rgb": [
+        144,
+        77,
+        43
+      ],
       "average_rgb_hex": "#a85a32",
+      "low_rgb_hex": "#763f23",
+      "high_rgb_hex": "#a85a32",
+      "normal_rgb_hex": "#904d2b",
       "zh_cn": "金合欢木板"
     },
     "dark_oak_log": {
@@ -907,7 +1465,7 @@
         49,
         29
       ],
-      "center": [
+      "right_bottom": [
         63,
         49,
         29
@@ -927,7 +1485,25 @@
         46,
         26
       ],
+      "low_rgb": [
+        42,
+        32,
+        18
+      ],
+      "high_rgb": [
+        60,
+        46,
+        26
+      ],
+      "normal_rgb": [
+        51,
+        39,
+        22
+      ],
       "average_rgb_hex": "#3c2e1a",
+      "low_rgb_hex": "#2a2012",
+      "high_rgb_hex": "#3c2e1a",
+      "normal_rgb_hex": "#332716",
       "zh_cn": "深色橡木原木"
     },
     "stripped_dark_oak_log": {
@@ -936,7 +1512,7 @@
         80,
         51
       ],
-      "center": [
+      "right_bottom": [
         96,
         75,
         49
@@ -956,7 +1532,25 @@
         76,
         49
       ],
+      "low_rgb": [
+        67,
+        53,
+        34
+      ],
+      "high_rgb": [
+        96,
+        76,
+        49
+      ],
+      "normal_rgb": [
+        82,
+        65,
+        42
+      ],
       "average_rgb_hex": "#604c31",
+      "low_rgb_hex": "#433522",
+      "high_rgb_hex": "#604c31",
+      "normal_rgb_hex": "#52412a",
       "zh_cn": "去皮深色橡木原木"
     },
     "dark_oak_planks": {
@@ -965,7 +1559,7 @@
         56,
         26
       ],
-      "center": [
+      "right_bottom": [
         83,
         56,
         26
@@ -985,7 +1579,25 @@
         43,
         20
       ],
+      "low_rgb": [
+        46,
+        30,
+        14
+      ],
+      "high_rgb": [
+        66,
+        43,
+        20
+      ],
+      "normal_rgb": [
+        56,
+        37,
+        17
+      ],
       "average_rgb_hex": "#422b14",
+      "low_rgb_hex": "#2e1e0e",
+      "high_rgb_hex": "#422b14",
+      "normal_rgb_hex": "#382511",
       "zh_cn": "深色橡木木板"
     },
     "crimson_hyphae": {
@@ -994,7 +1606,7 @@
         0,
         0
       ],
-      "center": [
+      "right_bottom": [
         68,
         33,
         49
@@ -1014,7 +1626,25 @@
         26,
         30
       ],
+      "low_rgb": [
+        65,
+        18,
+        21
+      ],
+      "high_rgb": [
+        93,
+        26,
+        30
+      ],
+      "normal_rgb": [
+        80,
+        22,
+        25
+      ],
       "average_rgb_hex": "#5d1a1e",
+      "low_rgb_hex": "#411215",
+      "high_rgb_hex": "#5d1a1e",
+      "normal_rgb_hex": "#501619",
       "zh_cn": "绯红菌核"
     },
     "stripped_crimson_hyphae": {
@@ -1023,7 +1653,7 @@
         56,
         90
       ],
-      "center": [
+      "right_bottom": [
         137,
         57,
         91
@@ -1043,7 +1673,25 @@
         57,
         90
       ],
+      "low_rgb": [
+        96,
+        40,
+        63
+      ],
+      "high_rgb": [
+        137,
+        57,
+        90
+      ],
+      "normal_rgb": [
+        118,
+        49,
+        77
+      ],
       "average_rgb_hex": "#89395a",
+      "low_rgb_hex": "#60283f",
+      "high_rgb_hex": "#89395a",
+      "normal_rgb_hex": "#76314d",
       "zh_cn": "去皮绯红菌核"
     },
     "crimson_planks": {
@@ -1052,7 +1700,7 @@
         62,
         90
       ],
-      "center": [
+      "right_bottom": [
         134,
         62,
         90
@@ -1072,7 +1720,25 @@
         48,
         70
       ],
+      "low_rgb": [
+        71,
+        33,
+        49
+      ],
+      "high_rgb": [
+        101,
+        48,
+        70
+      ],
+      "normal_rgb": [
+        87,
+        41,
+        60
+      ],
       "average_rgb_hex": "#653046",
+      "low_rgb_hex": "#472131",
+      "high_rgb_hex": "#653046",
+      "normal_rgb_hex": "#57293c",
       "zh_cn": "绯红木板"
     },
     "warped_hyphae": {
@@ -1081,7 +1747,7 @@
         97,
         91
       ],
-      "center": [
+      "right_bottom": [
         68,
         33,
         49
@@ -1101,7 +1767,25 @@
         59,
         77
       ],
+      "low_rgb": [
+        40,
+        41,
+        54
+      ],
+      "high_rgb": [
+        57,
+        59,
+        77
+      ],
+      "normal_rgb": [
+        49,
+        50,
+        66
+      ],
       "average_rgb_hex": "#393b4d",
+      "low_rgb_hex": "#282936",
+      "high_rgb_hex": "#393b4d",
+      "normal_rgb_hex": "#313242",
       "zh_cn": "诡异菌核"
     },
     "stripped_warped_hyphae": {
@@ -1110,7 +1794,7 @@
         148,
         142
       ],
-      "center": [
+      "right_bottom": [
         59,
         153,
         151
@@ -1130,7 +1814,25 @@
         150,
         147
       ],
+      "low_rgb": [
+        40,
+        105,
+        103
+      ],
+      "high_rgb": [
+        57,
+        150,
+        147
+      ],
+      "normal_rgb": [
+        49,
+        129,
+        126
+      ],
       "average_rgb_hex": "#399693",
+      "low_rgb_hex": "#286967",
+      "high_rgb_hex": "#399693",
+      "normal_rgb_hex": "#31817e",
       "zh_cn": "去皮诡异菌核"
     },
     "warped_planks": {
@@ -1139,7 +1841,7 @@
         142,
         140
       ],
-      "center": [
+      "right_bottom": [
         58,
         142,
         140
@@ -1159,7 +1861,25 @@
         104,
         99
       ],
+      "low_rgb": [
+        30,
+        73,
+        69
+      ],
+      "high_rgb": [
+        43,
+        104,
+        99
+      ],
+      "normal_rgb": [
+        37,
+        89,
+        85
+      ],
       "average_rgb_hex": "#2b6863",
+      "low_rgb_hex": "#1e4945",
+      "high_rgb_hex": "#2b6863",
+      "normal_rgb_hex": "#255955",
       "zh_cn": "诡异木板"
     },
     "mangrove_log": {
@@ -1168,7 +1888,7 @@
         63,
         39
       ],
-      "center": [
+      "right_bottom": [
         90,
         72,
         44
@@ -1188,7 +1908,25 @@
         66,
         41
       ],
+      "low_rgb": [
+        58,
+        46,
+        28
+      ],
+      "high_rgb": [
+        83,
+        66,
+        41
+      ],
+      "normal_rgb": [
+        71,
+        56,
+        35
+      ],
       "average_rgb_hex": "#534229",
+      "low_rgb_hex": "#3a2e1c",
+      "high_rgb_hex": "#534229",
+      "normal_rgb_hex": "#473823",
       "zh_cn": "红树原木"
     },
     "stripped_mangrove_log": {
@@ -1197,7 +1935,7 @@
         61,
         47
       ],
-      "center": [
+      "right_bottom": [
         117,
         49,
         49
@@ -1217,7 +1955,25 @@
         54,
         47
       ],
+      "low_rgb": [
+        84,
+        38,
+        33
+      ],
+      "high_rgb": [
+        119,
+        54,
+        47
+      ],
+      "normal_rgb": [
+        102,
+        46,
+        40
+      ],
       "average_rgb_hex": "#77362f",
+      "low_rgb_hex": "#542621",
+      "high_rgb_hex": "#77362f",
+      "normal_rgb_hex": "#662e28",
       "zh_cn": "去皮红树原木"
     },
     "mangrove_planks": {
@@ -1226,7 +1982,7 @@
         77,
         58
       ],
-      "center": [
+      "right_bottom": [
         139,
         77,
         58
@@ -1246,7 +2002,25 @@
         54,
         48
       ],
+      "low_rgb": [
+        82,
+        38,
+        33
+      ],
+      "high_rgb": [
+        117,
+        54,
+        48
+      ],
+      "normal_rgb": [
+        100,
+        46,
+        41
+      ],
       "average_rgb_hex": "#753630",
+      "low_rgb_hex": "#522621",
+      "high_rgb_hex": "#753630",
+      "normal_rgb_hex": "#642e29",
       "zh_cn": "红树木板"
     },
     "bamboo_block": {
@@ -1255,7 +2029,7 @@
         133,
         53
       ],
-      "center": [
+      "right_bottom": [
         128,
         144,
         56
@@ -1275,7 +2049,25 @@
         144,
         57
       ],
+      "low_rgb": [
+        89,
+        101,
+        40
+      ],
+      "high_rgb": [
+        127,
+        144,
+        57
+      ],
+      "normal_rgb": [
+        109,
+        124,
+        49
+      ],
       "average_rgb_hex": "#7f9039",
+      "low_rgb_hex": "#596528",
+      "high_rgb_hex": "#7f9039",
+      "normal_rgb_hex": "#6d7c31",
       "zh_cn": "竹块"
     },
     "stripped_bamboo_block": {
@@ -1284,7 +2076,7 @@
         168,
         76
       ],
-      "center": [
+      "right_bottom": [
         200,
         177,
         77
@@ -1304,7 +2096,25 @@
         173,
         80
       ],
+      "low_rgb": [
+        136,
+        122,
+        56
+      ],
+      "high_rgb": [
+        193,
+        173,
+        80
+      ],
+      "normal_rgb": [
+        166,
+        149,
+        69
+      ],
       "average_rgb_hex": "#c1ad50",
+      "low_rgb_hex": "#887a38",
+      "high_rgb_hex": "#c1ad50",
+      "normal_rgb_hex": "#a69545",
       "zh_cn": "去皮竹块"
     },
     "bamboo_planks": {
@@ -1313,7 +2123,7 @@
         177,
         77
       ],
-      "center": [
+      "right_bottom": [
         187,
         168,
         76
@@ -1333,7 +2143,25 @@
         173,
         80
       ],
+      "low_rgb": [
+        136,
+        122,
+        56
+      ],
+      "high_rgb": [
+        193,
+        173,
+        80
+      ],
+      "normal_rgb": [
+        166,
+        149,
+        69
+      ],
       "average_rgb_hex": "#c1ad50",
+      "low_rgb_hex": "#887a38",
+      "high_rgb_hex": "#c1ad50",
+      "normal_rgb_hex": "#a69545",
       "zh_cn": "竹板"
     },
     "bamboo_mosaic": {
@@ -1342,7 +2170,7 @@
         168,
         76
       ],
-      "center": [
+      "right_bottom": [
         187,
         168,
         76
@@ -1362,7 +2190,25 @@
         170,
         78
       ],
+      "low_rgb": [
+        134,
+        120,
+        55
+      ],
+      "high_rgb": [
+        190,
+        170,
+        78
+      ],
+      "normal_rgb": [
+        163,
+        146,
+        67
+      ],
       "average_rgb_hex": "#beaa4e",
+      "low_rgb_hex": "#867837",
+      "high_rgb_hex": "#beaa4e",
+      "normal_rgb_hex": "#a39243",
       "zh_cn": "竹马赛克"
     }
   },
@@ -1373,7 +2219,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         143,
         143,
         143
@@ -1393,7 +2239,25 @@
         125,
         125
       ],
+      "low_rgb": [
+        88,
+        88,
+        88
+      ],
+      "high_rgb": [
+        125,
+        125,
+        125
+      ],
+      "normal_rgb": [
+        107,
+        107,
+        107
+      ],
       "average_rgb_hex": "#7d7d7d",
+      "low_rgb_hex": "#585858",
+      "high_rgb_hex": "#7d7d7d",
+      "normal_rgb_hex": "#6b6b6b",
       "zh_cn": "石头"
     },
     "cobblestone": {
@@ -1402,7 +2266,7 @@
         181,
         181
       ],
-      "center": [
+      "right_bottom": [
         181,
         181,
         181
@@ -1422,7 +2286,25 @@
         127,
         127
       ],
+      "low_rgb": [
+        89,
+        89,
+        89
+      ],
+      "high_rgb": [
+        127,
+        127,
+        127
+      ],
+      "normal_rgb": [
+        109,
+        109,
+        109
+      ],
       "average_rgb_hex": "#7f7f7f",
+      "low_rgb_hex": "#595959",
+      "high_rgb_hex": "#7f7f7f",
+      "normal_rgb_hex": "#6d6d6d",
       "zh_cn": "圆石"
     },
     "mossy_cobblestone": {
@@ -1431,7 +2313,7 @@
         93,
         57
       ],
-      "center": [
+      "right_bottom": [
         136,
         135,
         136
@@ -1451,7 +2333,25 @@
         118,
         94
       ],
+      "low_rgb": [
+        77,
+        83,
+        66
+      ],
+      "high_rgb": [
+        110,
+        118,
+        94
+      ],
+      "normal_rgb": [
+        94,
+        101,
+        81
+      ],
       "average_rgb_hex": "#6e765e",
+      "low_rgb_hex": "#4d5342",
+      "high_rgb_hex": "#6e765e",
+      "normal_rgb_hex": "#5e6551",
       "zh_cn": "苔石"
     },
     "smooth_stone": {
@@ -1460,7 +2360,7 @@
         163,
         163
       ],
-      "center": [
+      "right_bottom": [
         168,
         168,
         168
@@ -1480,7 +2380,25 @@
         158,
         158
       ],
+      "low_rgb": [
+        111,
+        111,
+        111
+      ],
+      "high_rgb": [
+        158,
+        158,
+        158
+      ],
+      "normal_rgb": [
+        136,
+        136,
+        136
+      ],
       "average_rgb_hex": "#9e9e9e",
+      "low_rgb_hex": "#6f6f6f",
+      "high_rgb_hex": "#9e9e9e",
+      "normal_rgb_hex": "#888888",
       "zh_cn": "平滑石头"
     },
     "stone_bricks": {
@@ -1489,7 +2407,7 @@
         118,
         120
       ],
-      "center": [
+      "right_bottom": [
         139,
         137,
         139
@@ -1509,7 +2427,25 @@
         121,
         122
       ],
+      "low_rgb": [
+        86,
+        85,
+        86
+      ],
+      "high_rgb": [
+        122,
+        121,
+        122
+      ],
+      "normal_rgb": [
+        105,
+        104,
+        105
+      ],
       "average_rgb_hex": "#7a797a",
+      "low_rgb_hex": "#565556",
+      "high_rgb_hex": "#7a797a",
+      "normal_rgb_hex": "#696869",
       "zh_cn": "石砖"
     },
     "mossy_stone_bricks": {
@@ -1518,7 +2454,7 @@
         118,
         120
       ],
-      "center": [
+      "right_bottom": [
         139,
         137,
         139
@@ -1538,7 +2474,25 @@
         121,
         105
       ],
+      "low_rgb": [
+        81,
+        85,
+        74
+      ],
+      "high_rgb": [
+        115,
+        121,
+        105
+      ],
+      "normal_rgb": [
+        99,
+        104,
+        90
+      ],
       "average_rgb_hex": "#737969",
+      "low_rgb_hex": "#51554a",
+      "high_rgb_hex": "#737969",
+      "normal_rgb_hex": "#63685a",
       "zh_cn": "苔石砖"
     },
     "chiseled_stone_bricks": {
@@ -1547,7 +2501,7 @@
         137,
         139
       ],
-      "center": [
+      "right_bottom": [
         90,
         89,
         90
@@ -1567,7 +2521,25 @@
         118,
         119
       ],
+      "low_rgb": [
+        84,
+        83,
+        84
+      ],
+      "high_rgb": [
+        119,
+        118,
+        119
+      ],
+      "normal_rgb": [
+        102,
+        101,
+        102
+      ],
       "average_rgb_hex": "#777677",
+      "low_rgb_hex": "#545354",
+      "high_rgb_hex": "#777677",
+      "normal_rgb_hex": "#666566",
       "zh_cn": "雕纹石砖"
     },
     "cracked_stone_bricks": {
@@ -1576,7 +2548,7 @@
         137,
         139
       ],
-      "center": [
+      "right_bottom": [
         127,
         127,
         127
@@ -1596,7 +2568,25 @@
         117,
         118
       ],
+      "low_rgb": [
+        83,
+        82,
+        83
+      ],
+      "high_rgb": [
+        118,
+        117,
+        118
+      ],
+      "normal_rgb": [
+        101,
+        100,
+        101
+      ],
       "average_rgb_hex": "#767576",
+      "low_rgb_hex": "#535253",
+      "high_rgb_hex": "#767576",
+      "normal_rgb_hex": "#656465",
       "zh_cn": "裂纹石砖"
     },
     "andesite": {
@@ -1605,7 +2595,7 @@
         156,
         156
       ],
-      "center": [
+      "right_bottom": [
         138,
         138,
         142
@@ -1625,7 +2615,25 @@
         136,
         136
       ],
+      "low_rgb": [
+        96,
+        96,
+        96
+      ],
+      "high_rgb": [
+        136,
+        136,
+        136
+      ],
+      "normal_rgb": [
+        117,
+        117,
+        117
+      ],
       "average_rgb_hex": "#888888",
+      "low_rgb_hex": "#606060",
+      "high_rgb_hex": "#888888",
+      "normal_rgb_hex": "#757575",
       "zh_cn": "安山岩"
     },
     "polished_andesite": {
@@ -1634,7 +2642,7 @@
         136,
         135
       ],
-      "center": [
+      "right_bottom": [
         134,
         136,
         135
@@ -1654,7 +2662,25 @@
         134,
         133
       ],
+      "low_rgb": [
+        93,
+        94,
+        93
+      ],
+      "high_rgb": [
+        132,
+        134,
+        133
+      ],
+      "normal_rgb": [
+        113,
+        115,
+        114
+      ],
       "average_rgb_hex": "#848685",
+      "low_rgb_hex": "#5d5e5d",
+      "high_rgb_hex": "#848685",
+      "normal_rgb_hex": "#717372",
       "zh_cn": "磨制安山岩"
     },
     "diorite": {
@@ -1663,7 +2689,7 @@
         206,
         207
       ],
-      "center": [
+      "right_bottom": [
         206,
         206,
         207
@@ -1683,7 +2709,25 @@
         188,
         188
       ],
+      "low_rgb": [
+        132,
+        132,
+        132
+      ],
+      "high_rgb": [
+        188,
+        188,
+        188
+      ],
+      "normal_rgb": [
+        162,
+        162,
+        162
+      ],
       "average_rgb_hex": "#bcbcbc",
+      "low_rgb_hex": "#848484",
+      "high_rgb_hex": "#bcbcbc",
+      "normal_rgb_hex": "#a2a2a2",
       "zh_cn": "闪长岩"
     },
     "polished_diorite": {
@@ -1692,7 +2736,7 @@
         172,
         169
       ],
-      "center": [
+      "right_bottom": [
         186,
         187,
         192
@@ -1712,7 +2756,25 @@
         193,
         194
       ],
+      "low_rgb": [
+        135,
+        136,
+        136
+      ],
+      "high_rgb": [
+        192,
+        193,
+        194
+      ],
+      "normal_rgb": [
+        165,
+        166,
+        167
+      ],
       "average_rgb_hex": "#c0c1c2",
+      "low_rgb_hex": "#878888",
+      "high_rgb_hex": "#c0c1c2",
+      "normal_rgb_hex": "#a5a6a7",
       "zh_cn": "磨制闪长岩"
     },
     "granite": {
@@ -1721,7 +2783,7 @@
         98,
         81
       ],
-      "center": [
+      "right_bottom": [
         169,
         119,
         100
@@ -1741,7 +2803,25 @@
         103,
         85
       ],
+      "low_rgb": [
+        105,
+        72,
+        60
+      ],
+      "high_rgb": [
+        149,
+        103,
+        85
+      ],
+      "normal_rgb": [
+        128,
+        88,
+        73
+      ],
       "average_rgb_hex": "#956755",
+      "low_rgb_hex": "#69483c",
+      "high_rgb_hex": "#956755",
+      "normal_rgb_hex": "#805849",
       "zh_cn": "花岗岩"
     },
     "polished_granite": {
@@ -1750,7 +2830,7 @@
         107,
         88
       ],
-      "center": [
+      "right_bottom": [
         169,
         119,
         100
@@ -1770,7 +2850,25 @@
         106,
         89
       ],
+      "low_rgb": [
+        108,
+        74,
+        62
+      ],
+      "high_rgb": [
+        154,
+        106,
+        89
+      ],
+      "normal_rgb": [
+        132,
+        91,
+        76
+      ],
       "average_rgb_hex": "#9a6a59",
+      "low_rgb_hex": "#6c4a3e",
+      "high_rgb_hex": "#9a6a59",
+      "normal_rgb_hex": "#845b4c",
       "zh_cn": "磨制花岗岩"
     },
     "deepslate": {
@@ -1779,7 +2877,7 @@
         61,
         67
       ],
-      "center": [
+      "right_bottom": [
         100,
         100,
         100
@@ -1799,7 +2897,25 @@
         80,
         82
       ],
+      "low_rgb": [
+        56,
+        56,
+        57
+      ],
+      "high_rgb": [
+        80,
+        80,
+        82
+      ],
+      "normal_rgb": [
+        69,
+        69,
+        70
+      ],
       "average_rgb_hex": "#505052",
+      "low_rgb_hex": "#383839",
+      "high_rgb_hex": "#505052",
+      "normal_rgb_hex": "#454546",
       "zh_cn": "深板岩"
     },
     "cobbled_deepslate": {
@@ -1808,7 +2924,7 @@
         74,
         79
       ],
-      "center": [
+      "right_bottom": [
         74,
         74,
         79
@@ -1828,7 +2944,25 @@
         77,
         80
       ],
+      "low_rgb": [
+        54,
+        54,
+        56
+      ],
+      "high_rgb": [
+        77,
+        77,
+        80
+      ],
+      "normal_rgb": [
+        66,
+        66,
+        69
+      ],
       "average_rgb_hex": "#4d4d50",
+      "low_rgb_hex": "#363638",
+      "high_rgb_hex": "#4d4d50",
+      "normal_rgb_hex": "#424245",
       "zh_cn": "深板岩圆石"
     },
     "deepslate_tiles": {
@@ -1837,7 +2971,7 @@
         76,
         79
       ],
-      "center": [
+      "right_bottom": [
         45,
         45,
         45
@@ -1857,7 +2991,25 @@
         54,
         55
       ],
+      "low_rgb": [
+        38,
+        38,
+        38
+      ],
+      "high_rgb": [
+        54,
+        54,
+        55
+      ],
+      "normal_rgb": [
+        46,
+        46,
+        47
+      ],
       "average_rgb_hex": "#363637",
+      "low_rgb_hex": "#262626",
+      "high_rgb_hex": "#363637",
+      "normal_rgb_hex": "#2e2e2f",
       "zh_cn": "深板岩瓦"
     },
     "cracked_deepslate_tiles": {
@@ -1866,7 +3018,7 @@
         45,
         45
       ],
-      "center": [
+      "right_bottom": [
         45,
         45,
         45
@@ -1886,7 +3038,25 @@
         52,
         52
       ],
+      "low_rgb": [
+        36,
+        36,
+        36
+      ],
+      "high_rgb": [
+        52,
+        52,
+        52
+      ],
+      "normal_rgb": [
+        44,
+        44,
+        44
+      ],
       "average_rgb_hex": "#343434",
+      "low_rgb_hex": "#242424",
+      "high_rgb_hex": "#343434",
+      "normal_rgb_hex": "#2c2c2c",
       "zh_cn": "裂纹深板岩瓦"
     },
     "chiseled_deepslate": {
@@ -1895,7 +3065,7 @@
         36,
         36
       ],
-      "center": [
+      "right_bottom": [
         36,
         36,
         36
@@ -1915,7 +3085,25 @@
         54,
         54
       ],
+      "low_rgb": [
+        38,
+        38,
+        38
+      ],
+      "high_rgb": [
+        54,
+        54,
+        54
+      ],
+      "normal_rgb": [
+        46,
+        46,
+        46
+      ],
       "average_rgb_hex": "#363636",
+      "low_rgb_hex": "#262626",
+      "high_rgb_hex": "#363636",
+      "normal_rgb_hex": "#2e2e2e",
       "zh_cn": "雕纹深板岩"
     },
     "polished_deepslate": {
@@ -1924,7 +3112,7 @@
         76,
         79
       ],
-      "center": [
+      "right_bottom": [
         88,
         88,
         88
@@ -1944,7 +3132,25 @@
         72,
         73
       ],
+      "low_rgb": [
+        50,
+        50,
+        51
+      ],
+      "high_rgb": [
+        72,
+        72,
+        73
+      ],
+      "normal_rgb": [
+        62,
+        62,
+        62
+      ],
       "average_rgb_hex": "#484849",
+      "low_rgb_hex": "#323233",
+      "high_rgb_hex": "#484849",
+      "normal_rgb_hex": "#3e3e3e",
       "zh_cn": "磨制深板岩"
     },
     "deepslate_bricks": {
@@ -1953,7 +3159,7 @@
         55,
         55
       ],
-      "center": [
+      "right_bottom": [
         88,
         88,
         88
@@ -1973,7 +3179,25 @@
         70,
         71
       ],
+      "low_rgb": [
+        49,
+        49,
+        50
+      ],
+      "high_rgb": [
+        70,
+        70,
+        71
+      ],
+      "normal_rgb": [
+        60,
+        60,
+        61
+      ],
       "average_rgb_hex": "#464647",
+      "low_rgb_hex": "#313132",
+      "high_rgb_hex": "#464647",
+      "normal_rgb_hex": "#3c3c3d",
       "zh_cn": "深板岩砖"
     },
     "cracked_deepslate_bricks": {
@@ -1982,7 +3206,7 @@
         36,
         36
       ],
-      "center": [
+      "right_bottom": [
         75,
         76,
         79
@@ -2002,7 +3226,25 @@
         64,
         65
       ],
+      "low_rgb": [
+        45,
+        45,
+        45
+      ],
+      "high_rgb": [
+        64,
+        64,
+        65
+      ],
+      "normal_rgb": [
+        55,
+        55,
+        56
+      ],
       "average_rgb_hex": "#404041",
+      "low_rgb_hex": "#2d2d2d",
+      "high_rgb_hex": "#404041",
+      "normal_rgb_hex": "#373738",
       "zh_cn": "裂纹深板岩砖"
     },
     "dripstone_block": {
@@ -2011,7 +3253,7 @@
         121,
         101
       ],
-      "center": [
+      "right_bottom": [
         146,
         121,
         101
@@ -2031,7 +3273,25 @@
         107,
         92
       ],
+      "low_rgb": [
+        94,
+        75,
+        64
+      ],
+      "high_rgb": [
+        134,
+        107,
+        92
+      ],
+      "normal_rgb": [
+        115,
+        92,
+        79
+      ],
       "average_rgb_hex": "#866b5c",
+      "low_rgb_hex": "#5e4b40",
+      "high_rgb_hex": "#866b5c",
+      "normal_rgb_hex": "#735c4f",
       "zh_cn": "滴水石块"
     },
     "tuff": {
@@ -2040,7 +3300,7 @@
         110,
         111
       ],
-      "center": [
+      "right_bottom": [
         133,
         131,
         123
@@ -2060,7 +3320,25 @@
         109,
         102
       ],
+      "low_rgb": [
+        76,
+        76,
+        72
+      ],
+      "high_rgb": [
+        108,
+        109,
+        102
+      ],
+      "normal_rgb": [
+        93,
+        94,
+        88
+      ],
       "average_rgb_hex": "#6c6d66",
+      "low_rgb_hex": "#4c4c48",
+      "high_rgb_hex": "#6c6d66",
+      "normal_rgb_hex": "#5d5e58",
       "zh_cn": "凝灰岩"
     },
     "tuff_bricks": {
@@ -2069,7 +3347,7 @@
         113,
         107
       ],
-      "center": [
+      "right_bottom": [
         99,
         108,
         109
@@ -2089,7 +3367,25 @@
         102,
         95
       ],
+      "low_rgb": [
+        69,
+        72,
+        67
+      ],
+      "high_rgb": [
+        98,
+        102,
+        95
+      ],
+      "normal_rgb": [
+        84,
+        88,
+        81
+      ],
       "average_rgb_hex": "#62665f",
+      "low_rgb_hex": "#454843",
+      "high_rgb_hex": "#62665f",
+      "normal_rgb_hex": "#545851",
       "zh_cn": "凝灰岩砖"
     },
     "polished_tuff": {
@@ -2098,7 +3394,7 @@
         90,
         81
       ],
-      "center": [
+      "right_bottom": [
         99,
         108,
         109
@@ -2118,7 +3414,25 @@
         104,
         99
       ],
+      "low_rgb": [
+        68,
+        73,
+        69
+      ],
+      "high_rgb": [
+        97,
+        104,
+        99
+      ],
+      "normal_rgb": [
+        83,
+        89,
+        85
+      ],
       "average_rgb_hex": "#616863",
+      "low_rgb_hex": "#444945",
+      "high_rgb_hex": "#616863",
+      "normal_rgb_hex": "#535955",
       "zh_cn": "磨制凝灰岩"
     },
     "chiseled_tuff": {
@@ -2127,7 +3441,7 @@
         108,
         109
       ],
-      "center": [
+      "right_bottom": [
         91,
         98,
         94
@@ -2147,7 +3461,25 @@
         94,
         86
       ],
+      "low_rgb": [
+        62,
+        66,
+        60
+      ],
+      "high_rgb": [
+        89,
+        94,
+        86
+      ],
+      "normal_rgb": [
+        76,
+        81,
+        74
+      ],
       "average_rgb_hex": "#595e56",
+      "low_rgb_hex": "#3e423c",
+      "high_rgb_hex": "#595e56",
+      "normal_rgb_hex": "#4c514a",
       "zh_cn": "雕纹凝灰岩"
     },
     "chiseled_tuff_bricks": {
@@ -2156,7 +3488,7 @@
         131,
         122
       ],
-      "center": [
+      "right_bottom": [
         99,
         108,
         109
@@ -2176,7 +3508,25 @@
         103,
         95
       ],
+      "low_rgb": [
+        69,
+        72,
+        67
+      ],
+      "high_rgb": [
+        98,
+        103,
+        95
+      ],
+      "normal_rgb": [
+        84,
+        88,
+        81
+      ],
       "average_rgb_hex": "#62675f",
+      "low_rgb_hex": "#454843",
+      "high_rgb_hex": "#62675f",
+      "normal_rgb_hex": "#545851",
       "zh_cn": "雕纹凝灰岩砖"
     }
   },
@@ -2187,7 +3537,7 @@
         242,
         242
       ],
-      "center": [
+      "right_bottom": [
         230,
         230,
         230
@@ -2207,7 +3557,25 @@
         220,
         220
       ],
+      "low_rgb": [
+        155,
+        155,
+        155
+      ],
+      "high_rgb": [
+        220,
+        220,
+        220
+      ],
+      "normal_rgb": [
+        189,
+        189,
+        189
+      ],
       "average_rgb_hex": "#dcdcdc",
+      "low_rgb_hex": "#9b9b9b",
+      "high_rgb_hex": "#dcdcdc",
+      "normal_rgb_hex": "#bdbdbd",
       "zh_cn": "铁块"
     },
     "iron_ore": {
@@ -2216,7 +3584,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         226,
         192,
         170
@@ -2236,7 +3604,25 @@
         130,
         127
       ],
+      "low_rgb": [
+        96,
+        91,
+        89
+      ],
+      "high_rgb": [
+        136,
+        130,
+        127
+      ],
+      "normal_rgb": [
+        117,
+        112,
+        109
+      ],
       "average_rgb_hex": "#88827f",
+      "low_rgb_hex": "#605b59",
+      "high_rgb_hex": "#88827f",
+      "normal_rgb_hex": "#75706d",
       "zh_cn": "铁矿石"
     },
     "deepslate_iron_ore": {
@@ -2245,7 +3631,7 @@
         61,
         67
       ],
-      "center": [
+      "right_bottom": [
         100,
         100,
         100
@@ -2265,7 +3651,25 @@
         99,
         94
       ],
+      "low_rgb": [
+        74,
+        69,
+        66
+      ],
+      "high_rgb": [
+        106,
+        99,
+        94
+      ],
+      "normal_rgb": [
+        91,
+        85,
+        81
+      ],
       "average_rgb_hex": "#6a635e",
+      "low_rgb_hex": "#4a4542",
+      "high_rgb_hex": "#6a635e",
+      "normal_rgb_hex": "#5b5551",
       "zh_cn": "深层铁矿石"
     },
     "gold_block": {
@@ -2274,7 +3678,7 @@
         236,
         79
       ],
-      "center": [
+      "right_bottom": [
         254,
         224,
         72
@@ -2294,7 +3698,25 @@
         208,
         61
       ],
+      "low_rgb": [
+        173,
+        146,
+        43
+      ],
+      "high_rgb": [
+        246,
+        208,
+        61
+      ],
+      "normal_rgb": [
+        212,
+        179,
+        52
+      ],
       "average_rgb_hex": "#f6d03d",
+      "low_rgb_hex": "#ad922b",
+      "high_rgb_hex": "#f6d03d",
+      "normal_rgb_hex": "#d4b334",
       "zh_cn": "金块"
     },
     "raw_gold_block": {
@@ -2303,7 +3725,7 @@
         164,
         26
       ],
-      "center": [
+      "right_bottom": [
         201,
         140,
         28
@@ -2323,7 +3745,25 @@
         169,
         46
       ],
+      "low_rgb": [
+        156,
+        119,
+        32
+      ],
+      "high_rgb": [
+        221,
+        169,
+        46
+      ],
+      "normal_rgb": [
+        190,
+        145,
+        39
+      ],
       "average_rgb_hex": "#dda92e",
+      "low_rgb_hex": "#9c7720",
+      "high_rgb_hex": "#dda92e",
+      "normal_rgb_hex": "#be9127",
       "zh_cn": "粗金块"
     },
     "gold_ore": {
@@ -2332,7 +3772,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         255,
         255,
         255
@@ -2352,7 +3792,25 @@
         140,
         125
       ],
+      "low_rgb": [
+        100,
+        98,
+        88
+      ],
+      "high_rgb": [
+        143,
+        140,
+        125
+      ],
+      "normal_rgb": [
+        123,
+        120,
+        107
+      ],
       "average_rgb_hex": "#8f8c7d",
+      "low_rgb_hex": "#646258",
+      "high_rgb_hex": "#8f8c7d",
+      "normal_rgb_hex": "#7b786b",
       "zh_cn": "金矿石"
     },
     "deepslate_gold_ore": {
@@ -2361,7 +3819,7 @@
         61,
         67
       ],
-      "center": [
+      "right_bottom": [
         100,
         100,
         100
@@ -2381,7 +3839,25 @@
         102,
         78
       ],
+      "low_rgb": [
+        81,
+        72,
+        55
+      ],
+      "high_rgb": [
+        115,
+        102,
+        78
+      ],
+      "normal_rgb": [
+        99,
+        88,
+        67
+      ],
       "average_rgb_hex": "#73664e",
+      "low_rgb_hex": "#514837",
+      "high_rgb_hex": "#73664e",
+      "normal_rgb_hex": "#635843",
       "zh_cn": "深层金矿石"
     },
     "diamond_block": {
@@ -2390,7 +3866,7 @@
         254,
         235
       ],
-      "center": [
+      "right_bottom": [
         112,
         251,
         240
@@ -2410,7 +3886,25 @@
         237,
         228
       ],
+      "low_rgb": [
+        69,
+        167,
+        160
+      ],
+      "high_rgb": [
+        98,
+        237,
+        228
+      ],
+      "normal_rgb": [
+        84,
+        204,
+        196
+      ],
       "average_rgb_hex": "#62ede4",
+      "low_rgb_hex": "#45a7a0",
+      "high_rgb_hex": "#62ede4",
+      "normal_rgb_hex": "#54ccc4",
       "zh_cn": "钻石块"
     },
     "diamond_ore": {
@@ -2419,7 +3913,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         213,
         255,
         246
@@ -2439,7 +3933,25 @@
         142,
         141
       ],
+      "low_rgb": [
+        88,
+        100,
+        99
+      ],
+      "high_rgb": [
+        125,
+        142,
+        141
+      ],
+      "normal_rgb": [
+        107,
+        122,
+        121
+      ],
       "average_rgb_hex": "#7d8e8d",
+      "low_rgb_hex": "#586463",
+      "high_rgb_hex": "#7d8e8d",
+      "normal_rgb_hex": "#6b7a79",
       "zh_cn": "钻石矿石"
     },
     "deepslate_diamond_ore": {
@@ -2448,7 +3960,7 @@
         61,
         67
       ],
-      "center": [
+      "right_bottom": [
         213,
         255,
         246
@@ -2468,7 +3980,25 @@
         106,
         106
       ],
+      "low_rgb": [
+        58,
+        74,
+        74
+      ],
+      "high_rgb": [
+        83,
+        106,
+        106
+      ],
+      "normal_rgb": [
+        71,
+        91,
+        91
+      ],
       "average_rgb_hex": "#536a6a",
+      "low_rgb_hex": "#3a4a4a",
+      "high_rgb_hex": "#536a6a",
+      "normal_rgb_hex": "#475b5b",
       "zh_cn": "深层钻石矿石"
     },
     "coal_block": {
@@ -2477,7 +4007,7 @@
         30,
         30
       ],
-      "center": [
+      "right_bottom": [
         31,
         30,
         30
@@ -2497,7 +4027,25 @@
         15,
         15
       ],
+      "low_rgb": [
+        11,
+        10,
+        10
+      ],
+      "high_rgb": [
+        16,
+        15,
+        15
+      ],
+      "normal_rgb": [
+        13,
+        12,
+        12
+      ],
       "average_rgb_hex": "#100f0f",
+      "low_rgb_hex": "#0b0a0a",
+      "high_rgb_hex": "#100f0f",
+      "normal_rgb_hex": "#0d0c0c",
       "zh_cn": "煤炭块"
     },
     "coal_ore": {
@@ -2506,7 +4054,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         69,
         69,
         69
@@ -2526,7 +4074,25 @@
         116,
         116
       ],
+      "low_rgb": [
+        81,
+        81,
+        81
+      ],
+      "high_rgb": [
+        116,
+        116,
+        116
+      ],
+      "normal_rgb": [
+        100,
+        100,
+        100
+      ],
       "average_rgb_hex": "#747474",
+      "low_rgb_hex": "#515151",
+      "high_rgb_hex": "#747474",
+      "normal_rgb_hex": "#646464",
       "zh_cn": "煤矿石"
     },
     "deepslate_coal_ore": {
@@ -2535,7 +4101,7 @@
         61,
         67
       ],
-      "center": [
+      "right_bottom": [
         100,
         100,
         100
@@ -2555,7 +4121,25 @@
         74,
         76
       ],
+      "low_rgb": [
+        52,
+        52,
+        53
+      ],
+      "high_rgb": [
+        74,
+        74,
+        76
+      ],
+      "normal_rgb": [
+        63,
+        63,
+        65
+      ],
       "average_rgb_hex": "#4a4a4c",
+      "low_rgb_hex": "#343435",
+      "high_rgb_hex": "#4a4a4c",
+      "normal_rgb_hex": "#3f3f41",
       "zh_cn": "深层煤矿石"
     },
     "emerald_block": {
@@ -2564,7 +4148,7 @@
         197,
         68
       ],
-      "center": [
+      "right_bottom": [
         23,
         197,
         68
@@ -2584,7 +4168,25 @@
         203,
         87
       ],
+      "low_rgb": [
+        29,
+        143,
+        61
+      ],
+      "high_rgb": [
+        42,
+        203,
+        87
+      ],
+      "normal_rgb": [
+        36,
+        175,
+        75
+      ],
       "average_rgb_hex": "#2acb57",
+      "low_rgb_hex": "#1d8f3d",
+      "high_rgb_hex": "#2acb57",
+      "normal_rgb_hex": "#24af4b",
       "zh_cn": "绿宝石块"
     },
     "emerald_ore": {
@@ -2593,7 +4195,7 @@
         255,
         235
       ],
-      "center": [
+      "right_bottom": [
         127,
         127,
         127
@@ -2613,7 +4215,25 @@
         136,
         124
       ],
+      "low_rgb": [
+        82,
+        96,
+        87
+      ],
+      "high_rgb": [
+        117,
+        136,
+        124
+      ],
+      "normal_rgb": [
+        100,
+        117,
+        106
+      ],
       "average_rgb_hex": "#75887c",
+      "low_rgb_hex": "#526057",
+      "high_rgb_hex": "#75887c",
+      "normal_rgb_hex": "#64756a",
       "zh_cn": "绿宝石矿石"
     },
     "deepslate_emerald_ore": {
@@ -2622,7 +4242,7 @@
         100,
         100
       ],
-      "center": [
+      "right_bottom": [
         100,
         100,
         100
@@ -2642,7 +4262,25 @@
         104,
         87
       ],
+      "low_rgb": [
+        55,
+        73,
+        61
+      ],
+      "high_rgb": [
+        78,
+        104,
+        87
+      ],
+      "normal_rgb": [
+        67,
+        89,
+        75
+      ],
       "average_rgb_hex": "#4e6857",
+      "low_rgb_hex": "#37493d",
+      "high_rgb_hex": "#4e6857",
+      "normal_rgb_hex": "#43594b",
       "zh_cn": "深层绿宝石矿石"
     },
     "lapis_block": {
@@ -2651,7 +4289,7 @@
         74,
         138
       ],
-      "center": [
+      "right_bottom": [
         32,
         74,
         138
@@ -2671,7 +4309,25 @@
         67,
         140
       ],
+      "low_rgb": [
+        21,
+        47,
+        98
+      ],
+      "high_rgb": [
+        30,
+        67,
+        140
+      ],
+      "normal_rgb": [
+        25,
+        57,
+        120
+      ],
       "average_rgb_hex": "#1e438c",
+      "low_rgb_hex": "#152f62",
+      "high_rgb_hex": "#1e438c",
+      "normal_rgb_hex": "#193978",
       "zh_cn": "青金石块"
     },
     "lapis_ore": {
@@ -2680,7 +4336,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         104,
         104,
         104
@@ -2700,7 +4356,25 @@
         110,
         132
       ],
+      "low_rgb": [
+        69,
+        77,
+        93
+      ],
+      "high_rgb": [
+        99,
+        110,
+        132
+      ],
+      "normal_rgb": [
+        85,
+        94,
+        113
+      ],
       "average_rgb_hex": "#636e84",
+      "low_rgb_hex": "#454d5d",
+      "high_rgb_hex": "#636e84",
+      "normal_rgb_hex": "#555e71",
       "zh_cn": "青金石矿石"
     },
     "deepslate_lapis_ore": {
@@ -2709,7 +4383,7 @@
         61,
         67
       ],
-      "center": [
+      "right_bottom": [
         100,
         100,
         100
@@ -2729,7 +4403,25 @@
         90,
         115
       ],
+      "low_rgb": [
+        55,
+        63,
+        81
+      ],
+      "high_rgb": [
+        79,
+        90,
+        115
+      ],
+      "normal_rgb": [
+        68,
+        77,
+        99
+      ],
       "average_rgb_hex": "#4f5a73",
+      "low_rgb_hex": "#373f51",
+      "high_rgb_hex": "#4f5a73",
+      "normal_rgb_hex": "#444d63",
       "zh_cn": "深层青金石矿石"
     },
     "redstone_block": {
@@ -2738,7 +4430,7 @@
         20,
         0
       ],
-      "center": [
+      "right_bottom": [
         115,
         12,
         0
@@ -2758,7 +4450,25 @@
         24,
         5
       ],
+      "low_rgb": [
+        123,
+        16,
+        3
+      ],
+      "high_rgb": [
+        175,
+        24,
+        5
+      ],
+      "normal_rgb": [
+        150,
+        20,
+        4
+      ],
       "average_rgb_hex": "#af1805",
+      "low_rgb_hex": "#7b1003",
+      "high_rgb_hex": "#af1805",
+      "normal_rgb_hex": "#961404",
       "zh_cn": "红石块"
     },
     "redstone_ore": {
@@ -2767,7 +4477,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         255,
         0,
         0
@@ -2787,7 +4497,25 @@
         107,
         107
       ],
+      "low_rgb": [
+        93,
+        75,
+        75
+      ],
+      "high_rgb": [
+        133,
+        107,
+        107
+      ],
+      "normal_rgb": [
+        114,
+        92,
+        92
+      ],
       "average_rgb_hex": "#856b6b",
+      "low_rgb_hex": "#5d4b4b",
+      "high_rgb_hex": "#856b6b",
+      "normal_rgb_hex": "#725c5c",
       "zh_cn": "红石矿石"
     },
     "deepslate_redstone_ore": {
@@ -2796,7 +4524,7 @@
         6,
         6
       ],
-      "center": [
+      "right_bottom": [
         100,
         100,
         100
@@ -2816,7 +4544,25 @@
         73,
         74
       ],
+      "low_rgb": [
+        73,
+        51,
+        52
+      ],
+      "high_rgb": [
+        104,
+        73,
+        74
+      ],
+      "normal_rgb": [
+        89,
+        62,
+        63
+      ],
       "average_rgb_hex": "#68494a",
+      "low_rgb_hex": "#493334",
+      "high_rgb_hex": "#68494a",
+      "normal_rgb_hex": "#593e3f",
       "zh_cn": "深层红石矿石"
     },
     "copper_block": {
@@ -2825,7 +4571,7 @@
         123,
         91
       ],
-      "center": [
+      "right_bottom": [
         154,
         80,
         56
@@ -2845,7 +4591,25 @@
         107,
         79
       ],
+      "low_rgb": [
+        135,
+        75,
+        55
+      ],
+      "high_rgb": [
+        192,
+        107,
+        79
+      ],
+      "normal_rgb": [
+        165,
+        92,
+        68
+      ],
       "average_rgb_hex": "#c06b4f",
+      "low_rgb_hex": "#874b37",
+      "high_rgb_hex": "#c06b4f",
+      "normal_rgb_hex": "#a55c44",
       "zh_cn": "铜块"
     },
     "cut_copper": {
@@ -2854,7 +4618,7 @@
         90,
         64
       ],
-      "center": [
+      "right_bottom": [
         227,
         130,
         108
@@ -2874,7 +4638,25 @@
         106,
         80
       ],
+      "low_rgb": [
+        134,
+        74,
+        56
+      ],
+      "high_rgb": [
+        191,
+        106,
+        80
+      ],
+      "normal_rgb": [
+        164,
+        91,
+        69
+      ],
       "average_rgb_hex": "#bf6a50",
+      "low_rgb_hex": "#864a38",
+      "high_rgb_hex": "#bf6a50",
+      "normal_rgb_hex": "#a45b45",
       "zh_cn": "切制铜块"
     },
     "copper_ore": {
@@ -2883,7 +4665,7 @@
         118,
         99
       ],
-      "center": [
+      "right_bottom": [
         143,
         143,
         143
@@ -2903,7 +4685,25 @@
         125,
         120
       ],
+      "low_rgb": [
+        87,
+        88,
+        84
+      ],
+      "high_rgb": [
+        124,
+        125,
+        120
+      ],
+      "normal_rgb": [
+        106,
+        107,
+        103
+      ],
       "average_rgb_hex": "#7c7d78",
+      "low_rgb_hex": "#575854",
+      "high_rgb_hex": "#7c7d78",
+      "normal_rgb_hex": "#6a6b67",
       "zh_cn": "铜矿石"
     },
     "deepslate_copper_ore": {
@@ -2912,7 +4712,7 @@
         118,
         99
       ],
-      "center": [
+      "right_bottom": [
         100,
         100,
         100
@@ -2932,7 +4732,25 @@
         93,
         89
       ],
+      "low_rgb": [
+        64,
+        65,
+        62
+      ],
+      "high_rgb": [
+        92,
+        93,
+        89
+      ],
+      "normal_rgb": [
+        79,
+        80,
+        76
+      ],
       "average_rgb_hex": "#5c5d59",
+      "low_rgb_hex": "#40413e",
+      "high_rgb_hex": "#5c5d59",
+      "normal_rgb_hex": "#4f504c",
       "zh_cn": "深层铜矿石"
     },
     "raw_copper_block": {
@@ -2941,7 +4759,7 @@
         149,
         129
       ],
-      "center": [
+      "right_bottom": [
         214,
         123,
         91
@@ -2961,7 +4779,25 @@
         105,
         79
       ],
+      "low_rgb": [
+        108,
+        74,
+        55
+      ],
+      "high_rgb": [
+        154,
+        105,
+        79
+      ],
+      "normal_rgb": [
+        132,
+        90,
+        68
+      ],
       "average_rgb_hex": "#9a694f",
+      "low_rgb_hex": "#6c4a37",
+      "high_rgb_hex": "#9a694f",
+      "normal_rgb_hex": "#845a44",
       "zh_cn": "粗铜块"
     },
     "amethyst_block": {
@@ -2970,7 +4806,7 @@
         58,
         154
       ],
-      "center": [
+      "right_bottom": [
         122,
         91,
         181
@@ -2990,7 +4826,25 @@
         97,
         191
       ],
+      "low_rgb": [
+        93,
+        68,
+        134
+      ],
+      "high_rgb": [
+        133,
+        97,
+        191
+      ],
+      "normal_rgb": [
+        114,
+        83,
+        164
+      ],
       "average_rgb_hex": "#8561bf",
+      "low_rgb_hex": "#5d4486",
+      "high_rgb_hex": "#8561bf",
+      "normal_rgb_hex": "#7253a4",
       "zh_cn": "紫水晶块"
     }
   },
@@ -3001,7 +4855,7 @@
         174,
         189
       ],
-      "center": [
+      "right_bottom": [
         154,
         163,
         179
@@ -3021,7 +4875,25 @@
         166,
         179
       ],
+      "low_rgb": [
+        112,
+        117,
+        126
+      ],
+      "high_rgb": [
+        160,
+        166,
+        179
+      ],
+      "normal_rgb": [
+        138,
+        143,
+        154
+      ],
       "average_rgb_hex": "#a0a6b3",
+      "low_rgb_hex": "#70757e",
+      "high_rgb_hex": "#a0a6b3",
+      "normal_rgb_hex": "#8a8f9a",
       "zh_cn": "黏土"
     },
     "bricks": {
@@ -3030,7 +4902,7 @@
         86,
         67
       ],
-      "center": [
+      "right_bottom": [
         155,
         86,
         67
@@ -3050,7 +4922,25 @@
         97,
         83
       ],
+      "low_rgb": [
+        105,
+        68,
+        58
+      ],
+      "high_rgb": [
+        150,
+        97,
+        83
+      ],
+      "normal_rgb": [
+        129,
+        83,
+        71
+      ],
       "average_rgb_hex": "#966153",
+      "low_rgb_hex": "#69443a",
+      "high_rgb_hex": "#966153",
+      "normal_rgb_hex": "#815347",
       "zh_cn": "红砖块"
     },
     "terracotta": {
@@ -3059,7 +4949,7 @@
         93,
         67
       ],
-      "center": [
+      "right_bottom": [
         156,
         93,
         65
@@ -3079,7 +4969,25 @@
         94,
         67
       ],
+      "low_rgb": [
+        107,
+        66,
+        47
+      ],
+      "high_rgb": [
+        152,
+        94,
+        67
+      ],
+      "normal_rgb": [
+        131,
+        81,
+        57
+      ],
       "average_rgb_hex": "#985e43",
+      "low_rgb_hex": "#6b422f",
+      "high_rgb_hex": "#985e43",
+      "normal_rgb_hex": "#835139",
       "zh_cn": "陶瓦"
     },
     "white_terracotta": {
@@ -3088,7 +4996,7 @@
         180,
         162
       ],
-      "center": [
+      "right_bottom": [
         209,
         177,
         161
@@ -3108,7 +5016,25 @@
         178,
         161
       ],
+      "low_rgb": [
+        147,
+        125,
+        113
+      ],
+      "high_rgb": [
+        209,
+        178,
+        161
+      ],
+      "normal_rgb": [
+        180,
+        153,
+        138
+      ],
       "average_rgb_hex": "#d1b2a1",
+      "low_rgb_hex": "#937d71",
+      "high_rgb_hex": "#d1b2a1",
+      "normal_rgb_hex": "#b4998a",
       "zh_cn": "白色陶瓦"
     },
     "orange_terracotta": {
@@ -3117,7 +5043,7 @@
         85,
         39
       ],
-      "center": [
+      "right_bottom": [
         160,
         83,
         37
@@ -3137,7 +5063,25 @@
         83,
         37
       ],
+      "low_rgb": [
+        113,
+        58,
+        26
+      ],
+      "high_rgb": [
+        161,
+        83,
+        37
+      ],
+      "normal_rgb": [
+        138,
+        71,
+        31
+      ],
       "average_rgb_hex": "#a15325",
+      "low_rgb_hex": "#713a1a",
+      "high_rgb_hex": "#a15325",
+      "normal_rgb_hex": "#8a471f",
       "zh_cn": "橙色陶瓦"
     },
     "magenta_terracotta": {
@@ -3146,7 +5090,7 @@
         89,
         110
       ],
-      "center": [
+      "right_bottom": [
         149,
         87,
         108
@@ -3166,7 +5110,25 @@
         88,
         108
       ],
+      "low_rgb": [
+        105,
+        62,
+        76
+      ],
+      "high_rgb": [
+        149,
+        88,
+        108
+      ],
+      "normal_rgb": [
+        128,
+        75,
+        93
+      ],
       "average_rgb_hex": "#95586c",
+      "low_rgb_hex": "#693e4c",
+      "high_rgb_hex": "#95586c",
+      "normal_rgb_hex": "#804b5d",
       "zh_cn": "品红色陶瓦"
     },
     "light_blue_terracotta": {
@@ -3175,7 +5137,7 @@
         110,
         138
       ],
-      "center": [
+      "right_bottom": [
         112,
         108,
         138
@@ -3195,7 +5157,25 @@
         108,
         137
       ],
+      "low_rgb": [
+        79,
+        76,
+        96
+      ],
+      "high_rgb": [
+        113,
+        108,
+        137
+      ],
+      "normal_rgb": [
+        97,
+        93,
+        118
+      ],
       "average_rgb_hex": "#716c89",
+      "low_rgb_hex": "#4f4c60",
+      "high_rgb_hex": "#716c89",
+      "normal_rgb_hex": "#615d76",
       "zh_cn": "淡蓝色陶瓦"
     },
     "yellow_terracotta": {
@@ -3204,7 +5184,7 @@
         134,
         36
       ],
-      "center": [
+      "right_bottom": [
         185,
         132,
         35
@@ -3224,7 +5204,25 @@
         133,
         35
       ],
+      "low_rgb": [
+        131,
+        93,
+        24
+      ],
+      "high_rgb": [
+        186,
+        133,
+        35
+      ],
+      "normal_rgb": [
+        160,
+        114,
+        30
+      ],
       "average_rgb_hex": "#ba8523",
+      "low_rgb_hex": "#835d18",
+      "high_rgb_hex": "#ba8523",
+      "normal_rgb_hex": "#a0721e",
       "zh_cn": "黄色陶瓦"
     },
     "lime_terracotta": {
@@ -3233,7 +5231,7 @@
         119,
         54
       ],
-      "center": [
+      "right_bottom": [
         103,
         117,
         52
@@ -3253,7 +5251,25 @@
         117,
         52
       ],
+      "low_rgb": [
+        72,
+        82,
+        36
+      ],
+      "high_rgb": [
+        103,
+        117,
+        52
+      ],
+      "normal_rgb": [
+        88,
+        100,
+        44
+      ],
       "average_rgb_hex": "#677534",
+      "low_rgb_hex": "#485224",
+      "high_rgb_hex": "#677534",
+      "normal_rgb_hex": "#58642c",
       "zh_cn": "黄绿色陶瓦"
     },
     "pink_terracotta": {
@@ -3262,7 +5278,7 @@
         80,
         80
       ],
-      "center": [
+      "right_bottom": [
         160,
         77,
         78
@@ -3282,7 +5298,25 @@
         78,
         78
       ],
+      "low_rgb": [
+        113,
+        55,
+        55
+      ],
+      "high_rgb": [
+        161,
+        78,
+        78
+      ],
+      "normal_rgb": [
+        138,
+        67,
+        67
+      ],
       "average_rgb_hex": "#a14e4e",
+      "low_rgb_hex": "#713737",
+      "high_rgb_hex": "#a14e4e",
+      "normal_rgb_hex": "#8a4343",
       "zh_cn": "粉红色陶瓦"
     },
     "gray_terracotta": {
@@ -3291,7 +5325,7 @@
         43,
         36
       ],
-      "center": [
+      "right_bottom": [
         57,
         42,
         36
@@ -3311,7 +5345,25 @@
         42,
         35
       ],
+      "low_rgb": [
+        40,
+        29,
+        24
+      ],
+      "high_rgb": [
+        57,
+        42,
+        35
+      ],
+      "normal_rgb": [
+        49,
+        36,
+        30
+      ],
       "average_rgb_hex": "#392a23",
+      "low_rgb_hex": "#281d18",
+      "high_rgb_hex": "#392a23",
+      "normal_rgb_hex": "#31241e",
       "zh_cn": "灰色陶瓦"
     },
     "light_gray_terracotta": {
@@ -3320,7 +5372,7 @@
         108,
         98
       ],
-      "center": [
+      "right_bottom": [
         135,
         106,
         97
@@ -3340,7 +5392,25 @@
         106,
         97
       ],
+      "low_rgb": [
+        95,
+        74,
+        68
+      ],
+      "high_rgb": [
+        135,
+        106,
+        97
+      ],
+      "normal_rgb": [
+        116,
+        91,
+        83
+      ],
       "average_rgb_hex": "#876a61",
+      "low_rgb_hex": "#5f4a44",
+      "high_rgb_hex": "#876a61",
+      "normal_rgb_hex": "#745b53",
       "zh_cn": "淡灰色陶瓦"
     },
     "cyan_terracotta": {
@@ -3349,7 +5419,7 @@
         92,
         92
       ],
-      "center": [
+      "right_bottom": [
         86,
         90,
         91
@@ -3369,7 +5439,25 @@
         91,
         91
       ],
+      "low_rgb": [
+        60,
+        64,
+        64
+      ],
+      "high_rgb": [
+        86,
+        91,
+        91
+      ],
+      "normal_rgb": [
+        74,
+        78,
+        78
+      ],
       "average_rgb_hex": "#565b5b",
+      "low_rgb_hex": "#3c4040",
+      "high_rgb_hex": "#565b5b",
+      "normal_rgb_hex": "#4a4e4e",
       "zh_cn": "青色陶瓦"
     },
     "purple_terracotta": {
@@ -3378,7 +5466,7 @@
         72,
         87
       ],
-      "center": [
+      "right_bottom": [
         118,
         69,
         86
@@ -3398,7 +5486,25 @@
         70,
         86
       ],
+      "low_rgb": [
+        83,
+        49,
+        60
+      ],
+      "high_rgb": [
+        118,
+        70,
+        86
+      ],
+      "normal_rgb": [
+        101,
+        60,
+        74
+      ],
       "average_rgb_hex": "#764656",
+      "low_rgb_hex": "#53313c",
+      "high_rgb_hex": "#764656",
+      "normal_rgb_hex": "#653c4a",
       "zh_cn": "紫色陶瓦"
     },
     "blue_terracotta": {
@@ -3407,7 +5513,7 @@
         61,
         92
       ],
-      "center": [
+      "right_bottom": [
         74,
         59,
         91
@@ -3427,7 +5533,25 @@
         59,
         91
       ],
+      "low_rgb": [
+        52,
+        41,
+        64
+      ],
+      "high_rgb": [
+        74,
+        59,
+        91
+      ],
+      "normal_rgb": [
+        63,
+        50,
+        78
+      ],
       "average_rgb_hex": "#4a3b5b",
+      "low_rgb_hex": "#342940",
+      "high_rgb_hex": "#4a3b5b",
+      "normal_rgb_hex": "#3f324e",
       "zh_cn": "蓝色陶瓦"
     },
     "brown_terracotta": {
@@ -3436,7 +5560,7 @@
         52,
         36
       ],
-      "center": [
+      "right_bottom": [
         77,
         50,
         36
@@ -3456,7 +5580,25 @@
         51,
         35
       ],
+      "low_rgb": [
+        54,
+        36,
+        24
+      ],
+      "high_rgb": [
+        77,
+        51,
+        35
+      ],
+      "normal_rgb": [
+        66,
+        44,
+        30
+      ],
       "average_rgb_hex": "#4d3323",
+      "low_rgb_hex": "#362418",
+      "high_rgb_hex": "#4d3323",
+      "normal_rgb_hex": "#422c1e",
       "zh_cn": "棕色陶瓦"
     },
     "green_terracotta": {
@@ -3465,7 +5607,7 @@
         84,
         43
       ],
-      "center": [
+      "right_bottom": [
         75,
         82,
         42
@@ -3485,7 +5627,25 @@
         83,
         42
       ],
+      "low_rgb": [
+        53,
+        58,
+        29
+      ],
+      "high_rgb": [
+        76,
+        83,
+        42
+      ],
+      "normal_rgb": [
+        65,
+        71,
+        36
+      ],
       "average_rgb_hex": "#4c532a",
+      "low_rgb_hex": "#353a1d",
+      "high_rgb_hex": "#4c532a",
+      "normal_rgb_hex": "#414724",
       "zh_cn": "绿色陶瓦"
     },
     "red_terracotta": {
@@ -3494,7 +5654,7 @@
         62,
         48
       ],
-      "center": [
+      "right_bottom": [
         142,
         60,
         46
@@ -3514,7 +5674,25 @@
         61,
         46
       ],
+      "low_rgb": [
+        100,
+        43,
+        32
+      ],
+      "high_rgb": [
+        143,
+        61,
+        46
+      ],
+      "normal_rgb": [
+        123,
+        52,
+        39
+      ],
       "average_rgb_hex": "#8f3d2e",
+      "low_rgb_hex": "#642b20",
+      "high_rgb_hex": "#8f3d2e",
+      "normal_rgb_hex": "#7b3427",
       "zh_cn": "红色陶瓦"
     },
     "black_terracotta": {
@@ -3523,7 +5701,7 @@
         23,
         17
       ],
-      "center": [
+      "right_bottom": [
         37,
         22,
         16
@@ -3543,7 +5721,25 @@
         22,
         16
       ],
+      "low_rgb": [
+        26,
+        15,
+        11
+      ],
+      "high_rgb": [
+        37,
+        22,
+        16
+      ],
+      "normal_rgb": [
+        31,
+        18,
+        13
+      ],
       "average_rgb_hex": "#251610",
+      "low_rgb_hex": "#1a0f0b",
+      "high_rgb_hex": "#251610",
+      "normal_rgb_hex": "#1f120d",
       "zh_cn": "黑色陶瓦"
     },
     "white_glazed_terracotta": {
@@ -3552,7 +5748,7 @@
         255,
         254
       ],
-      "center": [
+      "right_bottom": [
         35,
         137,
         199
@@ -3572,7 +5768,25 @@
         212,
         202
       ],
+      "low_rgb": [
+        132,
+        149,
+        142
+      ],
+      "high_rgb": [
+        188,
+        212,
+        202
+      ],
+      "normal_rgb": [
+        162,
+        182,
+        174
+      ],
       "average_rgb_hex": "#bcd4ca",
+      "low_rgb_hex": "#84958e",
+      "high_rgb_hex": "#bcd4ca",
+      "normal_rgb_hex": "#a2b6ae",
       "zh_cn": "白色带釉陶瓦"
     },
     "orange_glazed_terracotta": {
@@ -3581,7 +5795,7 @@
         97,
         0
       ],
-      "center": [
+      "right_bottom": [
         249,
         255,
         254
@@ -3601,7 +5815,25 @@
         147,
         91
       ],
+      "low_rgb": [
+        108,
+        103,
+        64
+      ],
+      "high_rgb": [
+        154,
+        147,
+        91
+      ],
+      "normal_rgb": [
+        132,
+        126,
+        78
+      ],
       "average_rgb_hex": "#9a935b",
+      "low_rgb_hex": "#6c6740",
+      "high_rgb_hex": "#9a935b",
+      "normal_rgb_hex": "#847e4e",
       "zh_cn": "橙色带釉陶瓦"
     },
     "magenta_glazed_terracotta": {
@@ -3610,7 +5842,7 @@
         48,
         159
       ],
-      "center": [
+      "right_bottom": [
         199,
         78,
         189
@@ -3630,7 +5862,25 @@
         100,
         191
       ],
+      "low_rgb": [
+        146,
+        70,
+        134
+      ],
+      "high_rgb": [
+        208,
+        100,
+        191
+      ],
+      "normal_rgb": [
+        179,
+        86,
+        164
+      ],
       "average_rgb_hex": "#d064bf",
+      "low_rgb_hex": "#924686",
+      "high_rgb_hex": "#d064bf",
+      "normal_rgb_hex": "#b356a4",
       "zh_cn": "品红色带釉陶瓦"
     },
     "light_blue_glazed_terracotta": {
@@ -3639,7 +5889,7 @@
         44,
         133
       ],
-      "center": [
+      "right_bottom": [
         33,
         132,
         190
@@ -3659,7 +5909,25 @@
         164,
         208
       ],
+      "low_rgb": [
+        66,
+        115,
+        146
+      ],
+      "high_rgb": [
+        94,
+        164,
+        208
+      ],
+      "normal_rgb": [
+        81,
+        141,
+        179
+      ],
       "average_rgb_hex": "#5ea4d0",
+      "low_rgb_hex": "#427392",
+      "high_rgb_hex": "#5ea4d0",
+      "normal_rgb_hex": "#518db3",
       "zh_cn": "淡蓝色带釉陶瓦"
     },
     "yellow_glazed_terracotta": {
@@ -3668,7 +5936,7 @@
         216,
         61
       ],
-      "center": [
+      "right_bottom": [
         173,
         124,
         80
@@ -3688,7 +5956,25 @@
         192,
         88
       ],
+      "low_rgb": [
+        165,
+        135,
+        62
+      ],
+      "high_rgb": [
+        234,
+        192,
+        88
+      ],
+      "normal_rgb": [
+        201,
+        165,
+        75
+      ],
       "average_rgb_hex": "#eac058",
+      "low_rgb_hex": "#a5873e",
+      "high_rgb_hex": "#eac058",
+      "normal_rgb_hex": "#c9a54b",
       "zh_cn": "黄色带釉陶瓦"
     },
     "lime_glazed_terracotta": {
@@ -3697,7 +5983,7 @@
         169,
         24
       ],
-      "center": [
+      "right_bottom": [
         127,
         204,
         25
@@ -3717,7 +6003,25 @@
         197,
         55
       ],
+      "low_rgb": [
+        114,
+        139,
+        38
+      ],
+      "high_rgb": [
+        162,
+        197,
+        55
+      ],
+      "normal_rgb": [
+        139,
+        169,
+        47
+      ],
       "average_rgb_hex": "#a2c537",
+      "low_rgb_hex": "#728b26",
+      "high_rgb_hex": "#a2c537",
+      "normal_rgb_hex": "#8ba92f",
       "zh_cn": "黄绿色带釉陶瓦"
     },
     "pink_glazed_terracotta": {
@@ -3726,7 +6030,7 @@
         181,
         203
       ],
-      "center": [
+      "right_bottom": [
         244,
         151,
         179
@@ -3746,7 +6050,25 @@
         154,
         181
       ],
+      "low_rgb": [
+        165,
+        108,
+        127
+      ],
+      "high_rgb": [
+        235,
+        154,
+        181
+      ],
+      "normal_rgb": [
+        202,
+        132,
+        156
+      ],
       "average_rgb_hex": "#eb9ab5",
+      "low_rgb_hex": "#a56c7f",
+      "high_rgb_hex": "#eb9ab5",
+      "normal_rgb_hex": "#ca849c",
       "zh_cn": "粉红色带釉陶瓦"
     },
     "gray_glazed_terracotta": {
@@ -3755,7 +6077,7 @@
         82,
         85
       ],
-      "center": [
+      "right_bottom": [
         153,
         153,
         153
@@ -3775,7 +6097,25 @@
         90,
         93
       ],
+      "low_rgb": [
+        58,
+        63,
+        65
+      ],
+      "high_rgb": [
+        83,
+        90,
+        93
+      ],
+      "normal_rgb": [
+        71,
+        77,
+        80
+      ],
       "average_rgb_hex": "#535a5d",
+      "low_rgb_hex": "#3a3f41",
+      "high_rgb_hex": "#535a5d",
+      "normal_rgb_hex": "#474d50",
       "zh_cn": "灰色带釉陶瓦"
     },
     "light_gray_glazed_terracotta": {
@@ -3784,7 +6124,7 @@
         145,
         145
       ],
-      "center": [
+      "right_bottom": [
         193,
         198,
         200
@@ -3804,7 +6144,25 @@
         166,
         167
       ],
+      "low_rgb": [
+        101,
+        117,
+        117
+      ],
+      "high_rgb": [
+        144,
+        166,
+        167
+      ],
+      "normal_rgb": [
+        124,
+        143,
+        144
+      ],
       "average_rgb_hex": "#90a6a7",
+      "low_rgb_hex": "#657575",
+      "high_rgb_hex": "#90a6a7",
+      "normal_rgb_hex": "#7c8f90",
       "zh_cn": "淡灰色带釉陶瓦"
     },
     "cyan_glazed_terracotta": {
@@ -3813,7 +6171,7 @@
         62,
         67
       ],
-      "center": [
+      "right_bottom": [
         22,
         163,
         163
@@ -3833,7 +6191,25 @@
         118,
         125
       ],
+      "low_rgb": [
+        36,
+        83,
+        88
+      ],
+      "high_rgb": [
+        52,
+        118,
+        125
+      ],
+      "normal_rgb": [
+        44,
+        101,
+        107
+      ],
       "average_rgb_hex": "#34767d",
+      "low_rgb_hex": "#245358",
+      "high_rgb_hex": "#34767d",
+      "normal_rgb_hex": "#2c656b",
       "zh_cn": "青色带釉陶瓦"
     },
     "purple_glazed_terracotta": {
@@ -3842,7 +6218,7 @@
         50,
         184
       ],
-      "center": [
+      "right_bottom": [
         137,
         50,
         184
@@ -3862,7 +6238,25 @@
         48,
         152
       ],
+      "low_rgb": [
+        76,
+        33,
+        107
+      ],
+      "high_rgb": [
+        109,
+        48,
+        152
+      ],
+      "normal_rgb": [
+        94,
+        41,
+        131
+      ],
       "average_rgb_hex": "#6d3098",
+      "low_rgb_hex": "#4c216b",
+      "high_rgb_hex": "#6d3098",
+      "normal_rgb_hex": "#5e2983",
       "zh_cn": "紫色带釉陶瓦"
     },
     "blue_glazed_terracotta": {
@@ -3871,7 +6265,7 @@
         137,
         199
       ],
-      "center": [
+      "right_bottom": [
         69,
         119,
         211
@@ -3891,7 +6285,25 @@
         64,
         139
       ],
+      "low_rgb": [
+        33,
+        45,
+        98
+      ],
+      "high_rgb": [
+        47,
+        64,
+        139
+      ],
+      "normal_rgb": [
+        40,
+        55,
+        119
+      ],
       "average_rgb_hex": "#2f408b",
+      "low_rgb_hex": "#212d62",
+      "high_rgb_hex": "#2f408b",
+      "normal_rgb_hex": "#283777",
       "zh_cn": "蓝色带釉陶瓦"
     },
     "brown_glazed_terracotta": {
@@ -3900,7 +6312,7 @@
         84,
         50
       ],
-      "center": [
+      "right_bottom": [
         148,
         106,
         69
@@ -3920,7 +6332,25 @@
         106,
         85
       ],
+      "low_rgb": [
+        84,
+        74,
+        60
+      ],
+      "high_rgb": [
+        119,
+        106,
+        85
+      ],
+      "normal_rgb": [
+        102,
+        91,
+        73
+      ],
       "average_rgb_hex": "#776a55",
+      "low_rgb_hex": "#544a3c",
+      "high_rgb_hex": "#776a55",
+      "normal_rgb_hex": "#665b49",
       "zh_cn": "棕色带釉陶瓦"
     },
     "green_glazed_terracotta": {
@@ -3929,7 +6359,7 @@
         208,
         210
       ],
-      "center": [
+      "right_bottom": [
         73,
         91,
         36
@@ -3949,7 +6379,25 @@
         142,
         67
       ],
+      "low_rgb": [
+        82,
+        100,
+        47
+      ],
+      "high_rgb": [
+        117,
+        142,
+        67
+      ],
+      "normal_rgb": [
+        100,
+        122,
+        57
+      ],
       "average_rgb_hex": "#758e43",
+      "low_rgb_hex": "#52642f",
+      "high_rgb_hex": "#758e43",
+      "normal_rgb_hex": "#647a39",
       "zh_cn": "绿色带釉陶瓦"
     },
     "red_glazed_terracotta": {
@@ -3958,7 +6406,7 @@
         75,
         68
       ],
-      "center": [
+      "right_bottom": [
         176,
         46,
         38
@@ -3978,7 +6426,25 @@
         59,
         53
       ],
+      "low_rgb": [
+        127,
+        41,
+        37
+      ],
+      "high_rgb": [
+        181,
+        59,
+        53
+      ],
+      "normal_rgb": [
+        156,
+        50,
+        45
+      ],
       "average_rgb_hex": "#b53b35",
+      "low_rgb_hex": "#7f2925",
+      "high_rgb_hex": "#b53b35",
+      "normal_rgb_hex": "#9c322d",
       "zh_cn": "红色带釉陶瓦"
     },
     "black_glazed_terracotta": {
@@ -3987,7 +6453,7 @@
         47,
         53
       ],
-      "center": [
+      "right_bottom": [
         44,
         44,
         50
@@ -4007,7 +6473,25 @@
         30,
         32
       ],
+      "low_rgb": [
+        47,
+        21,
+        22
+      ],
+      "high_rgb": [
+        67,
+        30,
+        32
+      ],
+      "normal_rgb": [
+        57,
+        25,
+        27
+      ],
       "average_rgb_hex": "#431e20",
+      "low_rgb_hex": "#2f1516",
+      "high_rgb_hex": "#431e20",
+      "normal_rgb_hex": "#39191b",
       "zh_cn": "黑色带釉陶瓦"
     }
   },
@@ -4018,7 +6502,7 @@
         11,
         16
       ],
-      "center": [
+      "right_bottom": [
         9,
         11,
         16
@@ -4038,7 +6522,25 @@
         10,
         15
       ],
+      "low_rgb": [
+        5,
+        7,
+        10
+      ],
+      "high_rgb": [
+        8,
+        10,
+        15
+      ],
+      "normal_rgb": [
+        6,
+        8,
+        12
+      ],
       "average_rgb_hex": "#080a0f",
+      "low_rgb_hex": "#05070a",
+      "high_rgb_hex": "#080a0f",
+      "normal_rgb_hex": "#06080c",
       "zh_cn": "黑色混凝土"
     },
     "blue_concrete": {
@@ -4047,7 +6549,7 @@
         47,
         144
       ],
-      "center": [
+      "right_bottom": [
         44,
         46,
         142
@@ -4067,7 +6569,25 @@
         46,
         143
       ],
+      "low_rgb": [
+        31,
+        32,
+        100
+      ],
+      "high_rgb": [
+        44,
+        46,
+        143
+      ],
+      "normal_rgb": [
+        37,
+        39,
+        123
+      ],
       "average_rgb_hex": "#2c2e8f",
+      "low_rgb_hex": "#1f2064",
+      "high_rgb_hex": "#2c2e8f",
+      "normal_rgb_hex": "#25277b",
       "zh_cn": "蓝色混凝土"
     },
     "brown_concrete": {
@@ -4076,7 +6596,7 @@
         59,
         31
       ],
-      "center": [
+      "right_bottom": [
         96,
         59,
         31
@@ -4096,7 +6616,25 @@
         59,
         31
       ],
+      "low_rgb": [
+        67,
+        41,
+        21
+      ],
+      "high_rgb": [
+        96,
+        59,
+        31
+      ],
+      "normal_rgb": [
+        82,
+        50,
+        26
+      ],
       "average_rgb_hex": "#603b1f",
+      "low_rgb_hex": "#432915",
+      "high_rgb_hex": "#603b1f",
+      "normal_rgb_hex": "#52321a",
       "zh_cn": "棕色混凝土"
     },
     "cyan_concrete": {
@@ -4105,7 +6643,7 @@
         119,
         136
       ],
-      "center": [
+      "right_bottom": [
         22,
         120,
         137
@@ -4125,7 +6663,25 @@
         119,
         136
       ],
+      "low_rgb": [
+        14,
+        84,
+        96
+      ],
+      "high_rgb": [
+        21,
+        119,
+        136
+      ],
+      "normal_rgb": [
+        18,
+        102,
+        117
+      ],
       "average_rgb_hex": "#157788",
+      "low_rgb_hex": "#0e5460",
+      "high_rgb_hex": "#157788",
+      "normal_rgb_hex": "#126675",
       "zh_cn": "青色混凝土"
     },
     "gray_concrete": {
@@ -4134,7 +6690,7 @@
         58,
         62
       ],
-      "center": [
+      "right_bottom": [
         55,
         58,
         62
@@ -4154,7 +6710,25 @@
         57,
         61
       ],
+      "low_rgb": [
+        38,
+        40,
+        43
+      ],
+      "high_rgb": [
+        54,
+        57,
+        61
+      ],
+      "normal_rgb": [
+        46,
+        49,
+        52
+      ],
       "average_rgb_hex": "#36393d",
+      "low_rgb_hex": "#26282b",
+      "high_rgb_hex": "#36393d",
+      "normal_rgb_hex": "#2e3134",
       "zh_cn": "灰色混凝土"
     },
     "green_concrete": {
@@ -4163,7 +6737,7 @@
         90,
         36
       ],
-      "center": [
+      "right_bottom": [
         73,
         91,
         36
@@ -4183,7 +6757,25 @@
         91,
         36
       ],
+      "low_rgb": [
+        51,
+        64,
+        25
+      ],
+      "high_rgb": [
+        73,
+        91,
+        36
+      ],
+      "normal_rgb": [
+        62,
+        78,
+        31
+      ],
       "average_rgb_hex": "#495b24",
+      "low_rgb_hex": "#334019",
+      "high_rgb_hex": "#495b24",
+      "normal_rgb_hex": "#3e4e1f",
       "zh_cn": "绿色混凝土"
     },
     "light_blue_concrete": {
@@ -4192,7 +6784,7 @@
         138,
         200
       ],
-      "center": [
+      "right_bottom": [
         36,
         138,
         200
@@ -4212,7 +6804,25 @@
         137,
         198
       ],
+      "low_rgb": [
+        24,
+        96,
+        139
+      ],
+      "high_rgb": [
+        35,
+        137,
+        198
+      ],
+      "normal_rgb": [
+        30,
+        118,
+        170
+      ],
       "average_rgb_hex": "#2389c6",
+      "low_rgb_hex": "#18608b",
+      "high_rgb_hex": "#2389c6",
+      "normal_rgb_hex": "#1e76aa",
       "zh_cn": "淡蓝色混凝土"
     },
     "light_gray_concrete": {
@@ -4221,7 +6831,7 @@
         125,
         115
       ],
-      "center": [
+      "right_bottom": [
         126,
         126,
         116
@@ -4241,7 +6851,25 @@
         125,
         115
       ],
+      "low_rgb": [
+        88,
+        88,
+        81
+      ],
+      "high_rgb": [
+        125,
+        125,
+        115
+      ],
+      "normal_rgb": [
+        107,
+        107,
+        99
+      ],
       "average_rgb_hex": "#7d7d73",
+      "low_rgb_hex": "#585851",
+      "high_rgb_hex": "#7d7d73",
+      "normal_rgb_hex": "#6b6b63",
       "zh_cn": "淡灰色混凝土"
     },
     "lime_concrete": {
@@ -4250,7 +6878,7 @@
         169,
         24
       ],
-      "center": [
+      "right_bottom": [
         93,
         168,
         24
@@ -4270,7 +6898,25 @@
         168,
         24
       ],
+      "low_rgb": [
+        66,
+        118,
+        16
+      ],
+      "high_rgb": [
+        94,
+        168,
+        24
+      ],
+      "normal_rgb": [
+        81,
+        144,
+        20
+      ],
       "average_rgb_hex": "#5ea818",
+      "low_rgb_hex": "#427610",
+      "high_rgb_hex": "#5ea818",
+      "normal_rgb_hex": "#519014",
       "zh_cn": "黄绿色混凝土"
     },
     "magenta_concrete": {
@@ -4279,7 +6925,7 @@
         49,
         160
       ],
-      "center": [
+      "right_bottom": [
         169,
         48,
         159
@@ -4299,7 +6945,25 @@
         48,
         159
       ],
+      "low_rgb": [
+        119,
+        33,
+        112
+      ],
+      "high_rgb": [
+        169,
+        48,
+        159
+      ],
+      "normal_rgb": [
+        145,
+        41,
+        137
+      ],
       "average_rgb_hex": "#a9309f",
+      "low_rgb_hex": "#772170",
+      "high_rgb_hex": "#a9309f",
+      "normal_rgb_hex": "#912989",
       "zh_cn": "品红色混凝土"
     },
     "orange_concrete": {
@@ -4308,7 +6972,7 @@
         96,
         0
       ],
-      "center": [
+      "right_bottom": [
         225,
         98,
         1
@@ -4328,7 +6992,25 @@
         97,
         0
       ],
+      "low_rgb": [
+        158,
+        68,
+        0
+      ],
+      "high_rgb": [
+        224,
+        97,
+        0
+      ],
+      "normal_rgb": [
+        193,
+        83,
+        0
+      ],
       "average_rgb_hex": "#e06100",
+      "low_rgb_hex": "#9e4400",
+      "high_rgb_hex": "#e06100",
+      "normal_rgb_hex": "#c15300",
       "zh_cn": "橙色混凝土"
     },
     "pink_concrete": {
@@ -4337,7 +7019,7 @@
         101,
         143
       ],
-      "center": [
+      "right_bottom": [
         214,
         101,
         143
@@ -4357,7 +7039,25 @@
         101,
         142
       ],
+      "low_rgb": [
+        150,
+        71,
+        100
+      ],
+      "high_rgb": [
+        213,
+        101,
+        142
+      ],
+      "normal_rgb": [
+        183,
+        87,
+        122
+      ],
       "average_rgb_hex": "#d5658e",
+      "low_rgb_hex": "#964764",
+      "high_rgb_hex": "#d5658e",
+      "normal_rgb_hex": "#b7577a",
       "zh_cn": "粉红色混凝土"
     },
     "purple_concrete": {
@@ -4366,7 +7066,7 @@
         31,
         156
       ],
-      "center": [
+      "right_bottom": [
         101,
         32,
         157
@@ -4386,7 +7086,25 @@
         31,
         156
       ],
+      "low_rgb": [
+        70,
+        21,
+        110
+      ],
+      "high_rgb": [
+        100,
+        31,
+        156
+      ],
+      "normal_rgb": [
+        86,
+        26,
+        134
+      ],
       "average_rgb_hex": "#641f9c",
+      "low_rgb_hex": "#46156e",
+      "high_rgb_hex": "#641f9c",
+      "normal_rgb_hex": "#561a86",
       "zh_cn": "紫色混凝土"
     },
     "red_concrete": {
@@ -4395,7 +7113,7 @@
         34,
         34
       ],
-      "center": [
+      "right_bottom": [
         143,
         34,
         34
@@ -4415,7 +7133,25 @@
         32,
         32
       ],
+      "low_rgb": [
+        100,
+        22,
+        22
+      ],
+      "high_rgb": [
+        142,
+        32,
+        32
+      ],
+      "normal_rgb": [
+        122,
+        27,
+        27
+      ],
       "average_rgb_hex": "#8e2020",
+      "low_rgb_hex": "#641616",
+      "high_rgb_hex": "#8e2020",
+      "normal_rgb_hex": "#7a1b1b",
       "zh_cn": "红色混凝土"
     },
     "white_concrete": {
@@ -4424,7 +7160,7 @@
         214,
         215
       ],
-      "center": [
+      "right_bottom": [
         208,
         214,
         215
@@ -4444,7 +7180,25 @@
         213,
         214
       ],
+      "low_rgb": [
+        146,
+        150,
+        151
+      ],
+      "high_rgb": [
+        207,
+        213,
+        214
+      ],
+      "normal_rgb": [
+        178,
+        183,
+        184
+      ],
       "average_rgb_hex": "#cfd5d6",
+      "low_rgb_hex": "#929697",
+      "high_rgb_hex": "#cfd5d6",
+      "normal_rgb_hex": "#b2b7b8",
       "zh_cn": "白色混凝土"
     },
     "yellow_concrete": {
@@ -4453,7 +7207,7 @@
         177,
         23
       ],
-      "center": [
+      "right_bottom": [
         242,
         176,
         21
@@ -4473,7 +7227,25 @@
         175,
         21
       ],
+      "low_rgb": [
+        169,
+        123,
+        14
+      ],
+      "high_rgb": [
+        240,
+        175,
+        21
+      ],
+      "normal_rgb": [
+        207,
+        150,
+        18
+      ],
       "average_rgb_hex": "#f0af15",
+      "low_rgb_hex": "#a97b0e",
+      "high_rgb_hex": "#f0af15",
+      "normal_rgb_hex": "#cf9612",
       "zh_cn": "黄色混凝土"
     },
     "black_concrete_powder": {
@@ -4482,7 +7254,7 @@
         21,
         27
       ],
-      "center": [
+      "right_bottom": [
         28,
         30,
         34
@@ -4502,7 +7274,25 @@
         26,
         31
       ],
+      "low_rgb": [
+        17,
+        18,
+        21
+      ],
+      "high_rgb": [
+        25,
+        26,
+        31
+      ],
+      "normal_rgb": [
+        21,
+        22,
+        26
+      ],
       "average_rgb_hex": "#191a1f",
+      "low_rgb_hex": "#111215",
+      "high_rgb_hex": "#191a1f",
+      "normal_rgb_hex": "#15161a",
       "zh_cn": "黑色混凝土粉末"
     },
     "blue_concrete_powder": {
@@ -4511,7 +7301,7 @@
         70,
         166
       ],
-      "center": [
+      "right_bottom": [
         62,
         65,
         156
@@ -4531,7 +7321,25 @@
         73,
         166
       ],
+      "low_rgb": [
+        49,
+        51,
+        117
+      ],
+      "high_rgb": [
+        70,
+        73,
+        166
+      ],
+      "normal_rgb": [
+        60,
+        62,
+        143
+      ],
       "average_rgb_hex": "#4649a6",
+      "low_rgb_hex": "#313375",
+      "high_rgb_hex": "#4649a6",
+      "normal_rgb_hex": "#3c3e8f",
       "zh_cn": "蓝色混凝土粉末"
     },
     "brown_concrete_powder": {
@@ -4540,7 +7348,7 @@
         95,
         61
       ],
-      "center": [
+      "right_bottom": [
         119,
         80,
         50
@@ -4560,7 +7368,25 @@
         84,
         53
       ],
+      "low_rgb": [
+        88,
+        59,
+        37
+      ],
+      "high_rgb": [
+        125,
+        84,
+        53
+      ],
+      "normal_rgb": [
+        107,
+        72,
+        45
+      ],
       "average_rgb_hex": "#7d5435",
+      "low_rgb_hex": "#583b25",
+      "high_rgb_hex": "#7d5435",
+      "normal_rgb_hex": "#6b482d",
       "zh_cn": "棕色混凝土粉末"
     },
     "cyan_concrete_powder": {
@@ -4569,7 +7395,7 @@
         154,
         163
       ],
-      "center": [
+      "right_bottom": [
         35,
         145,
         154
@@ -4589,7 +7415,25 @@
         147,
         157
       ],
+      "low_rgb": [
+        25,
+        103,
+        110
+      ],
+      "high_rgb": [
+        36,
+        147,
+        157
+      ],
+      "normal_rgb": [
+        31,
+        126,
+        135
+      ],
       "average_rgb_hex": "#24939d",
+      "low_rgb_hex": "#19676e",
+      "high_rgb_hex": "#24939d",
+      "normal_rgb_hex": "#1f7e87",
       "zh_cn": "青色混凝土粉末"
     },
     "gray_concrete_powder": {
@@ -4598,7 +7442,7 @@
         85,
         89
       ],
-      "center": [
+      "right_bottom": [
         74,
         78,
         82
@@ -4618,7 +7462,25 @@
         81,
         84
       ],
+      "low_rgb": [
+        53,
+        57,
+        59
+      ],
+      "high_rgb": [
+        76,
+        81,
+        84
+      ],
+      "normal_rgb": [
+        65,
+        69,
+        72
+      ],
       "average_rgb_hex": "#4c5154",
+      "low_rgb_hex": "#35393b",
+      "high_rgb_hex": "#4c5154",
+      "normal_rgb_hex": "#414548",
       "zh_cn": "灰色混凝土粉末"
     },
     "green_concrete_powder": {
@@ -4627,7 +7489,7 @@
         130,
         43
       ],
-      "center": [
+      "right_bottom": [
         104,
         127,
         37
@@ -4647,7 +7509,25 @@
         119,
         44
       ],
+      "low_rgb": [
+        68,
+        84,
+        31
+      ],
+      "high_rgb": [
+        97,
+        119,
+        44
+      ],
+      "normal_rgb": [
+        83,
+        102,
+        37
+      ],
       "average_rgb_hex": "#61772c",
+      "low_rgb_hex": "#44541f",
+      "high_rgb_hex": "#61772c",
+      "normal_rgb_hex": "#536625",
       "zh_cn": "绿色混凝土粉末"
     },
     "light_blue_concrete_powder": {
@@ -4656,7 +7536,7 @@
         193,
         221
       ],
-      "center": [
+      "right_bottom": [
         63,
         166,
         206
@@ -4676,7 +7556,25 @@
         180,
         213
       ],
+      "low_rgb": [
+        52,
+        127,
+        150
+      ],
+      "high_rgb": [
+        74,
+        180,
+        213
+      ],
+      "normal_rgb": [
+        63,
+        155,
+        183
+      ],
       "average_rgb_hex": "#4ab4d5",
+      "low_rgb_hex": "#347f96",
+      "high_rgb_hex": "#4ab4d5",
+      "normal_rgb_hex": "#3f9bb7",
       "zh_cn": "淡蓝色混凝土粉末"
     },
     "light_gray_concrete_powder": {
@@ -4685,7 +7583,7 @@
         154,
         146
       ],
-      "center": [
+      "right_bottom": [
         156,
         156,
         151
@@ -4705,7 +7603,25 @@
         154,
         148
       ],
+      "low_rgb": [
+        108,
+        108,
+        104
+      ],
+      "high_rgb": [
+        154,
+        154,
+        148
+      ],
+      "normal_rgb": [
+        132,
+        132,
+        127
+      ],
       "average_rgb_hex": "#9a9a94",
+      "low_rgb_hex": "#6c6c68",
+      "high_rgb_hex": "#9a9a94",
+      "normal_rgb_hex": "#84847f",
       "zh_cn": "淡灰色混凝土粉末"
     },
     "lime_concrete_powder": {
@@ -4714,7 +7630,7 @@
         193,
         44
       ],
-      "center": [
+      "right_bottom": [
         133,
         194,
         41
@@ -4734,7 +7650,25 @@
         189,
         41
       ],
+      "low_rgb": [
+        88,
+        133,
+        28
+      ],
+      "high_rgb": [
+        125,
+        189,
+        41
+      ],
+      "normal_rgb": [
+        107,
+        163,
+        35
+      ],
       "average_rgb_hex": "#7dbd29",
+      "low_rgb_hex": "#58851c",
+      "high_rgb_hex": "#7dbd29",
+      "normal_rgb_hex": "#6ba323",
       "zh_cn": "黄绿色混凝土粉末"
     },
     "magenta_concrete_powder": {
@@ -4743,7 +7677,7 @@
         96,
         197
       ],
-      "center": [
+      "right_bottom": [
         188,
         80,
         180
@@ -4763,7 +7697,25 @@
         83,
         184
       ],
+      "low_rgb": [
+        135,
+        58,
+        129
+      ],
+      "high_rgb": [
+        192,
+        83,
+        184
+      ],
+      "normal_rgb": [
+        165,
+        71,
+        158
+      ],
       "average_rgb_hex": "#c053b8",
+      "low_rgb_hex": "#873a81",
+      "high_rgb_hex": "#c053b8",
+      "normal_rgb_hex": "#a5479e",
       "zh_cn": "品红色混凝土粉末"
     },
     "orange_concrete_powder": {
@@ -4772,7 +7724,7 @@
         149,
         48
       ],
-      "center": [
+      "right_bottom": [
         220,
         120,
         19
@@ -4792,7 +7744,25 @@
         131,
         31
       ],
+      "low_rgb": [
+        160,
+        92,
+        21
+      ],
+      "high_rgb": [
+        227,
+        131,
+        31
+      ],
+      "normal_rgb": [
+        195,
+        113,
+        26
+      ],
       "average_rgb_hex": "#e3831f",
+      "low_rgb_hex": "#a05c15",
+      "high_rgb_hex": "#e3831f",
+      "normal_rgb_hex": "#c3711a",
       "zh_cn": "橙色混凝土粉末"
     },
     "pink_concrete_powder": {
@@ -4801,7 +7771,7 @@
         153,
         183
       ],
-      "center": [
+      "right_bottom": [
         223,
         139,
         170
@@ -4821,7 +7791,25 @@
         153,
         181
       ],
+      "low_rgb": [
+        160,
+        108,
+        127
+      ],
+      "high_rgb": [
+        228,
+        153,
+        181
+      ],
+      "normal_rgb": [
+        196,
+        132,
+        156
+      ],
       "average_rgb_hex": "#e499b5",
+      "low_rgb_hex": "#a06c7f",
+      "high_rgb_hex": "#e499b5",
+      "normal_rgb_hex": "#c4849c",
       "zh_cn": "粉红色混凝土粉末"
     },
     "purple_concrete_powder": {
@@ -4830,7 +7818,7 @@
         52,
         177
       ],
-      "center": [
+      "right_bottom": [
         125,
         50,
         171
@@ -4850,7 +7838,25 @@
         55,
         177
       ],
+      "low_rgb": [
+        92,
+        38,
+        124
+      ],
+      "high_rgb": [
+        131,
+        55,
+        177
+      ],
+      "normal_rgb": [
+        113,
+        47,
+        152
+      ],
       "average_rgb_hex": "#8337b1",
+      "low_rgb_hex": "#5c267c",
+      "high_rgb_hex": "#8337b1",
+      "normal_rgb_hex": "#712f98",
       "zh_cn": "紫色混凝土粉末"
     },
     "red_concrete_powder": {
@@ -4859,7 +7865,7 @@
         55,
         51
       ],
-      "center": [
+      "right_bottom": [
         170,
         55,
         48
@@ -4879,7 +7885,25 @@
         54,
         50
       ],
+      "low_rgb": [
+        118,
+        38,
+        35
+      ],
+      "high_rgb": [
+        168,
+        54,
+        50
+      ],
+      "normal_rgb": [
+        144,
+        46,
+        43
+      ],
       "average_rgb_hex": "#a83632",
+      "low_rgb_hex": "#762623",
+      "high_rgb_hex": "#a83632",
+      "normal_rgb_hex": "#902e2b",
       "zh_cn": "红色混凝土粉末"
     },
     "white_concrete_powder": {
@@ -4888,7 +7912,7 @@
         234,
         234
       ],
-      "center": [
+      "right_bottom": [
         216,
         218,
         219
@@ -4908,7 +7932,25 @@
         227,
         227
       ],
+      "low_rgb": [
+        158,
+        160,
+        160
+      ],
+      "high_rgb": [
+        225,
+        227,
+        227
+      ],
+      "normal_rgb": [
+        194,
+        195,
+        195
+      ],
       "average_rgb_hex": "#e1e3e3",
+      "low_rgb_hex": "#9ea0a0",
+      "high_rgb_hex": "#e1e3e3",
+      "normal_rgb_hex": "#c2c3c3",
       "zh_cn": "白色混凝土粉末"
     },
     "yellow_concrete_powder": {
@@ -4917,7 +7959,7 @@
         206,
         57
       ],
-      "center": [
+      "right_bottom": [
         230,
         195,
         50
@@ -4937,7 +7979,25 @@
         199,
         54
       ],
+      "low_rgb": [
+        163,
+        140,
+        38
+      ],
+      "high_rgb": [
+        232,
+        199,
+        54
+      ],
+      "normal_rgb": [
+        200,
+        171,
+        46
+      ],
       "average_rgb_hex": "#e8c736",
+      "low_rgb_hex": "#a38c26",
+      "high_rgb_hex": "#e8c736",
+      "normal_rgb_hex": "#c8ab2e",
       "zh_cn": "黄色混凝土粉末"
     }
   },
@@ -4948,7 +8008,7 @@
         61,
         41
       ],
-      "center": [
+      "right_bottom": [
         121,
         85,
         58
@@ -4968,7 +8028,25 @@
         96,
         67
       ],
+      "low_rgb": [
+        94,
+        67,
+        47
+      ],
+      "high_rgb": [
+        134,
+        96,
+        67
+      ],
+      "normal_rgb": [
+        115,
+        82,
+        57
+      ],
       "average_rgb_hex": "#866043",
+      "low_rgb_hex": "#5e432f",
+      "high_rgb_hex": "#866043",
+      "normal_rgb_hex": "#735239",
       "zh_cn": "泥土"
     },
     "coarse_dirt": {
@@ -4977,7 +8055,7 @@
         58,
         39
       ],
-      "center": [
+      "right_bottom": [
         97,
         68,
         46
@@ -4997,7 +8075,25 @@
         85,
         59
       ],
+      "low_rgb": [
+        84,
+        60,
+        41
+      ],
+      "high_rgb": [
+        119,
+        85,
+        59
+      ],
+      "normal_rgb": [
+        102,
+        73,
+        50
+      ],
       "average_rgb_hex": "#77553b",
+      "low_rgb_hex": "#543c29",
+      "high_rgb_hex": "#77553b",
+      "normal_rgb_hex": "#664932",
       "zh_cn": "砂土"
     },
     "farmland": {
@@ -5006,7 +8102,7 @@
         61,
         41
       ],
-      "center": [
+      "right_bottom": [
         185,
         133,
         92
@@ -5026,7 +8122,25 @@
         102,
         70
       ],
+      "low_rgb": [
+        100,
+        72,
+        49
+      ],
+      "high_rgb": [
+        143,
+        102,
+        70
+      ],
+      "normal_rgb": [
+        123,
+        88,
+        60
+      ],
       "average_rgb_hex": "#8f6646",
+      "low_rgb_hex": "#644831",
+      "high_rgb_hex": "#8f6646",
+      "normal_rgb_hex": "#7b583c",
       "zh_cn": "耕地"
     },
     "gravel": {
@@ -5035,7 +8149,7 @@
         142,
         142
       ],
-      "center": [
+      "right_bottom": [
         137,
         129,
         126
@@ -5055,7 +8169,25 @@
         127,
         126
       ],
+      "low_rgb": [
+        92,
+        89,
+        88
+      ],
+      "high_rgb": [
+        131,
+        127,
+        126
+      ],
+      "normal_rgb": [
+        113,
+        109,
+        108
+      ],
       "average_rgb_hex": "#837f7e",
+      "low_rgb_hex": "#5c5958",
+      "high_rgb_hex": "#837f7e",
+      "normal_rgb_hex": "#716d6c",
       "zh_cn": "沙砾"
     },
     "suspicious_gravel": {
@@ -5064,7 +8196,7 @@
         142,
         142
       ],
-      "center": [
+      "right_bottom": [
         106,
         98,
         97
@@ -5084,7 +8216,25 @@
         125,
         124
       ],
+      "low_rgb": [
+        91,
+        88,
+        87
+      ],
+      "high_rgb": [
+        129,
+        125,
+        124
+      ],
+      "normal_rgb": [
+        111,
+        107,
+        106
+      ],
       "average_rgb_hex": "#817d7c",
+      "low_rgb_hex": "#5b5857",
+      "high_rgb_hex": "#817d7c",
+      "normal_rgb_hex": "#6f6b6a",
       "zh_cn": "可疑的沙砾"
     },
     "ice": {
@@ -5093,7 +8243,7 @@
         185,
         254
       ],
-      "center": [
+      "right_bottom": [
         140,
         179,
         254
@@ -5113,7 +8263,25 @@
         183,
         253
       ],
+      "low_rgb": [
+        102,
+        129,
+        178
+      ],
+      "high_rgb": [
+        145,
+        183,
+        253
+      ],
+      "normal_rgb": [
+        125,
+        157,
+        218
+      ],
       "average_rgb_hex": "#91b7fd",
+      "low_rgb_hex": "#6681b2",
+      "high_rgb_hex": "#91b7fd",
+      "normal_rgb_hex": "#7d9dda",
       "zh_cn": "冰"
     },
     "packed_ice": {
@@ -5122,7 +8290,7 @@
         165,
         244
       ],
-      "center": [
+      "right_bottom": [
         133,
         173,
         248
@@ -5142,7 +8310,25 @@
         180,
         250
       ],
+      "low_rgb": [
+        99,
+        127,
+        176
+      ],
+      "high_rgb": [
+        141,
+        180,
+        250
+      ],
+      "normal_rgb": [
+        121,
+        155,
+        215
+      ],
       "average_rgb_hex": "#8db4fa",
+      "low_rgb_hex": "#637fb0",
+      "high_rgb_hex": "#8db4fa",
+      "normal_rgb_hex": "#799bd7",
       "zh_cn": "浮冰"
     },
     "blue_ice": {
@@ -5151,7 +8337,7 @@
         171,
         254
       ],
-      "center": [
+      "right_bottom": [
         108,
         163,
         253
@@ -5171,7 +8357,25 @@
         167,
         253
       ],
+      "low_rgb": [
+        81,
+        117,
+        178
+      ],
+      "high_rgb": [
+        116,
+        167,
+        253
+      ],
+      "normal_rgb": [
+        100,
+        144,
+        218
+      ],
       "average_rgb_hex": "#74a7fd",
+      "low_rgb_hex": "#5175b2",
+      "high_rgb_hex": "#74a7fd",
+      "normal_rgb_hex": "#6490da",
       "zh_cn": "蓝冰"
     },
     "pumpkin": {
@@ -5180,7 +8384,7 @@
         86,
         11
       ],
-      "center": [
+      "right_bottom": [
         160,
         86,
         11
@@ -5200,7 +8404,25 @@
         114,
         24
       ],
+      "low_rgb": [
+        137,
+        80,
+        16
+      ],
+      "high_rgb": [
+        195,
+        114,
+        24
+      ],
+      "normal_rgb": [
+        168,
+        98,
+        20
+      ],
       "average_rgb_hex": "#c37218",
+      "low_rgb_hex": "#895010",
+      "high_rgb_hex": "#c37218",
+      "normal_rgb_hex": "#a86214",
       "zh_cn": "南瓜"
     },
     "carved_pumpkin": {
@@ -5209,7 +8431,7 @@
         19,
         0
       ],
-      "center": [
+      "right_bottom": [
         196,
         118,
         20
@@ -5229,7 +8451,25 @@
         84,
         17
       ],
+      "low_rgb": [
+        105,
+        59,
+        12
+      ],
+      "high_rgb": [
+        150,
+        84,
+        17
+      ],
+      "normal_rgb": [
+        129,
+        72,
+        14
+      ],
       "average_rgb_hex": "#965411",
+      "low_rgb_hex": "#693b0c",
+      "high_rgb_hex": "#965411",
+      "normal_rgb_hex": "#81480e",
       "zh_cn": "雕刻南瓜"
     },
     "melon": {
@@ -5238,7 +8478,7 @@
         147,
         35
       ],
-      "center": [
+      "right_bottom": [
         82,
         129,
         28
@@ -5258,7 +8498,25 @@
         146,
         30
       ],
+      "low_rgb": [
+        80,
+        103,
+        21
+      ],
+      "high_rgb": [
+        114,
+        146,
+        30
+      ],
+      "normal_rgb": [
+        98,
+        125,
+        25
+      ],
       "average_rgb_hex": "#72921e",
+      "low_rgb_hex": "#506715",
+      "high_rgb_hex": "#72921e",
+      "normal_rgb_hex": "#627d19",
       "zh_cn": "西瓜"
     },
     "brown_mushroom_block": {
@@ -5267,7 +8525,7 @@
         121,
         90
       ],
-      "center": [
+      "right_bottom": [
         148,
         109,
         82
@@ -5287,7 +8545,25 @@
         111,
         81
       ],
+      "low_rgb": [
+        105,
+        78,
+        57
+      ],
+      "high_rgb": [
+        149,
+        111,
+        81
+      ],
+      "normal_rgb": [
+        128,
+        95,
+        69
+      ],
       "average_rgb_hex": "#956f51",
+      "low_rgb_hex": "#694e39",
+      "high_rgb_hex": "#956f51",
+      "normal_rgb_hex": "#805f45",
       "zh_cn": "棕色蘑菇方块"
     },
     "red_mushroom_block": {
@@ -5296,7 +8572,7 @@
         191,
         191
       ],
-      "center": [
+      "right_bottom": [
         190,
         35,
         33
@@ -5316,7 +8592,25 @@
         46,
         45
       ],
+      "low_rgb": [
+        141,
+        32,
+        31
+      ],
+      "high_rgb": [
+        200,
+        46,
+        45
+      ],
+      "normal_rgb": [
+        172,
+        39,
+        38
+      ],
       "average_rgb_hex": "#c82e2d",
+      "low_rgb_hex": "#8d201f",
+      "high_rgb_hex": "#c82e2d",
+      "normal_rgb_hex": "#ac2726",
       "zh_cn": "红色蘑菇方块"
     },
     "mushroom_stem": {
@@ -5325,7 +8619,7 @@
         188,
         172
       ],
-      "center": [
+      "right_bottom": [
         205,
         198,
         189
@@ -5345,7 +8639,25 @@
         196,
         185
       ],
+      "low_rgb": [
+        143,
+        138,
+        130
+      ],
+      "high_rgb": [
+        203,
+        196,
+        185
+      ],
+      "normal_rgb": [
+        175,
+        169,
+        159
+      ],
       "average_rgb_hex": "#cbc4b9",
+      "low_rgb_hex": "#8f8a82",
+      "high_rgb_hex": "#cbc4b9",
+      "normal_rgb_hex": "#afa99f",
       "zh_cn": "蘑菇柄"
     },
     "mycelium": {
@@ -5354,7 +8666,7 @@
         105,
         106
       ],
-      "center": [
+      "right_bottom": [
         58,
         41,
         28
@@ -5374,7 +8686,25 @@
         87,
         71
       ],
+      "low_rgb": [
+        79,
+        61,
+        50
+      ],
+      "high_rgb": [
+        113,
+        87,
+        71
+      ],
+      "normal_rgb": [
+        97,
+        75,
+        61
+      ],
       "average_rgb_hex": "#715747",
+      "low_rgb_hex": "#4f3d32",
+      "high_rgb_hex": "#715747",
+      "normal_rgb_hex": "#614b3d",
       "zh_cn": "菌丝体"
     },
     "obsidian": {
@@ -5383,7 +8713,7 @@
         12,
         28
       ],
-      "center": [
+      "right_bottom": [
         39,
         30,
         61
@@ -5403,7 +8733,25 @@
         10,
         24
       ],
+      "low_rgb": [
+        10,
+        7,
+        16
+      ],
+      "high_rgb": [
+        15,
+        10,
+        24
+      ],
+      "normal_rgb": [
+        12,
+        8,
+        20
+      ],
       "average_rgb_hex": "#0f0a18",
+      "low_rgb_hex": "#0a0710",
+      "high_rgb_hex": "#0f0a18",
+      "normal_rgb_hex": "#0c0814",
       "zh_cn": "黑曜石"
     },
     "crying_obsidian": {
@@ -5412,7 +8760,7 @@
         1,
         120
       ],
-      "center": [
+      "right_bottom": [
         39,
         30,
         61
@@ -5432,7 +8780,25 @@
         10,
         60
       ],
+      "low_rgb": [
+        22,
+        7,
+        42
+      ],
+      "high_rgb": [
+        32,
+        10,
+        60
+      ],
+      "normal_rgb": [
+        27,
+        8,
+        51
+      ],
       "average_rgb_hex": "#200a3c",
+      "low_rgb_hex": "#16072a",
+      "high_rgb_hex": "#200a3c",
+      "normal_rgb_hex": "#1b0833",
       "zh_cn": "哭泣的黑曜石"
     },
     "bee_nest": {
@@ -5441,7 +8807,7 @@
         206,
         70
       ],
-      "center": [
+      "right_bottom": [
         247,
         206,
         70
@@ -5461,7 +8827,25 @@
         151,
         75
       ],
+      "low_rgb": [
+        136,
+        106,
+        52
+      ],
+      "high_rgb": [
+        194,
+        151,
+        75
+      ],
+      "normal_rgb": [
+        167,
+        130,
+        64
+      ],
       "average_rgb_hex": "#c2974b",
+      "low_rgb_hex": "#886a34",
+      "high_rgb_hex": "#c2974b",
+      "normal_rgb_hex": "#a78240",
       "zh_cn": "蜂巢"
     },
     "beehive": {
@@ -5470,7 +8854,7 @@
         171,
         28
       ],
-      "center": [
+      "right_bottom": [
         194,
         157,
         98
@@ -5490,7 +8874,25 @@
         131,
         74
       ],
+      "low_rgb": [
+        117,
+        92,
+        52
+      ],
+      "high_rgb": [
+        167,
+        131,
+        74
+      ],
+      "normal_rgb": [
+        144,
+        113,
+        63
+      ],
       "average_rgb_hex": "#a7834a",
+      "low_rgb_hex": "#755c34",
+      "high_rgb_hex": "#a7834a",
+      "normal_rgb_hex": "#90713f",
       "zh_cn": "蜂箱"
     },
     "honey_block": {
@@ -5499,7 +8901,7 @@
         171,
         28
       ],
-      "center": [
+      "right_bottom": [
         253,
         193,
         52
@@ -5519,7 +8921,25 @@
         188,
         57
       ],
+      "low_rgb": [
+        176,
+        132,
+        40
+      ],
+      "high_rgb": [
+        250,
+        188,
+        57
+      ],
+      "normal_rgb": [
+        215,
+        162,
+        49
+      ],
       "average_rgb_hex": "#fabc39",
+      "low_rgb_hex": "#b08428",
+      "high_rgb_hex": "#fabc39",
+      "normal_rgb_hex": "#d7a231",
       "zh_cn": "蜂蜜块"
     },
     "honeycomb_block": {
@@ -5528,7 +8948,7 @@
         120,
         3
       ],
-      "center": [
+      "right_bottom": [
         216,
         120,
         3
@@ -5548,7 +8968,25 @@
         148,
         29
       ],
+      "low_rgb": [
+        161,
+        104,
+        20
+      ],
+      "high_rgb": [
+        229,
+        148,
+        29
+      ],
+      "normal_rgb": [
+        197,
+        127,
+        25
+      ],
       "average_rgb_hex": "#e5941d",
+      "low_rgb_hex": "#a16814",
+      "high_rgb_hex": "#e5941d",
+      "normal_rgb_hex": "#c57f19",
       "zh_cn": "蜜脾块"
     },
     "calcite": {
@@ -5557,7 +8995,7 @@
         201,
         196
       ],
-      "center": [
+      "right_bottom": [
         217,
         219,
         215
@@ -5577,7 +9015,25 @@
         224,
         220
       ],
+      "low_rgb": [
+        157,
+        158,
+        155
+      ],
+      "high_rgb": [
+        223,
+        224,
+        220
+      ],
+      "normal_rgb": [
+        192,
+        193,
+        189
+      ],
       "average_rgb_hex": "#dfe0dc",
+      "low_rgb_hex": "#9d9e9b",
+      "high_rgb_hex": "#dfe0dc",
+      "normal_rgb_hex": "#c0c1bd",
       "zh_cn": "方解石"
     },
     "moss_block": {
@@ -5586,7 +9042,7 @@
         94,
         39
       ],
-      "center": [
+      "right_bottom": [
         100,
         114,
         51
@@ -5606,7 +9062,25 @@
         109,
         45
       ],
+      "low_rgb": [
+        62,
+        76,
+        31
+      ],
+      "high_rgb": [
+        89,
+        109,
+        45
+      ],
+      "normal_rgb": [
+        76,
+        94,
+        38
+      ],
       "average_rgb_hex": "#596d2d",
+      "low_rgb_hex": "#3e4c1f",
+      "high_rgb_hex": "#596d2d",
+      "normal_rgb_hex": "#4c5e26",
       "zh_cn": "苔藓块"
     },
     "podzol": {
@@ -5615,7 +9089,7 @@
         73,
         30
       ],
-      "center": [
+      "right_bottom": [
         121,
         85,
         58
@@ -5635,7 +9109,25 @@
         87,
         57
       ],
+      "low_rgb": [
+        86,
+        61,
+        40
+      ],
+      "high_rgb": [
+        122,
+        87,
+        57
+      ],
+      "normal_rgb": [
+        105,
+        75,
+        49
+      ],
       "average_rgb_hex": "#7a5739",
+      "low_rgb_hex": "#563d28",
+      "high_rgb_hex": "#7a5739",
+      "normal_rgb_hex": "#694b31",
       "zh_cn": "灰化土"
     },
     "snow": {
@@ -5644,7 +9136,7 @@
         253,
         253
       ],
-      "center": [
+      "right_bottom": [
         240,
         253,
         253
@@ -5664,7 +9156,25 @@
         254,
         254
       ],
+      "low_rgb": [
+        175,
+        179,
+        179
+      ],
+      "high_rgb": [
+        249,
+        254,
+        254
+      ],
+      "normal_rgb": [
+        214,
+        219,
+        219
+      ],
       "average_rgb_hex": "#f9fefe",
+      "low_rgb_hex": "#afb3b3",
+      "high_rgb_hex": "#f9fefe",
+      "normal_rgb_hex": "#d6dbdb",
       "zh_cn": "雪"
     },
     "powder_snow": {
@@ -5673,7 +9183,7 @@
         251,
         251
       ],
-      "center": [
+      "right_bottom": [
         236,
         251,
         251
@@ -5693,7 +9203,25 @@
         253,
         253
       ],
+      "low_rgb": [
+        175,
+        178,
+        178
+      ],
+      "high_rgb": [
+        248,
+        253,
+        253
+      ],
+      "normal_rgb": [
+        213,
+        218,
+        218
+      ],
       "average_rgb_hex": "#f8fdfd",
+      "low_rgb_hex": "#afb2b2",
+      "high_rgb_hex": "#f8fdfd",
+      "normal_rgb_hex": "#d5dada",
       "zh_cn": "细雪"
     },
     "shroomlight": {
@@ -5702,7 +9230,7 @@
         244,
         180
       ],
-      "center": [
+      "right_bottom": [
         254,
         135,
         56
@@ -5722,7 +9250,25 @@
         146,
         70
       ],
+      "low_rgb": [
+        169,
+        103,
+        49
+      ],
+      "high_rgb": [
+        240,
+        146,
+        70
+      ],
+      "normal_rgb": [
+        207,
+        125,
+        60
+      ],
       "average_rgb_hex": "#f09246",
+      "low_rgb_hex": "#a96731",
+      "high_rgb_hex": "#f09246",
+      "normal_rgb_hex": "#cf7d3c",
       "zh_cn": "菌光体"
     },
     "bone_block": {
@@ -5731,7 +9277,7 @@
         230,
         212
       ],
-      "center": [
+      "right_bottom": [
         233,
         230,
         212
@@ -5751,7 +9297,25 @@
         225,
         207
       ],
+      "low_rgb": [
+        161,
+        158,
+        146
+      ],
+      "high_rgb": [
+        229,
+        225,
+        207
+      ],
+      "normal_rgb": [
+        197,
+        194,
+        178
+      ],
       "average_rgb_hex": "#e5e1cf",
+      "low_rgb_hex": "#a19e92",
+      "high_rgb_hex": "#e5e1cf",
+      "normal_rgb_hex": "#c5c2b2",
       "zh_cn": "骨块"
     },
     "mud": {
@@ -5760,7 +9324,7 @@
         56,
         61
       ],
-      "center": [
+      "right_bottom": [
         51,
         50,
         58
@@ -5780,7 +9344,25 @@
         57,
         60
       ],
+      "low_rgb": [
+        42,
+        40,
+        42
+      ],
+      "high_rgb": [
+        60,
+        57,
+        60
+      ],
+      "normal_rgb": [
+        51,
+        49,
+        51
+      ],
       "average_rgb_hex": "#3c393c",
+      "low_rgb_hex": "#2a282a",
+      "high_rgb_hex": "#3c393c",
+      "normal_rgb_hex": "#333133",
       "zh_cn": "泥巴"
     },
     "packed_mud": {
@@ -5789,7 +9371,7 @@
         113,
         80
       ],
-      "center": [
+      "right_bottom": [
         137,
         101,
         77
@@ -5809,7 +9391,25 @@
         106,
         79
       ],
+      "low_rgb": [
+        100,
+        74,
+        55
+      ],
+      "high_rgb": [
+        142,
+        106,
+        79
+      ],
+      "normal_rgb": [
+        122,
+        91,
+        68
+      ],
       "average_rgb_hex": "#8e6a4f",
+      "low_rgb_hex": "#644a37",
+      "high_rgb_hex": "#8e6a4f",
+      "normal_rgb_hex": "#7a5b44",
       "zh_cn": "泥坯"
     },
     "mud_bricks": {
@@ -5818,7 +9418,7 @@
         113,
         80
       ],
-      "center": [
+      "right_bottom": [
         171,
         134,
         97
@@ -5838,7 +9438,25 @@
         103,
         79
       ],
+      "low_rgb": [
+        96,
+        72,
+        55
+      ],
+      "high_rgb": [
+        137,
+        103,
+        79
+      ],
+      "normal_rgb": [
+        118,
+        88,
+        68
+      ],
       "average_rgb_hex": "#89674f",
+      "low_rgb_hex": "#604837",
+      "high_rgb_hex": "#89674f",
+      "normal_rgb_hex": "#765844",
       "zh_cn": "泥砖"
     },
     "muddy_mangrove_roots": {
@@ -5847,7 +9465,7 @@
         56,
         61
       ],
-      "center": [
+      "right_bottom": [
         51,
         50,
         58
@@ -5867,7 +9485,25 @@
         58,
         48
       ],
+      "low_rgb": [
+        48,
+        40,
+        33
+      ],
+      "high_rgb": [
+        68,
+        58,
+        48
+      ],
+      "normal_rgb": [
+        58,
+        50,
+        41
+      ],
       "average_rgb_hex": "#443a30",
+      "low_rgb_hex": "#302821",
+      "high_rgb_hex": "#443a30",
+      "normal_rgb_hex": "#3a3229",
       "zh_cn": "沾泥的红树根"
     },
     "sculk_catalyst": {
@@ -5876,7 +9512,7 @@
         27,
         33
       ],
-      "center": [
+      "right_bottom": [
         209,
         214,
         182
@@ -5896,7 +9532,25 @@
         93,
         90
       ],
+      "low_rgb": [
+        53,
+        65,
+        63
+      ],
+      "high_rgb": [
+        76,
+        93,
+        90
+      ],
+      "normal_rgb": [
+        65,
+        80,
+        77
+      ],
       "average_rgb_hex": "#4c5d5a",
+      "low_rgb_hex": "#35413f",
+      "high_rgb_hex": "#4c5d5a",
+      "normal_rgb_hex": "#41504d",
       "zh_cn": "幽匿催发体"
     }
   },
@@ -5907,7 +9561,7 @@
         22,
         22
       ],
-      "center": [
+      "right_bottom": [
         155,
         119,
         66
@@ -5927,7 +9581,25 @@
         94,
         59
       ],
+      "low_rgb": [
+        82,
+        66,
+        41
+      ],
+      "high_rgb": [
+        117,
+        94,
+        59
+      ],
+      "normal_rgb": [
+        100,
+        81,
+        50
+      ],
       "average_rgb_hex": "#755e3b",
+      "low_rgb_hex": "#524229",
+      "high_rgb_hex": "#755e3b",
+      "normal_rgb_hex": "#645132",
       "zh_cn": "书架"
     },
     "crafting_table": {
@@ -5936,7 +9608,7 @@
         157,
         98
       ],
-      "center": [
+      "right_bottom": [
         75,
         43,
         24
@@ -5956,7 +9628,25 @@
         105,
         70
       ],
+      "low_rgb": [
+        91,
+        74,
+        49
+      ],
+      "high_rgb": [
+        129,
+        105,
+        70
+      ],
+      "normal_rgb": [
+        111,
+        90,
+        60
+      ],
       "average_rgb_hex": "#816946",
+      "low_rgb_hex": "#5b4a31",
+      "high_rgb_hex": "#816946",
+      "normal_rgb_hex": "#6f5a3c",
       "zh_cn": "工作台"
     },
     "loom": {
@@ -5965,7 +9655,7 @@
         140,
         81
       ],
-      "center": [
+      "right_bottom": [
         202,
         166,
         113
@@ -5985,7 +9675,25 @@
         118,
         82
       ],
+      "low_rgb": [
+        104,
+        83,
+        57
+      ],
+      "high_rgb": [
+        148,
+        118,
+        82
+      ],
+      "normal_rgb": [
+        127,
+        101,
+        70
+      ],
       "average_rgb_hex": "#947652",
+      "low_rgb_hex": "#685339",
+      "high_rgb_hex": "#947652",
+      "normal_rgb_hex": "#7f6546",
       "zh_cn": "织布机"
     },
     "cartography_table": {
@@ -5994,7 +9702,7 @@
         44,
         176
       ],
-      "center": [
+      "right_bottom": [
         62,
         41,
         18
@@ -6014,7 +9722,25 @@
         50,
         34
       ],
+      "low_rgb": [
+        50,
+        35,
+        24
+      ],
+      "high_rgb": [
+        72,
+        50,
+        34
+      ],
+      "normal_rgb": [
+        62,
+        43,
+        29
+      ],
       "average_rgb_hex": "#483222",
+      "low_rgb_hex": "#322318",
+      "high_rgb_hex": "#483222",
+      "normal_rgb_hex": "#3e2b1d",
       "zh_cn": "制图台"
     },
     "furnace": {
@@ -6023,7 +9749,7 @@
         17,
         17
       ],
-      "center": [
+      "right_bottom": [
         93,
         91,
         91
@@ -6043,7 +9769,25 @@
         91,
         91
       ],
+      "low_rgb": [
+        64,
+        64,
+        64
+      ],
+      "high_rgb": [
+        91,
+        91,
+        91
+      ],
+      "normal_rgb": [
+        78,
+        78,
+        78
+      ],
       "average_rgb_hex": "#5b5b5b",
+      "low_rgb_hex": "#404040",
+      "high_rgb_hex": "#5b5b5b",
+      "normal_rgb_hex": "#4e4e4e",
       "zh_cn": "熔炉"
     },
     "blast_furnace": {
@@ -6052,7 +9796,7 @@
         88,
         88
       ],
-      "center": [
+      "right_bottom": [
         17,
         17,
         17
@@ -6072,7 +9816,25 @@
         107,
         107
       ],
+      "low_rgb": [
+        75,
+        75,
+        75
+      ],
+      "high_rgb": [
+        107,
+        107,
+        107
+      ],
+      "normal_rgb": [
+        92,
+        92,
+        92
+      ],
       "average_rgb_hex": "#6b6b6b",
+      "low_rgb_hex": "#4b4b4b",
+      "high_rgb_hex": "#6b6b6b",
+      "normal_rgb_hex": "#5c5c5c",
       "zh_cn": "高炉"
     },
     "dispenser": {
@@ -6081,7 +9843,7 @@
         176,
         176
       ],
-      "center": [
+      "right_bottom": [
         16,
         16,
         16
@@ -6101,7 +9863,25 @@
         121,
         121
       ],
+      "low_rgb": [
+        86,
+        85,
+        85
+      ],
+      "high_rgb": [
+        122,
+        121,
+        121
+      ],
+      "normal_rgb": [
+        105,
+        104,
+        104
+      ],
       "average_rgb_hex": "#7a7979",
+      "low_rgb_hex": "#565555",
+      "high_rgb_hex": "#7a7979",
+      "normal_rgb_hex": "#696868",
       "zh_cn": "发射器"
     },
     "dropper": {
@@ -6110,7 +9890,7 @@
         176,
         176
       ],
-      "center": [
+      "right_bottom": [
         168,
         168,
         168
@@ -6130,7 +9910,25 @@
         121,
         121
       ],
+      "low_rgb": [
+        86,
+        85,
+        85
+      ],
+      "high_rgb": [
+        122,
+        121,
+        121
+      ],
+      "normal_rgb": [
+        105,
+        104,
+        104
+      ],
       "average_rgb_hex": "#7a7979",
+      "low_rgb_hex": "#565555",
+      "high_rgb_hex": "#7a7979",
+      "normal_rgb_hex": "#696868",
       "zh_cn": "投掷器"
     },
     "lodestone": {
@@ -6139,7 +9937,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         74,
         74,
         83
@@ -6159,7 +9957,25 @@
         119,
         123
       ],
+      "low_rgb": [
+        84,
+        84,
+        86
+      ],
+      "high_rgb": [
+        119,
+        119,
+        123
+      ],
+      "normal_rgb": [
+        102,
+        102,
+        106
+      ],
       "average_rgb_hex": "#77777b",
+      "low_rgb_hex": "#545456",
+      "high_rgb_hex": "#77777b",
+      "normal_rgb_hex": "#66666a",
       "zh_cn": "磁石"
     },
     "fletching_table": {
@@ -6168,7 +9984,7 @@
         139,
         97
       ],
-      "center": [
+      "right_bottom": [
         174,
         159,
         118
@@ -6188,7 +10004,25 @@
         155,
         111
       ],
+      "low_rgb": [
+        122,
+        109,
+        78
+      ],
+      "high_rgb": [
+        173,
+        155,
+        111
+      ],
+      "normal_rgb": [
+        149,
+        133,
+        95
+      ],
       "average_rgb_hex": "#ad9b6f",
+      "low_rgb_hex": "#7a6d4e",
+      "high_rgb_hex": "#ad9b6f",
+      "normal_rgb_hex": "#95855f",
       "zh_cn": "制箭台"
     },
     "hay_block": {
@@ -6197,7 +10031,7 @@
         115,
         32
       ],
-      "center": [
+      "right_bottom": [
         171,
         146,
         37
@@ -6217,7 +10051,25 @@
         136,
         38
       ],
+      "low_rgb": [
+        117,
+        96,
+        26
+      ],
+      "high_rgb": [
+        166,
+        136,
+        38
+      ],
+      "normal_rgb": [
+        143,
+        117,
+        32
+      ],
       "average_rgb_hex": "#a68826",
+      "low_rgb_hex": "#75601a",
+      "high_rgb_hex": "#a68826",
+      "normal_rgb_hex": "#8f7520",
       "zh_cn": "干草捆"
     },
     "target": {
@@ -6226,7 +10078,7 @@
         52,
         52
       ],
-      "center": [
+      "right_bottom": [
         185,
         50,
         50
@@ -6246,7 +10098,25 @@
         176,
         168
       ],
+      "low_rgb": [
+        161,
+        124,
+        118
+      ],
+      "high_rgb": [
+        229,
+        176,
+        168
+      ],
+      "normal_rgb": [
+        197,
+        151,
+        144
+      ],
       "average_rgb_hex": "#e5b0a8",
+      "low_rgb_hex": "#a17c76",
+      "high_rgb_hex": "#e5b0a8",
+      "normal_rgb_hex": "#c59790",
       "zh_cn": "标靶"
     },
     "jukebox": {
@@ -6255,7 +10125,7 @@
         93,
         65
       ],
-      "center": [
+      "right_bottom": [
         148,
         93,
         65
@@ -6275,7 +10145,25 @@
         58,
         40
       ],
+      "low_rgb": [
+        62,
+        40,
+        28
+      ],
+      "high_rgb": [
+        88,
+        58,
+        40
+      ],
+      "normal_rgb": [
+        75,
+        50,
+        34
+      ],
       "average_rgb_hex": "#583a28",
+      "low_rgb_hex": "#3e281c",
+      "high_rgb_hex": "#583a28",
+      "normal_rgb_hex": "#4b3222",
       "zh_cn": "唱片机"
     },
     "note_block": {
@@ -6284,7 +10172,7 @@
         93,
         65
       ],
-      "center": [
+      "right_bottom": [
         148,
         93,
         65
@@ -6304,7 +10192,25 @@
         58,
         40
       ],
+      "low_rgb": [
+        62,
+        40,
+        28
+      ],
+      "high_rgb": [
+        88,
+        58,
+        40
+      ],
+      "normal_rgb": [
+        75,
+        50,
+        34
+      ],
       "average_rgb_hex": "#583a28",
+      "low_rgb_hex": "#3e281c",
+      "high_rgb_hex": "#583a28",
+      "normal_rgb_hex": "#4b3222",
       "zh_cn": "音符盒"
     },
     "observer": {
@@ -6313,7 +10219,7 @@
         38,
         38
       ],
-      "center": [
+      "right_bottom": [
         157,
         157,
         157
@@ -6333,7 +10239,25 @@
         103,
         103
       ],
+      "low_rgb": [
+        72,
+        72,
+        72
+      ],
+      "high_rgb": [
+        103,
+        103,
+        103
+      ],
+      "normal_rgb": [
+        88,
+        88,
+        88
+      ],
       "average_rgb_hex": "#676767",
+      "low_rgb_hex": "#484848",
+      "high_rgb_hex": "#676767",
+      "normal_rgb_hex": "#585858",
       "zh_cn": "侦测器"
     },
     "piston": {
@@ -6342,7 +10266,7 @@
         53,
         53
       ],
-      "center": [
+      "right_bottom": [
         119,
         119,
         119
@@ -6362,7 +10286,25 @@
         104,
         96
       ],
+      "low_rgb": [
+        77,
+        73,
+        67
+      ],
+      "high_rgb": [
+        110,
+        104,
+        96
+      ],
+      "normal_rgb": [
+        94,
+        89,
+        82
+      ],
       "average_rgb_hex": "#6e6860",
+      "low_rgb_hex": "#4d4943",
+      "high_rgb_hex": "#6e6860",
+      "normal_rgb_hex": "#5e5952",
       "zh_cn": "活塞"
     },
     "respawn_anchor": {
@@ -6371,7 +10313,7 @@
         27,
         49
       ],
-      "center": [
+      "right_bottom": [
         87,
         63,
         127
@@ -6391,7 +10333,25 @@
         23,
         62
       ],
+      "low_rgb": [
+        27,
+        16,
+        43
+      ],
+      "high_rgb": [
+        39,
+        23,
+        62
+      ],
+      "normal_rgb": [
+        33,
+        19,
+        53
+      ],
       "average_rgb_hex": "#27173e",
+      "low_rgb_hex": "#1b102b",
+      "high_rgb_hex": "#27173e",
+      "normal_rgb_hex": "#211335",
       "zh_cn": "重生锚"
     },
     "slime_block": {
@@ -6400,7 +10360,7 @@
         170,
         67
       ],
-      "center": [
+      "right_bottom": [
         115,
         194,
         98
@@ -6420,7 +10380,25 @@
         192,
         91
       ],
+      "low_rgb": [
+        78,
+        135,
+        64
+      ],
+      "high_rgb": [
+        111,
+        192,
+        91
+      ],
+      "normal_rgb": [
+        95,
+        165,
+        78
+      ],
       "average_rgb_hex": "#6fc05b",
+      "low_rgb_hex": "#4e8740",
+      "high_rgb_hex": "#6fc05b",
+      "normal_rgb_hex": "#5fa54e",
       "zh_cn": "黏液块"
     },
     "smithing_table": {
@@ -6429,7 +10407,7 @@
         28,
         23
       ],
-      "center": [
+      "right_bottom": [
         64,
         66,
         83
@@ -6449,7 +10427,25 @@
         37,
         38
       ],
+      "low_rgb": [
+        39,
+        26,
+        26
+      ],
+      "high_rgb": [
+        56,
+        37,
+        38
+      ],
+      "normal_rgb": [
+        48,
+        31,
+        32
+      ],
       "average_rgb_hex": "#382526",
+      "low_rgb_hex": "#271a1a",
+      "high_rgb_hex": "#382526",
+      "normal_rgb_hex": "#301f20",
       "zh_cn": "锻造台"
     },
     "smoker": {
@@ -6458,7 +10454,7 @@
         197,
         197
       ],
-      "center": [
+      "right_bottom": [
         171,
         172,
         171
@@ -6478,7 +10474,25 @@
         75,
         57
       ],
+      "low_rgb": [
+        61,
+        52,
+        40
+      ],
+      "high_rgb": [
+        87,
+        75,
+        57
+      ],
+      "normal_rgb": [
+        75,
+        64,
+        49
+      ],
       "average_rgb_hex": "#574b39",
+      "low_rgb_hex": "#3d3428",
+      "high_rgb_hex": "#574b39",
+      "normal_rgb_hex": "#4b4031",
       "zh_cn": "烟熏炉"
     },
     "tnt": {
@@ -6487,7 +10501,7 @@
         47,
         26
       ],
-      "center": [
+      "right_bottom": [
         55,
         54,
         86
@@ -6507,7 +10521,25 @@
         88,
         84
       ],
+      "low_rgb": [
+        128,
+        62,
+        59
+      ],
+      "high_rgb": [
+        182,
+        88,
+        84
+      ],
+      "normal_rgb": [
+        157,
+        75,
+        72
+      ],
       "average_rgb_hex": "#b65854",
+      "low_rgb_hex": "#803e3b",
+      "high_rgb_hex": "#b65854",
+      "normal_rgb_hex": "#9d4b48",
       "zh_cn": "TNT"
     },
     "barrel": {
@@ -6516,7 +10548,7 @@
         44,
         41
       ],
-      "center": [
+      "right_bottom": [
         128,
         94,
         54
@@ -6536,7 +10568,25 @@
         81,
         50
       ],
+      "low_rgb": [
+        75,
+        57,
+        35
+      ],
+      "high_rgb": [
+        107,
+        81,
+        50
+      ],
+      "normal_rgb": [
+        92,
+        69,
+        43
+      ],
       "average_rgb_hex": "#6b5132",
+      "low_rgb_hex": "#4b3923",
+      "high_rgb_hex": "#6b5132",
+      "normal_rgb_hex": "#5c452b",
       "zh_cn": "木桶"
     }
   },
@@ -6547,7 +10597,7 @@
         196,
         150
       ],
-      "center": [
+      "right_bottom": [
         213,
         196,
         150
@@ -6567,7 +10617,25 @@
         207,
         163
       ],
+      "low_rgb": [
+        154,
+        146,
+        115
+      ],
+      "high_rgb": [
+        219,
+        207,
+        163
+      ],
+      "normal_rgb": [
+        188,
+        178,
+        140
+      ],
       "average_rgb_hex": "#dbcfa3",
+      "low_rgb_hex": "#9a9273",
+      "high_rgb_hex": "#dbcfa3",
+      "normal_rgb_hex": "#bcb28c",
       "zh_cn": "沙子"
     },
     "suspicious_sand": {
@@ -6576,7 +10644,7 @@
         196,
         150
       ],
-      "center": [
+      "right_bottom": [
         209,
         186,
         138
@@ -6596,7 +10664,25 @@
         204,
         159
       ],
+      "low_rgb": [
+        153,
+        144,
+        112
+      ],
+      "high_rgb": [
+        217,
+        204,
+        159
+      ],
+      "normal_rgb": [
+        187,
+        176,
+        137
+      ],
       "average_rgb_hex": "#d9cc9f",
+      "low_rgb_hex": "#999070",
+      "high_rgb_hex": "#d9cc9f",
+      "normal_rgb_hex": "#bbb089",
       "zh_cn": "可疑的沙子"
     },
     "red_sand": {
@@ -6605,7 +10691,7 @@
         96,
         31
       ],
-      "center": [
+      "right_bottom": [
         178,
         96,
         31
@@ -6625,7 +10711,25 @@
         102,
         33
       ],
+      "low_rgb": [
+        134,
+        72,
+        23
+      ],
+      "high_rgb": [
+        190,
+        102,
+        33
+      ],
+      "normal_rgb": [
+        163,
+        88,
+        28
+      ],
       "average_rgb_hex": "#be6621",
+      "low_rgb_hex": "#864817",
+      "high_rgb_hex": "#be6621",
+      "normal_rgb_hex": "#a3581c",
       "zh_cn": "红沙"
     },
     "sandstone": {
@@ -6634,7 +10738,7 @@
         210,
         163
       ],
-      "center": [
+      "right_bottom": [
         227,
         219,
         176
@@ -6654,7 +10758,25 @@
         203,
         155
       ],
+      "low_rgb": [
+        152,
+        143,
+        109
+      ],
+      "high_rgb": [
+        216,
+        203,
+        155
+      ],
+      "normal_rgb": [
+        186,
+        175,
+        133
+      ],
       "average_rgb_hex": "#d8cb9b",
+      "low_rgb_hex": "#988f6d",
+      "high_rgb_hex": "#d8cb9b",
+      "normal_rgb_hex": "#baaf85",
       "zh_cn": "砂岩"
     },
     "smooth_sandstone": {
@@ -6663,7 +10785,7 @@
         212,
         167
       ],
-      "center": [
+      "right_bottom": [
         218,
         207,
         163
@@ -6683,7 +10805,25 @@
         214,
         170
       ],
+      "low_rgb": [
+        157,
+        151,
+        120
+      ],
+      "high_rgb": [
+        223,
+        214,
+        170
+      ],
+      "normal_rgb": [
+        192,
+        184,
+        146
+      ],
       "average_rgb_hex": "#dfd6aa",
+      "low_rgb_hex": "#9d9778",
+      "high_rgb_hex": "#dfd6aa",
+      "normal_rgb_hex": "#c0b892",
       "zh_cn": "平滑砂岩"
     },
     "cut_sandstone": {
@@ -6692,7 +10832,7 @@
         219,
         176
       ],
-      "center": [
+      "right_bottom": [
         218,
         210,
         163
@@ -6712,7 +10852,25 @@
         206,
         159
       ],
+      "low_rgb": [
+        153,
+        145,
+        112
+      ],
+      "high_rgb": [
+        217,
+        206,
+        159
+      ],
+      "normal_rgb": [
+        187,
+        177,
+        137
+      ],
       "average_rgb_hex": "#d9ce9f",
+      "low_rgb_hex": "#999170",
+      "high_rgb_hex": "#d9ce9f",
+      "normal_rgb_hex": "#bbb189",
       "zh_cn": "切制砂岩"
     },
     "chiseled_sandstone": {
@@ -6721,7 +10879,7 @@
         210,
         163
       ],
-      "center": [
+      "right_bottom": [
         227,
         219,
         176
@@ -6741,7 +10899,25 @@
         202,
         155
       ],
+      "low_rgb": [
+        152,
+        142,
+        109
+      ],
+      "high_rgb": [
+        216,
+        202,
+        155
+      ],
+      "normal_rgb": [
+        186,
+        174,
+        133
+      ],
       "average_rgb_hex": "#d8ca9b",
+      "low_rgb_hex": "#988e6d",
+      "high_rgb_hex": "#d8ca9b",
+      "normal_rgb_hex": "#baae85",
       "zh_cn": "雕纹砂岩"
     },
     "red_sandstone": {
@@ -6750,7 +10926,7 @@
         104,
         34
       ],
-      "center": [
+      "right_bottom": [
         203,
         110,
         36
@@ -6770,7 +10946,25 @@
         99,
         29
       ],
+      "low_rgb": [
+        131,
+        69,
+        20
+      ],
+      "high_rgb": [
+        186,
+        99,
+        29
+      ],
+      "normal_rgb": [
+        160,
+        85,
+        25
+      ],
       "average_rgb_hex": "#ba631d",
+      "low_rgb_hex": "#834514",
+      "high_rgb_hex": "#ba631d",
+      "normal_rgb_hex": "#a05519",
       "zh_cn": "红砂岩"
     },
     "smooth_red_sandstone": {
@@ -6779,7 +10973,7 @@
         96,
         31
       ],
-      "center": [
+      "right_bottom": [
         172,
         91,
         28
@@ -6799,7 +10993,25 @@
         97,
         31
       ],
+      "low_rgb": [
+        127,
+        68,
+        21
+      ],
+      "high_rgb": [
+        181,
+        97,
+        31
+      ],
+      "normal_rgb": [
+        156,
+        83,
+        26
+      ],
       "average_rgb_hex": "#b5611f",
+      "low_rgb_hex": "#7f4415",
+      "high_rgb_hex": "#b5611f",
+      "normal_rgb_hex": "#9c531a",
       "zh_cn": "平滑红砂岩"
     },
     "cut_red_sandstone": {
@@ -6808,7 +11020,7 @@
         110,
         36
       ],
-      "center": [
+      "right_bottom": [
         192,
         104,
         34
@@ -6828,7 +11040,25 @@
         101,
         31
       ],
+      "low_rgb": [
+        133,
+        71,
+        21
+      ],
+      "high_rgb": [
+        189,
+        101,
+        31
+      ],
+      "normal_rgb": [
+        163,
+        87,
+        26
+      ],
       "average_rgb_hex": "#bd651f",
+      "low_rgb_hex": "#854715",
+      "high_rgb_hex": "#bd651f",
+      "normal_rgb_hex": "#a3571a",
       "zh_cn": "切制红砂岩"
     },
     "chiseled_red_sandstone": {
@@ -6837,7 +11067,7 @@
         110,
         36
       ],
-      "center": [
+      "right_bottom": [
         172,
         87,
         18
@@ -6857,7 +11087,25 @@
         96,
         27
       ],
+      "low_rgb": [
+        129,
+        67,
+        19
+      ],
+      "high_rgb": [
+        183,
+        96,
+        27
+      ],
+      "normal_rgb": [
+        157,
+        82,
+        23
+      ],
       "average_rgb_hex": "#b7601b",
+      "low_rgb_hex": "#814313",
+      "high_rgb_hex": "#b7601b",
+      "normal_rgb_hex": "#9d5217",
       "zh_cn": "雕纹红砂岩"
     }
   },
@@ -6868,7 +11116,7 @@
         27,
         27
       ],
-      "center": [
+      "right_bottom": [
         101,
         40,
         40
@@ -6888,7 +11136,25 @@
         38,
         38
       ],
+      "low_rgb": [
+        68,
+        26,
+        26
+      ],
+      "high_rgb": [
+        97,
+        38,
+        38
+      ],
+      "normal_rgb": [
+        83,
+        32,
+        32
+      ],
       "average_rgb_hex": "#612626",
+      "low_rgb_hex": "#441a1a",
+      "high_rgb_hex": "#612626",
+      "normal_rgb_hex": "#532020",
       "zh_cn": "下界岩"
     },
     "soul_sand": {
@@ -6897,7 +11163,7 @@
         82,
         68
       ],
-      "center": [
+      "right_bottom": [
         73,
         55,
         44
@@ -6917,7 +11183,25 @@
         62,
         50
       ],
+      "low_rgb": [
+        57,
+        43,
+        35
+      ],
+      "high_rgb": [
+        81,
+        62,
+        50
+      ],
+      "normal_rgb": [
+        69,
+        53,
+        43
+      ],
       "average_rgb_hex": "#513e32",
+      "low_rgb_hex": "#392b23",
+      "high_rgb_hex": "#513e32",
+      "normal_rgb_hex": "#45352b",
       "zh_cn": "灵魂沙"
     },
     "soul_soil": {
@@ -6926,7 +11210,7 @@
         69,
         56
       ],
-      "center": [
+      "right_bottom": [
         73,
         55,
         44
@@ -6946,7 +11230,25 @@
         57,
         46
       ],
+      "low_rgb": [
+        52,
+        40,
+        32
+      ],
+      "high_rgb": [
+        75,
+        57,
+        46
+      ],
+      "normal_rgb": [
+        64,
+        49,
+        39
+      ],
       "average_rgb_hex": "#4b392e",
+      "low_rgb_hex": "#342820",
+      "high_rgb_hex": "#4b392e",
+      "normal_rgb_hex": "#403127",
       "zh_cn": "灵魂土"
     },
     "glowstone": {
@@ -6955,7 +11257,7 @@
         240,
         218
       ],
-      "center": [
+      "right_bottom": [
         133,
         80,
         41
@@ -6975,7 +11277,25 @@
         131,
         84
       ],
+      "low_rgb": [
+        120,
+        92,
+        59
+      ],
+      "high_rgb": [
+        171,
+        131,
+        84
+      ],
+      "normal_rgb": [
+        147,
+        113,
+        72
+      ],
       "average_rgb_hex": "#ab8354",
+      "low_rgb_hex": "#785c3b",
+      "high_rgb_hex": "#ab8354",
+      "normal_rgb_hex": "#937148",
       "zh_cn": "荧石"
     },
     "redstone_lamp": {
@@ -6984,7 +11304,7 @@
         105,
         59
       ],
-      "center": [
+      "right_bottom": [
         147,
         88,
         49
@@ -7004,7 +11324,25 @@
         54,
         30
       ],
+      "low_rgb": [
+        67,
+        38,
+        21
+      ],
+      "high_rgb": [
+        95,
+        54,
+        30
+      ],
+      "normal_rgb": [
+        81,
+        46,
+        25
+      ],
       "average_rgb_hex": "#5f361e",
+      "low_rgb_hex": "#432615",
+      "high_rgb_hex": "#5f361e",
+      "normal_rgb_hex": "#512e19",
       "zh_cn": "红石灯"
     },
     "magma_block": {
@@ -7013,7 +11351,7 @@
         100,
         16
       ],
-      "center": [
+      "right_bottom": [
         230,
         100,
         16
@@ -7033,7 +11371,25 @@
         62,
         30
       ],
+      "low_rgb": [
+        99,
+        43,
+        21
+      ],
+      "high_rgb": [
+        141,
+        62,
+        30
+      ],
+      "normal_rgb": [
+        121,
+        53,
+        25
+      ],
       "average_rgb_hex": "#8d3e1e",
+      "low_rgb_hex": "#632b15",
+      "high_rgb_hex": "#8d3e1e",
+      "normal_rgb_hex": "#793519",
       "zh_cn": "岩浆块"
     },
     "nether_wart_block": {
@@ -7042,7 +11398,7 @@
         0,
         0
       ],
-      "center": [
+      "right_bottom": [
         123,
         0,
         0
@@ -7062,7 +11418,25 @@
         2,
         2
       ],
+      "low_rgb": [
+        80,
+        1,
+        1
+      ],
+      "high_rgb": [
+        114,
+        2,
+        2
+      ],
+      "normal_rgb": [
+        98,
+        1,
+        1
+      ],
       "average_rgb_hex": "#720202",
+      "low_rgb_hex": "#500101",
+      "high_rgb_hex": "#720202",
+      "normal_rgb_hex": "#620101",
       "zh_cn": "下界疣块"
     },
     "crimson_nylium": {
@@ -7071,7 +11445,7 @@
         0,
         0
       ],
-      "center": [
+      "right_bottom": [
         123,
         0,
         0
@@ -7091,7 +11465,25 @@
         26,
         26
       ],
+      "low_rgb": [
+        75,
+        18,
+        18
+      ],
+      "high_rgb": [
+        107,
+        26,
+        26
+      ],
+      "normal_rgb": [
+        92,
+        22,
+        22
+      ],
       "average_rgb_hex": "#6b1a1a",
+      "low_rgb_hex": "#4b1212",
+      "high_rgb_hex": "#6b1a1a",
+      "normal_rgb_hex": "#5c1616",
       "zh_cn": "绯红菌岩"
     },
     "warped_nylium": {
@@ -7100,7 +11492,7 @@
         60,
         53
       ],
-      "center": [
+      "right_bottom": [
         62,
         79,
         88
@@ -7120,7 +11512,25 @@
         61,
         59
       ],
+      "low_rgb": [
+        50,
+        43,
+        41
+      ],
+      "high_rgb": [
+        72,
+        61,
+        59
+      ],
+      "normal_rgb": [
+        62,
+        52,
+        50
+      ],
       "average_rgb_hex": "#483d3b",
+      "low_rgb_hex": "#322b29",
+      "high_rgb_hex": "#483d3b",
+      "normal_rgb_hex": "#3e3432",
       "zh_cn": "诡异菌岩"
     },
     "ancient_debris": {
@@ -7129,7 +11539,7 @@
         44,
         35
       ],
-      "center": [
+      "right_bottom": [
         101,
         71,
         64
@@ -7149,7 +11559,25 @@
         63,
         55
       ],
+      "low_rgb": [
+        67,
+        44,
+        38
+      ],
+      "high_rgb": [
+        95,
+        63,
+        55
+      ],
+      "normal_rgb": [
+        81,
+        54,
+        47
+      ],
       "average_rgb_hex": "#5f3f37",
+      "low_rgb_hex": "#432c26",
+      "high_rgb_hex": "#5f3f37",
+      "normal_rgb_hex": "#51362f",
       "zh_cn": "远古残骸"
     },
     "netherite_block": {
@@ -7158,7 +11586,7 @@
         65,
         67
       ],
-      "center": [
+      "right_bottom": [
         72,
         69,
         72
@@ -7178,7 +11606,25 @@
         61,
         63
       ],
+      "low_rgb": [
+        46,
+        43,
+        44
+      ],
+      "high_rgb": [
+        66,
+        61,
+        63
+      ],
+      "normal_rgb": [
+        56,
+        52,
+        54
+      ],
       "average_rgb_hex": "#423d3f",
+      "low_rgb_hex": "#2e2b2c",
+      "high_rgb_hex": "#423d3f",
+      "normal_rgb_hex": "#383436",
       "zh_cn": "下界合金块"
     },
     "nether_gold_ore": {
@@ -7187,7 +11633,7 @@
         238,
         75
       ],
-      "center": [
+      "right_bottom": [
         101,
         40,
         40
@@ -7207,7 +11653,25 @@
         54,
         42
       ],
+      "low_rgb": [
+        81,
+        38,
+        29
+      ],
+      "high_rgb": [
+        115,
+        54,
+        42
+      ],
+      "normal_rgb": [
+        99,
+        46,
+        36
+      ],
       "average_rgb_hex": "#73362a",
+      "low_rgb_hex": "#51261d",
+      "high_rgb_hex": "#73362a",
+      "normal_rgb_hex": "#632e24",
       "zh_cn": "下界金矿石"
     },
     "nether_quartz_ore": {
@@ -7216,7 +11680,7 @@
         229,
         222
       ],
-      "center": [
+      "right_bottom": [
         101,
         40,
         40
@@ -7236,7 +11700,25 @@
         65,
         62
       ],
+      "low_rgb": [
+        82,
+        45,
+        43
+      ],
+      "high_rgb": [
+        117,
+        65,
+        62
+      ],
+      "normal_rgb": [
+        100,
+        56,
+        53
+      ],
       "average_rgb_hex": "#75413e",
+      "low_rgb_hex": "#522d2b",
+      "high_rgb_hex": "#75413e",
+      "normal_rgb_hex": "#643835",
       "zh_cn": "下界石英矿石"
     },
     "quartz_block": {
@@ -7245,7 +11727,7 @@
         230,
         222
       ],
-      "center": [
+      "right_bottom": [
         238,
         230,
         222
@@ -7265,7 +11747,25 @@
         229,
         222
       ],
+      "low_rgb": [
+        165,
+        161,
+        156
+      ],
+      "high_rgb": [
+        235,
+        229,
+        222
+      ],
+      "normal_rgb": [
+        202,
+        197,
+        191
+      ],
       "average_rgb_hex": "#ebe5de",
+      "low_rgb_hex": "#a5a19c",
+      "high_rgb_hex": "#ebe5de",
+      "normal_rgb_hex": "#cac5bf",
       "zh_cn": "石英块"
     },
     "quartz_bricks": {
@@ -7274,7 +11774,7 @@
         230,
         222
       ],
-      "center": [
+      "right_bottom": [
         238,
         234,
         230
@@ -7294,7 +11794,25 @@
         229,
         221
       ],
+      "low_rgb": [
+        165,
+        161,
+        156
+      ],
+      "high_rgb": [
+        234,
+        229,
+        221
+      ],
+      "normal_rgb": [
+        201,
+        197,
+        190
+      ],
       "average_rgb_hex": "#eae5dd",
+      "low_rgb_hex": "#a5a19c",
+      "high_rgb_hex": "#eae5dd",
+      "normal_rgb_hex": "#c9c5be",
       "zh_cn": "石英砖"
     },
     "quartz_pillar": {
@@ -7303,7 +11821,7 @@
         222,
         208
       ],
-      "center": [
+      "right_bottom": [
         234,
         226,
         218
@@ -7323,7 +11841,25 @@
         230,
         224
       ],
+      "low_rgb": [
+        165,
+        162,
+        158
+      ],
+      "high_rgb": [
+        235,
+        230,
+        224
+      ],
+      "normal_rgb": [
+        202,
+        198,
+        193
+      ],
       "average_rgb_hex": "#ebe6e0",
+      "low_rgb_hex": "#a5a29e",
+      "high_rgb_hex": "#ebe6e0",
+      "normal_rgb_hex": "#cac6c1",
       "zh_cn": "石英柱"
     },
     "chiseled_quartz_block": {
@@ -7332,7 +11868,7 @@
         222,
         208
       ],
-      "center": [
+      "right_bottom": [
         238,
         230,
         222
@@ -7352,7 +11888,25 @@
         226,
         218
       ],
+      "low_rgb": [
+        163,
+        159,
+        153
+      ],
+      "high_rgb": [
+        231,
+        226,
+        218
+      ],
+      "normal_rgb": [
+        199,
+        194,
+        188
+      ],
       "average_rgb_hex": "#e7e2da",
+      "low_rgb_hex": "#a39f99",
+      "high_rgb_hex": "#e7e2da",
+      "normal_rgb_hex": "#c7c2bc",
       "zh_cn": "雕纹石英块"
     },
     "basalt": {
@@ -7361,7 +11915,7 @@
         75,
         79
       ],
-      "center": [
+      "right_bottom": [
         92,
         92,
         92
@@ -7381,7 +11935,25 @@
         72,
         77
       ],
+      "low_rgb": [
+        51,
+        50,
+        54
+      ],
+      "high_rgb": [
+        73,
+        72,
+        77
+      ],
+      "normal_rgb": [
+        62,
+        62,
+        66
+      ],
       "average_rgb_hex": "#49484d",
+      "low_rgb_hex": "#333236",
+      "high_rgb_hex": "#49484d",
+      "normal_rgb_hex": "#3e3e42",
       "zh_cn": "玄武岩"
     },
     "smooth_basalt": {
@@ -7390,7 +11962,7 @@
         59,
         72
       ],
-      "center": [
+      "right_bottom": [
         79,
         75,
         79
@@ -7410,7 +11982,25 @@
         72,
         78
       ],
+      "low_rgb": [
+        50,
+        50,
+        55
+      ],
+      "high_rgb": [
+        72,
+        72,
+        78
+      ],
+      "normal_rgb": [
+        62,
+        62,
+        67
+      ],
       "average_rgb_hex": "#48484e",
+      "low_rgb_hex": "#323237",
+      "high_rgb_hex": "#48484e",
+      "normal_rgb_hex": "#3e3e43",
       "zh_cn": "平滑玄武岩"
     },
     "polished_basalt": {
@@ -7419,7 +12009,7 @@
         116,
         116
       ],
-      "center": [
+      "right_bottom": [
         116,
         116,
         116
@@ -7439,7 +12029,25 @@
         88,
         91
       ],
+      "low_rgb": [
+        62,
+        62,
+        64
+      ],
+      "high_rgb": [
+        88,
+        88,
+        91
+      ],
+      "normal_rgb": [
+        75,
+        75,
+        78
+      ],
       "average_rgb_hex": "#58585b",
+      "low_rgb_hex": "#3e3e40",
+      "high_rgb_hex": "#58585b",
+      "normal_rgb_hex": "#4b4b4e",
       "zh_cn": "磨制玄武岩"
     },
     "nether_bricks": {
@@ -7448,7 +12056,7 @@
         17,
         20
       ],
-      "center": [
+      "right_bottom": [
         33,
         17,
         20
@@ -7468,7 +12076,25 @@
         21,
         26
       ],
+      "low_rgb": [
+        31,
+        14,
+        18
+      ],
+      "high_rgb": [
+        44,
+        21,
+        26
+      ],
+      "normal_rgb": [
+        37,
+        18,
+        22
+      ],
       "average_rgb_hex": "#2c151a",
+      "low_rgb_hex": "#1f0e12",
+      "high_rgb_hex": "#2c151a",
+      "normal_rgb_hex": "#251216",
       "zh_cn": "下界砖块"
     },
     "red_nether_bricks": {
@@ -7477,7 +12103,7 @@
         1,
         3
       ],
-      "center": [
+      "right_bottom": [
         52,
         1,
         3
@@ -7497,7 +12123,25 @@
         7,
         9
       ],
+      "low_rgb": [
+        48,
+        4,
+        6
+      ],
+      "high_rgb": [
+        69,
+        7,
+        9
+      ],
+      "normal_rgb": [
+        59,
+        6,
+        7
+      ],
       "average_rgb_hex": "#450709",
+      "low_rgb_hex": "#300406",
+      "high_rgb_hex": "#450709",
+      "normal_rgb_hex": "#3b0607",
       "zh_cn": "红色下界砖块"
     },
     "cracked_nether_bricks": {
@@ -7506,7 +12150,7 @@
         17,
         20
       ],
-      "center": [
+      "right_bottom": [
         25,
         13,
         16
@@ -7526,7 +12170,25 @@
         20,
         23
       ],
+      "low_rgb": [
+        28,
+        14,
+        16
+      ],
+      "high_rgb": [
+        40,
+        20,
+        23
+      ],
+      "normal_rgb": [
+        34,
+        17,
+        19
+      ],
       "average_rgb_hex": "#281417",
+      "low_rgb_hex": "#1c0e10",
+      "high_rgb_hex": "#281417",
+      "normal_rgb_hex": "#221113",
       "zh_cn": "裂纹下界砖块"
     },
     "chiseled_nether_bricks": {
@@ -7535,7 +12197,7 @@
         30,
         36
       ],
-      "center": [
+      "right_bottom": [
         62,
         30,
         36
@@ -7555,7 +12217,25 @@
         23,
         28
       ],
+      "low_rgb": [
+        33,
+        16,
+        19
+      ],
+      "high_rgb": [
+        47,
+        23,
+        28
+      ],
+      "normal_rgb": [
+        40,
+        19,
+        24
+      ],
       "average_rgb_hex": "#2f171c",
+      "low_rgb_hex": "#211013",
+      "high_rgb_hex": "#2f171c",
+      "normal_rgb_hex": "#281318",
       "zh_cn": "雕纹下界砖块"
     },
     "blackstone": {
@@ -7564,7 +12244,7 @@
         57,
         71
       ],
-      "center": [
+      "right_bottom": [
         49,
         44,
         54
@@ -7584,7 +12264,25 @@
         35,
         40
       ],
+      "low_rgb": [
+        29,
+        24,
+        28
+      ],
+      "high_rgb": [
+        42,
+        35,
+        40
+      ],
+      "normal_rgb": [
+        36,
+        30,
+        34
+      ],
       "average_rgb_hex": "#2a2328",
+      "low_rgb_hex": "#1d181c",
+      "high_rgb_hex": "#2a2328",
+      "normal_rgb_hex": "#241e22",
       "zh_cn": "黑石"
     },
     "gilded_blackstone": {
@@ -7593,7 +12291,7 @@
         57,
         71
       ],
-      "center": [
+      "right_bottom": [
         49,
         44,
         54
@@ -7613,7 +12311,25 @@
         43,
         38
       ],
+      "low_rgb": [
+        39,
+        30,
+        26
+      ],
+      "high_rgb": [
+        56,
+        43,
+        38
+      ],
+      "normal_rgb": [
+        48,
+        37,
+        32
+      ],
       "average_rgb_hex": "#382b26",
+      "low_rgb_hex": "#271e1a",
+      "high_rgb_hex": "#382b26",
+      "normal_rgb_hex": "#302520",
       "zh_cn": "镶金黑石"
     },
     "polished_blackstone": {
@@ -7622,7 +12338,7 @@
         34,
         28
       ],
-      "center": [
+      "right_bottom": [
         60,
         57,
         71
@@ -7642,7 +12358,25 @@
         48,
         56
       ],
+      "low_rgb": [
+        37,
+        33,
+        39
+      ],
+      "high_rgb": [
+        53,
+        48,
+        56
+      ],
+      "normal_rgb": [
+        45,
+        41,
+        48
+      ],
       "average_rgb_hex": "#353038",
+      "low_rgb_hex": "#252127",
+      "high_rgb_hex": "#353038",
+      "normal_rgb_hex": "#2d2930",
       "zh_cn": "磨制黑石"
     },
     "chiseled_polished_blackstone": {
@@ -7651,7 +12385,7 @@
         57,
         71
       ],
-      "center": [
+      "right_bottom": [
         60,
         57,
         71
@@ -7671,7 +12405,25 @@
         48,
         56
       ],
+      "low_rgb": [
+        37,
+        33,
+        39
+      ],
+      "high_rgb": [
+        53,
+        48,
+        56
+      ],
+      "normal_rgb": [
+        45,
+        41,
+        48
+      ],
       "average_rgb_hex": "#353038",
+      "low_rgb_hex": "#252127",
+      "high_rgb_hex": "#353038",
+      "normal_rgb_hex": "#2d2930",
       "zh_cn": "雕纹磨制黑石"
     },
     "polished_blackstone_bricks": {
@@ -7680,7 +12432,7 @@
         44,
         54
       ],
-      "center": [
+      "right_bottom": [
         31,
         18,
         27
@@ -7700,7 +12452,25 @@
         41,
         48
       ],
+      "low_rgb": [
+        32,
+        28,
+        33
+      ],
+      "high_rgb": [
+        46,
+        41,
+        48
+      ],
+      "normal_rgb": [
+        39,
+        35,
+        41
+      ],
       "average_rgb_hex": "#2e2930",
+      "low_rgb_hex": "#201c21",
+      "high_rgb_hex": "#2e2930",
+      "normal_rgb_hex": "#272329",
       "zh_cn": "磨制黑石砖"
     },
     "cracked_polished_blackstone_bricks": {
@@ -7709,7 +12479,7 @@
         44,
         54
       ],
-      "center": [
+      "right_bottom": [
         31,
         18,
         27
@@ -7729,7 +12499,25 @@
         37,
         43
       ],
+      "low_rgb": [
+        30,
+        26,
+        30
+      ],
+      "high_rgb": [
+        43,
+        37,
+        43
+      ],
+      "normal_rgb": [
+        37,
+        31,
+        37
+      ],
       "average_rgb_hex": "#2b252b",
+      "low_rgb_hex": "#1e1a1e",
+      "high_rgb_hex": "#2b252b",
+      "normal_rgb_hex": "#251f25",
       "zh_cn": "裂纹磨制黑石砖"
     }
   },
@@ -7740,7 +12528,7 @@
         246,
         180
       ],
-      "center": [
+      "right_bottom": [
         197,
         190,
         139
@@ -7760,7 +12548,25 @@
         222,
         158
       ],
+      "low_rgb": [
+        154,
+        156,
+        111
+      ],
+      "high_rgb": [
+        219,
+        222,
+        158
+      ],
+      "normal_rgb": [
+        188,
+        191,
+        136
+      ],
       "average_rgb_hex": "#dbde9e",
+      "low_rgb_hex": "#9a9c6f",
+      "high_rgb_hex": "#dbde9e",
+      "normal_rgb_hex": "#bcbf88",
       "zh_cn": "末地石"
     },
     "end_stone_bricks": {
@@ -7769,7 +12575,7 @@
         251,
         175
       ],
-      "center": [
+      "right_bottom": [
         169,
         162,
         116
@@ -7789,7 +12595,25 @@
         224,
         162
       ],
+      "low_rgb": [
+        153,
+        158,
+        114
+      ],
+      "high_rgb": [
+        218,
+        224,
+        162
+      ],
+      "normal_rgb": [
+        188,
+        193,
+        139
+      ],
       "average_rgb_hex": "#dae0a2",
+      "low_rgb_hex": "#999e72",
+      "high_rgb_hex": "#dae0a2",
+      "normal_rgb_hex": "#bcc18b",
       "zh_cn": "末地石砖"
     },
     "purpur_block": {
@@ -7798,7 +12622,7 @@
         123,
         172
       ],
-      "center": [
+      "right_bottom": [
         199,
         168,
         199
@@ -7818,7 +12642,25 @@
         125,
         169
       ],
+      "low_rgb": [
+        119,
+        88,
+        119
+      ],
+      "high_rgb": [
+        169,
+        125,
+        169
+      ],
+      "normal_rgb": [
+        145,
+        107,
+        145
+      ],
       "average_rgb_hex": "#a97da9",
+      "low_rgb_hex": "#775877",
+      "high_rgb_hex": "#a97da9",
+      "normal_rgb_hex": "#916b91",
       "zh_cn": "紫珀块"
     },
     "purpur_pillar": {
@@ -7827,7 +12669,7 @@
         168,
         199
       ],
-      "center": [
+      "right_bottom": [
         199,
         168,
         199
@@ -7847,7 +12689,25 @@
         129,
         171
       ],
+      "low_rgb": [
+        120,
+        91,
+        120
+      ],
+      "high_rgb": [
+        171,
+        129,
+        171
+      ],
+      "normal_rgb": [
+        147,
+        111,
+        147
+      ],
       "average_rgb_hex": "#ab81ab",
+      "low_rgb_hex": "#785b78",
+      "high_rgb_hex": "#ab81ab",
+      "normal_rgb_hex": "#936f93",
       "zh_cn": "紫珀柱"
     },
     "shulker_box": {
@@ -7856,7 +12716,7 @@
         105,
         151
       ],
-      "center": [
+      "right_bottom": [
         151,
         103,
         151
@@ -7876,7 +12736,25 @@
         96,
         139
       ],
+      "low_rgb": [
+        98,
+        67,
+        98
+      ],
+      "high_rgb": [
+        139,
+        96,
+        139
+      ],
+      "normal_rgb": [
+        119,
+        82,
+        119
+      ],
       "average_rgb_hex": "#8b608b",
+      "low_rgb_hex": "#624362",
+      "high_rgb_hex": "#8b608b",
+      "normal_rgb_hex": "#775277",
       "zh_cn": "潜影盒"
     },
     "black_shulker_box": {
@@ -7885,7 +12763,7 @@
         31,
         35
       ],
-      "center": [
+      "right_bottom": [
         31,
         31,
         35
@@ -7905,7 +12783,25 @@
         25,
         29
       ],
+      "low_rgb": [
+        17,
+        17,
+        20
+      ],
+      "high_rgb": [
+        25,
+        25,
+        29
+      ],
+      "normal_rgb": [
+        21,
+        21,
+        25
+      ],
       "average_rgb_hex": "#19191d",
+      "low_rgb_hex": "#111114",
+      "high_rgb_hex": "#19191d",
+      "normal_rgb_hex": "#151519",
       "zh_cn": "黑色潜影盒"
     },
     "blue_shulker_box": {
@@ -7914,7 +12810,7 @@
         53,
         155
       ],
-      "center": [
+      "right_bottom": [
         50,
         53,
         154
@@ -7934,7 +12830,25 @@
         45,
         140
       ],
+      "low_rgb": [
+        30,
+        31,
+        98
+      ],
+      "high_rgb": [
+        43,
+        45,
+        140
+      ],
+      "normal_rgb": [
+        37,
+        38,
+        120
+      ],
       "average_rgb_hex": "#2b2d8c",
+      "low_rgb_hex": "#1e1f62",
+      "high_rgb_hex": "#2b2d8c",
+      "normal_rgb_hex": "#252678",
       "zh_cn": "蓝色潜影盒"
     },
     "brown_shulker_box": {
@@ -7943,7 +12857,7 @@
         72,
         40
       ],
-      "center": [
+      "right_bottom": [
         114,
         71,
         40
@@ -7963,7 +12877,25 @@
         66,
         35
       ],
+      "low_rgb": [
+        74,
+        46,
+        24
+      ],
+      "high_rgb": [
+        106,
+        66,
+        35
+      ],
+      "normal_rgb": [
+        91,
+        56,
+        30
+      ],
       "average_rgb_hex": "#6a4223",
+      "low_rgb_hex": "#4a2e18",
+      "high_rgb_hex": "#6a4223",
+      "normal_rgb_hex": "#5b381e",
       "zh_cn": "棕色潜影盒"
     },
     "cyan_shulker_box": {
@@ -7972,7 +12904,7 @@
         135,
         146
       ],
-      "center": [
+      "right_bottom": [
         22,
         134,
         145
@@ -7992,7 +12924,25 @@
         121,
         135
       ],
+      "low_rgb": [
+        14,
+        85,
+        95
+      ],
+      "high_rgb": [
+        20,
+        121,
+        135
+      ],
+      "normal_rgb": [
+        17,
+        104,
+        116
+      ],
       "average_rgb_hex": "#147987",
+      "low_rgb_hex": "#0e555f",
+      "high_rgb_hex": "#147987",
+      "normal_rgb_hex": "#116874",
       "zh_cn": "青色潜影盒"
     },
     "gray_shulker_box": {
@@ -8001,7 +12951,7 @@
         66,
         70
       ],
-      "center": [
+      "right_bottom": [
         61,
         66,
         69
@@ -8021,7 +12971,25 @@
         58,
         62
       ],
+      "low_rgb": [
+        38,
+        40,
+        43
+      ],
+      "high_rgb": [
+        55,
+        58,
+        62
+      ],
+      "normal_rgb": [
+        47,
+        50,
+        53
+      ],
       "average_rgb_hex": "#373a3e",
+      "low_rgb_hex": "#26282b",
+      "high_rgb_hex": "#373a3e",
+      "normal_rgb_hex": "#2f3235",
       "zh_cn": "灰色潜影盒"
     },
     "green_shulker_box": {
@@ -8030,7 +12998,7 @@
         109,
         28
       ],
-      "center": [
+      "right_bottom": [
         84,
         108,
         29
@@ -8050,7 +13018,25 @@
         100,
         31
       ],
+      "low_rgb": [
+        55,
+        70,
+        21
+      ],
+      "high_rgb": [
+        79,
+        100,
+        31
+      ],
+      "normal_rgb": [
+        68,
+        86,
+        26
+      ],
       "average_rgb_hex": "#4f641f",
+      "low_rgb_hex": "#374615",
+      "high_rgb_hex": "#4f641f",
+      "normal_rgb_hex": "#44561a",
       "zh_cn": "绿色潜影盒"
     },
     "light_blue_shulker_box": {
@@ -8059,7 +13045,7 @@
         180,
         219
       ],
-      "center": [
+      "right_bottom": [
         58,
         179,
         218
@@ -8079,7 +13065,25 @@
         163,
         212
       ],
+      "low_rgb": [
+        34,
+        115,
+        149
+      ],
+      "high_rgb": [
+        49,
+        163,
+        212
+      ],
+      "normal_rgb": [
+        42,
+        140,
+        182
+      ],
       "average_rgb_hex": "#31a3d4",
+      "low_rgb_hex": "#227395",
+      "high_rgb_hex": "#31a3d4",
+      "normal_rgb_hex": "#2a8cb6",
       "zh_cn": "淡蓝色潜影盒"
     },
     "light_gray_shulker_box": {
@@ -8088,7 +13092,7 @@
         140,
         131
       ],
-      "center": [
+      "right_bottom": [
         139,
         139,
         130
@@ -8108,7 +13112,25 @@
         124,
         115
       ],
+      "low_rgb": [
+        87,
+        87,
+        81
+      ],
+      "high_rgb": [
+        124,
+        124,
+        115
+      ],
+      "normal_rgb": [
+        106,
+        106,
+        99
+      ],
       "average_rgb_hex": "#7c7c73",
+      "low_rgb_hex": "#575751",
+      "high_rgb_hex": "#7c7c73",
+      "normal_rgb_hex": "#6a6a63",
       "zh_cn": "淡灰色潜影盒"
     },
     "lime_shulker_box": {
@@ -8117,7 +13139,7 @@
         188,
         24
       ],
-      "center": [
+      "right_bottom": [
         111,
         187,
         24
@@ -8137,7 +13159,25 @@
         172,
         23
       ],
+      "low_rgb": [
+        69,
+        121,
+        16
+      ],
+      "high_rgb": [
+        99,
+        172,
+        23
+      ],
+      "normal_rgb": [
+        85,
+        148,
+        19
+      ],
       "average_rgb_hex": "#63ac17",
+      "low_rgb_hex": "#457910",
+      "high_rgb_hex": "#63ac17",
+      "normal_rgb_hex": "#559413",
       "zh_cn": "黄绿色潜影盒"
     },
     "magenta_shulker_box": {
@@ -8146,7 +13186,7 @@
         63,
         175
       ],
-      "center": [
+      "right_bottom": [
         185,
         62,
         174
@@ -8166,7 +13206,25 @@
         54,
         163
       ],
+      "low_rgb": [
+        122,
+        38,
+        115
+      ],
+      "high_rgb": [
+        173,
+        54,
+        163
+      ],
+      "normal_rgb": [
+        149,
+        46,
+        140
+      ],
       "average_rgb_hex": "#ad36a3",
+      "low_rgb_hex": "#7a2673",
+      "high_rgb_hex": "#ad36a3",
+      "normal_rgb_hex": "#952e8c",
       "zh_cn": "品红色潜影盒"
     },
     "orange_shulker_box": {
@@ -8175,7 +13233,7 @@
         116,
         16
       ],
-      "center": [
+      "right_bottom": [
         244,
         115,
         15
@@ -8195,7 +13253,25 @@
         106,
         8
       ],
+      "low_rgb": [
+        165,
+        74,
+        5
+      ],
+      "high_rgb": [
+        234,
+        106,
+        8
+      ],
+      "normal_rgb": [
+        201,
+        91,
+        6
+      ],
       "average_rgb_hex": "#ea6a08",
+      "low_rgb_hex": "#a54a05",
+      "high_rgb_hex": "#ea6a08",
+      "normal_rgb_hex": "#c95b06",
       "zh_cn": "橙色潜影盒"
     },
     "pink_shulker_box": {
@@ -8204,7 +13280,7 @@
         139,
         170
       ],
-      "center": [
+      "right_bottom": [
         242,
         137,
         168
@@ -8224,7 +13300,25 @@
         121,
         157
       ],
+      "low_rgb": [
+        162,
+        85,
+        110
+      ],
+      "high_rgb": [
+        230,
+        121,
+        157
+      ],
+      "normal_rgb": [
+        198,
+        104,
+        135
+      ],
       "average_rgb_hex": "#e6799d",
+      "low_rgb_hex": "#a2556e",
+      "high_rgb_hex": "#e6799d",
+      "normal_rgb_hex": "#c66887",
       "zh_cn": "粉红色潜影盒"
     },
     "purple_shulker_box": {
@@ -8233,7 +13327,7 @@
         38,
         169
       ],
-      "center": [
+      "right_bottom": [
         114,
         37,
         168
@@ -8253,7 +13347,25 @@
         32,
         156
       ],
+      "low_rgb": [
+        72,
+        22,
+        110
+      ],
+      "high_rgb": [
+        103,
+        32,
+        156
+      ],
+      "normal_rgb": [
+        88,
+        27,
+        134
+      ],
       "average_rgb_hex": "#67209c",
+      "low_rgb_hex": "#48166e",
+      "high_rgb_hex": "#67209c",
+      "normal_rgb_hex": "#581b86",
       "zh_cn": "紫色潜影盒"
     },
     "red_shulker_box": {
@@ -8262,7 +13374,7 @@
         37,
         34
       ],
-      "center": [
+      "right_bottom": [
         154,
         36,
         34
@@ -8282,7 +13394,25 @@
         31,
         30
       ],
+      "low_rgb": [
+        98,
+        21,
+        21
+      ],
+      "high_rgb": [
+        140,
+        31,
+        30
+      ],
+      "normal_rgb": [
+        120,
+        26,
+        25
+      ],
       "average_rgb_hex": "#8c1f1e",
+      "low_rgb_hex": "#621515",
+      "high_rgb_hex": "#8c1f1e",
+      "normal_rgb_hex": "#781a19",
       "zh_cn": "红色潜影盒"
     },
     "white_shulker_box": {
@@ -8291,7 +13421,7 @@
         234,
         234
       ],
-      "center": [
+      "right_bottom": [
         228,
         233,
         233
@@ -8311,7 +13441,25 @@
         220,
         221
       ],
+      "low_rgb": [
+        151,
+        155,
+        156
+      ],
+      "high_rgb": [
+        215,
+        220,
+        221
+      ],
+      "normal_rgb": [
+        185,
+        189,
+        190
+      ],
       "average_rgb_hex": "#d7dcdd",
+      "low_rgb_hex": "#979b9c",
+      "high_rgb_hex": "#d7dcdd",
+      "normal_rgb_hex": "#b9bdbe",
       "zh_cn": "白色潜影盒"
     },
     "yellow_shulker_box": {
@@ -8320,7 +13468,7 @@
         199,
         36
       ],
-      "center": [
+      "right_bottom": [
         252,
         198,
         35
@@ -8340,7 +13488,25 @@
         188,
         29
       ],
+      "low_rgb": [
+        175,
+        132,
+        20
+      ],
+      "high_rgb": [
+        248,
+        188,
+        29
+      ],
+      "normal_rgb": [
+        213,
+        162,
+        25
+      ],
       "average_rgb_hex": "#f8bc1d",
+      "low_rgb_hex": "#af8414",
+      "high_rgb_hex": "#f8bc1d",
+      "normal_rgb_hex": "#d5a219",
       "zh_cn": "黄色潜影盒"
     }
   },
@@ -8351,7 +13517,7 @@
         137,
         116
       ],
-      "center": [
+      "right_bottom": [
         94,
         164,
         150
@@ -8371,7 +13537,25 @@
         162,
         145
       ],
+      "low_rgb": [
+        69,
+        114,
+        102
+      ],
+      "high_rgb": [
+        98,
+        162,
+        145
+      ],
+      "normal_rgb": [
+        84,
+        139,
+        125
+      ],
       "average_rgb_hex": "#62a291",
+      "low_rgb_hex": "#457266",
+      "high_rgb_hex": "#62a291",
+      "normal_rgb_hex": "#548b7d",
       "zh_cn": "海晶石"
     },
     "prismarine_bricks": {
@@ -8380,7 +13564,7 @@
         185,
         174
       ],
-      "center": [
+      "right_bottom": [
         110,
         185,
         174
@@ -8400,7 +13584,25 @@
         171,
         158
       ],
+      "low_rgb": [
+        69,
+        120,
+        111
+      ],
+      "high_rgb": [
+        99,
+        171,
+        158
+      ],
+      "normal_rgb": [
+        85,
+        147,
+        136
+      ],
       "average_rgb_hex": "#63ab9e",
+      "low_rgb_hex": "#45786f",
+      "high_rgb_hex": "#63ab9e",
+      "normal_rgb_hex": "#559388",
       "zh_cn": "海晶石砖"
     },
     "dark_prismarine": {
@@ -8409,7 +13611,7 @@
         130,
         104
       ],
-      "center": [
+      "right_bottom": [
         56,
         98,
         81
@@ -8429,7 +13631,25 @@
         91,
         75
       ],
+      "low_rgb": [
+        36,
+        64,
+        52
+      ],
+      "high_rgb": [
+        51,
+        91,
+        75
+      ],
+      "normal_rgb": [
+        44,
+        78,
+        64
+      ],
       "average_rgb_hex": "#335b4b",
+      "low_rgb_hex": "#244034",
+      "high_rgb_hex": "#335b4b",
+      "normal_rgb_hex": "#2c4e40",
       "zh_cn": "暗海晶石"
     },
     "sponge": {
@@ -8438,7 +13658,7 @@
         227,
         81
       ],
-      "center": [
+      "right_bottom": [
         193,
         188,
         78
@@ -8458,7 +13678,25 @@
         192,
         74
       ],
+      "low_rgb": [
+        137,
+        135,
+        52
+      ],
+      "high_rgb": [
+        195,
+        192,
+        74
+      ],
+      "normal_rgb": [
+        168,
+        165,
+        63
+      ],
       "average_rgb_hex": "#c3c04a",
+      "low_rgb_hex": "#898734",
+      "high_rgb_hex": "#c3c04a",
+      "normal_rgb_hex": "#a8a53f",
       "zh_cn": "海绵"
     },
     "wet_sponge": {
@@ -8467,7 +13705,7 @@
         206,
         74
       ],
-      "center": [
+      "right_bottom": [
         150,
         168,
         70
@@ -8487,7 +13725,25 @@
         181,
         70
       ],
+      "low_rgb": [
+        120,
+        127,
+        49
+      ],
+      "high_rgb": [
+        171,
+        181,
+        70
+      ],
+      "normal_rgb": [
+        147,
+        156,
+        60
+      ],
       "average_rgb_hex": "#abb546",
+      "low_rgb_hex": "#787f31",
+      "high_rgb_hex": "#abb546",
+      "normal_rgb_hex": "#939c3c",
       "zh_cn": "湿海绵"
     },
     "dried_kelp_block": {
@@ -8496,7 +13752,7 @@
         56,
         32
       ],
-      "center": [
+      "right_bottom": [
         19,
         33,
         19
@@ -8516,7 +13772,25 @@
         48,
         29
       ],
+      "low_rgb": [
+        26,
+        33,
+        20
+      ],
+      "high_rgb": [
+        38,
+        48,
+        29
+      ],
+      "normal_rgb": [
+        32,
+        41,
+        25
+      ],
       "average_rgb_hex": "#26301d",
+      "low_rgb_hex": "#1a2114",
+      "high_rgb_hex": "#26301d",
+      "normal_rgb_hex": "#202919",
       "zh_cn": "干海带块"
     },
     "sea_lantern": {
@@ -8525,7 +13799,7 @@
         234,
         228
       ],
-      "center": [
+      "right_bottom": [
         226,
         234,
         226
@@ -8545,7 +13819,25 @@
         200,
         190
       ],
+      "low_rgb": [
+        121,
+        141,
+        134
+      ],
+      "high_rgb": [
+        172,
+        200,
+        190
+      ],
+      "normal_rgb": [
+        148,
+        172,
+        163
+      ],
       "average_rgb_hex": "#acc8be",
+      "low_rgb_hex": "#798d86",
+      "high_rgb_hex": "#acc8be",
+      "normal_rgb_hex": "#94aca3",
       "zh_cn": "海晶灯"
     },
     "brain_coral_block": {
@@ -8554,7 +13846,7 @@
         51,
         130
       ],
-      "center": [
+      "right_bottom": [
         214,
         84,
         155
@@ -8574,7 +13866,25 @@
         91,
         159
       ],
+      "low_rgb": [
+        146,
+        64,
+        112
+      ],
+      "high_rgb": [
+        207,
+        91,
+        159
+      ],
+      "normal_rgb": [
+        178,
+        78,
+        137
+      ],
       "average_rgb_hex": "#cf5b9f",
+      "low_rgb_hex": "#924070",
+      "high_rgb_hex": "#cf5b9f",
+      "normal_rgb_hex": "#b24e89",
       "zh_cn": "脑纹珊瑚块"
     },
     "bubble_coral_block": {
@@ -8583,7 +13893,7 @@
         22,
         145
       ],
-      "center": [
+      "right_bottom": [
         200,
         25,
         186
@@ -8603,7 +13913,25 @@
         26,
         162
       ],
+      "low_rgb": [
+        116,
+        18,
+        114
+      ],
+      "high_rgb": [
+        165,
+        26,
+        162
+      ],
+      "normal_rgb": [
+        142,
+        22,
+        139
+      ],
       "average_rgb_hex": "#a51aa2",
+      "low_rgb_hex": "#741272",
+      "high_rgb_hex": "#a51aa2",
+      "normal_rgb_hex": "#8e168b",
       "zh_cn": "气泡珊瑚块"
     },
     "fire_coral_block": {
@@ -8612,7 +13940,7 @@
         34,
         47
       ],
-      "center": [
+      "right_bottom": [
         164,
         34,
         47
@@ -8632,7 +13960,25 @@
         35,
         46
       ],
+      "low_rgb": [
+        115,
+        24,
+        32
+      ],
+      "high_rgb": [
+        163,
+        35,
+        46
+      ],
+      "normal_rgb": [
+        140,
+        30,
+        39
+      ],
       "average_rgb_hex": "#a3232e",
+      "low_rgb_hex": "#731820",
+      "high_rgb_hex": "#a3232e",
+      "normal_rgb_hex": "#8c1e27",
       "zh_cn": "火珊瑚块"
     },
     "horn_coral_block": {
@@ -8641,7 +13987,7 @@
         179,
         65
       ],
-      "center": [
+      "right_bottom": [
         190,
         160,
         53
@@ -8661,7 +14007,25 @@
         199,
         66
       ],
+      "low_rgb": [
+        152,
+        140,
+        46
+      ],
+      "high_rgb": [
+        216,
+        199,
+        66
+      ],
+      "normal_rgb": [
+        186,
+        171,
+        56
+      ],
       "average_rgb_hex": "#d8c742",
+      "low_rgb_hex": "#988c2e",
+      "high_rgb_hex": "#d8c742",
+      "normal_rgb_hex": "#baab38",
       "zh_cn": "鹿角珊瑚块"
     },
     "tube_coral_block": {
@@ -8670,7 +14034,7 @@
         67,
         164
       ],
-      "center": [
+      "right_bottom": [
         33,
         67,
         164
@@ -8690,7 +14054,25 @@
         87,
         206
       ],
+      "low_rgb": [
+        34,
+        61,
+        145
+      ],
+      "high_rgb": [
+        49,
+        87,
+        206
+      ],
+      "normal_rgb": [
+        42,
+        75,
+        177
+      ],
       "average_rgb_hex": "#3157ce",
+      "low_rgb_hex": "#223d91",
+      "high_rgb_hex": "#3157ce",
+      "normal_rgb_hex": "#2a4bb1",
       "zh_cn": "管珊瑚块"
     },
     "dead_brain_coral_block": {
@@ -8699,7 +14081,7 @@
         90,
         89
       ],
-      "center": [
+      "right_bottom": [
         116,
         106,
         102
@@ -8719,7 +14101,25 @@
         117,
         114
       ],
+      "low_rgb": [
+        87,
+        82,
+        80
+      ],
+      "high_rgb": [
+        124,
+        117,
+        114
+      ],
+      "normal_rgb": [
+        106,
+        100,
+        98
+      ],
       "average_rgb_hex": "#7c7572",
+      "low_rgb_hex": "#575250",
+      "high_rgb_hex": "#7c7572",
+      "normal_rgb_hex": "#6a6462",
       "zh_cn": "失活的脑纹珊瑚块"
     },
     "dead_bubble_coral_block": {
@@ -8728,7 +14128,7 @@
         106,
         102
       ],
-      "center": [
+      "right_bottom": [
         153,
         147,
         141
@@ -8748,7 +14148,25 @@
         123,
         119
       ],
+      "low_rgb": [
+        92,
+        86,
+        84
+      ],
+      "high_rgb": [
+        131,
+        123,
+        119
+      ],
+      "normal_rgb": [
+        113,
+        106,
+        102
+      ],
       "average_rgb_hex": "#837b77",
+      "low_rgb_hex": "#5c5654",
+      "high_rgb_hex": "#837b77",
+      "normal_rgb_hex": "#716a66",
       "zh_cn": "失活的气泡珊瑚块"
     },
     "dead_fire_coral_block": {
@@ -8757,7 +14175,7 @@
         123,
         119
       ],
-      "center": [
+      "right_bottom": [
         134,
         123,
         119
@@ -8777,7 +14195,25 @@
         123,
         119
       ],
+      "low_rgb": [
+        92,
+        86,
+        84
+      ],
+      "high_rgb": [
+        131,
+        123,
+        119
+      ],
+      "normal_rgb": [
+        113,
+        106,
+        102
+      ],
       "average_rgb_hex": "#837b77",
+      "low_rgb_hex": "#5c5654",
+      "high_rgb_hex": "#837b77",
+      "normal_rgb_hex": "#716a66",
       "zh_cn": "失活的火珊瑚块"
     },
     "dead_horn_coral_block": {
@@ -8786,7 +14222,7 @@
         123,
         119
       ],
-      "center": [
+      "right_bottom": [
         104,
         100,
         99
@@ -8806,7 +14242,25 @@
         126,
         122
       ],
+      "low_rgb": [
+        93,
+        88,
+        86
+      ],
+      "high_rgb": [
+        133,
+        126,
+        122
+      ],
+      "normal_rgb": [
+        114,
+        108,
+        105
+      ],
       "average_rgb_hex": "#857e7a",
+      "low_rgb_hex": "#5d5856",
+      "high_rgb_hex": "#857e7a",
+      "normal_rgb_hex": "#726c69",
       "zh_cn": "失活的鹿角珊瑚块"
     },
     "dead_tube_coral_block": {
@@ -8815,7 +14269,7 @@
         100,
         99
       ],
-      "center": [
+      "right_bottom": [
         104,
         100,
         99
@@ -8835,7 +14289,25 @@
         123,
         119
       ],
+      "low_rgb": [
+        91,
+        86,
+        84
+      ],
+      "high_rgb": [
+        130,
+        123,
+        119
+      ],
+      "normal_rgb": [
+        112,
+        106,
+        102
+      ],
       "average_rgb_hex": "#827b77",
+      "low_rgb_hex": "#5b5654",
+      "high_rgb_hex": "#827b77",
+      "normal_rgb_hex": "#706a66",
       "zh_cn": "失活的管珊瑚块"
     }
   }

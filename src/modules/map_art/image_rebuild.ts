@@ -111,6 +111,7 @@ export class MapArtProcessor {
         rotation?: 0 | 90 | 180 | 270,
         useDithering: boolean = true,
         replaceAir: boolean = false,
+        threeD: boolean = false,
         axios?: 'x' | 'y' | 'z',
     ): Promise<boolean> {
         const resizedImage = await this.resizeImage(sourceImage, targetSize, rotation)
@@ -118,25 +119,36 @@ export class MapArtProcessor {
         const { data, width, height } = this.getImageData(resizedImage)
         const colorTable = this.createColorLookupTable()
         const processedData = useDithering
-            ? this.applyDithering(data, width, height, colorTable)
+            ? this.applyDithering(data, width, height, threeD, colorTable)
             : data
         const batchSize = 1000
         let blockList = new BlockStatePosList()
+        let minZ = Infinity
+        let maxZ = -Infinity
         for (let i = 0; i < width * height; i += batchSize) {
-            await this.processSchematic(i, Math.min(i + batchSize, width * height), {
+            let processSize = await this.processSchematic(i, Math.min(i + batchSize, width * height), {
                 data: processedData,
                 width,
                 height,
                 colorTable,
                 schematic_type,
                 sub_type,
+                threeD,
                 blockList,
                 axios,
                 base: {x: 0, y: 0, z: 0},
                 replaceAir
             })
+            console.log(processSize)
+            if (processSize.minZ < minZ){
+                minZ = processSize.minZ
+            }
+            if (processSize.maxZ > maxZ){
+                maxZ = processSize.maxZ
+            }
         }
-        let size = axios == 'x'? {width: 1, height: targetSize.height, length: targetSize.width} : axios == 'y'? {width: targetSize.width, height: 1, length: targetSize.height} : {width: targetSize.width, height: targetSize.height, length: 1}
+        let lastZ = maxZ - minZ
+        let size = axios == 'x'? {width: lastZ, height: targetSize.height, length: targetSize.width} : axios == 'y'? {width: targetSize.width, height: lastZ, length: targetSize.height} : {width: targetSize.width, height: targetSize.height, length: lastZ}
         return await createMapArt(
             blockList.elements,
             file_name,
@@ -164,7 +176,7 @@ export class MapArtProcessor {
         const blockImages = await loadBlockImages(selectedBlocks)
         const colorTable = this.createColorLookupTable()
         const processedData = useDithering
-            ? this.applyDithering(data, width, height, colorTable)
+            ? this.applyDithering(data, width, height, false, colorTable)
             : data
         let outputCanvas = document.createElement('canvas')
         outputCanvas.width = width * blockSize
@@ -344,6 +356,7 @@ export class MapArtProcessor {
             colorTable: Array<{ rgb: { r: number; g: number; b: number }, blockId: string }>
             schematic_type: number,
             sub_type: number,
+            threeD: boolean,
             blockList: BlockStatePosList
             axios?: 'x' | 'y' | 'z',
             base?: { x: number; y: number; z: number },
@@ -360,11 +373,13 @@ export class MapArtProcessor {
             flipX = false,
             flipY = false
         } = context;
-
+        let maxZ = -Infinity
+        let minZ = Infinity
+        let lastZ = base.z;
         for (let i = start; i < end; i++) {
             const rawX = i % width;
             const rawY = Math.floor(i / width);
-
+            if (rawX == 0) lastZ = base.z;
             let imageX = rawX, imageY = rawY;
             switch(axios.toLowerCase()) {
                 case 'x':
@@ -381,6 +396,7 @@ export class MapArtProcessor {
             imageY = flipY ? height - imageY - 1 : imageY;
 
             let x3d: number, y3d: number, z3d: number;
+
             switch(axios.toLowerCase()) {
                 case 'x':
                     x3d = base.x;
@@ -404,8 +420,38 @@ export class MapArtProcessor {
 
             let minDistance = Infinity;
             let closestBlockId = '';
-            if (context[index + 3] == 0 && context.replaceAir){
-                closestBlockId = 'air';
+            if (context.data[index + 3] === 0 && context.replaceAir) {
+                context.blockList.addBlockByPos(x3d, y3d, z3d, 'air');
+                continue;
+            }
+            const threeDLayers = [
+                { brightness: 255, zOffset: 1 },
+                { brightness: 180, zOffset: -1 },
+                { brightness: 220, zOffset: 0 }
+
+            ];
+            let tempZ = 0
+            if(context.threeD){
+                for (const layer of threeDLayers) {
+                    for (const entry of context.colorTable) {
+                        const adjustedColor = {
+                            r: Math.round(entry.rgb.r * (layer.brightness / 255)),
+                            g: Math.round(entry.rgb.g * (layer.brightness / 255)),
+                            b: Math.round(entry.rgb.b * (layer.brightness / 255))
+                        };
+                        const distance = colorDistance(
+                            r, g, b,
+                            adjustedColor.r,
+                            adjustedColor.g,
+                            adjustedColor.b
+                        );
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            closestBlockId = entry.blockId;
+                            tempZ = layer.zOffset;
+                        }
+                    }
+                }
             }else {
                 for (const entry of context.colorTable) {
                     const distance = colorDistance(r, g, b, entry.rgb.r, entry.rgb.g, entry.rgb.b);
@@ -415,15 +461,28 @@ export class MapArtProcessor {
                     }
                 }
             }
+            lastZ = lastZ + tempZ;
+            if (lastZ < minZ){
+                minZ = lastZ
+            }
+            if (lastZ > maxZ){
+                maxZ = lastZ
+            }
             if (closestBlockId) {
-                context.blockList.addBlockByPos(
-                    x3d,
-                    y3d,
-                    z3d,
-                    closestBlockId
-                );
+                switch(axios.toLowerCase()) {
+                    case 'x':
+                        context.blockList.addBlockByPos(lastZ, y3d, z3d, closestBlockId);
+                        break;
+                    case 'y':
+                        context.blockList.addBlockByPos(x3d, lastZ, z3d, closestBlockId);
+                        break;
+                    case 'z':
+                        context.blockList.addBlockByPos(x3d, y3d, lastZ, closestBlockId);
+                        break;
+                }
             }
         }
+        return({minZ, maxZ})
     }
     private async processBatch(
         start: number,
@@ -491,6 +550,7 @@ export class MapArtProcessor {
         data: Uint8ClampedArray,
         width: number,
         height: number,
+        threeD: boolean = false,
         colorTable: Array<{ rgb: { r: number; g: number; b: number }, blockId: string }>
     ): Uint8ClampedArray {
         const buffer = new Uint8ClampedArray(data)
@@ -503,7 +563,7 @@ export class MapArtProcessor {
                 const oldG = buffer[idx + 1]
                 const oldB = buffer[idx + 2]
 
-                const nearest = this.findNearestColor(oldR, oldG, oldB, colorTable)
+                const nearest = this.findNearestColor(oldR, oldG, oldB, threeD, colorTable)
 
                 buffer[idx] = nearest.r
                 buffer[idx + 1] = nearest.g
@@ -548,27 +608,60 @@ export class MapArtProcessor {
         r: number,
         g: number,
         b: number,
+        threeD: boolean = false,
         colorTable: Array<{ rgb: { r: number; g: number; b: number }, blockId: string }>
     ): { r: number; g: number; b: number; blockId: string } {
         let minDistance = Infinity
-        let nearestEntry = colorTable[0]
+        let nearestEntry:{ r: number; g: number; b: number }
+        let blockId :string
+        const threeDLayers = [
+            { brightness: 255 },
+            { brightness: 180 },
+            { brightness: 220 }
 
-        for (const entry of colorTable) {
-            const distance = this.colorDistance(
-                r, g, b,
-                entry.rgb.r, entry.rgb.g, entry.rgb.b
-            )
-            if (distance < minDistance) {
-                minDistance = distance
-                nearestEntry = entry
+        ];
+        if (threeD){
+            threeDLayers.forEach(layer => {
+                for (const entry of colorTable) {
+                    const adjustedColor = {
+                        r: Math.round(entry.rgb.r * (layer.brightness / 255)),
+                        g: Math.round(entry.rgb.g * (layer.brightness / 255)),
+                        b: Math.round(entry.rgb.b * (layer.brightness / 255))
+                    };
+                    const distance = this.colorDistance(
+                        r, g, b,
+                        adjustedColor.r, adjustedColor.g, adjustedColor.b
+                    )
+                    if (distance < minDistance) {
+                        minDistance = distance
+                        nearestEntry = adjustedColor
+                        blockId = entry.blockId
+                    }
+                }
+            })
+        }else {
+            for (const entry of colorTable) {
+                const distance = this.colorDistance(
+                    r, g, b,
+                    entry.rgb.r, entry.rgb.g, entry.rgb.b
+                )
+                if (distance < minDistance) {
+                    minDistance = distance
+                    nearestEntry = {
+                        r: entry.rgb.r,
+                        g: entry.rgb.g,
+                        b: entry.rgb.b,
+                    }
+                    blockId = entry.blockId
+                }
             }
         }
 
         return {
-            r: nearestEntry.rgb.r,
-            g: nearestEntry.rgb.g,
-            b: nearestEntry.rgb.b,
-            blockId: nearestEntry.blockId
+            r: nearestEntry.r,
+            g: nearestEntry.g,
+            b: nearestEntry.b,
+            blockId: blockId
         }
     }
 

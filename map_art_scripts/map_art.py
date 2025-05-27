@@ -19,7 +19,7 @@ def get_image_color_data(image_path):
 
     sample_points = {
         "left_top": (width // 4, height // 4),
-        "center": (width // 2, height // 2),
+        "right_bottom": (width // 2, height // 2),
         "right_top": (3 * width // 4, height // 4),
         "left_bottom": (width // 4, 3 * height // 4)
     }
@@ -39,9 +39,30 @@ def get_image_color_data(image_path):
         total_g // len(pixels),
         total_b // len(pixels)
     )
+    low_rgb = (
+        int(avg_rgb[0] * 180/255),
+        int(avg_rgb[1] * 180/255),
+        int(avg_rgb[2] * 180/255)
+    )
+    normal_rgb = (
+        int(avg_rgb[0] * 220 / 255),
+        int(avg_rgb[1] * 220 / 255),
+        int(avg_rgb[2] * 220 / 255)
+    )
+    high_rgb = (
+        int(avg_rgb[0] * 255 / 255),
+        int(avg_rgb[1] * 255 / 255),
+        int(avg_rgb[2] * 255 / 255)
+    )
 
     color_data["average_rgb"] = list(avg_rgb)
+    color_data["low_rgb"] = list(low_rgb)
+    color_data["high_rgb"] = list(high_rgb)
+    color_data["normal_rgb"] = list(normal_rgb)
     color_data["average_rgb_hex"] = rgb_to_hex(avg_rgb)
+    color_data["low_rgb_hex"] = rgb_to_hex(low_rgb)
+    color_data["high_rgb_hex"] = rgb_to_hex(high_rgb)
+    color_data["normal_rgb_hex"] = rgb_to_hex(normal_rgb)
     return color_data
 
 

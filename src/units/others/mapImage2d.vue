@@ -62,11 +62,13 @@ const previewCanvas = ref<HTMLCanvasElement | null>(null)
 const resize = ref(1)
 const isProcessing = ref(false)
 const exportLoading = ref(false)
+const exportImageLoading = ref(false)
 const dialog = ref(false)
 const selectedBlocks = ref<string[]>([]);
 const expandedCategories = ref<string[]>([])
 const imageBuild = ref<MapArtProcessor>();
 const mapImg = ref<File>();
+const finallyImage = ref<HTMLCanvasElement>()
 const previewImage = ref<string>("");
 const blocksLoaded = ref(false);
 const toggleBlock = (blockId: string) => {
@@ -124,6 +126,7 @@ const refreshImage = async () => {
     hasImage.value = true
     imageBuild.value.updateBlocksData(selectedBlocks.value)
     const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, replaceAir.value, exportSettings.targetRotation as 0 | 90 | 180| 270);
+    finallyImage.value = resultCanvas
     const ctx = previewCanvas.value.getContext('2d')
     if (!ctx) return
 
@@ -153,6 +156,7 @@ const uploadImage = async(file: File | undefined) => {
     imageBuild.value.updateBlocksData(selectedBlocks.value)
     await updateSize()
     const resultCanvas = await imageBuild.value.generatePixelArt(image_data.value.image, 16, {width: exportSettings.width, height:exportSettings.height}, exportSettings.dithering, replaceAir.value, exportSettings.targetRotation as 0 | 90 | 180| 270);
+    finallyImage.value = resultCanvas
     const ctx = previewCanvas.value.getContext('2d')
     if (!ctx) return
 
@@ -186,6 +190,7 @@ const exportSchematicData = async() => {
         exportSettings.targetRotation as 0 | 90 | 180| 270,
         exportSettings.dithering,
         replaceAir.value,
+        true,
         exportSettings.axios as 'x' | 'y' | 'z'
     )
     if (result){
@@ -201,7 +206,25 @@ const exportSchematicData = async() => {
   }finally {
     exportLoading.value = false
   }
+}
 
+const exportImage = async() => {
+  exportImageLoading.value = true
+  try {
+    let canvas = finallyImage.value
+    const dataUrl = canvas.toDataURL('image/png');
+
+    const link = document.createElement('a');
+    link.download = 'result.png';
+    link.href = dataUrl;
+    link.click();
+  }catch (err) {
+    toast.error(`导出失败:${err}`, {
+      timeout: 3000
+    });
+  }finally {
+    exportImageLoading.value = false
+  }
 }
 onMounted(async () => {
   setTimeout(() => {
@@ -436,7 +459,18 @@ onBeforeMount(async() => {
           @click="dialog = true;"
       >
         <v-icon left>mdi-download</v-icon>
-        导出
+        导出蓝图
+      </v-btn>
+      <v-btn
+          :disabled="!hasImage"
+          variant="outlined"
+          block
+          color="green"
+          :loading="exportImageLoading"
+          @click="exportImage"
+      >
+        <v-icon left>mdi-download</v-icon>
+        导出图片
       </v-btn>
       <v-card v-if="blocksLoaded">
         <v-toolbar density="compact">
