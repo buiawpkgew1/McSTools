@@ -76,7 +76,6 @@ fn test_create_schematic() -> Result<(), SchematicError> {
     );
     Ok(())
 }
-
 #[test]
 fn bg_schematic_write() -> Result<(), SchematicError> {
     let mut sys = System::new_all();
@@ -109,7 +108,6 @@ fn bg_schematic_write() -> Result<(), SchematicError> {
     );
     Ok(())
 }
-
 #[test]
 fn lm_schematic_write() -> Result<(), SchematicError> {
     let mut sys = System::new_all();
@@ -139,7 +137,6 @@ fn lm_schematic_write() -> Result<(), SchematicError> {
     );
     Ok(())
 }
-
 #[test]
 fn lm_big_schematic_write() -> Result<(), SchematicError> {
     let mut sys = System::new_all();

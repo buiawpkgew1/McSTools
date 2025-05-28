@@ -12,14 +12,13 @@ import toolsSchematic from '../units/tools/toolsSchematic.vue';
 import toolsHistory from '../units/tools/toolsHistory.vue'
 import toolsSplit from '../units/tools/toolsSplit.vue';
 import {
-    schematic_id,
-    fetch_data,
-    schematicData,
-    schematicRequirements,
-    schematicStr,
-    convertData,
-    uniqueBlocks,
-    historyRecordData
+  schematic_id,
+  fetch_data,
+  schematicData,
+  schematicRequirements,
+  convertData,
+  uniqueBlocks,
+  historyRecordData
 } from "../modules/tools_data.ts"
 import {opacity} from "../modules/theme.ts";
 const active = ref(0)
@@ -30,6 +29,7 @@ onMounted(async() => {
         await fetch_data(schematic_id.value)
     }
 })
+
 </script>
 
 <template class="page-wrapper">
@@ -63,7 +63,11 @@ onMounted(async() => {
 
           <v-divider vertical inset class="mx-4"/>
 
-          <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1" :disabled="schematic_id == undefined">
+          <v-tabs v-model="active"
+                  align-tabs="center"
+                  color="blue-lighten-1"
+                  :disabled="schematic_id == undefined"
+          >
             <v-tab value="schematic">蓝图详情</v-tab>
             <v-tab value="history">版本管理</v-tab>
             <v-tab value="split">蓝图分割</v-tab>
@@ -92,8 +96,8 @@ onMounted(async() => {
           <v-window-item value="convert">
             <toolsConvert :data="convertData"/>
           </v-window-item>
-          <v-window-item value="data">
-            <toolsData :data="schematicStr"/>
+          <v-window-item value="data" >
+            <toolsData/>
           </v-window-item>
           <v-window-item value="stats">
             <toolsStats :data="schematicRequirements"/>

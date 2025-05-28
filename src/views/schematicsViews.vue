@@ -7,6 +7,7 @@ import WebData from "../units/schematics/webData.vue";
 import MCS from "../static/img/fav512.png"
 import CMS from "../static/img/CMS.png"
 import {selectedSite} from "../modules/web_schematic/web_data.ts";
+
 const active = ref()
 const siteOptions = [
   {
@@ -72,9 +73,17 @@ onBeforeRouteLeave(navigationGuard)
           <v-spacer/>
 
           <div class="d-flex align-center">
-            <v-tabs v-model="active" color="blue-lighten-1" slider-color="blue-darken-2">
-              <v-tab value="local">本地蓝图</v-tab>
-              <v-tab value="web">网络蓝图</v-tab>
+            <v-tabs
+                v-model="active"
+                color="blue-lighten-1"
+                slider-color="blue-darken-2"
+            >
+              <v-tab
+                  value="local"
+              >本地蓝图</v-tab>
+              <v-tab
+                  value="web"
+              >网络蓝图</v-tab>
             </v-tabs>
             <v-btn
                 variant="text"

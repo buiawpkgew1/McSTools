@@ -14,6 +14,7 @@ import lmImg from "../../static/img/Litematica.jpg";
 import bgImg from "../../static/img/bg.jpg";
 import weImg from "../../static/img/wordEdit.png";
 import beImg from "../../static/img/grass_block.png";
+import {selectLoading} from "../../modules/others.ts";
 const router = useRouter()
 const autoPage = ref(1)
 const showDeleteDialog = ref(false)
@@ -34,10 +35,18 @@ const IMAGE_MAPPING: Record<number, string> = {
   5: beImg
 };
 const selectSchematic = async(id: number) => {
-  clear_tools()
-  await fetch_data(id)
-  await router.push("/tools")
-  activeTab.value = 'tools'
+  try{
+    selectLoading.value = true
+    clear_tools()
+    await fetch_data(id)
+    await router.push("/tools")
+    activeTab.value = 'tools'
+  }catch (e){
+    console.log(e)
+  }finally {
+    selectLoading.value = false
+  }
+
 }
 interface LoadParams {
   done: (status: 'ok' | 'error' | 'empty') => void
@@ -223,6 +232,7 @@ const formatTime = (time: any) => {
                   icon="mdi-pencil"
                   density="comfortable"
                   @click="selectSchematic(bp.id)"
+                  :loading="selectLoading"
               ></v-btn>
               <v-btn
                   variant="text"

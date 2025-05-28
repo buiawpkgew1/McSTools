@@ -30,7 +30,6 @@ export const fetch_data = async (id: number) => {
     schematicData.value = await fetchSchematic(id)
     convertData.value = await fetchConvertData(id)
     schematicRequirements.value = await fetchRequirementsWithStats(id)
-    schematicStr.value = await fetchSchematicStr(id)
     uniqueBlocks.value = await fetchUniqueBlocks(id)
     historyRecordData.value = await fetchHistoryRecord(id)
     console.log(historyRecordData.value)

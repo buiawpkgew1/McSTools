@@ -25,6 +25,7 @@
     "@vueuse/core": "13.1.0",
     "axios": "1.9.0",
     "dayjs": "1.11.13",
+    "deepslate": "^0.23.6",
     "echarts": "5.6.0",
     "prismarine-nbt": "2.7.0",
     "vite-plugin-vuetify": "2.1.1",

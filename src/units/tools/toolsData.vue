@@ -1,31 +1,32 @@
 <script setup lang="ts">
 import VueJsonPretty from "vue-json-pretty";
-import {defineProps, onMounted, onUnmounted, ref, shallowRef} from "vue";
+import {onMounted, onUnmounted, ref, shallowRef} from "vue";
 import {cleanLargeSNBT} from "../../modules/snbt_to_json.ts";
-const props = defineProps<{
-  data: string | undefined;
-}>();
-
+import {fetchSchematicStr, schematic_id} from "../../modules/tools_data.ts";
+import {toast} from "../../modules/others.ts";
 
 const json_data = shallowRef<string | undefined>()
 const isJson = ref(false)
 const isLoading = ref(false);
-const collapsedDepth = ref(2);
-
-const processData = async () => {
-  isLoading.value = true;
-  if (props.data != undefined){
-    try {
-      json_data.value = JSON.parse(cleanLargeSNBT(props.data))
-      isJson.value = true;
-    }finally {
-      isLoading.value = false;
-    }
+const collapsedDepth = ref(1);
+const data = ref()
+const get_schematicStr = async (id: number) => {
+  try {
+    isLoading.value = true
+    data.value = await fetchSchematicStr(id)
+    json_data.value = JSON.parse(cleanLargeSNBT(data.value))
+    isJson.value = true;
+  }catch (e){
+    toast.error(`源数据读取失败:${e}`, {
+      timeout: 3000
+    });
+  }finally {
+    isLoading.value = false
   }
 
-};
+}
 onMounted(async()=>{
-  await processData()
+  await get_schematicStr(schematic_id.value)
 })
 onUnmounted(async()=>{
   json_data.value = undefined
@@ -55,7 +56,7 @@ onUnmounted(async()=>{
       />
       <vue-json-pretty
           v-else
-          :data="props.data"
+          :data="data"
           :height="800"
           :item-height="24"
           virtual
