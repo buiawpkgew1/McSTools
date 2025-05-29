@@ -15,7 +15,7 @@ use crate::modules::modules_data::convert_data::get_unique_block_str;
 use crate::utils::minecraft_data::je_blocks_data::BlocksData;
 use crate::utils::minecraft_data::versions_data::VersionData;
 use crate::utils::requirements::{get_requirements, RequirementStr};
-use crate::utils::schematic_data::SchematicError;
+use crate::utils::schematic_data::{SchematicData, SchematicError};
 use crate::word_edit::we_schematic::WeSchematic;
 use anyhow::Result;
 use chrono::{DateTime, Local, NaiveDateTime};
@@ -503,7 +503,7 @@ pub async fn encode_uploaded_schematic(
 }
 
 #[tauri::command]
-pub async fn get_schematic_data(
+pub async fn get_schematic_str(
     db: State<'_, DatabaseState>,
     file_manager: State<'_, FileManager>,
     id: i64,
@@ -519,6 +519,25 @@ pub async fn get_schematic_data(
     }
     .await
     .map_err(|e: anyhow::Error| e.to_string())
+}
+
+#[tauri::command]
+pub async fn get_schematic_data(
+    db: State<'_, DatabaseState>,
+    file_manager: State<'_, FileManager>,
+    id: i64,
+) -> Result<SchematicData, String> {
+    async move {
+        let mut conn = db.0.get()?;
+        let schematic = find_schematic(&mut conn, id)?;
+        let version = schematic.version;
+        let sub_version = schematic.sub_type;
+        let v_type = schematic.schematic_type;
+        let data = file_manager.get_schematic_data(id, version, sub_version, v_type)?;
+        Ok(data)
+    }
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())
 }
 
 #[tauri::command]

@@ -129,6 +129,7 @@ import {
   updateProgress,
   checkUpdate
 } from "./modules/chuck_update.ts";
+import {resources_Init} from "./modules/deepslateInit.ts";
 const selectedTheme = ref('grey')
 const autoUpdateEnabled = ref(true);
 const backgroundStyle = ref({
@@ -199,6 +200,7 @@ onMounted(async () => {
   appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
   mapArtData.value = await fetchMapArtsData()
+  await resources_Init()
 })
 
 watchEffect(() => {

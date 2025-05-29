@@ -17,14 +17,12 @@ export interface SchematicsData {
     updated_at: string,
     game_version: string
 }
-
 export let schematicTypeList = {
     1: "香草结构",
     2: "投影蓝图",
     3: "创世神",
     4: "建筑小帮手",
 }
-
 export let schematicTypeListWeb = {
     0: "香草结构",
     1: "投影蓝图",
@@ -33,19 +31,16 @@ export let schematicTypeListWeb = {
     4: "MC BE",
 
 }
-
 interface PaginatedResult<T> {
     data: T[];
     page: number;
     page_size: number;
 }
-
 export interface SchematicsParams {
     filter?: string;
     page?: number;
     page_size?: number;
 }
-
 export const fetchSchematics = async (
     params: SchematicsParams
 ): Promise<PaginatedResult<SchematicsData>> => {
@@ -71,7 +66,6 @@ export const fetchSchematics = async (
         throw new Error(`获取原理图失败: ${error}`);
     }
 }
-
 export const fetchSchematic = async (
     id: number
 ): Promise<SchematicsData> => {

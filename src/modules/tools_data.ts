@@ -56,12 +56,11 @@ export async function fetchSchematicStr(
     schematicId: number
 ): Promise<string> {
     try {
-        return await invoke<string>('get_schematic_data', {id: schematicId})
+        return await invoke<string>('get_schematic_str', {id: schematicId})
     } catch (error) {
         toast.error(`发生了一个错误:${error}`, {
             timeout: 3000
         });
         throw new Error(`err: ${error}`);
     }
-
 }

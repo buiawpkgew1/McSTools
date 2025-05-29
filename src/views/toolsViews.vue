@@ -11,6 +11,8 @@ import toolsData from '../units/tools/toolsData.vue';
 import toolsSchematic from '../units/tools/toolsSchematic.vue';
 import toolsHistory from '../units/tools/toolsHistory.vue'
 import toolsSplit from '../units/tools/toolsSplit.vue';
+import ToolsThreeD from "../units/tools/toolsThreeD.vue";
+
 import {
   schematic_id,
   fetch_data,
@@ -75,6 +77,7 @@ onMounted(async() => {
             <v-tab value="convert">蓝图转换</v-tab>
             <v-tab value="data">源数据查看</v-tab>
             <v-tab value="stats">材料统计</v-tab>
+            <v-tab value="threeD">结构预览</v-tab>
           </v-tabs>
         </v-toolbar>
         <v-window v-model="active">
@@ -101,6 +104,9 @@ onMounted(async() => {
           </v-window-item>
           <v-window-item value="stats">
             <toolsStats :data="schematicRequirements"/>
+          </v-window-item>
+          <v-window-item value="threeD">
+            <tools-three-d />
           </v-window-item>
         </v-window>
       </v-card>

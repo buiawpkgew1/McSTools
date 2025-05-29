@@ -11,7 +11,6 @@ use std::collections::{BTreeMap, HashMap};
 use std::fs::File;
 use std::io::{BufReader, Cursor};
 use std::sync::Arc;
-use tauri::http::Version;
 
 #[derive(Debug)]
 pub struct LmSchematic {

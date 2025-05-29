@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "MCS",
+        "title": "MCS(beta)",
         "width": 1400,
         "height": 750,
         "minWidth": 1000,

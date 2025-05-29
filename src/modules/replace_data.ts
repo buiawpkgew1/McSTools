@@ -14,6 +14,12 @@ export interface BlockData  {
     properties: Record<string, string>;
 }
 
+
+export interface BlockPos {
+    x: number,
+    y: number,
+    z: number,
+}
 export async function fetchUniqueBlocks(
     schematicId: number
 ): Promise<BlockData[]> {

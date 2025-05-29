@@ -26,8 +26,8 @@ use modules::map_art::create_map_art;
 use modules::modules_data;
 use modules::replace::schematic_replacement;
 use modules::schematic::{
-    copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_data,
-    update_schematic_name_description,
+    copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_str,
+    update_schematic_name_description, get_schematic_data
 };
 use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
@@ -87,6 +87,7 @@ pub fn run() {
             get_schematics,
             get_schematic_requirements,
             get_unique_block,
+            get_schematic_str,
             get_schematic_data,
             get_schematic_convert_data
         ])
