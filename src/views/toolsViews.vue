@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue'
+import {onMounted} from 'vue'
 import {onBeforeRouteLeave, useRouter} from "vue-router";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import { activeTab } from "../modules/layout.ts"
