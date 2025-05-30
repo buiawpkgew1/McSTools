@@ -1,4 +1,5 @@
 import {mat4} from 'gl-matrix'
+
 import {
     BlockDefinition,
     BlockModel,
@@ -12,7 +13,14 @@ import {
     upperPowerOfTwo
 } from "deepslate";
 import {ref} from "vue";
-
+const jsonModules = import.meta.glob([
+    '../static/item/data.min.json',
+    '../assets/block_definition/data.min.json',
+    '../assets/model/data.min.json',
+    '../assets/item_definition/data.min.json',
+    '../assets/item_components/data.min.json',
+    '../assets/atlas/data.min.json'
+], { eager: true, import: 'default' })
 export const blocks_resources = ref<Resources & ItemRendererResources>()
 export interface CameraState {
     xRotation: number
@@ -75,19 +83,18 @@ export class InteractiveCanvas {
         if (this.center) {
             mat4.translate(view, view, [-this.center[0], -this.center[1], -this.center[2]])
         }
-
         this.onRender(view)
     }
 }
 
 export const resources_Init = async () => {
     await Promise.all([
-        fetch(new URL(`../static/item/data.min.json`, import.meta.url).href).then(r => r.json()),
-        fetch(new URL(`../assets/block_definition/data.min.json`, import.meta.url).href).then(r => r.json()),
-        fetch(new URL(`../assets/model/data.min.json`, import.meta.url).href).then(r => r.json()),
-        fetch(new URL(`../assets/item_definition/data.min.json`, import.meta.url).href).then(r => r.json()),
-        fetch(new URL(`../assets/item_components/data.min.json`, import.meta.url).href).then(r => r.json()),
-        fetch(new URL(`../assets/atlas/data.min.json`, import.meta.url).href).then(r => r.json()),
+        jsonModules['../static/item/data.min.json'],
+        jsonModules[`../assets/block_definition/data.min.json`],
+        jsonModules[`../assets/model/data.min.json`],
+        jsonModules[`../assets/item_definition/data.min.json`],
+        jsonModules[`../assets/item_components/data.min.json`],
+        jsonModules[`../assets/atlas/data.min.json`],
         new Promise<HTMLImageElement>(res => {
             const image = new Image()
             image.onload = () => res(image)
@@ -157,7 +164,7 @@ export const resources_Init = async () => {
                 return null
             },
             getDefaultBlockProperties() {
-                return null
+                return {}
             },
             getItemModel(id) {
                 return itemModels[id.toString()]

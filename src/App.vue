@@ -130,6 +130,7 @@ import {
   checkUpdate
 } from "./modules/chuck_update.ts";
 import {resources_Init} from "./modules/deepslateInit.ts";
+import {toast} from "./modules/others.ts";
 const selectedTheme = ref('grey')
 const autoUpdateEnabled = ref(true);
 const backgroundStyle = ref({
@@ -194,13 +195,19 @@ onMounted(async () => {
   await initTheme()
   await invoke("close_splashscreen")
   await fetchUserData()
-  if (autoUpdateEnabled.value){
-    await checkUpdate(true)
-  }
+
   appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
   mapArtData.value = await fetchMapArtsData()
-  await resources_Init()
+  try{
+    await resources_Init()
+  }catch (e) {
+    toast.error(`资源加载失败:${e}`, {timeout: 3000})
+  }
+
+  if (autoUpdateEnabled.value){
+    await checkUpdate(true)
+  }
 })
 
 watchEffect(() => {

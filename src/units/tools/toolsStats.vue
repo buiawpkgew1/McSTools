@@ -172,6 +172,14 @@ onBeforeUnmount(() => {
           >
             {{ item.count }}
           </v-chip>
+          <v-chip
+              variant="outlined"
+              color="indigo-darken-2"
+              size="small"
+          >
+            <v-icon start icon="mdi-cube"></v-icon>
+            {{ `${Math.floor(item.count / 64)} / ${item.count % 64}` }}
+          </v-chip>
         </td>
 
         <td class="text-right" style="width: 35%">

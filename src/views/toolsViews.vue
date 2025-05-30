@@ -20,10 +20,9 @@ import {
   schematicRequirements,
   convertData,
   uniqueBlocks,
-  historyRecordData
+  historyRecordData, activeTools
 } from "../modules/tools_data.ts"
 import {opacity} from "../modules/theme.ts";
-const active = ref(0)
 const router = useRouter()
 onBeforeRouteLeave(navigationGuard)
 onMounted(async() => {
@@ -65,7 +64,7 @@ onMounted(async() => {
 
           <v-divider vertical inset class="mx-4"/>
 
-          <v-tabs v-model="active"
+          <v-tabs v-model="activeTools"
                   align-tabs="center"
                   color="blue-lighten-1"
                   :disabled="schematic_id == undefined"
@@ -80,7 +79,7 @@ onMounted(async() => {
             <v-tab value="threeD">结构预览</v-tab>
           </v-tabs>
         </v-toolbar>
-        <v-window v-model="active">
+        <v-window v-model="activeTools">
           <v-window-item value="schematic">
             <toolsSchematic :data="schematicData"/>
           </v-window-item>

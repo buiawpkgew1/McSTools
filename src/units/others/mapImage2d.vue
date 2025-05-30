@@ -249,6 +249,7 @@ const cleanImage = async() => {
 }
 onBeforeMount(async() => {
   await cleanImage()
+  imageBuild.value = undefined
 })
 
 </script>

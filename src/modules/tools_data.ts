@@ -14,7 +14,7 @@ export let schematicRequirements = ref<RequirementStatistics | undefined>();
 export let schematicStr = ref<string | undefined>();
 export let uniqueBlocks = ref<BlockData[] | undefined>();
 export let historyRecordData = ref<HistoryRecordData | undefined>();
-
+export const activeTools = ref()
 export const clear_tools = () =>{
     schematic_id.value = undefined
     schematicData.value = undefined

@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import VueJsonPretty from "vue-json-pretty";
-import {onMounted, onUnmounted, ref, shallowRef} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 import {cleanLargeSNBT} from "../../modules/snbt_to_json.ts";
 import {fetchSchematicStr, schematic_id} from "../../modules/tools_data.ts";
 import {toast} from "../../modules/others.ts";
-
-const json_data = shallowRef<string | undefined>()
+import {data, json_data} from "../../modules/toolsData_data.ts"
 const isJson = ref(false)
 const isLoading = ref(false);
 const collapsedDepth = ref(1);
-const data = ref()
+
 const get_schematicStr = async (id: number) => {
   try {
     isLoading.value = true
