@@ -70,6 +70,7 @@ const imageBuild = ref<MapArtProcessor>();
 const mapImg = ref<File>();
 const finallyImage = ref<HTMLCanvasElement>()
 const threeD = ref<boolean>()
+const maxZ = ref(60)
 const previewImage = ref<string>("");
 const blocksLoaded = ref(false);
 const toggleBlock = (blockId: string) => {
@@ -192,6 +193,7 @@ const exportSchematicData = async() => {
         exportSettings.dithering,
         replaceAir.value,
         threeD.value,
+        maxZ.value,
         exportSettings.axios as 'x' | 'y' | 'z'
     )
     if (result){
@@ -689,12 +691,18 @@ onBeforeMount(async() => {
               </template>
             </v-switch>
           </v-col>
+
+          <v-col  cols="12" class="d-flex align-center justify-center gap-2" style="padding: 0 !important;">
+            <v-number-input :disabled="!threeD" v-model="maxZ" :precision="0" hide-details="auto"></v-number-input>
+            <code class="d-block pt-3">立体最大高度: {{ maxZ }}</code>
+          </v-col>
         </v-row>
       </v-card-text>
       <template v-slot:actions>
         <v-spacer/>
         <v-btn @click="dialog = false">取消</v-btn>
         <v-btn
+            :disabled="schematicType == null"
             class="ms-auto"
             text="确认导出"
             color="primary"

@@ -240,3 +240,4 @@ watchEffect(() => {
 <style lang="scss" src="./assets/css/main.scss"></style>
 <style lang="css" src="./assets/css/card.css"></style>
 <style lang="css" src="./assets/css/views.css"></style>
+<style lang="css" src="./assets/css/loading.css"></style>

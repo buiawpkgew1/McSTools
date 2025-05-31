@@ -112,6 +112,7 @@ export class MapArtProcessor {
         useDithering: boolean = true,
         replaceAir: boolean = false,
         threeD: boolean = false,
+        createMaxZ: number = 1000,
         axios?: 'x' | 'y' | 'z',
     ): Promise<boolean> {
         const resizedImage = await this.resizeImage(sourceImage, targetSize, rotation)
@@ -121,32 +122,30 @@ export class MapArtProcessor {
         const processedData = useDithering
             ? this.applyDithering(data, width, height, threeD, colorTable)
             : data
-        const batchSize = 10000000
         let blockList = new BlockStatePosList()
         let minZ = Infinity
         let maxZ = -Infinity
-        for (let i = 0; i < width * height; i += batchSize) {
-            let processSize = await this.processSchematic(i, Math.min(i + batchSize, width * height), {
-                data: processedData,
-                width,
-                height,
-                colorTable,
-                schematic_type,
-                sub_type,
-                threeD,
-                blockList,
-                axios,
-                base: {x: 0, y: 0, z: 0},
-                replaceAir
-            })
-            if (processSize.minZ < minZ){
-                minZ = processSize.minZ
-            }
-            if (processSize.maxZ > maxZ){
-                maxZ = processSize.maxZ
-            }
+        let processSize = await this.processSchematic({
+            data: processedData,
+            width,
+            height,
+            colorTable,
+            schematic_type,
+            sub_type,
+            threeD,
+            maxZ: createMaxZ,
+            blockList,
+            axios,
+            base: {x: 0, y: 0, z: 0},
+            replaceAir
+        })
+        if (processSize.minZ < minZ){
+            minZ = processSize.minZ
         }
-        let lastZ = maxZ - minZ
+        if (processSize.maxZ > maxZ){
+            maxZ = processSize.maxZ
+        }
+        let lastZ = maxZ - minZ + 1
         let size = axios == 'x'? {width: lastZ, height: targetSize.height, length: targetSize.width} : axios == 'y'? {width: targetSize.width, height: lastZ, length: targetSize.height} : {width: targetSize.width, height: targetSize.height, length: lastZ}
         return await createMapArt(
             blockList.elements,
@@ -346,8 +345,6 @@ export class MapArtProcessor {
     }
 
     private async processSchematic(
-        start: number,
-        end: number,
         context: {
             data: Uint8ClampedArray
             width: number
@@ -356,6 +353,7 @@ export class MapArtProcessor {
             schematic_type: number,
             sub_type: number,
             threeD: boolean,
+            maxZ: number,
             blockList: BlockStatePosList
             axios?: 'x' | 'y' | 'z',
             base?: { x: number; y: number; z: number },
@@ -372,7 +370,6 @@ export class MapArtProcessor {
             flipX = false,
             flipY = false
         } = context;
-        console.log(start, end)
         let maxZ = -Infinity
         let minZ = Infinity
         let lastZ = base.z;
@@ -462,12 +459,17 @@ export class MapArtProcessor {
                     }
                 }
                 lastZ = lastZ + tempZ;
+                if(context.threeD){
+                    if (lastZ >= context.maxZ) lastZ = 0;
+                    if (lastZ <= -context.maxZ) lastZ = 0;
+                }
                 if (lastZ < minZ){
                     minZ = lastZ
                 }
                 if (lastZ > maxZ){
                     maxZ = lastZ
                 }
+
                 if (closestBlockId) {
                     switch(axios.toLowerCase()) {
                         case 'x':

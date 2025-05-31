@@ -13,7 +13,7 @@ const get_schematicStr = async (id: number) => {
   try {
     isLoading.value = true
     data.value = await fetchSchematicStr(id)
-    json_data.value = JSON.parse(cleanLargeSNBT(data.value))
+    json_data.value = await JSON.parse(cleanLargeSNBT(data.value))
     isJson.value = true;
   }catch (e){
     toast.error(`源数据读取失败:${e}`, {
@@ -35,12 +35,11 @@ onUnmounted(async()=>{
 
 <template>
   <div class="data-container">
-    <div v-if="isLoading" class="loader-container">
-      <v-progress-circular
-          indeterminate
-          color="primary"
-          size="64"
-      ></v-progress-circular>
+    <div v-if="isLoading" class="loading-overlay">
+      <div class="loader">
+        <div class="spinner"></div>
+        <p>加载结构中...</p>
+      </div>
     </div>
 
     <div v-if="!isLoading" class="json-wrapper">
@@ -94,5 +93,29 @@ onUnmounted(async()=>{
 
 :deep(.vjs-tree__node) {
   contain: content;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.loader {
+  text-align: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onBeforeUnmount, onMounted, ref, watch} from "vue";
+import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {
   Structure, StructureRenderer,
 } from "deepslate";
@@ -10,7 +10,7 @@ import {blocks_resources} from "../../modules/deepslateInit.ts";
 import {getBlockIcon, toast} from "../../modules/others.ts";
 import {layers, layerMap, currentLayer, camera_l, interactiveCanvas, size_l, loading_threeD, once_threeD, structure_l, structureRenderer} from "../../modules/threeD_data.ts"
 const materialOverview = ref<{id: string, name: string, count: number}[]>([]);
-
+const progress = ref(0)
 const loadStructure = async () => {
   const schematic_data = await fetchSchematicData(schematic_id.value)
   const schematic_size = schematic_data.size
@@ -21,31 +21,40 @@ const loadStructure = async () => {
   let minZ = Infinity;
   const validElements = [];
   const materialMap = new Map<string, number>();
-  for (const element of blocks.elements) {
-    const pos = element.pos;
-    if (!element.block) {
-      console.warn('Element has no block:', element);
-      continue;
+  progress.value = 0;
+  const CHUNK_SIZE = 5000;
+  for (let i = 0; i < blocks.elements.length; i += CHUNK_SIZE) {
+    const chunkEnd = Math.min(i + CHUNK_SIZE, blocks.elements.length);
+    for (let j = i; j < chunkEnd; j++) {
+      const element = blocks.elements[j];
+      const pos = element.pos;
+      if (!element.block) {
+        console.warn('Element has no block:', element);
+        continue;
+      }
+      if (typeof element.block.id === 'string' && element.block.id.toLowerCase() === 'minecraft:air') {
+        continue;
+      }
+      if (typeof pos.x !== 'number' || typeof pos.y !== 'number' || typeof pos.z !== 'number') {
+        continue;
+      }
+      const x = Math.round(pos.x);
+      const y = Math.round(pos.y);
+      const z = Math.round(pos.z);
+      validElements.push(element);
+      if (x < minX) minX = x;
+      if (y < minY) minY = y;
+      if (z < minZ) minZ = z;
+      const blockId = element.block.id;
+      if (blockId) {
+        materialMap.set(blockId, (materialMap.get(blockId) || 0) + 1);
+      }
     }
-    if (typeof element.block.id === 'string' && element.block.id.toLowerCase() === 'minecraft:air') {
-      continue;
-    }
-    if (typeof pos.x !== 'number' || typeof pos.y !== 'number' || typeof pos.z !== 'number') {
-      continue;
-    }
-    const x = Math.round(pos.x);
-    const y = Math.round(pos.y);
-    const z = Math.round(pos.z);
-    validElements.push(element);
-    if (x < minX) minX = x;
-    if (y < minY) minY = y;
-    if (z < minZ) minZ = z;
-    const blockId = element.block.id;
-    if (blockId) {
-      materialMap.set(blockId, (materialMap.get(blockId) || 0) + 1);
-    }
+    progress.value = Math.floor((i / blocks.elements.length) * 40);
+    await new Promise(resolve => setTimeout(resolve, 0));
+    await nextTick();
   }
-  const CHUNK_SIZE = 10000;
+
   layers.value = {};
   materialOverview.value = Array.from(materialMap.entries())
       .map(([id, count]) => ({
@@ -81,8 +90,9 @@ const loadStructure = async () => {
         }
       });
     }
-
+    progress.value = 40 + Math.floor((i / blocks.elements.length) * 60);
     await new Promise(resolve => setTimeout(resolve, 0));
+    await nextTick();
   }
 
   const addBlocksToStructure = (elements: typeof blocks.elements) => {
@@ -108,6 +118,7 @@ const loadStructure = async () => {
   size_l.value = structure.getSize();
   layers.value = layersObj;
 }
+
 const updateStructure = (targetLayer: number) => {
   if (!size_l.value) return;
 
@@ -181,7 +192,7 @@ onMounted(async () => {
     currentLayer.value = size_l.value[1] - 1;
     if (size_l.value[0] * size_l.value[1] * size_l.value[2] >= 100 * 100 * 100) {
       once_threeD.value = true;
-      updateStructure(currentLayer.value);
+
       toast.info(`蓝图尺寸过大已默认启用单层显示`, {timeout: 3000})
     }
     await reloadRenderer();
@@ -282,8 +293,16 @@ onBeforeUnmount(async () => {
         <div class="loader">
           <div class="spinner"></div>
           <p>加载结构中...</p>
+          <div class="progress-container">
+            <div
+                class="progress-bar"
+                :style="{ width: progress + '%' }"
+            ></div>
+          </div>
+          <p>{{ progress }}%</p>
         </div>
       </div>
+
     </v-col>
   </v-row>
 </template>
@@ -309,41 +328,9 @@ onBeforeUnmount(async () => {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.loading-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.loader {
-  text-align: center;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-.loader p {
-  margin-top: 10px;
-  color: #333;
-  font-weight: bold;
 }
 
 .slider-container {
@@ -357,7 +344,14 @@ onBeforeUnmount(async () => {
   gap: 15px;
   z-index: 100;
 }
-
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
 .vertical-slider {
   writing-mode: bt-lr;
   -webkit-appearance: slider-vertical;
