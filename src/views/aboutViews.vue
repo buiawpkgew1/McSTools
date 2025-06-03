@@ -217,7 +217,7 @@ onBeforeRouteLeave(navigationGuard)
                               mdi-information-outline
                             </v-icon>
                           </template>
-                          <span>允许修改和分发，但必须开源修改后的代码并保留版权声明</span>
+                          <span>允许修改和分发，但必须开源修改后的代码并保留版权声明，禁止未经授权商业使用</span>
                         </v-tooltip>
                       </p>
 
