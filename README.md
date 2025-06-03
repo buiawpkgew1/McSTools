@@ -1,4 +1,4 @@
-# 🧰 基于 Tauri v2.0 的高效蓝图工具箱
+# 基于 Tauri v2.0 的高效蓝图工具箱
 
 [![Stars](https://img.shields.io/github/stars/guapi-exe/McSTools?style=flat-square&label=Stars)](https://github.com/guapi-exe/McSTools/stargazers)
 [![Rust](https://img.shields.io/badge/Built%20With-Rust-orange?logo=rust)](https://www.rust-lang.org/)
@@ -9,14 +9,14 @@
 
 ---
 
-## 🚀 项目
+##  项目
 - **高性能核心**: 依托 Rust 语言实现极致内存安全与高效计算
 - **跨平台支持**: 使用 Tauri 框架构建，支持 Windows/macOS/Linux
 - **模块化设计**: 功能组件可自由扩展，满足进阶开发需求
 
 ---
 
-## 📌 已实现功能
+##  已实现功能
 
 ### 蓝图管理
 - **版本控制系统**  
@@ -42,7 +42,7 @@
 
 ---
 
-## 🔧 开发中功能
+##  开发中功能
 - **BE 蓝图适配**  
   基岩版蓝图解析与转换支持
 - **蓝图分割器**  
@@ -50,14 +50,14 @@
 
 ---
 
-## 📅 计划开发路线
+##  计划开发路线
 - **云端同步**  
   跨设备蓝图库同步
 
 ---
 
 ![:浏览](https://count.getloli.com/@guapi-exe_McSTools?name=guapi-exe_McSTools&theme=original-new&padding=8&offset=0&align=top&scale=1&pixelated=1&darkmode=auto)
-## 🛠️ 构建说明
+##  构建说明
 ```bash
 # 安装依赖
 pnpm install

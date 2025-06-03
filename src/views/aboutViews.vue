@@ -210,10 +210,12 @@ onBeforeRouteLeave(navigationGuard)
 
                     <div>
                       <p class="text-body-1 mb-1">
-                        <span class="font-weight-medium">GNU General Public License v3.0</span>
+                        <span class="font-weight-medium">GNU Affero General Public License</span>
                         <v-tooltip location="top">
                           <template v-slot:activator="{ props }">
-                            <v-icon v-bind="props" size="16" class="ml-1 ">mdi-information-outline</v-icon>
+                            <v-icon v-bind="props" size="16" class="ml-1 ">
+                              mdi-information-outline
+                            </v-icon>
                           </template>
                           <span>允许修改和分发，但必须开源修改后的代码并保留版权声明</span>
                         </v-tooltip>
@@ -221,14 +223,14 @@ onBeforeRouteLeave(navigationGuard)
 
                       <div class="d-flex align-center flex-wrap">
                         <span class="text-caption text-grey-darken-1 mr-2">
-                          © 2025 MCS Tools. All rights licensed under GPL-3.0
+                          © 2025 MCS Tools. All rights licensed under AGPL-3.0
                         </span>
                         <v-btn
                             variant="text"
                             color="secondary"
                             density="compact"
                             class="px-1"
-                            @click="openLink('https://www.gnu.org/licenses/gpl-3.0.html')"
+                            @click="openLink('https://www.gnu.org/licenses/agpl-3.0.en.html')"
                         >
                           <span class="text-caption">查看完整协议</span>
                           <v-icon icon="mdi-open-in-new" size="14" class="ml-1"></v-icon>
