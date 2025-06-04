@@ -5,12 +5,13 @@ import {
 } from "deepslate";
 import {InteractiveCanvas} from "../../modules/deepslateInit.ts";
 import {fetchSchematicData} from "../../modules/schematic_data.ts";
-import {schematic_id} from "../../modules/tools_data.ts";
+import {schematic_id, schematicData} from "../../modules/tools_data.ts";
 import {blocks_resources} from "../../modules/deepslateInit.ts";
 import {getBlockIcon, toast} from "../../modules/others.ts";
 import {layers, layerMap, currentLayer, camera_l, interactiveCanvas, size_l, loading_threeD, once_threeD, structure_l, structureRenderer} from "../../modules/threeD_data.ts"
 const materialOverview = ref<{id: string, name: string, count: number}[]>([]);
 const progress = ref(0)
+const sureLoading = ref<boolean>(false);
 const loadStructure = async () => {
   const schematic_data = await fetchSchematicData(schematic_id.value)
   const schematic_size = schematic_data.size
@@ -185,6 +186,13 @@ const reloadRenderer = async () => {
   }, [size_l.value[0] / 2, size_l.value[1] / 2, size_l.value[2] / 2])
 }
 onMounted(async () => {
+  let size = schematicData.value.sizes
+  const [length, width, height] = size.split(',').map(Number);
+  if (length * width * height >= 100*100*100) sureLoading.value = true
+  else await loadInit();
+})
+
+const loadInit = async () => {
   try {
     loading_threeD.value = true;
     await loadStructure();
@@ -202,8 +210,7 @@ onMounted(async () => {
   }finally {
     loading_threeD.value = false;
   }
-})
-
+}
 watch(currentLayer, (newVal) => {
   updateStructure(newVal);
   reloadRenderer();
@@ -303,6 +310,30 @@ onBeforeUnmount(async () => {
         </div>
       </div>
 
+      <div v-if="sureLoading" class="loading-overlay">
+        <div class="loader">
+          <v-alert
+              variant="tonal"
+              color="red"
+              icon="mdi-information-outline"
+              class="mt-4 monospace-font"
+          >
+            {{`该蓝图体积过大，尺寸${schematicData.sizes}，是否确认加载;加载会占用大量内存，甚至导致崩溃`}}
+          </v-alert>
+          <div class="button-group">
+            <v-btn
+                density="default"
+                color="blue"
+                variant="outlined"
+                prepend-icon="mdi-reload-alert"
+                @click="sureLoading = false;loadInit()"
+            >
+              确认加载
+            </v-btn>
+          </div>
+        </div>
+      </div>
+
     </v-col>
   </v-row>
 </template>
@@ -378,7 +409,11 @@ onBeforeUnmount(async () => {
 .material-item {
   transition: background 0.3s ease;
 }
-
+.button-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
 .material-item:hover {
   background: rgba(255, 152, 0, 0.15); /* 悬停效果 */
 }

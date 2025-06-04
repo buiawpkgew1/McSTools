@@ -2,7 +2,7 @@
 
 import {copySchematic} from "../../modules/copy_file.ts";
 import {fetchSchematics, SchematicsData, schematicTypeList} from "../../modules/schematics_data.ts";
-import {ref} from "vue";
+import {nextTick, ref, watch} from "vue";
 import dayjs from "dayjs";
 import {clear_tools, fetch_data} from "../../modules/tools_data.ts";
 import {activeTab} from "../../modules/layout.ts";
@@ -14,15 +14,21 @@ import lmImg from "../../static/img/Litematica.jpg";
 import bgImg from "../../static/img/bg.jpg";
 import weImg from "../../static/img/wordEdit.png";
 import beImg from "../../static/img/grass_block.png";
-import {selectLoading} from "../../modules/others.ts";
+import {selectLoading, toast} from "../../modules/others.ts";
 const router = useRouter()
+const loadState = ref()
 const autoPage = ref(1)
 const showDeleteDialog = ref(false)
 const selectedBpId = ref(null)
 const selectedBpName = ref('')
 const hasMore = ref(true);
+const panelExpanded = ref(false)
 const isLoading = ref(false);
 let schematics = ref<SchematicsData[]>([])
+const filters = ref({
+  keyword: '',
+})
+
 const parseDimensions = (sizeStr: string) => {
   const [length, width, height] = sizeStr.split(',').map(Number);
   return [`${length}`, `${width}`, `${height}`]
@@ -51,8 +57,42 @@ const selectSchematic = async(id: number) => {
 interface LoadParams {
   done: (status: 'ok' | 'error' | 'empty') => void
 }
+const reload = async () => {
+  autoPage.value = 0;
+  hasMore.value = true;
+  isLoading.value = false;
+  schematics.value = []
+  if (!hasMore.value) {
+    return
+  }
+  if (!hasMore.value || isLoading.value) return;
 
+  try {
+    isLoading.value = true;
+
+    const { data, page, page_size } = await fetchSchematics({
+      filter: filters.value.keyword,
+      page: autoPage.value,
+      page_size: 20
+    });
+    console.log(page, page_size)
+    schematics.value = [...schematics.value, ...data];
+    autoPage.value += 1;
+
+    hasMore.value = data.length == 20;
+    if (!hasMore.value) loadState.value('empty');
+    else loadState.value('ok');
+  } catch (error) {
+    toast.error(`加载失败:${error}`, {
+      timeout: 3000
+    });
+    console.error('加载失败:', error);
+  } finally {
+    isLoading.value = false;
+  }
+}
 const schematic_load = async ({ done }: LoadParams) => {
+  loadState.value = done
   if (!hasMore.value) {
     done('empty')
     return
@@ -61,18 +101,18 @@ const schematic_load = async ({ done }: LoadParams) => {
 
   try {
     isLoading.value = true;
-    const total = userData.value.schematics
 
     const { data, page, page_size } = await fetchSchematics({
-      filter: '',
+      filter: filters.value.keyword,
       page: autoPage.value,
       page_size: 20
     });
-
+    console.log(page, page_size)
     schematics.value = [...schematics.value, ...data];
     autoPage.value += 1;
-
-    hasMore.value = (page * page_size) < total;
+    console.log(data.length)
+    hasMore.value = data.length == 20;
+    console.log(hasMore.value)
     done('ok')
   } catch (error) {
     console.error('加载失败:', error);
@@ -108,13 +148,64 @@ const confirmDelete = async () => {
     console.error('删除失败:', error)
   }
 }
-
+watch(
+    [
+      () => filters.value.keyword,
+    ],
+    async () => {
+      await nextTick()
+      await reload()
+    },
+    { flush: 'post' }
+)
 const formatTime = (time: any) => {
   return dayjs(time).format('YYYY/MM/DD HH:mm')
 }
 </script>
 
 <template>
+  <v-expansion-panels >
+    <v-expansion-panel>
+      <v-expansion-panel-title>
+        <div class="d-flex align-center gap-2" style="flex: 1">
+          <template v-if="!panelExpanded">
+            <div class="active-filters">
+              <v-chip
+                  v-if="filters.keyword"
+                  size="small"
+                  class="mr-2"
+              >
+                <v-icon start icon="mdi-magnify"></v-icon>
+                {{ filters.keyword }}
+              </v-chip>
+            </div>
+          </template>
+
+          <span v-if="!panelExpanded" class="text-grey">
+          点击展开筛选条件
+        </span>
+        </div>
+      </v-expansion-panel-title>
+      <v-expansion-panel-text>
+        <v-container class="filter-container">
+          <v-row>
+            <v-col cols="12" md="4">
+              <v-text-field
+                  v-model="filters.keyword"
+                  label="关键词筛选"
+                  placeholder="输入蓝图名称或描述"
+                  clearable
+                  density="compact"
+                  variant="outlined"
+                  prepend-inner-icon="mdi-magnify"
+              ></v-text-field>
+            </v-col>
+
+          </v-row>
+        </v-container>
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+  </v-expansion-panels>
   <v-list class="mc-blueprint-list">
     <v-infinite-scroll
         :items="schematics"
@@ -300,7 +391,7 @@ const formatTime = (time: any) => {
 .mc-blueprint-list {
   --v-list-item-padding: 12px;
 
-  max-height: calc(99vh - 64px);
+  max-height: calc(93vh - 64px);
   overflow-y: auto;
 }
 </style>

@@ -2,13 +2,13 @@
 import VueJsonPretty from "vue-json-pretty";
 import {onMounted, onUnmounted, ref} from "vue";
 import {cleanLargeSNBT} from "../../modules/snbt_to_json.ts";
-import {fetchSchematicStr, schematic_id} from "../../modules/tools_data.ts";
+import {fetchSchematicStr, schematic_id, schematicData} from "../../modules/tools_data.ts";
 import {toast} from "../../modules/others.ts";
 import {data, json_data} from "../../modules/toolsData_data.ts"
 const isJson = ref(false)
 const isLoading = ref(false);
 const collapsedDepth = ref(1);
-
+const sureLoading = ref(false);
 const get_schematicStr = async (id: number) => {
   try {
     isLoading.value = true
@@ -25,7 +25,10 @@ const get_schematicStr = async (id: number) => {
 
 }
 onMounted(async()=>{
-  await get_schematicStr(schematic_id.value)
+  let size = schematicData.value.sizes
+  const [length, width, height] = size.split(',').map(Number);
+  if (length * width * height >= 100*100*100) sureLoading.value = true
+  else await get_schematicStr(schematic_id.value);
 })
 onUnmounted(async()=>{
   json_data.value = undefined
@@ -39,6 +42,30 @@ onUnmounted(async()=>{
       <div class="loader">
         <div class="spinner"></div>
         <p>加载结构中...</p>
+      </div>
+    </div>
+
+    <div v-if="sureLoading" class="loading-overlay">
+      <div class="loader">
+        <v-alert
+            variant="tonal"
+            color="red"
+            icon="mdi-information-outline"
+            class="mt-4 monospace-font"
+        >
+          {{`该蓝图体积过大，尺寸${schematicData.sizes}，是否确认加载;加载会占用大量内存，甚至导致崩溃`}}
+        </v-alert>
+        <div class="button-group">
+          <v-btn
+              density="default"
+              color="blue"
+              variant="outlined"
+              prepend-icon="mdi-reload-alert"
+              @click="sureLoading = false;get_schematicStr(schematic_id)"
+          >
+            确认加载
+          </v-btn>
+        </div>
       </div>
     </div>
 

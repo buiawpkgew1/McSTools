@@ -19,6 +19,8 @@ const autoPage_MCS = ref(0)
 const autoPage_CMS = ref(0)
 const hasMore_MCS = ref(true);
 const hasMore_CMS = ref(true);
+const loadState_MCS = ref();
+const loadState_CMS = ref();
 const isLoading_MCS = ref(false);
 const isLoading_CMS = ref(false);
 const downLoading_MCS = ref(false)
@@ -97,6 +99,7 @@ interface LoadParams {
   done: (status: 'ok' | 'error' | 'empty') => void
 }
 const schematic_load_MCS = async ({ done }: LoadParams) => {
+  loadState_MCS.value = done
   if (!hasMore_MCS.value) {
     done('empty')
     return
@@ -159,6 +162,7 @@ const downloadAndUpload =async  (uuid: string, type:number) => {
   }
 }
 const schematic_load_CMS = async ({ done }: LoadParams) => {
+  loadState_CMS.value = done
   if (!hasMore_CMS.value) {
     done('empty')
     return
@@ -181,7 +185,7 @@ const schematic_load_CMS = async ({ done }: LoadParams) => {
     schematics_CMS.value = [...schematics_CMS.value, ...schematic ];
     autoPage_CMS.value += 1;
 
-    hasMore_CMS.value = schematic.length >= 20;
+    hasMore_CMS.value = schematic.length == 20;
     done('ok')
   } catch (error) {
     toast.error(`加载失败:${error}`, {
@@ -219,7 +223,9 @@ const reload_CMS = async () => {
     schematics_CMS.value = [...schematics_CMS.value, ...schematic ];
     autoPage_CMS.value += 1;
 
-    hasMore_CMS.value = schematic.length <= 20;
+    hasMore_CMS.value = schematic.length == 20;
+    if (!hasMore_CMS.value) loadState_CMS.value('empty')
+    else loadState_CMS.value('ok');
   } catch (error) {
     toast.error(`加载失败:${error}`, {
       timeout: 3000
@@ -233,6 +239,7 @@ const reload_MCS = async () => {
   autoPage_MCS.value = 0
   hasMore_MCS.value = true;
   isLoading_MCS.value = false;
+  loadState_MCS.value('ok');
   schematics_MCS.value = []
   if (!hasMore_MCS.value) {
     return
@@ -252,7 +259,9 @@ const reload_MCS = async () => {
     schematics_MCS.value = [...schematics_MCS.value, ...data];
     autoPage_MCS.value += 1;
 
-    hasMore_MCS.value = data.length <= 15;
+    hasMore_MCS.value = data.length == 15;
+    if (!hasMore_MCS.value) loadState_MCS.value('empty')
+    else loadState_MCS.value('ok');
   } catch (error) {
     toast.error(`加载失败:${error}`, {
       timeout: 3000

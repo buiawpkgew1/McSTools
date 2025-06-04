@@ -253,7 +253,7 @@ onBeforeRouteLeave(navigationGuard)
                           <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" size="16" color="grey" class="ml-1">mdi-information-outline</v-icon>
                           </template>
-                          <span>参与开发及代表明确遵守GPL V3协议,改版 转发请注明所有开发人员和协议</span>
+                          <span>参与开发及代表明确遵守AGPL V3协议,改版 转发请注明所有开发人员和协议</span>
                         </v-tooltip>
                       </p>
                       <v-row>
