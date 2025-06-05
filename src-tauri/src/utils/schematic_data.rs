@@ -34,7 +34,7 @@ pub enum SchematicError {
     GzipDecompress(#[from] DecompressError),
     #[error("regex err: {0}")]
     Regex(#[from] RegexError),
-    #[error("Type")]
+    #[error("Type mismatch: expected '{expected}', found '{actual}'")]
     TypeMismatch {
         expected: &'static str,
         actual: String,

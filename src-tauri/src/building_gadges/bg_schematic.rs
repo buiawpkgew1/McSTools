@@ -14,6 +14,7 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::io::Read;
 use std::sync::Arc;
+use serde::Deserializer;
 
 #[derive(Debug)]
 pub struct BgSchematic {
@@ -46,8 +47,18 @@ impl BgSchematic {
     }
 
     pub fn get_type(&self) -> Result<i32, SchematicError> {
+        let normalized_json = || self.json.split_whitespace().collect::<String>();
         match self.try_parse() {
-            Ok(_) => Ok(0),
+            Ok(_) => {
+                if normalized_json().contains("statePosArrayList") {
+                    Ok(0)
+                } else if normalized_json().contains("body") {
+                    Ok(1)
+                }
+                else {
+                    Ok(0)
+                }
+            }
             Err(_)
                 if self
                     .json
@@ -100,18 +111,40 @@ impl BgSchematic {
                 })
             }
             1 => {
-                let output = self.json.replace("\r\n", "");
-                let data: Value = from_str(&output).unwrap();
-                let Compound(root) = data else {
-                    return Err(SchematicError::RootNotCompound);
-                };
-                let body = root.get_str("body")?;
-                let nbt: FastNbtValue = self.parse_base64(body)?;
+                match self.try_parse()
+                {
+                    Ok(_) => {
+                        let data = self.parse_json(&self.json)?;
+                        let body = data
+                            .get("body")
+                            .and_then(|v| v.as_str())
+                            .ok_or_else(|| SchematicError::TypeMismatch {
+                                expected: "string",
+                                actual: data["body"].to_string(),
+                            })?;
 
-                Ok(BgSchematicData {
-                    type_version,
-                    data: nbt,
-                })
+                        let nbt: FastNbtValue = self.parse_base64(body)?;
+
+                        Ok(BgSchematicData {
+                            type_version,
+                            data: nbt,
+                        })
+                    }
+                    Err(_) => {
+                        let output = self.json.replace("\r\n", "");
+                        let data: Value = from_str(&output).unwrap();
+                        let Compound(root) = data else {
+                            return Err(SchematicError::RootNotCompound);
+                        };
+                        let body = root.get_str("body")?;
+                        let nbt: FastNbtValue = self.parse_base64(body)?;
+
+                        Ok(BgSchematicData {
+                            type_version,
+                            data: nbt,
+                        })
+                    }
+                }
             }
             2 => {
                 let output = self.json.replace("\r\n", "");
@@ -183,20 +216,40 @@ impl BgSchematic {
                 let Compound(root) = data else {
                     return Err(SchematicError::InvalidFormat("Root is not a Compound"));
                 };
+
                 let header = root.get_compound("header")?;
-                let start_pos = BlockPos {
-                    x: header.get_i32("minX")?,
-                    y: header.get_i32("minY")?,
-                    z: header.get_i32("minZ")?,
+
+                let (start_pos, end_pos) = match header.get_compound("bounds") {
+                    Ok(bounds) => (
+                        BlockPos {
+                            x: bounds.get_i32("minX")?,
+                            y: bounds.get_i32("minY")?,
+                            z: bounds.get_i32("minZ")?,
+                        },
+                        BlockPos {
+                            x: bounds.get_i32("maxX")?,
+                            y: bounds.get_i32("maxY")?,
+                            z: bounds.get_i32("maxZ")?,
+                        }
+                    ),
+                    Err(_) => (
+                        BlockPos {
+                            x: header.get_i32("minX")?,
+                            y: header.get_i32("minY")?,
+                            z: header.get_i32("minZ")?,
+                        },
+                        BlockPos {
+                            x: header.get_i32("maxX")?,
+                            y: header.get_i32("maxY")?,
+                            z: header.get_i32("maxZ")?,
+                        }
+                    )
                 };
-                let end_pos = BlockPos {
-                    x: header.get_i32("maxX")?,
-                    y: header.get_i32("maxY")?,
-                    z: header.get_i32("maxZ")?,
-                };
+
                 let height = ((end_pos.y - start_pos.y) + 1).abs();
                 let width = ((end_pos.x - start_pos.x) + 1).abs();
                 let length = ((end_pos.z - start_pos.z) + 1).abs();
+
                 Ok(BlockPos {
                     x: width,
                     y: height,
