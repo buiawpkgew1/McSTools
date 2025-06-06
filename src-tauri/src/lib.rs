@@ -9,6 +9,7 @@ mod map_art;
 pub mod modules;
 pub mod utils;
 mod word_edit;
+mod split_schematic;
 
 use crate::database::db_control;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -29,6 +30,7 @@ use modules::schematic::{
     copy_schematic, delete_schematic, encode_uploaded_schematic, get_schematic_str,
     update_schematic_name_description, get_schematic_data
 };
+use split_schematic::split_schematic::schematic_split;
 use std::time::Instant;
 use sysinfo::{Pid, ProcessesToUpdate, System};
 use tauri::Manager;
@@ -77,6 +79,7 @@ pub fn run() {
             copy_schematic,
             delete_schematic,
             add_logs,
+            schematic_split,
             schematic_replacement,
             get_je_blocks,
             perform_search,

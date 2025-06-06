@@ -9,12 +9,13 @@ use anyhow::{anyhow, Context};
 use fastnbt::Value;
 use flate2::read::GzDecoder;
 use flate2::write::GzEncoder;
+use tempfile::NamedTempFile;
 use flate2::Compression;
 use std::collections::HashMap;
 use std::fs;
 use std::fs::File;
 use std::io;
-use std::io::{BufWriter, Cursor, Write};
+use std::io::{BufWriter, Cursor, Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
 use tauri::{AppHandle, Manager};
 
@@ -164,6 +165,22 @@ impl FileManager {
         Ok(out_path)
     }
 
+    pub fn save_json_value_temp(
+        &self,
+        data: String,
+    ) -> Result<NamedTempFile> {
+        let mut temp_file = tempfile::Builder::new()
+            .prefix("schematic_")
+            .suffix(".json")
+            .tempfile()?;
+
+        temp_file.write_all(data.as_bytes())?;
+
+        temp_file.seek(SeekFrom::Start(0))?;
+
+        Ok(temp_file)
+    }
+
     pub fn save_nbt_value(
         &self,
         id: i64,
@@ -207,6 +224,41 @@ impl FileManager {
         Ok(out_path)
     }
 
+    pub fn save_nbt_value_temp(
+        &self,
+        data: Value,
+        v_type: i32,
+        compress: bool,
+    ) -> Result<NamedTempFile> {
+
+        let file_ext = match v_type {
+            1 => ".nbt",
+            2 => ".litematic",
+            3 => ".schem",
+            4 => ".json",
+            5 => ".mcstruct",
+            _ => ".unknown",
+        };
+
+        let mut temp_file = tempfile::Builder::new()
+            .prefix("schematic_")
+            .suffix(file_ext)
+            .tempfile()?;
+
+        let bytes = fastnbt::to_bytes(&data)?;
+
+        if compress {
+            let mut encoder = GzEncoder::new(&mut temp_file, Compression::default());
+            encoder.write_all(&bytes)?;
+            encoder.finish()?;
+        } else {
+            temp_file.write_all(&bytes)?;
+        }
+
+        temp_file.seek(SeekFrom::Start(0))?;
+
+        Ok(temp_file)
+    }
     pub fn read_schematic_str(
         &self,
         id: i64,
