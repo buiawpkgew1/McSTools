@@ -1,7 +1,7 @@
 use crate::utils::block_state_pos_list::{
     BlockData, BlockId, BlockPos, BlockStatePos, BlockStatePosList,
 };
-use crate::utils::schematic_data::SchematicData;
+use crate::utils::schematic_data::{SchematicData, SchematicError};
 use chrono::Utc;
 use fastnbt::Value;
 use fastnbt::Value::Compound;
@@ -12,6 +12,7 @@ use rayon::prelude::*;
 use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::sync::atomic::{AtomicI32, AtomicU64, Ordering};
 use std::sync::Arc;
+use anyhow::Result;
 
 #[derive(Debug)]
 pub struct ToLmSchematic {
@@ -27,13 +28,13 @@ pub struct ToLmSchematic {
 }
 
 impl ToLmSchematic {
-    pub fn new(schematic: &SchematicData) -> Self {
+    pub fn new(schematic: &SchematicData) -> Result<Self, SchematicError> {
         let mut block_list = schematic.blocks.clone();
 
         let min = {
             let elements = &block_list.elements;
             if elements.is_empty() {
-                panic!("Block list cannot be empty");
+                return Err(SchematicError::InvalidFormat("Block list cannot be empty"));
             }
 
             let global_min = elements
@@ -151,7 +152,7 @@ impl ToLmSchematic {
         let bits_unclamped = 32u32.saturating_sub(leading_zeros);
         let bits = (bits_unclamped as f64).max(2.0) as i32;
         let blocks = block_list.elements;
-        Self {
+        Ok(Self {
             blocks,
             start_pos: min,
             end_pos: max,
@@ -161,7 +162,7 @@ impl ToLmSchematic {
             bits,
             unique_block_states,
             block_state_to_index,
-        }
+        })
     }
     pub fn get_block_id_list(&self) -> Vec<i32> {
         let total_blocks = (self.length * self.width * self.height) as usize;

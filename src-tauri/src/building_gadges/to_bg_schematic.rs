@@ -11,11 +11,12 @@ use flate2::write::GzEncoder;
 use flate2::Compression;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
-use serde_json::{json, Value as JsonValue};
+use serde_json::{json};
 use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::io::Write;
 use std::sync::atomic::{AtomicI32, AtomicI64, Ordering};
 use std::sync::Arc;
+use anyhow::Result;
 
 #[derive(Debug)]
 pub struct ToBgSchematic {
@@ -31,11 +32,11 @@ pub struct ToBgSchematic {
 }
 
 impl ToBgSchematic {
-    pub fn new(schematic: &SchematicData) -> Self {
+    pub fn new(schematic: &SchematicData) -> Result<Self, SchematicError> {
         let block_list = schematic.blocks.clone();
         let blocks = schematic.blocks.clone().elements;
         if blocks.is_empty() {
-            panic!("Block list cannot be empty");
+            return Err(SchematicError::InvalidFormat("Block list cannot be empty"));
         }
         let (min, max) = blocks.iter().fold(
             (
@@ -99,7 +100,7 @@ impl ToBgSchematic {
             (unique, index_map, air_index)
         };
 
-        Self {
+        Ok(Self {
             blocks,
             start_pos: min,
             end_pos: max,
@@ -109,7 +110,7 @@ impl ToBgSchematic {
             air_index,
             unique_block_states,
             block_state_to_index,
-        }
+        })
     }
 
     pub fn bg_palette(&self) -> Value {

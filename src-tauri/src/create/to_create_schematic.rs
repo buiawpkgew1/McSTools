@@ -1,5 +1,5 @@
 use crate::utils::block_state_pos_list::{BlockData, BlockPos, BlockStatePos};
-use crate::utils::schematic_data::SchematicData;
+use crate::utils::schematic_data::{SchematicData, SchematicError};
 use fastnbt::Value;
 use fastnbt::Value::Compound;
 use rayon::iter::IndexedParallelIterator;
@@ -7,6 +7,7 @@ use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
 use std::collections::{HashMap, VecDeque};
 use std::sync::Arc;
+use anyhow::Result;
 
 #[derive(Debug)]
 pub struct ToCreateSchematic {
@@ -21,10 +22,10 @@ pub struct ToCreateSchematic {
 }
 
 impl ToCreateSchematic {
-    pub fn new(schematic: &SchematicData) -> Self {
+    pub fn new(schematic: &SchematicData) -> Result<Self, SchematicError> {
         let blocks = schematic.blocks.clone().elements;
         if blocks.is_empty() {
-            panic!("Block list cannot be empty");
+            return Err(SchematicError::InvalidFormat("Block list cannot be empty"));
         }
         let min = {
             let global_min = blocks
@@ -92,7 +93,7 @@ impl ToCreateSchematic {
             (unique, index_map)
         };
 
-        Self {
+        Ok(Self {
             blocks,
             start_pos: min,
             end_pos: max,
@@ -101,7 +102,7 @@ impl ToCreateSchematic {
             length,
             unique_block_states,
             block_state_to_index,
-        }
+        })
     }
 
     pub fn create_palette(&self) -> Value {

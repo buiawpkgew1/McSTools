@@ -109,7 +109,7 @@ pub async fn schematic_replacement(
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
-                let data = ToCreateSchematic::new(&data).create_schematic(true);
+                let data = ToCreateSchematic::new(&data)?.create_schematic(true);
                 schematic.name = format!("replace_schematic_{}", schematic_id);
                 let new_id = new_schematic(&mut conn, schematic.clone())?;
                 new_schematic_data(
@@ -134,7 +134,7 @@ pub async fn schematic_replacement(
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
-                let data = ToLmSchematic::new(&data).lm_schematic(6);
+                let data = ToLmSchematic::new(&data)?.lm_schematic(6);
                 schematic.name = format!("replace_schematic_{}", schematic_id);
                 let new_id = new_schematic(&mut conn, schematic.clone())?;
                 new_schematic_data(
@@ -159,7 +159,7 @@ pub async fn schematic_replacement(
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
-                let data = ToWeSchematic::new(&data).we_schematic(sub_version)?;
+                let data = ToWeSchematic::new(&data)?.we_schematic(sub_version)?;
                 schematic.name = format!("replace_schematic_{}", schematic_id);
                 let new_id = new_schematic(&mut conn, schematic.clone())?;
                 new_schematic_data(
@@ -184,7 +184,7 @@ pub async fn schematic_replacement(
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
-                let data = ToBgSchematic::new(&data).bg_schematic(sub_version)?;
+                let data = ToBgSchematic::new(&data)?.bg_schematic(sub_version)?;
                 schematic.name = format!("replace_schematic_{}", schematic_id);
                 let new_id = new_schematic(&mut conn, schematic.clone())?;
                 new_schematic_data(

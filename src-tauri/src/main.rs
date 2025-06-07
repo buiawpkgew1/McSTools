@@ -35,7 +35,7 @@ fn test_lm_schematic() -> Result<(), SchematicError> {
     let schematic2 =
         LmSchematic::new("./schematic/08baa20e-264d-41d4-8205-4611029936b0.litematic")?;
     let schem2 = schematic2.get_blocks_pos()?;
-    let to = ToLmSchematic::new(&schem2);
+    let to = ToLmSchematic::new(&schem2)?;
     println!("{:?},{:?}", to.start_pos, to.end_pos);
     let requirements = get_requirements(&schem2.blocks)?;
     //print!("{:?}", requirements);
@@ -120,7 +120,7 @@ fn lm_schematic_write() -> Result<(), SchematicError> {
         WeSchematic::new("./schematic/3914ec1f-f457-428e-994f-957182d2c8c2.schem")?;
     let schem3 = schematic3.get_blocks_pos()?;
 
-    let bg = ToLmSchematic::new(&schem3);
+    let bg = ToLmSchematic::new(&schem3)?;
     let data = bg.lm_schematic(6);
     let output_path = "./schematic/out2.litematic";
     to_writer_gzip(&data, output_path)?;
@@ -149,7 +149,7 @@ fn lm_big_schematic_write() -> Result<(), SchematicError> {
         LmSchematic::new("./schematic/36fbf6f4-5f07-4370-b4c5-cefdb12c4b92.litematic")?;
     let schem3 = schematic3.get_blocks_pos()?;
 
-    let bg = ToCreateSchematic::new(&schem3);
+    let bg = ToCreateSchematic::new(&schem3)?;
     let data = bg.create_schematic(false);
     let output_path = "./schematic/out.nbt";
     to_writer_gzip(&data, output_path)?;

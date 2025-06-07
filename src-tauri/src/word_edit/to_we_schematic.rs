@@ -7,6 +7,7 @@ use rayon::iter::ParallelIterator;
 use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::sync::atomic::{AtomicI32, Ordering};
 use std::sync::Arc;
+use anyhow::Result;
 #[derive(Debug)]
 pub struct ToWeSchematic {
     blocks: VecDeque<BlockStatePos>,
@@ -21,11 +22,11 @@ pub struct ToWeSchematic {
 }
 
 impl ToWeSchematic {
-    pub fn new(schematic: &SchematicData) -> Self {
+    pub fn new(schematic: &SchematicData) -> Result<Self, SchematicError> {
         let block_list = schematic.blocks.clone();
         let blocks = schematic.blocks.clone().elements;
         if blocks.is_empty() {
-            panic!("Block list cannot be empty");
+            return Err(SchematicError::InvalidFormat("Block list cannot be empty"));
         }
         let (min, max) = blocks.iter().fold(
             (
@@ -89,7 +90,7 @@ impl ToWeSchematic {
             (unique, index_map, air_index)
         };
 
-        Self {
+        Ok(Self {
             blocks,
             start_pos: min,
             end_pos: max,
@@ -99,7 +100,7 @@ impl ToWeSchematic {
             air_index,
             unique_block_states,
             block_state_to_index,
-        }
+        })
     }
 
     pub fn get_block_id_list(&self) -> Vec<i32> {

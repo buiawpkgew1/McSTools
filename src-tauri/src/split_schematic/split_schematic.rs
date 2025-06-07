@@ -45,19 +45,19 @@ pub async fn schematic_split(
             let schematic = SchematicData::new(blocks, TileEntitiesList::new(), part_size.clone());
             let temp_file = match v_type {
                 1 => {
-                    let data = ToCreateSchematic::new(&schematic).create_schematic(false);
+                    let data = ToCreateSchematic::new(&schematic)?.create_schematic(false);
                     file_manager.save_nbt_value_temp(data, v_type, true)?
                 }
                 2 => {
-                    let data = ToLmSchematic::new(&schematic).lm_schematic(sub_version);
+                    let data = ToLmSchematic::new(&schematic)?.lm_schematic(sub_version);
                     file_manager.save_nbt_value_temp(data, v_type, true)?
                 }
                 3 => {
-                    let data = ToWeSchematic::new(&schematic).we_schematic(sub_version)?;
+                    let data = ToWeSchematic::new(&schematic)?.we_schematic(sub_version)?;
                     file_manager.save_nbt_value_temp(data, v_type, true)?
                 }
                 4 => {
-                    let data = ToBgSchematic::new(&schematic).bg_schematic(sub_version)?;
+                    let data = ToBgSchematic::new(&schematic)?.bg_schematic(sub_version)?;
                     file_manager.save_json_value_temp(data)?
                 }
                 _ => {

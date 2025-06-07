@@ -44,7 +44,7 @@ pub async fn create_map_art(
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
-                let data = ToCreateSchematic::new(&data).create_schematic(true);
+                let data = ToCreateSchematic::new(&data)?.create_schematic(true);
                 let mut schematic = Schematic {
                     id: 0,
                     name: format!("map_art_{}", file_name),
@@ -91,7 +91,7 @@ pub async fn create_map_art(
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
-                let data = ToLmSchematic::new(&data).lm_schematic(6);
+                let data = ToLmSchematic::new(&data)?.lm_schematic(6);
                 let mut schematic = Schematic {
                     id: 0,
                     name: format!("map_art_{}", file_name),
@@ -138,7 +138,7 @@ pub async fn create_map_art(
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
-                let data = ToWeSchematic::new(&data).we_schematic(sub_version as i32)?;
+                let data = ToWeSchematic::new(&data)?.we_schematic(sub_version as i32)?;
                 let mut schematic = Schematic {
                     id: 0,
                     name: format!("map_art_{}", file_name),
@@ -185,7 +185,7 @@ pub async fn create_map_art(
                 let requirements_str = RequirementStr::from_requirements(&requirement, &je_blocks)
                     .export_to_string()?;
                 let unique_blocks = get_unique_block_str(&data.blocks)?;
-                let data = ToBgSchematic::new(&data).bg_schematic(sub_version as i32)?;
+                let data = ToBgSchematic::new(&data)?.bg_schematic(sub_version as i32)?;
                 let mut schematic = Schematic {
                     id: 0,
                     name: format!("map_art_{}", file_name),
