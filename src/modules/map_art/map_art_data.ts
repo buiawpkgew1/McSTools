@@ -37,7 +37,7 @@ export interface SubData {
 
 const categoryData = {
     "wool": "羊毛",
-    "clay": "粘土",
+    "clay": "陶瓦与黏土",
     "concrete": "混凝土",
     "stone": "石材",
     "crafted": "工艺制品",
@@ -46,7 +46,7 @@ const categoryData = {
     "ore": "矿石",
     "the_end": "末地建材",
     "natural": "主世界",
-    "nether": "地狱建材",
+    "nether": "下界建材",
     "ocean": "海洋建材"
 }
 export interface RawData {
