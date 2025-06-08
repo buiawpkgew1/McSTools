@@ -5,7 +5,7 @@
 [![Stars](https://img.shields.io/github/stars/guapi-exe/McSTools?style=flat-square&label=Stars)](https://github.com/guapi-exe/McSTools/stargazers)
 [![Rust](https://img.shields.io/badge/Built%20With-Rust-orange?logo=rust)](https://www.rust-lang.org/)
 [![Tauri](https://img.shields.io/badge/Framework-Tauri%202.0-blue)](https://tauri.app/)
-[![License](https://img.shields.io/badge/License-GPLv3-green)]()
+[![License](https://img.shields.io/badge/License-AGPLv3-green)]()
 
 > A cross-platform toolkit built with Rust, delivering exceptional memory safety and native-level performance
 
@@ -34,6 +34,8 @@
 - **Smart Block Replacement**
     - Simple Mode: Preserves target block attributes, only replaces ID
     - Precision Mode: Fully overwrites block ID and attribute sets
+- **Blueprint Splitter**  
+  Intelligent large blueprint splitting and reassembly module
 
 ### Creative Tools
 - **Themes**  
@@ -47,8 +49,7 @@
 ##  In-Development Features
 - **BE Blueprint Adaptation**  
   Support for Bedrock Edition blueprint parsing and conversion
-- **Blueprint Splitter**  
-  Intelligent large blueprint splitting and reassembly module
+
 
 ---
 

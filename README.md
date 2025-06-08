@@ -5,7 +5,7 @@
 [![Stars](https://img.shields.io/github/stars/guapi-exe/McSTools?style=flat-square&label=Stars)](https://github.com/guapi-exe/McSTools/stargazers)
 [![Rust](https://img.shields.io/badge/Built%20With-Rust-orange?logo=rust)](https://www.rust-lang.org/)
 [![Tauri](https://img.shields.io/badge/Framework-Tauri%202.0-blue)](https://tauri.app/)
-[![License](https://img.shields.io/badge/License-GPLv3-green)]()
+[![License](https://img.shields.io/badge/License-AGPLv3-green)]()
 
 > 基于 Rust 语言构建的跨平台工具箱，提供卓越的内存安全性与原生级性能
 
@@ -34,6 +34,9 @@
 - **智能方块替换**
     - 简单模式：保留目标方块属性仅替换ID
     - 精准模式：完全覆盖方块ID及属性集
+- **蓝图分割器**  
+  大型蓝图切割与重组
+
 
 ### 创意工具
 - **主题**  
@@ -47,9 +50,6 @@
 ##  开发中功能
 - **BE 蓝图适配**  
   基岩版蓝图解析与转换支持
-- **蓝图分割器**  
-  大型蓝图智能切割与重组模块
-
 ---
 
 ##  计划开发路线
