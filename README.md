@@ -1,5 +1,7 @@
 # 基于 Tauri v2.0 的高效蓝图工具箱
 
+**简体中文** | **[English](README-en.md)**
+
 [![Stars](https://img.shields.io/github/stars/guapi-exe/McSTools?style=flat-square&label=Stars)](https://github.com/guapi-exe/McSTools/stargazers)
 [![Rust](https://img.shields.io/badge/Built%20With-Rust-orange?logo=rust)](https://www.rust-lang.org/)
 [![Tauri](https://img.shields.io/badge/Framework-Tauri%202.0-blue)](https://tauri.app/)
