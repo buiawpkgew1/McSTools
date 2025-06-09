@@ -30,7 +30,7 @@ const updateData = async () => {
   >
     <v-col cols="12" class="mb-4">
       <v-card class="mx-auto overflow-auto h-auto v-theme--custom text-primary" :style="{ '--surface-alpha': opacity }" elevation="4" >
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-cog-outline" class="mr-2"></v-icon>
             <span class="text-h5">设置</span>

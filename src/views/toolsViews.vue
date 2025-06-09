@@ -40,7 +40,7 @@ onMounted(async() => {
   >
     <v-col>
       <v-card class="mx-auto overflow-auto h-auto v-theme--custom text-primary" :style="{ '--surface-alpha': opacity }" elevation="4" >
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4" :style="{ '--surface-alpha': opacity + 0.2 }">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-tools" class="mr-2 text-medium-emphasis"></v-icon>
             <span class="text-h5 text-medium-emphasis">蓝图编辑   </span>

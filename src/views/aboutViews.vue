@@ -220,7 +220,6 @@ onBeforeRouteLeave(navigationGuard)
                           <span>允许修改和分发，但必须开源修改后的代码并保留版权声明，禁止未经授权商业使用</span>
                         </v-tooltip>
                       </p>
-
                       <div class="d-flex align-center flex-wrap">
                         <span class="text-caption text-grey-darken-1 mr-2">
                           © 2025 MCS Tools. All rights licensed under AGPL-3.0
@@ -248,7 +247,7 @@ onBeforeRouteLeave(navigationGuard)
                     </div>
                     <div>
                       <p class="text-body-1 mb-1">
-                        <span class="font-weight-medium">开发贡献者</span>
+                        <span class="font-weight-medium">核心开发人员</span>
                         <v-tooltip location="top">
                           <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" size="16" color="grey" class="ml-1">mdi-information-outline</v-icon>
@@ -269,7 +268,6 @@ onBeforeRouteLeave(navigationGuard)
                             </template>
                             <span>作者</span>
                           </v-tooltip>
-
                         </v-col>
                       </v-row>
                     </div>

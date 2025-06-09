@@ -20,7 +20,7 @@ onBeforeRouteLeave(navigationGuard)
   >
     <v-col>
       <v-card class="mx-auto overflow-auto h-auto v-theme--custom text-primary" :style="{ '--surface-alpha': opacity }" elevation="4" >
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4" :style="{ '--surface-alpha': opacity + 0.2 }">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-package-variant text-medium-emphasis" class="mr-2"></v-icon>
             <span class="text-h5 text-medium-emphasis">工具箱   </span>
