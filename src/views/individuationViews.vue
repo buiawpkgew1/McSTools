@@ -6,7 +6,7 @@ import {appStore} from '../modules/store.ts';
 import {saveImage} from "../modules/uploadImage.ts";
 import router from "../../router";
 import {useTheme} from "vuetify/framework";
-import {backgroundOpacity, backgroundStr, layoutMode, opacity} from "../modules/theme.ts";
+import {backgroundOpacity, backgroundStr, initTheme, layoutMode, opacity} from "../modules/theme.ts";
 
 
 const selectedTheme = ref('grey');
@@ -34,6 +34,7 @@ const themes = [
   { label: '活力橙', value: 'orange', color: 'orange-darken-2', icon: 'mdi-fire' },
   { label: '菠萝黄', value: 'yellow', color: 'yellow-darken-3', icon: 'mdi-fruit-pineapple' },
   { label: '橡木棕', value: 'brown', color: 'brown-darken-3', icon: 'mdi-square-rounded' },
+  { label: '暗色模式', value: 'grey_dark', color: 'black-darken-3', icon: 'mdi-moon-waning-crescent' },
 ]
 
 onBeforeRouteLeave(navigationGuard)
@@ -53,6 +54,7 @@ const updateBackGround = async(file: File| undefined) =>{
   await appStore.set('backgroundDimensions', data?.dimensions)
   await appStore.set('backgroundName', data?.name)
   await router.push({name: 'emptyRoute'});
+  await initTheme();
 }
 const clearBackGround = async () => {
   await appStore.set('backgroundImage', 'null');
@@ -60,6 +62,7 @@ const clearBackGround = async () => {
   await appStore.set('backgroundDimensions', 'null')
   await appStore.set('backgroundName', 'null')
   await router.push({name: 'emptyRoute'});
+  await initTheme();
 }
 
 watch(selectedTheme, (val) => {
@@ -75,15 +78,15 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
 
 <template  class="page-wrapper">
   <v-row no-gutters
-         class="mb-4 animate-row"
+         class="mb-4 animate-row "
          :class="{ 'animate-row-out': isLeaving }"
   >
     <v-col class="mb-4" cols="12">
         <v-card class="mx-auto v-theme--custom text-primary " :style="{ '--surface-alpha': opacity }" elevation="4" hover>
-          <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
+          <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
             <v-toolbar-title>
-              <v-icon icon="mdi-palette" class="mr-2"></v-icon>
-              <span class="text-h5">个性化设置</span>
+              <v-icon icon="mdi-palette text-medium-emphasis" class="mr-2"></v-icon>
+              <span class="text-h5 text-medium-emphasis">个性化设置</span>
             </v-toolbar-title>
           </v-toolbar>
 
@@ -93,8 +96,8 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                 <v-row align="center">
                   <v-col cols="2">
                     <div class="d-flex align-center">
-                      <v-icon icon="mdi-opacity" class="mr-2"></v-icon>
-                      <span class="text-subtitle-1">不透明度</span>
+                      <v-icon icon="mdi-opacity text-medium-emphasis" class="mr-2"></v-icon>
+                      <span class="text-subtitle-1 text-medium-emphasis">不透明度</span>
                     </div>
                   </v-col>
                   <v-col cols="10">
@@ -125,8 +128,8 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                 <v-row align="center" justify="center">
                   <v-col cols="2">
                     <div class="d-flex align-center">
-                      <v-icon icon="mdi-theme-light-dark" class="mr-2"></v-icon>
-                      <span class="text-subtitle-1">主题配色</span>
+                      <v-icon icon="mdi-theme-light-dark text-medium-emphasis" class="mr-2"></v-icon>
+                      <span class="text-subtitle-1 text-medium-emphasis">主题配色</span>
                     </div>
                   </v-col>
                   <v-col cols="10">
@@ -165,10 +168,10 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
     </v-col>
     <v-col class="mb-4" cols="12">
       <v-card class="mx-auto" :style="{ '--surface-alpha': opacity }" elevation="4" hover>
-        <v-toolbar density="compact" class="pa-2">
+        <v-toolbar density="compact" class="pa-2" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
-            <v-icon icon="mdi-image" class="mr-2"></v-icon>
-            <span class="text-h7">背景设置</span>
+            <v-icon icon="mdi-image text-medium-emphasis" class="mr-2"></v-icon>
+            <span class="text-h7 text-medium-emphasis">背景设置</span>
           </v-toolbar-title>
         </v-toolbar>
 
@@ -283,7 +286,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
           <v-card variant="flat" class="bg-blue-grey-lighten-5 mb-3">
             <v-card-text class="pa-6">
               <v-row align="center" >
-                <v-col cols="2" class="d-flex align-center">
+                <v-col cols="2" class="d-flex align-center text-medium-emphasis">
                   <v-icon icon="mdi-opacity" class="mr-2"></v-icon>
                   <span>不透明度</span>
                 </v-col>
@@ -314,7 +317,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
           <v-card variant="flat" class="bg-blue-grey-lighten-5 mb-2">
             <v-card-text class="pa-6">
               <v-row align="center">
-                <v-col cols="2" class="d-flex align-center">
+                <v-col cols="2" class="d-flex align-center text-medium-emphasis">
                   <v-icon icon="mdi-image-area" class="mr-2"></v-icon>
                   <span>布局方式</span>
                 </v-col>

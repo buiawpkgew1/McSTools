@@ -22,7 +22,7 @@ onBeforeRouteLeave(navigationGuard)
           elevation="4"
           :style="{ '--surface-alpha': opacity }"
           hover>
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-information-outline" class="mr-2"></v-icon>
             <span class="text-h6">关于</span>
@@ -56,7 +56,7 @@ onBeforeRouteLeave(navigationGuard)
               <v-row>
                 <v-col cols="12">
                   <div class="d-flex justify-space-between">
-                    <span class="text-h6 text-blue-grey-darken-2">版本: v{{ appData.appVersion }}</span>
+                    <span class="text-h6 text-blue-grey-darken-2 text-medium-emphasis">版本: v{{ appData.appVersion }}</span>
                   </div>
                   <v-row align="center" justify="start">
                     <v-col cols="auto">
@@ -82,7 +82,7 @@ onBeforeRouteLeave(navigationGuard)
                   </v-row>
                 </v-col>
                 <v-col cols="12">
-                  <p class="text-body-1 text-grey-darken-2">
+                  <p class="text-body-1 text-grey-darken-2 text-medium-emphasis">
                     软件使用tauri 后端基于rust，前端使用vue.
                     <br/>
                     分离化设计让软件性能得到保障，rust安全设计，性能更好，内存安全高效。

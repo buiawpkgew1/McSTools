@@ -16,7 +16,7 @@ onBeforeRouteLeave(navigationGuard)
   >
     <v-col class="mb-4" cols="12">
       <v-card class="mx-auto" :style="{ '--surface-alpha': opacity }" elevation="4" hover>
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-message-alert-outline" class="mr-2"></v-icon>
             <span class="text-h5">问题反馈</span>
@@ -38,7 +38,7 @@ onBeforeRouteLeave(navigationGuard)
     </v-col>
     <v-col cols="12">
       <v-card :style="{ '--surface-alpha': opacity }">
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-compass-outline" class="mr-2"></v-icon>
             <span class="text-h7">反馈渠道</span>

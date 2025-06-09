@@ -257,8 +257,8 @@ onBeforeMount(async() => {
 </script>
 
 <template>
-  <v-row no-gutters>
-    <v-col cols="12" md="4" class="pa-4 bg-grey-lighten-3 d-flex flex-column">
+  <v-row no-gutters class="mx-auto v-theme--custom text-primary">
+    <v-col cols="12" md="4" class="pa-4 bg-grey-lighten-3 d-flex flex-column ">
       <v-row v-if="image_data != undefined">
         <v-col cols="12" class="image-column" >
           <v-img

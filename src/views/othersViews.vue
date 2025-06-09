@@ -20,16 +20,16 @@ onBeforeRouteLeave(navigationGuard)
   >
     <v-col>
       <v-card class="mx-auto overflow-auto h-auto v-theme--custom text-primary" :style="{ '--surface-alpha': opacity }" elevation="4" >
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-4" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
-            <v-icon icon="mdi-package-variant" class="mr-2"></v-icon>
-            <span class="text-h5">工具箱   </span>
+            <v-icon icon="mdi-package-variant text-medium-emphasis" class="mr-2"></v-icon>
+            <span class="text-h5 text-medium-emphasis">工具箱   </span>
           </v-toolbar-title>
           <v-divider vertical inset class="mx-4"/>
 
           <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1">
-            <v-tab value="img">地图画</v-tab>
-            <v-tab value="music">红石音乐</v-tab>
+            <v-tab value="img" class="text-medium-emphasis">地图画</v-tab>
+            <v-tab value="music" class="text-medium-emphasis">红石音乐</v-tab>
           </v-tabs>
         </v-toolbar>
         <v-window v-model="active">

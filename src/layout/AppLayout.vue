@@ -16,7 +16,7 @@
       />
     </div>
 
-    <v-list density="compact" class="nav-list">
+    <v-list density="compact" class="nav-list" style="background: none !important;">
       <v-tooltip
           v-for="item in navItems"
           :key="item.value"
@@ -32,7 +32,7 @@
               class="nav-item"
               @click.native="activeTab = item.value; router.push(`/${item.value}`)"
           >
-            <div class="icon-wrapper">
+            <div class="icon-wrapper ">
               <v-icon :icon="item.icon" size="28"/>
             </div>
           </v-list-item>

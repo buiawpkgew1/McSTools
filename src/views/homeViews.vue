@@ -107,12 +107,12 @@ onBeforeRouteLeave(navigationGuard)
           hover
           transition="slide-x-transition"
       >
-        <v-card-title
-            class="pa-4 bg-blue-grey-lighten-5"
-        >
-          <v-icon icon="mdi-tools" class="mr-2"></v-icon>
-          <span class="text-h5">蓝图工具箱</span>
-        </v-card-title>
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
+          <v-toolbar-title>
+            <v-icon icon="mdi-tools" class="mr-2 text-medium-emphasis"></v-icon>
+            <span class="text-h5 text-medium-emphasis">蓝图工具箱</span>
+          </v-toolbar-title>
+        </v-toolbar>
 
         <v-card-text class="py-4">
           <v-row class="mb-4" dense>
@@ -120,8 +120,8 @@ onBeforeRouteLeave(navigationGuard)
               <div class="d-flex align-center">
                 <v-icon icon="mdi-folder-multiple" color="deep-purple" class="mr-2"></v-icon>
                 <div>
-                  <div class="text-caption text-grey">本地蓝图总数</div>
-                  <div class="text-h4 text-grey-darken-3">{{ userData?.schematics ?? 0 }}</div>
+                  <div class="text-caption text-grey text-medium-emphasis">本地蓝图总数</div>
+                  <div class="text-h4 text-grey-darken-3 text-medium-emphasis">{{ userData?.schematics ?? 0 }}</div>
                 </div>
               </div>
             </v-col>
@@ -130,8 +130,8 @@ onBeforeRouteLeave(navigationGuard)
               <div class="d-flex align-center">
                 <v-icon icon="mdi-cloud-upload" size="28" color="teal" class="mr-2"></v-icon>
                 <div>
-                  <div class="text-caption text-grey">云端蓝图总数</div>
-                  <div class="text-h4 text-grey-darken-3">{{ userData?.cloud ?? 0 }}</div>
+                  <div class="text-caption text-grey text-medium-emphasis">云端蓝图总数</div>
+                  <div class="text-h4 text-grey-darken-3 text-medium-emphasis">{{ userData?.cloud ?? 0 }}</div>
                 </div>
               </div>
             </v-col>
@@ -158,7 +158,7 @@ onBeforeRouteLeave(navigationGuard)
                       </v-img>
                     </v-avatar>
                     <div>
-                      <div class="text-caption text-grey-darken-1 mb-1">
+                      <div class="text-caption text-grey-darken-1 text-medium-emphasis mb-1">
                         <v-icon small left>mdi-login</v-icon>
                         欢迎回来
                       </div>

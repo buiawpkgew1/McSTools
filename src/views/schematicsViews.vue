@@ -7,6 +7,7 @@ import WebData from "../units/schematics/webData.vue";
 import MCS from "../static/img/fav512.png"
 import CMS from "../static/img/CMS.png"
 import {selectedSite} from "../modules/web_schematic/web_data.ts";
+import {opacity} from "../modules/theme.ts";
 
 const active = ref()
 const siteOptions = [
@@ -32,10 +33,10 @@ onBeforeRouteLeave(navigationGuard)
   >
     <v-col>
       <v-card class="mx-auto v-theme--custom text-primary"  elevation="4">
-        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 px-4 py-3">
+        <v-toolbar density="compact" class="bg-blue-grey-lighten-5 px-3 py-3" :style="{ '--surface-alpha': opacity + 0.2 }">
           <div class="d-flex align-center">
-            <v-icon icon="mdi-warehouse" class="mr-2"></v-icon>
-            <span class="text-h5 ml-2 font-weight-medium">蓝图仓库</span>
+            <v-icon icon="mdi-warehouse text-medium-emphasis" class="mr-2"></v-icon>
+            <span class="text-h5 ml-2 font-weight-medium text-medium-emphasis">蓝图仓库</span>
             <v-divider vertical inset class="mx-4" thickness="2"/>
           </div>
 
@@ -46,11 +47,11 @@ onBeforeRouteLeave(navigationGuard)
                 label="站点源"
                 density="comfortable"
                 variant="underlined"
-                class="source-select"
+                class="source-select text-medium-emphasis"
                 hide-details
             >
               <template v-slot:selection="{ item }">
-                <div class="d-flex align-center">
+                <div class="d-flex align-center text-medium-emphasis">
                   <v-avatar size="32" rounded="1" class="mr-2">
                     <v-img :src="item.raw.img" style="height: 32px; width: 32px" />
                   </v-avatar>
@@ -80,9 +81,11 @@ onBeforeRouteLeave(navigationGuard)
             >
               <v-tab
                   value="local"
+                  class="text-medium-emphasis"
               >本地蓝图</v-tab>
               <v-tab
                   value="web"
+                  class="text-medium-emphasis"
               >网络蓝图</v-tab>
             </v-tabs>
             <v-btn

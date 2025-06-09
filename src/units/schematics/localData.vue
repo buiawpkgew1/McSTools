@@ -15,6 +15,7 @@ import bgImg from "../../static/img/bg.jpg";
 import weImg from "../../static/img/wordEdit.png";
 import beImg from "../../static/img/grass_block.png";
 import {selectLoading, toast} from "../../modules/others.ts";
+import {opacity} from "../../modules/theme.ts";
 const router = useRouter()
 const loadState = ref()
 const autoPage = ref(1)
@@ -217,6 +218,7 @@ const formatTime = (time: any) => {
           :key="bp.id"
           class="py-2"
           :title="bp.name"
+
       >
         <template v-slot:prepend>
           <v-icon

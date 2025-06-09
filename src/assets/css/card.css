@@ -3,6 +3,29 @@
     background: rgba(var(--v-theme-surface), var(--surface-alpha, 1)) !important;
 }
 
+[data-v-app] .v-toolbar {
+    border-color: rgba(var(--v-border-color), var(--v-border-opacity));
+    background: rgba(var(--v-theme-surface), var(--surface-alpha, 1)) !important;
+    border-style: solid;
+    border-width: 0;
+}
+
+[data-v-app] .text-medium-emphasis {
+    color: rgba(var(--v-theme-on-background)) !important;
+}
+
+[data-v-app] .text-medium-emphasis {
+    color: rgba(var(--v-theme-on-background)) !important;
+}
+
+.v-list {
+    background: rgba(var(--v-theme-surface), var(--surface-alpha, 1)) !important;
+    color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+}
+
+[data-v-app] .v-layout-list {
+    color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+}
 .full-screen-card {
     height: 100vh;
     position: fixed;
