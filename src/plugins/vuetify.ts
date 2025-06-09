@@ -108,7 +108,7 @@ const vuetify = createVuetify({
                 },
                 dark: true,
                 variables: {
-                    'overlay-background': '#0f1524',
+                    'overlay-background': '#6778a3',
                 },
             },
             blue: {

@@ -9,7 +9,6 @@ class AppStore {
 
     async get<T>(key: string, defaultValue: T): Promise<T> {
         const value = await this.store.get(key);
-        console.log(value)
         return value !== undefined ? (value as T) : defaultValue;
     }
 

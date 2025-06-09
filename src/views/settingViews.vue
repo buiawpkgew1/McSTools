@@ -5,8 +5,12 @@ import {onBeforeRouteLeave} from "vue-router";
 import {onMounted, ref} from "vue";
 import {appStore} from "../modules/store.ts";
 import {openDev} from "../modules/dev_mode.ts";
+import {clearThemeListeners, detectTheme} from "../modules/others.ts";
+import {useTheme} from "vuetify/framework";
+const theme = useTheme()
 const autoUpdateEnabled = ref(true);
 const devMode = ref(false);
+const autoTheme = ref(false);
 const updateSources = ref([
   'https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json'
 ]);
@@ -15,10 +19,17 @@ onBeforeRouteLeave(navigationGuard)
 onMounted(async () => {
   autoUpdateEnabled.value = await appStore.get('autoUpdate', true)
   devMode.value = await appStore.get('devMode', false)
+  autoTheme.value = await appStore.get('autoTheme', false)
 })
 const updateData = async () => {
   await appStore.set('autoUpdate', autoUpdateEnabled.value)
   await appStore.set('devMode', devMode.value)
+  await appStore.set('autoTheme', autoTheme.value)
+  if (autoTheme.value) {
+    await detectTheme(theme);
+  }else {
+    clearThemeListeners();
+  }
 }
 
 </script>
@@ -136,6 +147,37 @@ const updateData = async () => {
                 </v-btn>
               </template>
             </v-list-item>
+          </v-list>
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <v-col cols="12" class="mb-4">
+      <v-card class="mx-auto" :style="{ '--surface-alpha': opacity }" elevation="4" hover>
+        <v-toolbar density="compact" class="pa-2 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
+          <v-toolbar-title>
+            <v-icon class="mr-2 ">
+              mdi-palette
+            </v-icon>
+            <span class="text-h7">跟随主题</span>
+          </v-toolbar-title>
+        </v-toolbar>
+
+        <v-card-text class="pa-4">
+          <v-list class="pa-4" density="comfortable">
+            <v-list-item>
+              <template #prepend>
+                <v-icon icon="mdi-autorenew" class="mr-2"></v-icon>
+              </template>
+              <v-list-item-title>启用系统跟随(页面主题将跟随windows主题变化)</v-list-item-title>
+              <template #append>
+                <v-switch
+                    v-model="autoTheme"
+                    color="primary"
+                    @update:model-value="updateData"
+                ></v-switch>
+              </template>
+            </v-list-item>
+
           </v-list>
         </v-card-text>
       </v-card>

@@ -36,10 +36,11 @@ const themes = [
   { label: '橡木棕', value: 'brown', color: 'brown-darken-3', icon: 'mdi-square-rounded' },
   { label: '暗色模式', value: 'grey_dark', color: 'black-darken-3', icon: 'mdi-moon-waning-crescent' },
 ]
-
 onBeforeRouteLeave(navigationGuard)
+
 onMounted(async () => {
   selectedTheme.value = await appStore.get('selectedTheme', 'blue');
+  await appStore.set('oldTheme', 'blue')
   backgroundImage.value = await appStore.get('backgroundImage', 'null');
   backgroundSize.value = await appStore.get('backgroundSize', 0);
   backgroundDimensions.value = await appStore.get('backgroundDimensions', "null")
@@ -65,11 +66,14 @@ const clearBackGround = async () => {
   await initTheme();
 }
 
+
 watch(selectedTheme, (val) => {
       theme.global.name.value = val
       appStore.set('selectedTheme', val)
-}
-);
+      if (val != "grey_dark") {
+        appStore.set('lodTheme', val)
+      }
+});
 watch(backgroundImage, (val) => appStore.set('backgroundImage', val));
 watch(layoutMode, (val) => appStore.set('layoutMode', val));
 watch(opacity, (val) => appStore.set('opacity', val))

@@ -111,8 +111,8 @@ import AppLayout from "./layout/AppLayout.vue";
 import {onMounted, ref, watchEffect, onUnmounted, nextTick} from "vue";
 import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
-import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 const theme = useTheme()
+import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";
@@ -130,7 +130,7 @@ import {
   checkUpdate
 } from "./modules/chuck_update.ts";
 import {resources_Init} from "./modules/deepslateInit.ts";
-import {toast} from "./modules/others.ts";
+import {detectTheme, toast} from "./modules/others.ts";
 const selectedTheme = ref('grey')
 const autoUpdateEnabled = ref(true);
 const backgroundStyle = ref({
@@ -173,7 +173,6 @@ const scrollToTop = () => {
 
   requestAnimationFrame(animate)
 }
-
 onUnmounted(() => {
   const mainContent = document.getElementById('app')
   if (mainContent) {
@@ -181,34 +180,6 @@ onUnmounted(() => {
   }
 })
 
-
-onMounted(async () => {
-  nextTick(() => {
-    const mainContent = document.getElementById('app')
-    if (mainContent) {
-      mainContent.addEventListener('scroll', checkScroll)
-    }
-  })
-  selectedTheme.value = await appStore.get('selectedTheme', 'grey')
-  autoUpdateEnabled.value = await appStore.get('autoUpdate', true)
-  theme.global.name.value = selectedTheme.value
-  await initTheme()
-  await invoke("close_splashscreen")
-  await fetchUserData()
-
-  appData.value = await getAppVersion()
-  jeBlocks.value = await fetchJeBlocks()
-  mapArtData.value = await fetchMapArtsData()
-  try{
-    await resources_Init()
-  }catch (e) {
-    toast.error(`资源加载失败:${e}`, {timeout: 3000})
-  }
-
-  if (autoUpdateEnabled.value){
-    await checkUpdate(true)
-  }
-})
 
 watchEffect(() => {
   if (backgroundStr.value) {
@@ -226,6 +197,34 @@ watchEffect(() => {
   }
 })
 
+onMounted(async () => {
+  await nextTick(() => {
+    const mainContent = document.getElementById('app')
+    if (mainContent) {
+      mainContent.addEventListener('scroll', checkScroll)
+    }
+  })
+  selectedTheme.value = await appStore.get('selectedTheme', 'grey')
+  autoUpdateEnabled.value = await appStore.get('autoUpdate', true)
+  theme.global.name.value = selectedTheme.value
+  await initTheme()
+  await invoke("close_splashscreen")
+  await fetchUserData()
+  await detectTheme(theme);
+
+  appData.value = await getAppVersion()
+  jeBlocks.value = await fetchJeBlocks()
+  mapArtData.value = await fetchMapArtsData()
+  try{
+    await resources_Init()
+  }catch (e) {
+    toast.error(`资源加载失败:${e}`, {timeout: 3000})
+  }
+
+  if (autoUpdateEnabled.value){
+    await checkUpdate(true)
+  }
+})
 </script>
 
 <style lang="scss">
