@@ -1,0 +1,103 @@
+<template>
+  <div class="custom-titlebar" :class="{'is-active': appActive}">
+    <div class="titlebar-left" @dblclick="toggleMaximize">
+      <v-avatar size="32" rounded="0">
+        <v-img
+            height="32"
+            width="32"
+            :src="fav"
+            style="min-width: 32px"
+        />
+      </v-avatar>
+      <div class="app-title">MCSTools</div>
+    </div>
+
+    <div class="titlebar-right">
+      <div
+          class="window-control"
+          id="minimize"
+          @click="minimize"
+          title="最小化">
+        <v-icon icon="mdi-window-minimize"/>
+      </div>
+      <div
+          class="window-control close"
+          id="close"
+          @click="close"
+          title="关闭">
+        <v-icon icon="mdi-window-close"/>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { getCurrentWindow } from '@tauri-apps/api/window';
+import fav from "../static/img/fav512.png"
+const appWindow = getCurrentWindow();
+const appActive = ref(true)
+
+const minimize = async () => await appWindow.minimize()
+const close = async () => await appWindow.close()
+
+</script>
+
+<style scoped>
+.custom-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
+
+  background: rgba(var(--titlebar-bg), 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(var(--titlebar-border), 0.15);
+
+  -webkit-app-region: drag;
+  padding: 0 12px;
+  position: relative;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.app-title {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.titlebar-right {
+  display: flex;
+  height: 100%;
+  -webkit-app-region: no-drag;
+}
+
+.window-control {
+  width: 42px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.window-control:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.window-control.close:hover {
+  background: #e74c3c;
+  color: white;
+}
+</style>

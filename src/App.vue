@@ -1,5 +1,6 @@
 <template >
   <v-app :style="backgroundStyle">
+
     <v-theme-provider>
       <div class="layout-container">
         <app-layout class="app-layout" />
@@ -112,7 +113,6 @@ import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 const theme = useTheme()
-
 import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
 import {fetchUserData} from "./modules/user_data.ts";

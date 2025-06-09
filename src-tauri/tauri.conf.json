@@ -18,7 +18,8 @@
         "minWidth": 1000,
         "minHeight": 600,
         "center": true,
-        "visible": false
+        "visible": false,
+        "decorations": true
       },
       {
         "fullscreen": false,
