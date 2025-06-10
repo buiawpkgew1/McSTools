@@ -12,7 +12,8 @@ const autoUpdateEnabled = ref(true);
 const devMode = ref(false);
 const autoTheme = ref(false);
 const updateSources = ref([
-  'https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json'
+  'https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json',
+  'https://hub.gitmirror.com/https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json'
 ]);
 const selectedSource = ref('https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json');
 onBeforeRouteLeave(navigationGuard)
