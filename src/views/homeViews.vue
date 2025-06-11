@@ -30,6 +30,7 @@ const {
 } = timeManager.useInComponent()
 const currentIndex = ref(0)
 const displayText = ref('')
+const isDragging = ref(false);
 const isAnimating = ref(false)
 let intervalId: number | null = null
 let timeoutId: number | null = null
@@ -39,11 +40,9 @@ const randomHanChar = () => {
       ? symbols[Math.floor(Math.random() * symbols.length)]
       : String.fromCharCode(0x4e00 + Math.floor(Math.random() * 20902))
 }
-
 const generateNoise = (length: number) => {
   return Array.from({ length }, () => randomHanChar()).join('')
 }
-
 const revealText = (target: string) => {
   let index = 0
   const targetArr = target.split('')
@@ -62,7 +61,6 @@ const revealText = (target: string) => {
     index++
   }, 50)
 }
-
 const switchMessage = () => {
   isAnimating.value = true
   const target = messageList.value[currentIndex.value]
@@ -74,7 +72,28 @@ const switchMessage = () => {
     timeoutId = null
   }, 300)
 }
+const onDragOver = async (e: any) => {
+  e.preventDefault();
+  isDragging.value = true;
+  if (e.dataTransfer) {
+    e.dataTransfer.dropEffect = 'copy';
+  }
+}
 
+const onDragLeave = async (e: any) => {
+  e.preventDefault();
+  isDragging.value = false;
+}
+
+const onDrop = async (e: any) => {
+  e.preventDefault();
+  isDragging.value = false;
+  const files_load = e.dataTransfer.files;
+  if (files_load.length === 0) return;
+  files.value = Array.from(files_load);
+  console.log(files);
+  await handleUpload(-1);
+}
 onMounted(() => {
   setInterval(() => {
     currentIndex.value = (currentIndex.value + 1) % messageList.value.length
@@ -238,13 +257,17 @@ onBeforeRouteLeave(navigationGuard)
       h-100"
               elevation="4"
               :style="{ '--surface-alpha': opacity }"
+              @dragover.prevent="onDragOver"
+              @dragleave="onDragLeave"
+              @drop.prevent="onDrop"
+
       >
         <v-card-title class="text-h6 bg-blue-lighten-5">
           <v-icon icon="mdi-cloud-upload" class="mr-2"></v-icon>
           蓝图处理
         </v-card-title>
 
-        <v-card-text class="upload-area pa-8">
+        <v-card-text class="upload-area pa-8" :class="{ 'drag-active': isDragging }">
           <div class="text-center mb-4">
             <v-icon
                 icon="mdi-cloud-upload"
@@ -253,12 +276,13 @@ onBeforeRouteLeave(navigationGuard)
             ></v-icon>
             <div class="text-h6 text-medium-emphasis">拖放文件或点击上传</div>
             <div class="text-caption text-medium-emphasis mt-1">
-              支持格式：nbt、litematic、schem、 json、 mcstruct（最大50MB）
+              支持格式：nbt、litematic、schem、 json、 mcstruct（最大50MB）允许多选
             </div>
           </div>
 
           <div class="upload-container">
             <v-file-input
+                :aria-disabled="isDragging"
                 v-model="files"
                 class="custom-file-input"
                 variant="solo-filled"

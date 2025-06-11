@@ -12,7 +12,7 @@
       <v-icon
           icon="mdi-cube-scan"
           size="40"
-          class="app-logo"
+          class="app-logo text-medium-emphasis"
       />
     </div>
 

@@ -19,7 +19,8 @@
         "minHeight": 600,
         "center": true,
         "visible": false,
-        "decorations": true
+        "decorations": true,
+        "dragDropEnabled": false
       },
       {
         "fullscreen": false,

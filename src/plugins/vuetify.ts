@@ -76,7 +76,7 @@ const vuetify = createVuetify({
                     outline: '#7e8592',
                     'outline-variant': '#303a49',
                     primary: '#000000',
-                    'on-primary': '#384349',
+                    'on-primary': '#ffffff',
                     'primary-container': '#3f4c54',
                     'on-primary-container': '#cbd4d9',
                     'inverse-primary': '#485963',

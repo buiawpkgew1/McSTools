@@ -3628,7 +3628,6 @@ dependencies = [
  "regex",
  "reqwest",
  "rusqlite",
- "rustc-hash",
  "serde",
  "serde_json",
  "sysinfo",
