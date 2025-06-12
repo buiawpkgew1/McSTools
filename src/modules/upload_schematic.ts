@@ -36,7 +36,7 @@ export const handleUpload = async (update_id: number) => {
         }
 
         uploadStatus.value = 'success';
-        userData.value.schematics += 1;
+        userData.value.schematics += files.value.length;
         startProgressTimer()
         toast.success(`蓝图${update_id == -1? '上传': '更新'}完毕`, {
             timeout: 2000

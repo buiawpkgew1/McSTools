@@ -38,6 +38,7 @@ use utils::loading::close_splashscreen;
 use utils::minecraft_data::versions_data::VersionData;
 use CMS::get_cms_data::perform_search;
 use utils::open_dev::open_dev;
+use data_files::data_flies::clear_app_data;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -84,6 +85,7 @@ pub fn run() {
             get_je_blocks,
             perform_search,
             get_map_arts,
+            clear_app_data,
             get_logs,
             add_schematic,
             get_schematic,

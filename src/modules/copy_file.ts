@@ -1,7 +1,8 @@
 import {invoke} from "@tauri-apps/api/core";
 import {save} from "@tauri-apps/plugin-dialog";
 import {toast} from "./others.ts";
-
+import { appConfigDir } from '@tauri-apps/api/path';
+import { openPath } from '@tauri-apps/plugin-opener';
 const getExtensions = (type: number): string[] => {
     switch (type) {
         case 1: return ['nbt'];
@@ -43,5 +44,15 @@ export const copySchematic = async (id: number, sub: number, version: number, ty
     } catch (error) {
         console.error('复制失败:', error);
         toast.error(`复制失败: ${error}`, { timeout: 3000 });
+    }
+};
+
+export const openData = async () => {
+    try {
+        const appConfigDirPath = await appConfigDir();
+        await openPath(appConfigDirPath);
+    } catch (error) {
+        console.error('打开失败:', error);
+        toast.error(`打开失败: ${error}`, { timeout: 3000 });
     }
 };

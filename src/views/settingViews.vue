@@ -5,9 +5,13 @@ import {onBeforeRouteLeave} from "vue-router";
 import {onMounted, ref} from "vue";
 import {appStore} from "../modules/store.ts";
 import {openDev} from "../modules/dev_mode.ts";
-import {clearThemeListeners, detectTheme} from "../modules/others.ts";
+import {clearThemeListeners, detectTheme, toast} from "../modules/others.ts";
 import {useTheme} from "vuetify/framework";
+import {invoke} from "@tauri-apps/api/core";
+import {openData} from "../modules/copy_file.ts";
+import {relaunch} from "@tauri-apps/plugin-process";
 const theme = useTheme()
+const dialog = ref(false)
 const autoUpdateEnabled = ref(true);
 const devMode = ref(false);
 const autoTheme = ref(false);
@@ -29,6 +33,24 @@ const updateData = async () => {
     await detectTheme(theme);
   }else {
     clearThemeListeners();
+  }
+}
+
+const clearData = async () => {
+  try {
+    await invoke(
+        'clear_app_data'
+    )
+    toast.info(`已清除资源文件，将在5s后重启`, {
+      timeout: 3000
+    });
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    await relaunch();
+  } catch (error) {
+    toast.error(`发生了一个错误:${error}`, {
+      timeout: 3000
+    });
+    throw new Error(`获取原理图失败: ${error}`);
   }
 }
 
@@ -182,7 +204,86 @@ const updateData = async () => {
         </v-card-text>
       </v-card>
     </v-col>
+    <v-col cols="12" class="mb-4">
+      <v-card class="mx-auto" :style="{ '--surface-alpha': opacity }" elevation="4" hover>
+        <v-toolbar density="compact" class="pa-2 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
+          <v-toolbar-title>
+            <v-icon class="mr-2 ">
+              mdi-file-cabinet
+            </v-icon>
+            <span class="text-h7">资源文件</span>
+          </v-toolbar-title>
+        </v-toolbar>
+
+        <v-card-text class="pa-4">
+          <v-list class="pa-4" density="comfortable">
+            <v-list-item>
+              <template #prepend>
+                <v-icon icon="mdi-trash-can-outline" class="mr-2"></v-icon>
+              </template>
+              <v-list-item-title>清除资源文件(将删除所有资源文件，你存储的蓝图)</v-list-item-title>
+              <template #append>
+                <v-btn
+                    variant="outlined"
+                    color="red"
+                    prepend-icon="mdi-information-outline"
+                    @click="dialog = true"
+                >
+                  确认清除
+                </v-btn>
+              </template>
+            </v-list-item>
+
+            <v-list-item>
+              <template #prepend>
+                <v-icon icon="mdi-folder-file-outline" class="mr-2"></v-icon>
+              </template>
+              <v-list-item-title>打开资源文件夹</v-list-item-title>
+              <template #append>
+                <v-btn
+                    variant="outlined"
+                    prepend-icon="mdi-file-arrow-up-down-outline"
+                    @click="openData()"
+                >
+                  打开目录
+                </v-btn>
+              </template>
+            </v-list-item>
+
+          </v-list>
+        </v-card-text>
+      </v-card>
+    </v-col>
   </v-row>
+  <v-dialog
+      v-model="dialog"
+      max-width="500"
+      persistent
+  >
+    <v-card
+        max-width="500"
+        width="500"
+    >
+      <v-card-title class="text-subtitle-1">
+        <v-icon icon="mdi-history" class="mr-2"></v-icon>
+        确认清除
+      </v-card-title>
+      <v-card-subtitle class="text-caption text-grey-darken-1">
+        清除将导致数据全部丢失，建议先进行备份
+      </v-card-subtitle>
+
+      <template v-slot:actions>
+        <v-spacer/>
+        <v-btn @click="dialog = false">取消</v-btn>
+        <v-btn
+            class="ms-auto"
+            text="再次确认"
+            color="primary"
+            @click="clearData()"
+        ></v-btn>
+      </template>
+    </v-card>
+  </v-dialog>
 </template>
 
 <style scoped>

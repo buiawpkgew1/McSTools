@@ -51,7 +51,6 @@ impl FileManager {
         }
         Ok(schematic_dir)
     }
-
     pub fn delete_schematic_dir(&self, id: i64) -> Result<()> {
         let target_dir = self.schematic_dir(id)?;
 

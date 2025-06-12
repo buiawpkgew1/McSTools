@@ -2,6 +2,7 @@ use anyhow::{Context, Result};
 use r2d2::Pool;
 use r2d2_sqlite::SqliteConnectionManager;
 use std::path::PathBuf;
+use rusqlite::Connection;
 use tauri::{AppHandle, Manager};
 
 type SqlitePool = Pool<SqliteConnectionManager>;
@@ -131,4 +132,33 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
     )?;
 
     Ok(DatabaseState(pool))
+}
+
+pub fn drop_all_tables_in_transaction(conn: &Connection) -> Result<()> {
+    let tables = [
+        "app_logs",
+        "user_data",
+        "schematics_history",
+        "schematic_data",
+        "schematics"
+    ];
+
+    for table in tables.iter() {
+        conn.execute_batch(&format!("DROP TABLE IF EXISTS {};", table))
+            .context(format!("删除 {} 表失败", table))?;
+    }
+
+    let indexes = [
+        "idx_schematics_history",
+        "idx_requirements_schematic",
+        "idx_logs_search",
+        "idx_schematic_search"
+    ];
+
+    for index in indexes.iter() {
+        conn.execute_batch(&format!("DROP INDEX IF EXISTS {};", index))
+            .context(format!("删除 {} 索引失败", index))?;
+    }
+
+    Ok(())
 }

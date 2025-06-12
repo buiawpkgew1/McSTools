@@ -480,6 +480,7 @@ onBeforeRouteLeave(navigationGuard)
       </v-card>
     </v-col>
   </v-row>
+
 </template>
 
 <style scoped lang="css" src="../assets/css/home.css"></style>
