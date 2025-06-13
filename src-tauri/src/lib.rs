@@ -53,7 +53,7 @@ pub fn run() {
         .setup(|app| {
             let db_state = db_control::init_db(app.handle())?;
             app.manage(db_state);
-            let config = config::init_config(app.handle()).expect("配置系统初始化失败");
+            let config = config::init_config(app.handle()).expect("Configuration system initialization failed");
             app.manage(config);
             let file_manager = FileManager::new(app.handle())?;
             app.manage(file_manager);

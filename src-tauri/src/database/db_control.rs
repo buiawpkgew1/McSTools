@@ -14,11 +14,11 @@ fn get_db_path(app: &AppHandle) -> Result<PathBuf> {
     let data_dir = app
         .path()
         .app_data_dir()
-        .context("无法获取应用数据目录")?
+        .context("Unable to retrieve the application data directory")?
         .join("data");
 
     if !data_dir.exists() {
-        std::fs::create_dir_all(&data_dir).context("创建数据目录失败")?;
+        std::fs::create_dir_all(&data_dir).context("Failed to create data directory")?;
     }
 
     Ok(data_dir)
@@ -145,7 +145,7 @@ pub fn drop_all_tables_in_transaction(conn: &Connection) -> Result<()> {
 
     for table in tables.iter() {
         conn.execute_batch(&format!("DROP TABLE IF EXISTS {};", table))
-            .context(format!("删除 {} 表失败", table))?;
+            .context(format!("Delete {} table failed", table))?;
     }
 
     let indexes = [
@@ -157,7 +157,7 @@ pub fn drop_all_tables_in_transaction(conn: &Connection) -> Result<()> {
 
     for index in indexes.iter() {
         conn.execute_batch(&format!("DROP INDEX IF EXISTS {};", index))
-            .context(format!("删除 {} 索引失败", index))?;
+            .context(format!("Delete {} Indexing failed", index))?;
     }
 
     Ok(())

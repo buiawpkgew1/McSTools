@@ -7,7 +7,7 @@ pub async fn open_dev(
     #[cfg(all(debug_assertions, target_os = "windows"))]
     {
         let window = app.get_webview_window("main")
-            .ok_or("无法获取主窗口")?;
+            .ok_or("Unable to retrieve the main window")?;
 
         window.open_devtools();
     }

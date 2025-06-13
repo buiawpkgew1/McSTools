@@ -12,7 +12,7 @@ pub async fn clear_app_data(
     let app_data_dir = app_handle
         .path()
         .app_data_dir()
-        .context("无法获取应用数据目录").map_err(|e| e.to_string())?
+        .context("Unable to retrieve the application data directory").map_err(|e| e.to_string())?
         .join("data")
         .join("schematic");
     if !app_data_dir.exists() {
@@ -25,10 +25,10 @@ pub async fn clear_app_data(
         let path = entry.path();
 
         if path.is_file() {
-            fs::remove_file(&path).map_err(|e| format!("无法删除 {}: {}", path.display(), e))?;
+            fs::remove_file(&path).map_err(|e| format!("Cannot delete {}: {}", path.display(), e))?;
         }
         if path.is_dir() {
-            fs::remove_dir_all(&path).map_err(|e| format!("无法删除 {}: {}", path.display(), e))?;
+            fs::remove_dir_all(&path).map_err(|e| format!("Cannot delete {}: {}", path.display(), e))?;
         }
     }
     Ok(())
