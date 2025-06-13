@@ -3,8 +3,11 @@ import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {onBeforeRouteLeave} from "vue-router";
 import {opacity} from "../modules/theme.ts";
 import {openLink, toast} from "../modules/others.ts";
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 const qqln = async () => {
-  toast.info(`还莫有，这只是个占位符`, {timeout: 3000});
+  toast.info(t('report.placeholder'), {timeout: 3000});
 }
 onBeforeRouteLeave(navigationGuard)
 </script>
@@ -19,18 +22,17 @@ onBeforeRouteLeave(navigationGuard)
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-message-alert-outline" class="mr-2"></v-icon>
-            <span class="text-h5">问题反馈</span>
+            <span class="text-h5">{{ t('report.title') }}</span>
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-
           <v-alert
               variant="tonal"
               color="info"
               icon="mdi-information"
               class="mt-4"
           >
-            有问题先不要盲目，乱求医。先尝试自己解决一下！
+            {{ t('report.tip') }}
           </v-alert>
         </v-card-text>
       </v-card>
@@ -41,7 +43,7 @@ onBeforeRouteLeave(navigationGuard)
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-compass-outline" class="mr-2"></v-icon>
-            <span class="text-h7">反馈渠道</span>
+            <span class="text-h7">{{ t('report.subtitle') }}</span>
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text>
@@ -62,12 +64,12 @@ onBeforeRouteLeave(navigationGuard)
 
                       <v-toolbar-title class="content-wrapper">
                         <v-icon icon="mdi-github" class="mr-2"></v-icon>
-                        <span class="text-h7">GitHub issue</span>
+                        <span class="text-h7">{{ t('report.channels.github.title') }}</span>
                       </v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text>
-                      <span class="text-h8">通过Github issue向我们反馈bug和问题</span>
+                      <span class="text-h8">{{ t('report.channels.github.desc') }}</span>
                     </v-card-text>
                   </v-card>
                 </template>
@@ -89,12 +91,12 @@ onBeforeRouteLeave(navigationGuard)
 
                       <v-toolbar-title class="content-wrapper">
                         <v-icon icon="mdi-qqchat" class="mr-2"></v-icon>
-                        <span class="text-h7">QQ群聊</span>
+                        <span class="text-h7">{{ t('report.channels.qqGroup.title') }}</span>
                       </v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text>
-                      <span class="text-h8">加入官方Q群反馈问题bug</span>
+                      <span class="text-h8">{{ t('report.channels.qqGroup.desc') }}</span>
                     </v-card-text>
                   </v-card>
                 </template>
@@ -116,12 +118,12 @@ onBeforeRouteLeave(navigationGuard)
 
                       <v-toolbar-title class="content-wrapper">
                         <v-icon icon="mdi-message-processing-outline" class="mr-2"></v-icon>
-                        <span class="text-h7">QQ频道</span>
+                        <span class="text-h7">{{ t('report.channels.qqChannel.title') }}</span>
                       </v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text>
-                      <span class="text-h8">加入官方QQ频道反馈问题bug</span>
+                      <span class="text-h8">{{ t('report.channels.qqChannel.desc') }}</span>
                     </v-card-text>
                   </v-card>
                 </template>

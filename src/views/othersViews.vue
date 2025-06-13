@@ -7,7 +7,9 @@ import {onBeforeRouteLeave} from "vue-router";
 import mapImage2d from "../units/others/mapImage2d.vue";
 import redStoneMusic from "../units/others/redStoneMusic.vue";
 import {mapArtData} from "../modules/map_art/map_art_data.ts";
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n()
 const active = ref(0)
 
 onBeforeRouteLeave(navigationGuard)
@@ -23,13 +25,13 @@ onBeforeRouteLeave(navigationGuard)
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-package-variant text-medium-emphasis" class="mr-2"></v-icon>
-            <span class="text-h5 text-medium-emphasis">工具箱   </span>
+            <span class="text-h5 text-medium-emphasis">{{ t('others.title') }}</span>
           </v-toolbar-title>
           <v-divider vertical inset class="mx-4"/>
 
           <v-tabs v-model="active" align-tabs="center" color="blue-lighten-1">
-            <v-tab value="img" class="text-medium-emphasis">地图画</v-tab>
-            <v-tab value="music" class="text-medium-emphasis">红石音乐</v-tab>
+            <v-tab value="img" class="text-medium-emphasis">{{ t('others.tabs.mapArt') }}</v-tab>
+            <v-tab value="music" class="text-medium-emphasis">{{ t('others.tabs.redstoneMusic') }}</v-tab>
           </v-tabs>
         </v-toolbar>
         <v-window v-model="active">

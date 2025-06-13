@@ -54,7 +54,7 @@
               />
             </div>
           </template>
-          <span>设置</span>
+          <span>{{ $t('menu.settings') }}</span>
         </v-tooltip>
       </div>
     </template>
@@ -65,8 +65,8 @@
 <script setup lang="ts">
 import { activeTab, navItems } from '../modules/layout.ts'
 import {useRouter} from "vue-router";
-const router = useRouter()
 
+const router = useRouter()
 </script>
 
 <style scoped>

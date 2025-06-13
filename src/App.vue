@@ -108,10 +108,10 @@
 
 <script setup lang="ts">
 import AppLayout from "./layout/AppLayout.vue";
-import {onMounted, ref, watchEffect, onUnmounted, nextTick} from "vue";
+import {nextTick, onMounted, onUnmounted, ref, watchEffect} from "vue";
 import {appStore} from "./modules/store.ts";
 import {useTheme} from "vuetify/framework";
-const theme = useTheme()
+import {useI18n} from 'vue-i18n'
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode} from "./modules/theme.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {fetchJeBlocks, jeBlocks} from "./modules/je_blocks.ts";
@@ -120,17 +120,19 @@ import {relaunch} from "@tauri-apps/plugin-process";
 import {appData, getAppVersion} from "./modules/app_data.ts";
 import {fetchMapArtsData, mapArtData} from "./modules/map_art/map_art_data.ts";
 import {
+  checkUpdate,
+  confirmUpdate,
   restartDialog,
   updateDialog,
-  updateState,
-  UpdateState,
-  confirmUpdate,
   updateInfo,
   updateProgress,
-  checkUpdate
+  updateState,
+  UpdateState
 } from "./modules/chuck_update.ts";
 import {resources_Init} from "./modules/deepslateInit.ts";
 import {detectTheme, toast} from "./modules/others.ts";
+
+const theme = useTheme()
 const selectedTheme = ref('grey')
 const autoUpdateEnabled = ref(true);
 const backgroundStyle = ref({
@@ -144,6 +146,7 @@ const backgroundStyle = ref({
 })
 
 const showBackToTop = ref(false)
+const { locale } = useI18n()
 
 const checkScroll = () => {
   const mainContent = document.getElementById('app') as HTMLElement
@@ -204,6 +207,7 @@ onMounted(async () => {
       mainContent.addEventListener('scroll', checkScroll)
     }
   })
+  locale.value = await appStore.get('locale', 'zh')
   selectedTheme.value = await appStore.get('selectedTheme', 'grey')
   autoUpdateEnabled.value = await appStore.get('autoUpdate', true)
   theme.global.name.value = selectedTheme.value
@@ -214,6 +218,7 @@ onMounted(async () => {
 
   appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
+  console.log(jeBlocks.value)
   mapArtData.value = await fetchMapArtsData()
   try{
     await resources_Init()
@@ -225,6 +230,7 @@ onMounted(async () => {
     await checkUpdate(true)
   }
 })
+
 </script>
 
 <style lang="scss">

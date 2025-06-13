@@ -1511,30 +1511,6 @@
 },{
     "v":112,"i":2,"n":"知识之书","ID":"num.453,112.knowledge_book","oP":"113"
 },{
-    "v":100,"i":2,"n":"音乐唱片（C418 - 13）","EN":"Music Disc (C418 - 13)","ID":"num.2256,107.record_13,113.music_disc_13","t":"5","oN":"101.唱片（C418 - 13）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - cat）","EN":"Music Disc (C418 - cat)","ID":"num.2257,107.record_cat,113.music_disc_cat","t":"5","oN":"101.唱片（C418 - cat）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - blocks）","EN":"Music Disc (C418 - blocks)","ID":"num.2258,107.record_blocks,113.music_disc_blocks","t":"5","oN":"101.唱片（C418 - blocks）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - chirp）","EN":"Music Disc (C418 - chirp)","ID":"num.2259,107.record_chirp,113.music_disc_chirp","t":"5","oN":"101.唱片（C418 - chirp）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - far）","EN":"Music Disc (C418 - far)","ID":"num.2260,107.record_far,113.music_disc_far","t":"5","oN":"101.唱片（C418 - far）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - mall）","EN":"Music Disc (C418 - mall)","ID":"num.2261,107.record_mall,113.music_disc_mall","t":"5","oN":"101.唱片（C418 - mall）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - mellohi）","EN":"Music Disc (C418 - mellohi)","ID":"num.2262,107.record_mellohi,113.music_disc_mellohi","t":"5","oN":"101.唱片（C418 - mellohi）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - stal）","EN":"Music Disc (C418 - stal)","ID":"num.2263,107.record_stal,113.music_disc_stal","t":"5","oN":"101.唱片（C418 - stal）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - strad）","EN":"Music Disc (C418 - strad)","ID":"num.2264,107.record_strad,113.music_disc_strad","t":"5","oN":"101.唱片（C418 - strad）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - ward）","EN":"Music Disc (C418 - ward)","ID":"num.2265,107.record_ward,113.music_disc_ward","t":"5","oN":"101.唱片（C418 - ward）","tC":"黄"
-},{
-    "v":100,"i":2,"n":"音乐唱片（C418 - 11）","EN":"Music Disc (C418 - 11)","ID":"num.2266,107.record_11,113.music_disc_11","t":"5","oN":"101.唱片（C418 - 11）","oP":"113","tC":"黄"
-},{
-    "v":104,"i":2,"n":"音乐唱片（C418 - wait）","EN":"Music Disc (C418 - wait)","ID":"num.2267,107.record_wait,113.music_disc_wait","t":"5","tC":"黄"
-},{
     "v":113,"b":2,"n":"洞穴空气","ID":"113.cave_air","zj":"yn"
 },{
     "v":113,"b":2,"n":"虚空空气","ID":"113.void_air","zj":"yn"

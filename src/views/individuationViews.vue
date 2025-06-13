@@ -7,8 +7,9 @@ import {saveImage} from "../modules/uploadImage.ts";
 import router from "../../router";
 import {useTheme} from "vuetify/framework";
 import {backgroundOpacity, backgroundStr, initTheme, layoutMode, opacity} from "../modules/theme.ts";
+import { useI18n } from 'vue-i18n';
 
-
+const { t } = useI18n()
 const selectedTheme = ref('grey');
 const backgroundImage = ref('null');
 const backgroundSize = ref<number>();
@@ -17,24 +18,24 @@ const backgroundName = ref();
 const background = ref();
 const theme = useTheme()
 const layoutModes = [
-  { label: '拉伸填充', value: 'stretch', color: 'red-darken-2' },
-  { label: '平铺重复', value: 'repeat', color: 'teal-darken-2' },
-  { label: '适应屏幕', value: 'contain', color: 'purple-darken-2' },
-  { label: '完整覆盖', value: 'cover', color: 'blue-darken-2' },
+  { label: t('individuation.background.layoutModes.stretch'), value: 'stretch', color: 'red-darken-2' },
+  { label: t('individuation.background.layoutModes.repeat'), value: 'repeat', color: 'teal-darken-2' },
+  { label: t('individuation.background.layoutModes.contain'), value: 'contain', color: 'purple-darken-2' },
+  { label: t('individuation.background.layoutModes.cover'), value: 'cover', color: 'blue-darken-2' },
 ];
 
 const refreshBackground = async() => {
   await router.push({name: 'emptyRoute'});
 };
 const themes = [
-  { label: '默认灰白', value: 'grey', color: 'bg-blue-grey-lighten-5', icon: 'mdi-weather-sunny' },
-  { label: '蔚蓝主题', value: 'blue', color: 'blue-darken-2', icon: 'mdi-weather-sunny' },
-  { label: '深蓝之夜', value: 'dark_blue', color: 'indigo-darken-3', icon: 'mdi-moon-waning-crescent' },
-  { label: '清新绿意', value: 'green', color: 'teal-darken-2', icon: 'mdi-leaf' },
-  { label: '活力橙', value: 'orange', color: 'orange-darken-2', icon: 'mdi-fire' },
-  { label: '菠萝黄', value: 'yellow', color: 'yellow-darken-3', icon: 'mdi-fruit-pineapple' },
-  { label: '橡木棕', value: 'brown', color: 'brown-darken-3', icon: 'mdi-square-rounded' },
-  { label: '暗色模式', value: 'grey_dark', color: 'black-darken-3', icon: 'mdi-moon-waning-crescent' },
+  { label: t('individuation.theme.options.grey'), value: 'grey', color: 'bg-blue-grey-lighten-5', icon: 'mdi-weather-sunny' },
+  { label: t('individuation.theme.options.blue'), value: 'blue', color: 'blue-darken-2', icon: 'mdi-weather-sunny' },
+  { label: t('individuation.theme.options.darkBlue'), value: 'dark_blue', color: 'indigo-darken-3', icon: 'mdi-moon-waning-crescent' },
+  { label: t('individuation.theme.options.green'), value: 'green', color: 'teal-darken-2', icon: 'mdi-leaf' },
+  { label: t('individuation.theme.options.orange'), value: 'orange', color: 'orange-darken-2', icon: 'mdi-fire' },
+  { label: t('individuation.theme.options.yellow'), value: 'yellow', color: 'yellow-darken-3', icon: 'mdi-fruit-pineapple' },
+  { label: t('individuation.theme.options.brown'), value: 'brown', color: 'brown-darken-3', icon: 'mdi-square-rounded' },
+  { label: t('individuation.theme.options.greyDark'), value: 'grey_dark', color: 'black-darken-3', icon: 'mdi-moon-waning-crescent' },
 ]
 onBeforeRouteLeave(navigationGuard)
 
@@ -90,7 +91,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
           <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
             <v-toolbar-title>
               <v-icon icon="mdi-palette text-medium-emphasis" class="mr-2"></v-icon>
-              <span class="text-h5 text-medium-emphasis">个性化设置</span>
+              <span class="text-h5 text-medium-emphasis">{{ t('individuation.title') }}</span>
             </v-toolbar-title>
           </v-toolbar>
 
@@ -101,7 +102,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                   <v-col cols="2">
                     <div class="d-flex align-center">
                       <v-icon icon="mdi-opacity text-medium-emphasis" class="mr-2"></v-icon>
-                      <span class="text-subtitle-1 text-medium-emphasis">不透明度</span>
+                      <span class="text-subtitle-1 text-medium-emphasis">{{ t('individuation.opacity.title') }}</span>
                     </div>
                   </v-col>
                   <v-col cols="10">
@@ -120,7 +121,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                           label
                           class="text-white"
                       >
-                        {{ Math.round(opacity * 100) }}%
+                        {{ t('individuation.opacity.value', { value: Math.round(opacity * 100) }) }}
                       </v-chip>
                     </div>
                   </v-col>
@@ -133,7 +134,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                   <v-col cols="2">
                     <div class="d-flex align-center">
                       <v-icon icon="mdi-theme-light-dark text-medium-emphasis" class="mr-2"></v-icon>
-                      <span class="text-subtitle-1 text-medium-emphasis">主题配色</span>
+                      <span class="text-subtitle-1 text-medium-emphasis">{{ t('individuation.theme.title') }}</span>
                     </div>
                   </v-col>
                   <v-col cols="10">
@@ -175,7 +176,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
         <v-toolbar density="compact" class="pa-2" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-image text-medium-emphasis" class="mr-2"></v-icon>
-            <span class="text-h7 text-medium-emphasis">背景设置</span>
+            <span class="text-h7 text-medium-emphasis">{{ t('individuation.background.title') }}</span>
           </v-toolbar-title>
         </v-toolbar>
 
@@ -216,7 +217,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
               <v-card class="h-100" :style="{ '--surface-alpha': opacity }" elevation="2">
                 <v-card-title class="d-flex align-center">
                   <v-icon left>mdi-information</v-icon>
-                  图片信息
+                  {{ t('individuation.background.imageInfo') }}
                 </v-card-title>
 
                 <v-divider></v-divider>
@@ -227,7 +228,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                       <template #prepend>
                         <v-icon>mdi-file</v-icon>
                       </template>
-                      <v-list-item-title>文件名</v-list-item-title>
+                      <v-list-item-title>{{ t('individuation.background.fileName') }}</v-list-item-title>
                       <v-list-item-subtitle>{{ backgroundName }}</v-list-item-subtitle>
                     </v-list-item>
 
@@ -235,7 +236,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                       <template #prepend>
                         <v-icon>mdi-weight</v-icon>
                       </template>
-                      <v-list-item-title>文件大小</v-list-item-title>
+                      <v-list-item-title>{{ t('individuation.background.fileSize') }}</v-list-item-title>
                       <v-list-item-subtitle>{{ backgroundSize?.toFixed(2) }} kb</v-list-item-subtitle>
                     </v-list-item>
 
@@ -243,7 +244,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                       <template #prepend>
                         <v-icon>mdi-arrow-expand</v-icon>
                       </template>
-                      <v-list-item-title>分辨率</v-list-item-title>
+                      <v-list-item-title>{{ t('individuation.background.resolution') }}</v-list-item-title>
                       <v-list-item-subtitle>{{ backgroundDimensions }}</v-list-item-subtitle>
                     </v-list-item>
                   </v-list>
@@ -256,7 +257,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                       @click="clearBackGround"
                   >
                     <v-icon left>mdi-delete</v-icon>
-                    清除背景
+                    {{ t('individuation.background.actions.clear') }}
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -268,7 +269,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
               <v-file-input
                   v-model="background"
                   accept="image/png, image/jpeg, image/bmp"
-                  label="选择背景文件"
+                  :label="t('individuation.background.actions.select')"
                   density="compact"
                   placeholder="单击选择文件"
                   show-size
@@ -283,7 +284,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                   @click="refreshBackground"
               >
                 <v-icon left>mdi-refresh</v-icon>
-                刷新背景
+                {{ t('individuation.background.actions.refresh') }}
               </v-btn>
             </v-col>
           </v-row>
@@ -292,7 +293,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
               <v-row align="center" >
                 <v-col cols="2" class="d-flex align-center text-medium-emphasis">
                   <v-icon icon="mdi-opacity" class="mr-2"></v-icon>
-                  <span>不透明度</span>
+                  <span>{{ t('individuation.opacity.title') }}</span>
                 </v-col>
                 <v-col cols="10">
                   <div class="d-flex align-center">
@@ -323,7 +324,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
               <v-row align="center">
                 <v-col cols="2" class="d-flex align-center text-medium-emphasis">
                   <v-icon icon="mdi-image-area" class="mr-2"></v-icon>
-                  <span>布局方式</span>
+                  <span>{{ t('individuation.background.layoutMode') }}</span>
                 </v-col>
                 <v-col cols="10">
                   <v-radio-group
@@ -359,4 +360,5 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
   </v-row>
 </template>
 
+<style scoped lang="css" src="../assets/css/individuation.css"></style>
 <style scoped lang="css" src="../assets/css/individuation.css"></style>

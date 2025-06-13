@@ -8,16 +8,18 @@ import MCS from "../static/img/fav512.png"
 import CMS from "../static/img/CMS.png"
 import {selectedSite} from "../modules/web_schematic/web_data.ts";
 import {opacity} from "../modules/theme.ts";
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n()
 const active = ref()
 const siteOptions = [
   {
-    title: 'MCS:www.mcschematic.top',
+    title: t('schematics.sites.mcs'),
     value: 'MCS',
     img: MCS
   },
   {
-    title: 'CMS:www.creativemechanicserver.com',
+    title: t('schematics.sites.cms'),
     value: 'CMS',
     img: CMS
   }
@@ -36,7 +38,7 @@ onBeforeRouteLeave(navigationGuard)
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 px-3 py-3" :style="{ '--surface-alpha': opacity + 0.2 }">
           <div class="d-flex align-center">
             <v-icon icon="mdi-warehouse text-medium-emphasis" class="mr-2"></v-icon>
-            <span class="text-h5 ml-2 font-weight-medium text-medium-emphasis">蓝图仓库</span>
+            <span class="text-h5 ml-2 font-weight-medium text-medium-emphasis">{{ t('schematics.title') }}</span>
             <v-divider vertical inset class="mx-4" thickness="2"/>
           </div>
 
@@ -44,7 +46,7 @@ onBeforeRouteLeave(navigationGuard)
             <v-select
                 v-model="selectedSite"
                 :items="siteOptions"
-                label="站点源"
+                :label="t('schematics.source')"
                 density="comfortable"
                 variant="underlined"
                 class="source-select text-medium-emphasis"
@@ -82,16 +84,16 @@ onBeforeRouteLeave(navigationGuard)
               <v-tab
                   value="local"
                   class="text-medium-emphasis"
-              >本地蓝图</v-tab>
+              >{{ t('schematics.local') }}</v-tab>
               <v-tab
                   value="web"
                   class="text-medium-emphasis"
-              >网络蓝图</v-tab>
+              >{{ t('schematics.web') }}</v-tab>
             </v-tabs>
             <v-btn
                 variant="text"
                 icon="mdi-cloud-upload"
-                title="上传蓝图"
+                :title="t('schematics.upload')"
                 class="ml-4"
                 size="small"
             />
