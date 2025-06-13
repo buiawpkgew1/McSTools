@@ -283,7 +283,7 @@ export class MapArtProcessor {
 
         const sourceCanvas = document.createElement('canvas');
         const sourceCtx = sourceCanvas.getContext('2d');
-        if (!sourceCtx) throw new Error('Failed to create source canvas context');
+        if (!sourceCtx) throw new Error('无法创建源画布上下文');
 
         sourceCanvas.width = originalCanvas.width;
         sourceCanvas.height = originalCanvas.height;
@@ -296,7 +296,7 @@ export class MapArtProcessor {
         const targetCtx = targetCanvas.getContext('2d', {
             willReadFrequently: false
         });
-        if (!targetCtx) throw new Error('Failed to create target canvas context');
+        if (!targetCtx) throw new Error('无法创建目标画布上下文');
 
         targetCtx.imageSmoothingEnabled = true;
         targetCtx.imageSmoothingQuality = 'high';

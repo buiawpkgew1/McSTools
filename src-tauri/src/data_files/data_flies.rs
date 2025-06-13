@@ -25,10 +25,10 @@ pub async fn clear_app_data(
         let path = entry.path();
 
         if path.is_file() {
-            fs::remove_file(&path).map_err(|e| format!("Failed to delete {}: {}", path.display(), e))?;
+            fs::remove_file(&path).map_err(|e| format!("无法删除 {}: {}", path.display(), e))?;
         }
         if path.is_dir() {
-            fs::remove_dir_all(&path).map_err(|e| format!("Failed to delete {}: {}", path.display(), e))?;
+            fs::remove_dir_all(&path).map_err(|e| format!("无法删除 {}: {}", path.display(), e))?;
         }
     }
     Ok(())

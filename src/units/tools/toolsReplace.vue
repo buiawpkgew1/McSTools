@@ -88,7 +88,7 @@ onMounted(async () => {
   try {
     jeBlocks.value = await fetchJeBlocks();
   } catch (err) {
-    state.error = err instanceof Error ? err.message : 'Failed to load block data';
+    state.error = err instanceof Error ? err.message : '无法加载方块数据';
   }
 });
 
