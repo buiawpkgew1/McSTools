@@ -27,9 +27,9 @@ export default {
     upload: {
       title: 'Schematic Processing',
       dragDrop: 'Drag and drop files or click to upload',
-      supportedFormats: 'Supported formats: nbt, litematic, schem, json, mcstruct (max 50MB) Multiple files allowed',
+      supportedFormats: 'Supported formats: nbt, litematic, schem, json, mcstruct (max 50MB). Multiple files allowed',
       selectFile: 'Select File',
-      uploadSuccess: 'Successfully uploaded {count} files',
+      uploadSuccess: 'Successfully uploaded {count} file(s)',
       uploadError: 'Error occurred: {error}'
     },
     supportedTypes: {
@@ -79,7 +79,7 @@ export default {
     },
     resources: {
       title: 'Resource Files',
-      clear: 'Clear Resource Files (This will delete all resource files and your stored blueprints)',
+      clear: 'Clear Resource Files (This will delete all resource files and your stored schematics)',
       clearConfirm: 'Confirm Clear',
       clearWarning: 'Clearing will cause all data to be lost, please backup first',
       openFolder: 'Open Resource Folder',
@@ -91,7 +91,7 @@ export default {
     }
   },
   messages: {
-    clearSuccess: 'Resource files cleared, will restart in 5s',
+    clearSuccess: 'Resource files cleared, will restart in 5 seconds',
     error: 'An error occurred: {error}',
     fetchError: 'Failed to fetch schematic: {error}'
   },
@@ -159,11 +159,11 @@ export default {
         }
       },
       meta: {
-        extension: 'Extension Type',
+        extension: 'Extension',
         originalSize: 'Original Size',
         version: 'Version',
         subVersion: 'Sub Version',
-        exists: 'Exists',
+        exists: 'Already Exists',
         gzipCompression: 'Gzip Compression',
         hasSubVersions: 'Has Sub Versions'
       }
@@ -223,7 +223,7 @@ export default {
         orange: 'Vibrant Orange',
         yellow: 'Pineapple Yellow',
         brown: 'Oak Brown',
-        greyDark: 'Dark Mode'
+        greyDark: 'Dark'
       }
     },
     background: {
@@ -234,21 +234,21 @@ export default {
       resolution: 'Resolution',
       layoutMode: 'Layout method',
       layoutModes: {
-        stretch: 'Stretch Fill',
-        repeat: 'Tile Repeat',
-        contain: 'Fit Screen',
-        cover: 'Full Cover'
+        stretch: 'Stretch',
+        repeat: 'Tile',
+        contain: 'Fit',
+        cover: 'Fill'
       },
       actions: {
-        clear: 'Clear Background',
-        refresh: 'Refresh Background',
-        select: 'Select Background File'
+        clear: 'Clear Background Image',
+        refresh: 'Refresh Background Image',
+        select: 'Select Background Image'
       }
     }
   },
   about: {
     title: 'About',
-    version: 'Version: v{version}',
+    version: 'Version: {version}',
     actions: {
       checkUpdate: 'Check for Updates',
       changelog: 'Changelog',
@@ -258,8 +258,8 @@ export default {
       faq: 'FAQ→'
     },
     description: {
-      title: 'Software Description',
-      content: 'The software uses Tauri backend based on Rust and Vue frontend.\nModular design ensures software performance, Rust\'s safety design provides better performance and memory safety.'
+      title: 'App Description',
+      content: 'The app uses Tauri backend based on Rust and Vue frontend.\nModular design ensures app performance, Rust\'s safety design provides better performance and memory safety.'
     },
     schematicSite: {
       title: 'Schematic Site',
@@ -268,7 +268,7 @@ export default {
     },
     tauri: {
       title: 'Tauri 2.0',
-      tooltip: 'Software developed using Tauri 2.0',
+      tooltip: 'The app is developed using Tauri 2.0',
       currentVersion: 'Current Version: {version}'
     },
     license: {

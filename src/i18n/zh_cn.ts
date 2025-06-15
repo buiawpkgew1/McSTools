@@ -23,14 +23,14 @@ export default {
     actions: {
       checkUpdate: '检测更新',
       changelog: '更新日志',
-      github: 'Github',
+      github: 'GitHub',
       website: '官方网站',
       sponsor: '赞助项目',
-      faq: 'FAQ→'
+      faq: '常见问题→'
     },
     description: {
       title: '软件说明',
-      content: '软件使用tauri 后端基于rust，前端使用vue.\n分离化设计让软件性能得到保障，rust安全设计，性能更好，内存安全高效。'
+      content: '软件使用 Tauri，后端基于 Rust，前端使用 Vue。\n分离化设计让软件性能得到保障，Rust 安全设计，性能更好，内存安全高效。'
     },
     schematicSite: {
       title: '蓝图站',
@@ -39,7 +39,7 @@ export default {
     },
     tauri: {
       title: 'Tauri 2.0',
-      tooltip: '软件基于tauri 2.0开发制作',
+      tooltip: '软件基于 Tauri 2.0 开发制作',
       currentVersion: '当前版本: {version}'
     },
     license: {
@@ -50,7 +50,7 @@ export default {
     },
     developers: {
       title: '核心开发人员',
-      tooltip: '参与开发及代表明确遵守AGPL V3协议,改版 转发请注明所有开发人员和协议',
+      tooltip: '参与开发及代表明确遵守 AGPL V3 协议，改版、转发请注明所有开发人员和协议',
       author: '作者'
     }
   },
@@ -64,10 +64,10 @@ export default {
     upload: {
       title: '蓝图处理',
       dragDrop: '拖放文件或点击上传',
-      supportedFormats: '支持格式：nbt、litematic、schem、 json、 mcstruct（最大50MB）允许多选',
+      supportedFormats: '支持格式：nbt、litematic、schem、json、mcstruct（最大50MB）允许多选',
       selectFile: '选择文件',
       uploadSuccess: '成功上传 {count} 个文件',
-      uploadError: '发生错误:{error}'
+      uploadError: '发生错误：{error}'
     },
     supportedTypes: {
       title: '支持蓝图类型',
@@ -80,11 +80,11 @@ export default {
         desc: '科技包最常见的辅组建筑工具'
       },
       litematica: {
-        title: '建筑投影',
+        title: '建筑投影（Litematica）',
         desc: '生电玩家活下去的必备工具'
       },
       worldEdit: {
-        title: '创世神',
+        title: '创世神（WorldEdit）',
         desc: '老牌建筑工具，延用至今，新版axiom也采用了这种蓝图格式'
       },
       bedrock: {
@@ -112,11 +112,11 @@ export default {
     },
     theme: {
       title: '跟随主题',
-      autoTheme: '启用系统跟随(页面主题将跟随windows主题变化)'
+      autoTheme: '启用系统跟随（页面主题将跟随Windows主题变化）'
     },
     resources: {
       title: '资源文件',
-      clear: '清除资源文件(将删除所有资源文件，你存储的蓝图)',
+      clear: '清除资源文件（将删除所有资源文件，你存储的蓝图）',
       clearConfirm: '确认清除',
       clearWarning: '清除将导致数据全部丢失，建议先进行备份',
       openFolder: '打开资源文件夹',
@@ -128,8 +128,8 @@ export default {
     }
   },
   messages: {
-    clearSuccess: '已清除资源文件，将在5s后重启',
-    error: '发生了一个错误: {error}',
+    clearSuccess: '已清除资源文件，将在5秒后重启',
+    error: '发生错误: {error}',
     fetchError: '获取原理图失败: {error}'
   },
   tools: {
@@ -166,12 +166,12 @@ export default {
           ext: 'nbt'
         },
         litematica: {
-          title: '投影蓝图',
-          desc: '适配 我的世界建筑投影蓝图格式',
+          title: '投影蓝图（Litematica）',
+          desc: '适配 Minecraft 建筑投影蓝图格式',
           ext: 'litematic'
         },
         worldEdit: {
-          title: '创世神',
+          title: '创世神（WorldEdit）',
           desc: '适配与新版1.16 + 创世神模组和最新版 axios',
           ext: 'schem',
           versions: {
@@ -196,7 +196,7 @@ export default {
         }
       },
       meta: {
-        extension: '后缀类型',
+        extension: '扩展名',
         originalSize: '原始大小',
         version: '版本',
         subVersion: '子版本',
@@ -223,12 +223,12 @@ export default {
     tip: '有问题先不要盲目，乱求医。先尝试自己解决一下！',
     channels: {
       github: {
-        title: 'GitHub issue',
-        desc: '通过Github issue向我们反馈bug和问题'
+        title: 'GitHub Issue',
+        desc: '通过GitHub Issue向我们反馈bug和问题'
       },
       qqGroup: {
-        title: 'QQ群聊',
-        desc: '加入官方Q群反馈问题bug'
+        title: 'QQ群',
+        desc: '加入官方QQ群反馈问题bug'
       },
       qqChannel: {
         title: 'QQ频道',
@@ -271,10 +271,10 @@ export default {
       resolution: '分辨率',
       layoutMode: '布局方式',
       layoutModes: {
-        stretch: '拉伸填充',
-        repeat: '平铺重复',
-        contain: '适应屏幕',
-        cover: '完整覆盖'
+        stretch: '拉伸',
+        repeat: '平铺',
+        contain: '适应',
+        cover: '填充'
       },
       actions: {
         clear: '清除背景',
