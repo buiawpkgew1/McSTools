@@ -174,7 +174,6 @@ const router = useRouter()
   padding: 6px 12px;
   color: white !important;
   border-radius: 6px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .bottom-actions {
   width: 100%;

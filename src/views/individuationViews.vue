@@ -150,6 +150,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                             :color="theme.color"
                             :v-model="selectedTheme"
                             :value="theme.value"
+                            class="text-medium-emphasis"
                         >
                           <template v-slot:label>
                             <v-chip
@@ -337,6 +338,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                         :key="mode.value"
                         :value="mode.value"
                         :color="mode.color"
+                        class="text-medium-emphasis"
                     >
                       <template v-slot:label>
                         <v-chip
