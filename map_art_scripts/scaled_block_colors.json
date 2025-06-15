@@ -1,4 +1,758 @@
 {
+  "carpet": {
+    "white_carpet": {
+      "left_top": [
+        245,
+        247,
+        247
+      ],
+      "right_bottom": [
+        222,
+        226,
+        227
+      ],
+      "right_top": [
+        245,
+        247,
+        247
+      ],
+      "left_bottom": [
+        249,
+        250,
+        250
+      ],
+      "average_rgb": [
+        233,
+        236,
+        236
+      ],
+      "low_rgb": [
+        164,
+        166,
+        166
+      ],
+      "high_rgb": [
+        233,
+        236,
+        236
+      ],
+      "normal_rgb": [
+        201,
+        203,
+        203
+      ],
+      "average_rgb_hex": "#e9ecec",
+      "low_rgb_hex": "#a4a6a6",
+      "high_rgb_hex": "#e9ecec",
+      "normal_rgb_hex": "#c9cbcb",
+      "zh_cn": "白色地毯"
+    },
+    "orange_carpet": {
+      "left_top": [
+        248,
+        125,
+        27
+      ],
+      "right_bottom": [
+        235,
+        107,
+        10
+      ],
+      "right_top": [
+        248,
+        125,
+        27
+      ],
+      "left_bottom": [
+        249,
+        130,
+        30
+      ],
+      "average_rgb": [
+        240,
+        118,
+        19
+      ],
+      "low_rgb": [
+        169,
+        83,
+        13
+      ],
+      "high_rgb": [
+        240,
+        118,
+        19
+      ],
+      "normal_rgb": [
+        207,
+        101,
+        16
+      ],
+      "average_rgb_hex": "#f07613",
+      "low_rgb_hex": "#a9530d",
+      "high_rgb_hex": "#f07613",
+      "normal_rgb_hex": "#cf6510",
+      "zh_cn": "橙色地毯"
+    },
+    "magenta_carpet": {
+      "left_top": [
+        197,
+        76,
+        187
+      ],
+      "right_bottom": [
+        180,
+        59,
+        170
+      ],
+      "right_top": [
+        197,
+        76,
+        187
+      ],
+      "left_bottom": [
+        201,
+        80,
+        191
+      ],
+      "average_rgb": [
+        189,
+        68,
+        179
+      ],
+      "low_rgb": [
+        133,
+        48,
+        126
+      ],
+      "high_rgb": [
+        189,
+        68,
+        179
+      ],
+      "normal_rgb": [
+        163,
+        58,
+        154
+      ],
+      "average_rgb_hex": "#bd44b3",
+      "low_rgb_hex": "#85307e",
+      "high_rgb_hex": "#bd44b3",
+      "normal_rgb_hex": "#a33a9a",
+      "zh_cn": "品红色地毯"
+    },
+    "light_blue_carpet": {
+      "left_top": [
+        68,
+        190,
+        225
+      ],
+      "right_bottom": [
+        48,
+        162,
+        210
+      ],
+      "right_top": [
+        68,
+        190,
+        225
+      ],
+      "left_bottom": [
+        72,
+        193,
+        228
+      ],
+      "average_rgb": [
+        58,
+        175,
+        217
+      ],
+      "low_rgb": [
+        40,
+        123,
+        153
+      ],
+      "high_rgb": [
+        58,
+        175,
+        217
+      ],
+      "normal_rgb": [
+        50,
+        150,
+        187
+      ],
+      "average_rgb_hex": "#3aafd9",
+      "low_rgb_hex": "#287b99",
+      "high_rgb_hex": "#3aafd9",
+      "normal_rgb_hex": "#3296bb",
+      "zh_cn": "淡蓝色地毯"
+    },
+    "yellow_carpet": {
+      "left_top": [
+        252,
+        208,
+        48
+      ],
+      "right_bottom": [
+        246,
+        188,
+        30
+      ],
+      "right_top": [
+        252,
+        208,
+        48
+      ],
+      "left_bottom": [
+        253,
+        211,
+        52
+      ],
+      "average_rgb": [
+        248,
+        197,
+        39
+      ],
+      "low_rgb": [
+        175,
+        139,
+        27
+      ],
+      "high_rgb": [
+        248,
+        197,
+        39
+      ],
+      "normal_rgb": [
+        213,
+        169,
+        33
+      ],
+      "average_rgb_hex": "#f8c527",
+      "low_rgb_hex": "#af8b1b",
+      "high_rgb_hex": "#f8c527",
+      "normal_rgb_hex": "#d5a921",
+      "zh_cn": "黄色地毯"
+    },
+    "lime_carpet": {
+      "left_top": [
+        120,
+        192,
+        25
+      ],
+      "right_bottom": [
+        103,
+        177,
+        24
+      ],
+      "right_top": [
+        120,
+        192,
+        25
+      ],
+      "left_bottom": [
+        123,
+        195,
+        27
+      ],
+      "average_rgb": [
+        112,
+        185,
+        25
+      ],
+      "low_rgb": [
+        79,
+        130,
+        17
+      ],
+      "high_rgb": [
+        112,
+        185,
+        25
+      ],
+      "normal_rgb": [
+        96,
+        159,
+        21
+      ],
+      "average_rgb_hex": "#70b919",
+      "low_rgb_hex": "#4f8211",
+      "high_rgb_hex": "#70b919",
+      "normal_rgb_hex": "#609f15",
+      "zh_cn": "黄绿色地毯"
+    },
+    "pink_carpet": {
+      "left_top": [
+        244,
+        158,
+        185
+      ],
+      "right_bottom": [
+        234,
+        124,
+        159
+      ],
+      "right_top": [
+        244,
+        158,
+        185
+      ],
+      "left_bottom": [
+        244,
+        165,
+        190
+      ],
+      "average_rgb": [
+        237,
+        141,
+        172
+      ],
+      "low_rgb": [
+        167,
+        99,
+        121
+      ],
+      "high_rgb": [
+        237,
+        141,
+        172
+      ],
+      "normal_rgb": [
+        204,
+        121,
+        148
+      ],
+      "average_rgb_hex": "#ed8dac",
+      "low_rgb_hex": "#a76379",
+      "high_rgb_hex": "#ed8dac",
+      "normal_rgb_hex": "#cc7994",
+      "zh_cn": "粉红色地毯"
+    },
+    "gray_carpet": {
+      "left_top": [
+        67,
+        73,
+        76
+      ],
+      "right_bottom": [
+        59,
+        63,
+        66
+      ],
+      "right_top": [
+        67,
+        73,
+        76
+      ],
+      "left_bottom": [
+        68,
+        75,
+        78
+      ],
+      "average_rgb": [
+        62,
+        68,
+        71
+      ],
+      "low_rgb": [
+        43,
+        48,
+        50
+      ],
+      "high_rgb": [
+        62,
+        68,
+        71
+      ],
+      "normal_rgb": [
+        53,
+        58,
+        61
+      ],
+      "average_rgb_hex": "#3e4447",
+      "low_rgb_hex": "#2b3032",
+      "high_rgb_hex": "#3e4447",
+      "normal_rgb_hex": "#353a3d",
+      "zh_cn": "灰色地毯"
+    },
+    "light_gray_carpet": {
+      "left_top": [
+        150,
+        150,
+        144
+      ],
+      "right_bottom": [
+        134,
+        134,
+        126
+      ],
+      "right_top": [
+        150,
+        150,
+        144
+      ],
+      "left_bottom": [
+        153,
+        153,
+        147
+      ],
+      "average_rgb": [
+        142,
+        142,
+        134
+      ],
+      "low_rgb": [
+        100,
+        100,
+        94
+      ],
+      "high_rgb": [
+        142,
+        142,
+        134
+      ],
+      "normal_rgb": [
+        122,
+        122,
+        115
+      ],
+      "average_rgb_hex": "#8e8e86",
+      "low_rgb_hex": "#64645e",
+      "high_rgb_hex": "#8e8e86",
+      "normal_rgb_hex": "#7a7a73",
+      "zh_cn": "淡灰色地毯"
+    },
+    "cyan_carpet": {
+      "left_top": [
+        21,
+        146,
+        149
+      ],
+      "right_bottom": [
+        21,
+        129,
+        141
+      ],
+      "right_top": [
+        21,
+        146,
+        149
+      ],
+      "left_bottom": [
+        22,
+        150,
+        152
+      ],
+      "average_rgb": [
+        21,
+        137,
+        145
+      ],
+      "low_rgb": [
+        14,
+        96,
+        102
+      ],
+      "high_rgb": [
+        21,
+        137,
+        145
+      ],
+      "normal_rgb": [
+        18,
+        118,
+        125
+      ],
+      "average_rgb_hex": "#158991",
+      "low_rgb_hex": "#0e6066",
+      "high_rgb_hex": "#158991",
+      "normal_rgb_hex": "#12767d",
+      "zh_cn": "青色地毯"
+    },
+    "purple_carpet": {
+      "left_top": [
+        130,
+        45,
+        178
+      ],
+      "right_bottom": [
+        111,
+        36,
+        164
+      ],
+      "right_top": [
+        130,
+        45,
+        178
+      ],
+      "left_bottom": [
+        133,
+        47,
+        180
+      ],
+      "average_rgb": [
+        121,
+        42,
+        172
+      ],
+      "low_rgb": [
+        85,
+        29,
+        121
+      ],
+      "high_rgb": [
+        121,
+        42,
+        172
+      ],
+      "normal_rgb": [
+        104,
+        36,
+        148
+      ],
+      "average_rgb_hex": "#792aac",
+      "low_rgb_hex": "#551d79",
+      "high_rgb_hex": "#792aac",
+      "normal_rgb_hex": "#682494",
+      "zh_cn": "紫色地毯"
+    },
+    "blue_carpet": {
+      "left_top": [
+        57,
+        61,
+        163
+      ],
+      "right_bottom": [
+        49,
+        51,
+        150
+      ],
+      "right_top": [
+        57,
+        61,
+        163
+      ],
+      "left_bottom": [
+        58,
+        64,
+        166
+      ],
+      "average_rgb": [
+        53,
+        57,
+        157
+      ],
+      "low_rgb": [
+        37,
+        40,
+        110
+      ],
+      "high_rgb": [
+        53,
+        57,
+        157
+      ],
+      "normal_rgb": [
+        45,
+        49,
+        135
+      ],
+      "average_rgb_hex": "#35399d",
+      "low_rgb_hex": "#25286e",
+      "high_rgb_hex": "#35399d",
+      "normal_rgb_hex": "#2d3187",
+      "zh_cn": "蓝色地毯"
+    },
+    "brown_carpet": {
+      "left_top": [
+        123,
+        77,
+        45
+      ],
+      "right_bottom": [
+        106,
+        66,
+        36
+      ],
+      "right_top": [
+        123,
+        77,
+        45
+      ],
+      "left_bottom": [
+        126,
+        80,
+        47
+      ],
+      "average_rgb": [
+        114,
+        71,
+        40
+      ],
+      "low_rgb": [
+        80,
+        50,
+        28
+      ],
+      "high_rgb": [
+        114,
+        71,
+        40
+      ],
+      "normal_rgb": [
+        98,
+        61,
+        34
+      ],
+      "average_rgb_hex": "#724728",
+      "low_rgb_hex": "#50321c",
+      "high_rgb_hex": "#724728",
+      "normal_rgb_hex": "#623d22",
+      "zh_cn": "棕色地毯"
+    },
+    "green_carpet": {
+      "left_top": [
+        89,
+        117,
+        23
+      ],
+      "right_bottom": [
+        79,
+        101,
+        31
+      ],
+      "right_top": [
+        89,
+        117,
+        23
+      ],
+      "left_bottom": [
+        91,
+        120,
+        22
+      ],
+      "average_rgb": [
+        84,
+        109,
+        27
+      ],
+      "low_rgb": [
+        59,
+        76,
+        19
+      ],
+      "high_rgb": [
+        84,
+        109,
+        27
+      ],
+      "normal_rgb": [
+        72,
+        94,
+        23
+      ],
+      "average_rgb_hex": "#546d1b",
+      "low_rgb_hex": "#3b4c13",
+      "high_rgb_hex": "#546d1b",
+      "normal_rgb_hex": "#485e17",
+      "zh_cn": "绿色地毯"
+    },
+    "red_carpet": {
+      "left_top": [
+        169,
+        42,
+        35
+      ],
+      "right_bottom": [
+        152,
+        35,
+        33
+      ],
+      "right_top": [
+        169,
+        42,
+        35
+      ],
+      "left_bottom": [
+        172,
+        43,
+        36
+      ],
+      "average_rgb": [
+        160,
+        39,
+        34
+      ],
+      "low_rgb": [
+        112,
+        27,
+        24
+      ],
+      "high_rgb": [
+        160,
+        39,
+        34
+      ],
+      "normal_rgb": [
+        138,
+        33,
+        29
+      ],
+      "average_rgb_hex": "#a02722",
+      "low_rgb_hex": "#701b18",
+      "high_rgb_hex": "#a02722",
+      "normal_rgb_hex": "#8a211d",
+      "zh_cn": "红色地毯"
+    },
+    "black_carpet": {
+      "left_top": [
+        26,
+        26,
+        30
+      ],
+      "right_bottom": [
+        14,
+        15,
+        20
+      ],
+      "right_top": [
+        26,
+        26,
+        30
+      ],
+      "left_bottom": [
+        28,
+        28,
+        32
+      ],
+      "average_rgb": [
+        20,
+        21,
+        25
+      ],
+      "low_rgb": [
+        14,
+        14,
+        17
+      ],
+      "high_rgb": [
+        20,
+        21,
+        25
+      ],
+      "normal_rgb": [
+        17,
+        18,
+        21
+      ],
+      "average_rgb_hex": "#141519",
+      "low_rgb_hex": "#0e0e11",
+      "high_rgb_hex": "#141519",
+      "normal_rgb_hex": "#111215",
+      "zh_cn": "黑色地毯"
+    }
+  },
   "wool": {
     "white_wool": {
       "left_top": [
