@@ -36,6 +36,7 @@ export interface SubData {
 }
 
 const categoryData = {
+    "carpet": "地毯",
     "wool": "羊毛",
     "clay": "陶瓦与黏土",
     "concrete": "混凝土",
