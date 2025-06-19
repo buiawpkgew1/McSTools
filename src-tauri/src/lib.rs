@@ -41,6 +41,7 @@ use CMS::get_cms_data::perform_search;
 use utils::open_dev::open_dev;
 use data_files::data_flies::clear_app_data;
 use webdav_settings::save_webdav_settings;
+use tauri::generate_handler;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
