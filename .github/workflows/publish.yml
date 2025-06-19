@@ -29,6 +29,9 @@ jobs:
             ~/.pnpm-store
             ~/.pnpm
             ~/.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       
       - name: Install pnpm
         run: npm install -g pnpm
