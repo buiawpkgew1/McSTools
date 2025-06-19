@@ -37,7 +37,6 @@ const languageTypes = ref([
 ]);
 const updateSources = ref([
   'https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json',
-  'https://hub.gitmirror.com/https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json'
 ]);
 const selectedSource = ref('https://github.com/guapi-exe/McSTools/releases/latest/download/latest.json');
 onBeforeRouteLeave(navigationGuard)
