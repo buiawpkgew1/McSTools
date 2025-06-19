@@ -36,32 +36,31 @@ impl FileManager {
         let data_dir = app
             .path()
             .app_data_dir()
-            .context("无法获取应用数据目录")?
+            .context("Unable to retrieve the application data directory")?
             .join("data")
             .join("schematic");
         if !data_dir.exists() {
-            fs::create_dir_all(&data_dir).context("创建配置目录失败")?;
+            fs::create_dir_all(&data_dir).context("Failed to create configuration directory")?;
         }
         Ok(Self { data_dir })
     }
     pub fn schematic_dir(&self, id: i64) -> Result<PathBuf> {
         let schematic_dir = self.data_dir.join(format!("schematic-{}", id));
         if !schematic_dir.exists() {
-            fs::create_dir_all(&schematic_dir).context("创建配置目录失败")?;
+            fs::create_dir_all(&schematic_dir).context("Failed to create configuration directory")?;
         }
         Ok(schematic_dir)
     }
-
     pub fn delete_schematic_dir(&self, id: i64) -> Result<()> {
         let target_dir = self.schematic_dir(id)?;
 
-        let path = dunce::canonicalize(&target_dir).context("路径规范化失败")?;
+        let path = dunce::canonicalize(&target_dir).context("Path normalization failed")?;
 
         if !path.starts_with(&self.data_dir) {
-            return Err(anyhow::anyhow!("非法目录路径: {:?}", path));
+            return Err(anyhow::anyhow!("Illegal directory path: {:?}", path));
         }
 
-        remove_dir_all_safe(&path).with_context(|| format!("无法删除目录: {:?}", path))?;
+        remove_dir_all_safe(&path).with_context(|| format!("Cannot delete directory: {:?}", path))?;
 
         Ok(())
     }
@@ -83,9 +82,9 @@ impl FileManager {
 
         {
             let mut temp_file = File::create(&temp_file)
-                .with_context(|| format!("创建临时文件失败: {}", temp_file.display()))?;
+                .with_context(|| format!("Failed to create temporary file: {}", temp_file.display()))?;
 
-            io::copy(&mut file, &mut temp_file).with_context(|| "文件内容复制失败")?;
+            io::copy(&mut file, &mut temp_file).with_context(|| "File content copying failed")?;
         }
 
         let final_filename = format!(
@@ -96,7 +95,7 @@ impl FileManager {
 
         fs::rename(&temp_file, &final_path).with_context(|| {
             format!(
-                "重命名失败: {} → {}",
+                "Rename failed: {} → {}",
                 temp_file.display(),
                 final_path.display()
             )
@@ -121,11 +120,11 @@ impl FileManager {
 
         {
             let mut temp_file = File::create(&temp_file)
-                .with_context(|| format!("创建临时文件失败: {}", temp_file.display()))?;
+                .with_context(|| format!("Failed to create temporary file: {}", temp_file.display()))?;
 
             temp_file
                 .write_all(&data)
-                .with_context(|| "文件写入失败".to_string())?;
+                .with_context(|| "File write failed".to_string())?;
         }
 
         let final_filename = format!(
@@ -136,7 +135,7 @@ impl FileManager {
 
         fs::rename(&temp_file, &final_path).with_context(|| {
             format!(
-                "重命名失败: {} → {}",
+                "Rename failed: {} → {}",
                 temp_file.display(),
                 final_path.display()
             )
@@ -283,7 +282,7 @@ impl FileManager {
         let file_path = schematic_dir.join(filename);
 
         let data = fs::read(&file_path)
-            .with_context(|| format!("无法读取蓝图文件: {}", file_path.display()))?;
+            .with_context(|| format!("Unable to read schematic file: {}", file_path.display()))?;
         match v_type {
             1 => {
                 if data.len() > 8 * 1024 * 1024 {
@@ -370,7 +369,7 @@ impl FileManager {
             fs::create_dir_all(parent)?;
         }
 
-        fs::copy(&file_path, &dest_path).map_err(|e| anyhow::anyhow!("文件复制失败: {}", e))?;
+        fs::copy(&file_path, &dest_path).map_err(|e| anyhow::anyhow!("File copying failed: {}", e))?;
 
         Ok(true)
     }
@@ -461,7 +460,7 @@ impl FileManager {
 
         let file_path = schematic_dir.join(filename);
         let data = fs::read(&file_path)
-            .with_context(|| format!("无法读取蓝图文件: {}", file_path.display()))?;
+            .with_context(|| format!("Unable to read blueprint file: {}", file_path.display()))?;
         match v_type {
             1 => {
                 let schematic = CreateSchematic::new_from_bytes(data)?;
@@ -497,7 +496,7 @@ fn remove_dir_all_safe<P: AsRef<Path>>(path: P) -> Result<()> {
     fs::remove_dir_all(&path)?;
 
     if path.as_ref().exists() {
-        return Err(anyhow::anyhow!("目录仍存在: {:?}", path.as_ref()));
+        return Err(anyhow::anyhow!("The directory still exists: {:?}", path.as_ref()));
     }
 
     Ok(())
@@ -510,7 +509,7 @@ fn open_file_lock(path: &Path) -> Result<fs::File> {
         .write(true)
         .share_mode(0) // 独占模式
         .open(path)
-        .context("无法锁定文件")?;
+        .context("Unable to lock file")?;
 
     Ok(file)
 }

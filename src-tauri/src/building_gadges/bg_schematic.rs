@@ -158,7 +158,7 @@ impl BgSchematic {
                     data: Compound(nbt),
                 })
             }
-            _ => Err(SchematicError::InvalidFormat("无效的版本类型")),
+            _ => Err(SchematicError::InvalidFormat("Invalid version type")),
         }
     }
     fn parse_palette(&self, palette_list: &[Value]) -> Result<Vec<Arc<BlockData>>, SchematicError> {

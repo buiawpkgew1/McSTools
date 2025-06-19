@@ -12,6 +12,7 @@ import toolsSchematic from '../units/tools/toolsSchematic.vue';
 import toolsHistory from '../units/tools/toolsHistory.vue'
 import toolsSplit from '../units/tools/toolsSplit.vue';
 import ToolsThreeD from "../units/tools/toolsThreeD.vue";
+import { useI18n } from 'vue-i18n';
 
 import {
   schematic_id,
@@ -23,6 +24,8 @@ import {
   historyRecordData, activeTools
 } from "../modules/tools_data.ts"
 import {opacity} from "../modules/theme.ts";
+
+const { t } = useI18n()
 const router = useRouter()
 onBeforeRouteLeave(navigationGuard)
 onMounted(async() => {
@@ -43,24 +46,24 @@ onMounted(async() => {
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-tools" class="mr-2 text-medium-emphasis"></v-icon>
-            <span class="text-h5 text-medium-emphasis">蓝图编辑   </span>
+            <span class="text-h5 text-medium-emphasis">{{ t('tools.title') }}</span>
             <v-chip
                 v-if="schematic_id != undefined"
                 color="orange-lighten-4"
                 class="text-orange-darken-4 "
             >
               <v-icon start icon="mdi-cube"></v-icon>
-              蓝图ID:{{ schematic_id }}
+              {{ t('tools.schematicId', { id: schematic_id }) }}
             </v-chip>
             <v-chip
                 v-else
                 color="red-orange-darken-4 text-medium-emphasis"
             >
               <v-icon start icon="mdi-cube"></v-icon>
-              未选取目标蓝图
+              {{ t('tools.noSchematic') }}
             </v-chip>
           </v-toolbar-title>
-          <v-btn class="text-medium-emphasis" variant="text" icon="mdi-cloud-upload" title="上传蓝图" @click="router.push('/home');activeTab = 'home'"/>
+          <v-btn class="text-medium-emphasis" variant="text" icon="mdi-cloud-upload" :title="t('tools.upload')" @click="router.push('/home');activeTab = 'home'"/>
 
           <v-divider vertical inset class="mx-4"/>
 
@@ -69,14 +72,14 @@ onMounted(async() => {
                   color="blue-lighten-1"
                   :disabled="schematic_id == undefined"
           >
-            <v-tab value="schematic" class="text-medium-emphasis">蓝图详情</v-tab>
-            <v-tab value="history" class="text-medium-emphasis">版本管理</v-tab>
-            <v-tab value="split" class="text-medium-emphasis">蓝图分割</v-tab>
-            <v-tab value="replace" class="text-medium-emphasis">方块替换</v-tab>
-            <v-tab value="convert" class="text-medium-emphasis">蓝图转换</v-tab>
-            <v-tab value="data" class="text-medium-emphasis">源数据查看</v-tab>
-            <v-tab value="stats" class="text-medium-emphasis">材料统计</v-tab>
-            <v-tab value="threeD" class="text-medium-emphasis">结构预览</v-tab>
+            <v-tab value="schematic" class="text-medium-emphasis">{{ t('tools.tabs.schematic') }}</v-tab>
+            <v-tab value="history" class="text-medium-emphasis">{{ t('tools.tabs.history') }}</v-tab>
+            <v-tab value="split" class="text-medium-emphasis">{{ t('tools.tabs.split') }}</v-tab>
+            <v-tab value="replace" class="text-medium-emphasis">{{ t('tools.tabs.replace') }}</v-tab>
+            <v-tab value="convert" class="text-medium-emphasis">{{ t('tools.tabs.convert') }}</v-tab>
+            <v-tab value="data" class="text-medium-emphasis">{{ t('tools.tabs.data') }}</v-tab>
+            <v-tab value="stats" class="text-medium-emphasis">{{ t('tools.tabs.stats') }}</v-tab>
+            <v-tab value="threeD" class="text-medium-emphasis">{{ t('tools.tabs.threeD') }}</v-tab>
           </v-tabs>
         </v-toolbar>
         <v-window v-model="activeTools">

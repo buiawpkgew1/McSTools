@@ -194,7 +194,7 @@ impl ToBgSchematic {
             let dy = block.pos.y - self.start_pos.y;
             let dz = block.pos.z - self.start_pos.z;
 
-            let id = (dy * self.width * self.length) + (dz * self.width) + dx;
+            let id = (dz * self.width * self.height) + (dy * self.width) + dx;
 
             if id >= 0 && (id as usize) < atomic_block_list.len() {
                 let state_id = self

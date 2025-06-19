@@ -73,7 +73,7 @@ pub fn update_history(
 
     let changes = tx.changes();
     if changes == 0 {
-        anyhow::bail!("未找到schematic_id: {}", schematic_id);
+        anyhow::bail!("Schema ID not found: {}", schematic_id);
     }
 
     tx.commit()?;
@@ -87,12 +87,12 @@ fn build_updated_schematic(old_data: Option<&String>, new_entry: String) -> Resu
     let mut array = match old_data {
         Some(s) => {
             let parsed: Value =
-                serde_json::from_str(&s).map_err(|e| anyhow::anyhow!("解析旧数据失败: {}", e))?;
+                serde_json::from_str(&s).map_err(|e| anyhow::anyhow!("Failed to parse old data: {}", e))?;
 
             if parsed.is_array() {
                 parsed.as_array().unwrap().clone()
             } else {
-                anyhow::bail!("现有数据不是JSON数组")
+                anyhow::bail!("The existing data is not a JSON array")
             }
         }
         None => Vec::new(),

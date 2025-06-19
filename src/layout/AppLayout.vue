@@ -12,7 +12,7 @@
       <v-icon
           icon="mdi-cube-scan"
           size="40"
-          class="app-logo"
+          class="app-logo text-medium-emphasis"
       />
     </div>
 
@@ -54,7 +54,7 @@
               />
             </div>
           </template>
-          <span>设置</span>
+          <span>{{ $t('menu.settings') }}</span>
         </v-tooltip>
       </div>
     </template>
@@ -65,8 +65,8 @@
 <script setup lang="ts">
 import { activeTab, navItems } from '../modules/layout.ts'
 import {useRouter} from "vue-router";
-const router = useRouter()
 
+const router = useRouter()
 </script>
 
 <style scoped>
@@ -174,7 +174,6 @@ const router = useRouter()
   padding: 6px 12px;
   color: white !important;
   border-radius: 6px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .bottom-actions {
   width: 100%;

@@ -16,7 +16,19 @@
     "http:allow-fetch",
     "http:allow-fetch-send",
     "core:window:default",
+    "process:allow-restart",
     "core:window:allow-start-dragging",
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "C:/**"
+        },
+        {
+          "path": "/**"
+        }
+      ]
+    },
     {
       "identifier": "fs:allow-app-write-recursive",
       "allow": [{ "path": "$APPDATA/mcSchematic/*" }]

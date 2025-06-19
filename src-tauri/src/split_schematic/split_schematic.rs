@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 use std::io::Read;
-use std::path::PathBuf;
+use rayon::prelude::*;
 use tauri::State;
 use crate::data_files::files::FileManager;
 use crate::database::db_apis::schematics_api::find_schematic;
@@ -106,69 +106,62 @@ fn split_block_positions(
     let step = dim_size / split_number as i32;
     let remainder = dim_size % split_number as i32;
 
-    let mut part_sizes: Vec<Size> = vec![];
-    for i in 0..split_number {
-        let part_length = if i == split_number - 1 {
-            step + remainder
-        } else {
-            step
-        };
-
-        let size = match split_type {
-            1 => Size {
-                width: part_length,
-                height: size.height,
-                length: size.length,
-            },
-            2 => Size {
-                width: size.width,
-                height: part_length,
-                length: size.length,
-            },
-            _ => unreachable!(),
-        };
-        part_sizes.push(size);
-    }
-    let mut result: Vec<VecDeque<BlockStatePos>> = vec![VecDeque::new(); split_number];
-
-    for block in blocks {
-        let pos = match axis_idx {
-            0 => block.pos.x,
-            1 => block.pos.y,
-            _ => unreachable!(),
-        };
-
-        let mut idx = 0;
-        let mut cumulative = 0;
-        for i in 0..split_number {
-            cumulative += if i == split_number - 1 {
+    let part_sizes: Vec<Size> = (0..split_number)
+        .map(|i| {
+            let part_length = if i == split_number - 1 {
                 step + remainder
             } else {
                 step
             };
-
-            if pos < cumulative {
-                idx = i;
-                break;
+            match split_type {
+                1 => Size { width: part_length, height: size.height, length: size.length },
+                2 => Size { width: size.width, height: part_length, length: size.length },
+                _ => unreachable!(),
             }
+        })
+        .collect();
 
-            if i == split_number - 1 {
-                idx = split_number - 1;
+    let result = blocks.par_iter().fold(
+        || vec![VecDeque::new(); split_number], // 每个线程初始分组
+        |mut local_groups, block| {
+            let pos = match axis_idx {
+                0 => block.pos.x,
+                1 => block.pos.y,
+                _ => unreachable!(),
+            };
+            let mut cumulative = 0;
+            let mut group_idx = split_number - 1; // 默认为最后一组
+            for i in 0..split_number {
+                cumulative += if i == split_number - 1 {
+                    step + remainder
+                } else {
+                    step
+                };
+                if pos < cumulative {
+                    group_idx = i;
+                    break;
+                }
             }
-        }
+            local_groups[group_idx].push_back(block.clone());
+            local_groups
+        },
+    ).reduce(
+        || vec![VecDeque::new(); split_number],
+        |mut global_groups, local_groups| {
+            for (i, mut group) in local_groups.into_iter().enumerate() {
+                global_groups[i].append(&mut group);
+            }
+            global_groups
+        },
+    );
 
-        if idx < result.len() {
-            result[idx].push_back(block.clone());
-        }
-    }
-
-    let mut parts_with_size = Vec::with_capacity(split_number);
-    for (i, part) in result.into_iter().enumerate() {
-        parts_with_size.push((
-            BlockStatePosList { elements: part },
+    let parts_with_size = result.into_iter()
+        .enumerate()
+        .map(|(i, elements)| (
+            BlockStatePosList { elements },
             part_sizes[i].clone()
-        ));
-    }
+        ))
+        .collect();
 
     Ok(parts_with_size)
 }

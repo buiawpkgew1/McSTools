@@ -1,4 +1,4 @@
-use anyhow::{Context, Result};
+use anyhow::{anyhow, Context, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs;
@@ -40,25 +40,37 @@ impl BlocksData {
         let raw_blocks: Vec<RawBlock> = serde_json::from_str(json)?;
         let mut blocks = Vec::new();
         let mut block_to_cn = HashMap::new();
+
         for raw in raw_blocks {
-            let mut id_parts = raw.ID.split(',');
-
-            let num_part = id_parts.next().context("err")?;
-            let (_, num_str) = num_part.split_once('.').context("err")?;
-            let block_id = num_str.replace('_', "").parse::<String>()?;
-
+            let id_parts: Vec<&str> = raw.ID.split(',').collect();
             let mut version_map = HashMap::new();
             let mut block_name = String::new();
-            for part in id_parts {
-                let (ver, name) = part.split_once('.').context("err")?;
-                let version = ver.parse::<u32>()?;
-                version_map.insert(version, name.to_string());
+            let mut block_id = String::new();
+
+            for (index, part) in id_parts.iter().enumerate() {
+                let (prefix, name) = part.split_once('.')
+                    .ok_or_else(|| anyhow!("Invalid ID segment: '{}'", part))?;
+
+                if index == 0 {
+                    block_id = if prefix == "num" {
+                        name.replace('_', "")
+                    } else {
+                        prefix.to_string()
+                    };
+                }
+
+                if let Ok(version) = prefix.parse::<u32>() {
+                    version_map.insert(version, name.to_string());
+                }
+
                 block_name = name.to_string();
             }
+
             let zh_cn = raw.n.clone();
-            block_to_cn.insert(block_name.clone(), zh_cn);
+            block_to_cn.insert(block_name.clone(), zh_cn.clone());
+
             blocks.push(SubData {
-                zh_cn: raw.n,
+                zh_cn,
                 block_name,
                 block_id,
                 version_map,

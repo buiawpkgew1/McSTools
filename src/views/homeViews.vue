@@ -19,7 +19,9 @@ import {userData} from "../modules/user_data.ts";
 import {isLeaving, navigationGuard} from "../modules/navigation.ts";
 import {createTimeManager} from '../modules/time_data.ts'
 import {messageList} from "../modules/messages.ts";
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n()
 const timeManager = createTimeManager()
 const {
   currentDate,
@@ -30,6 +32,7 @@ const {
 } = timeManager.useInComponent()
 const currentIndex = ref(0)
 const displayText = ref('')
+const isDragging = ref(false);
 const isAnimating = ref(false)
 let intervalId: number | null = null
 let timeoutId: number | null = null
@@ -39,11 +42,9 @@ const randomHanChar = () => {
       ? symbols[Math.floor(Math.random() * symbols.length)]
       : String.fromCharCode(0x4e00 + Math.floor(Math.random() * 20902))
 }
-
 const generateNoise = (length: number) => {
   return Array.from({ length }, () => randomHanChar()).join('')
 }
-
 const revealText = (target: string) => {
   let index = 0
   const targetArr = target.split('')
@@ -62,7 +63,6 @@ const revealText = (target: string) => {
     index++
   }, 50)
 }
-
 const switchMessage = () => {
   isAnimating.value = true
   const target = messageList.value[currentIndex.value]
@@ -74,7 +74,28 @@ const switchMessage = () => {
     timeoutId = null
   }, 300)
 }
+const onDragOver = async (e: any) => {
+  e.preventDefault();
+  isDragging.value = true;
+  if (e.dataTransfer) {
+    e.dataTransfer.dropEffect = 'copy';
+  }
+}
 
+const onDragLeave = async (e: any) => {
+  e.preventDefault();
+  isDragging.value = false;
+}
+
+const onDrop = async (e: any) => {
+  e.preventDefault();
+  isDragging.value = false;
+  const files_load = e.dataTransfer.files;
+  if (files_load.length === 0) return;
+  files.value = Array.from(files_load);
+  console.log(files);
+  await handleUpload(-1);
+}
 onMounted(() => {
   setInterval(() => {
     currentIndex.value = (currentIndex.value + 1) % messageList.value.length
@@ -110,7 +131,7 @@ onBeforeRouteLeave(navigationGuard)
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-tools" class="mr-2 text-medium-emphasis"></v-icon>
-            <span class="text-h5 text-medium-emphasis">蓝图工具箱</span>
+            <span class="text-h5 text-medium-emphasis">{{ t('home.title') }}</span>
           </v-toolbar-title>
         </v-toolbar>
 
@@ -120,7 +141,7 @@ onBeforeRouteLeave(navigationGuard)
               <div class="d-flex align-center">
                 <v-icon icon="mdi-folder-multiple" color="deep-purple" class="mr-2"></v-icon>
                 <div>
-                  <div class="text-caption text-grey text-medium-emphasis">本地蓝图总数</div>
+                  <div class="text-caption text-grey text-medium-emphasis">{{ t('home.stats.localSchematics') }}</div>
                   <div class="text-h4 text-grey-darken-3 text-medium-emphasis">{{ userData?.schematics ?? 0 }}</div>
                 </div>
               </div>
@@ -130,7 +151,7 @@ onBeforeRouteLeave(navigationGuard)
               <div class="d-flex align-center">
                 <v-icon icon="mdi-cloud-upload" size="28" color="teal" class="mr-2"></v-icon>
                 <div>
-                  <div class="text-caption text-grey text-medium-emphasis">云端蓝图总数</div>
+                  <div class="text-caption text-grey text-medium-emphasis">{{ t('home.stats.cloudSchematics') }}</div>
                   <div class="text-h4 text-grey-darken-3 text-medium-emphasis">{{ userData?.cloud ?? 0 }}</div>
                 </div>
               </div>
@@ -160,7 +181,7 @@ onBeforeRouteLeave(navigationGuard)
                     <div>
                       <div class="text-caption text-grey-darken-1 text-medium-emphasis mb-1">
                         <v-icon small left>mdi-login</v-icon>
-                        欢迎回来
+                        {{ t('home.stats.welcome') }}
                       </div>
                       <div class="text-h6 font-weight-medium text-blue-darken-4">
                         {{ userData?.nickname || '用户' }}
@@ -238,33 +259,38 @@ onBeforeRouteLeave(navigationGuard)
       h-100"
               elevation="4"
               :style="{ '--surface-alpha': opacity }"
+              @dragover.prevent="onDragOver"
+              @dragleave="onDragLeave"
+              @drop.prevent="onDrop"
+
       >
         <v-card-title class="text-h6 bg-blue-lighten-5">
           <v-icon icon="mdi-cloud-upload" class="mr-2"></v-icon>
-          蓝图处理
+          {{ t('home.upload.title') }}
         </v-card-title>
 
-        <v-card-text class="upload-area pa-8">
+        <v-card-text class="upload-area pa-8" :class="{ 'drag-active': isDragging }">
           <div class="text-center mb-4">
             <v-icon
                 icon="mdi-cloud-upload"
                 size="80"
                 class="mb-2 text-medium-emphasis"
             ></v-icon>
-            <div class="text-h6 text-medium-emphasis">拖放文件或点击上传</div>
+            <div class="text-h6 text-medium-emphasis">{{ t('home.upload.dragDrop') }}</div>
             <div class="text-caption text-medium-emphasis mt-1">
-              支持格式：nbt、litematic、schem、 json、 mcstruct（最大50MB）
+              {{ t('home.upload.supportedFormats') }}
             </div>
           </div>
 
           <div class="upload-container">
             <v-file-input
+                :aria-disabled="isDragging"
                 v-model="files"
                 class="custom-file-input"
                 variant="solo-filled"
                 color="primary"
                 bg-color="grey-lighten-3"
-                label="选择文件"
+                :label="t('home.upload.selectFile')"
                 multiple
                 accept=".nbt, .json, .schem, .litematic"
                 :max-file-size="100 * 1024 * 1024"
@@ -286,7 +312,7 @@ onBeforeRouteLeave(navigationGuard)
               </template>
 
               <div class="d-flex align-center">
-                <span class="mr-2">成功上传 {{ files.length }} 个文件</span>
+                <span class="mr-2">{{ t('home.upload.uploadSuccess', { count: files.length }) }}</span>
                 <v-spacer></v-spacer>
                 <v-btn
                     icon
@@ -323,7 +349,7 @@ onBeforeRouteLeave(navigationGuard)
               </template>
 
               <div class="d-flex align-center">
-                <span class="mr-2">发生错误:{{ uploadError }}</span>
+                <span class="mr-2">{{ t('home.upload.uploadError', { error: uploadError }) }}</span>
                 <v-spacer></v-spacer>
                 <v-btn
                     icon
@@ -361,7 +387,7 @@ onBeforeRouteLeave(navigationGuard)
               elevation="4">
         <v-card-title class="text-h6 bg-green-lighten-5">
           <v-icon icon="mdi-format-list-checks" class="mr-2"></v-icon>
-          支持蓝图类型
+          {{ t('home.supportedTypes.title') }}
         </v-card-title>
 
         <v-card-text>
@@ -377,10 +403,10 @@ onBeforeRouteLeave(navigationGuard)
                 </v-avatar>
               </template>
               <template v-slot:title>
-                <span class="font-weight-bold">香草结构</span>
+                <span class="font-weight-bold">{{ t('home.supportedTypes.vanilla.title') }}</span>
               </template>
               <template v-slot:subtitle>
-                我的世界原版支持的蓝图格式，机械动力也采用了这种格式
+                {{ t('home.supportedTypes.vanilla.desc') }}
               </template>
             </v-list-item>
             <v-list-item
@@ -394,10 +420,10 @@ onBeforeRouteLeave(navigationGuard)
                 </v-avatar>
               </template>
               <template v-slot:title>
-                <span class="font-weight-bold">建筑小帮手</span>
+                <span class="font-weight-bold">{{ t('home.supportedTypes.buildingGadgets.title') }}</span>
               </template>
               <template v-slot:subtitle>
-                科技包最常见的辅组建筑工具
+                {{ t('home.supportedTypes.buildingGadgets.desc') }}
               </template>
             </v-list-item>
             <v-list-item
@@ -411,10 +437,10 @@ onBeforeRouteLeave(navigationGuard)
                 </v-avatar>
               </template>
               <template v-slot:title>
-                <span class="font-weight-bold">建筑投影</span>
+                <span class="font-weight-bold">{{ t('home.supportedTypes.litematica.title') }}</span>
               </template>
               <template v-slot:subtitle>
-                生电玩家活下去的必备工具，
+                {{ t('home.supportedTypes.litematica.desc') }}
               </template>
             </v-list-item>
             <v-list-item
@@ -428,10 +454,10 @@ onBeforeRouteLeave(navigationGuard)
                 </v-avatar>
               </template>
               <template v-slot:title>
-                <span class="font-weight-bold">创世神</span>
+                <span class="font-weight-bold">{{ t('home.supportedTypes.worldEdit.title') }}</span>
               </template>
               <template v-slot:subtitle>
-                老牌建筑工具，延用至今，新版axiom也采用了这种蓝图格式
+                {{ t('home.supportedTypes.worldEdit.desc') }}
               </template>
             </v-list-item>
             <v-list-item
@@ -445,10 +471,10 @@ onBeforeRouteLeave(navigationGuard)
                 </v-avatar>
               </template>
               <template v-slot:title>
-                <span class="font-weight-bold">MC BE</span>
+                <span class="font-weight-bold">{{ t('home.supportedTypes.bedrock.title') }}</span>
               </template>
               <template v-slot:subtitle>
-                我的世界BE采用的蓝图格式，目前未完全适配
+                {{ t('home.supportedTypes.bedrock.desc') }}
               </template>
             </v-list-item>
           </v-list>
@@ -456,6 +482,7 @@ onBeforeRouteLeave(navigationGuard)
       </v-card>
     </v-col>
   </v-row>
+
 </template>
 
 <style scoped lang="css" src="../assets/css/home.css"></style>

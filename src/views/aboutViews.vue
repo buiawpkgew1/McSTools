@@ -9,8 +9,11 @@ import guapi from "../static/img/guapi.png"
 import {openLink} from "../modules/others.ts";
 import ifdian from "../static/img/ifdian.png"
 import {checkUpdate, chuckLoading} from "../modules/chuck_update.ts";
-onBeforeRouteLeave(navigationGuard)
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
+
+onBeforeRouteLeave(navigationGuard)
 
 </script>
 
@@ -25,7 +28,7 @@ onBeforeRouteLeave(navigationGuard)
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-information-outline" class="mr-2"></v-icon>
-            <span class="text-h6">关于</span>
+            <span class="text-h6">{{ t('about.title') }}</span>
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text>
@@ -56,7 +59,7 @@ onBeforeRouteLeave(navigationGuard)
               <v-row>
                 <v-col cols="12">
                   <div class="d-flex justify-space-between">
-                    <span class="text-h6 text-blue-grey-darken-2 text-medium-emphasis">版本: v{{ appData.appVersion }}</span>
+                    <span class="text-h6 text-blue-grey-darken-2 text-medium-emphasis">{{ t('about.version', { version: appData.appVersion }) }}</span>
                   </div>
                   <v-row align="center" justify="start">
                     <v-col cols="auto">
@@ -66,7 +69,7 @@ onBeforeRouteLeave(navigationGuard)
                           :loading="chuckLoading"
                           @click="checkUpdate(false)"
                       >
-                        检测更新
+                        {{ t('about.actions.checkUpdate') }}
                       </v-btn>
                     </v-col>
                     <v-col cols="auto">
@@ -76,16 +79,14 @@ onBeforeRouteLeave(navigationGuard)
                           prepend-icon="mdi-text-box"
                           @click="openLink('https://github.com/guapi-exe/McSTools/commits/master/')"
                       >
-                        更新日志
+                        {{ t('about.actions.changelog') }}
                       </v-btn>
                     </v-col>
                   </v-row>
                 </v-col>
                 <v-col cols="12">
                   <p class="text-body-1 text-grey-darken-2 text-medium-emphasis">
-                    软件使用tauri 后端基于rust，前端使用vue.
-                    <br/>
-                    分离化设计让软件性能得到保障，rust安全设计，性能更好，内存安全高效。
+                    {{ t('about.description.content') }}
                   </p>
                 </v-col>
                 <v-col cols="12">
@@ -97,7 +98,7 @@ onBeforeRouteLeave(navigationGuard)
                           prepend-icon="mdi-github"
                           @click="openLink('https://github.com/guapi-exe/McSTools')"
                       >
-                        Github
+                        {{ t('about.actions.github') }}
                       </v-btn>
                     </v-col>
                     <v-col cols="auto">
@@ -108,7 +109,7 @@ onBeforeRouteLeave(navigationGuard)
                           prepend-icon="mdi-web"
                           @click="openLink('https://www.mcschematic.top/home/')"
                       >
-                        官方网站
+                        {{ t('about.actions.website') }}
                       </v-btn>
                     </v-col>
                     <v-col cols="auto">
@@ -121,7 +122,7 @@ onBeforeRouteLeave(navigationGuard)
                         <v-icon>
                           <v-img :src="ifdian"></v-img>
                         </v-icon>
-                        赞助项目
+                        {{ t('about.actions.sponsor') }}
                       </v-btn>
                     </v-col>
                     <v-col cols="auto">
@@ -132,7 +133,7 @@ onBeforeRouteLeave(navigationGuard)
                           prepend-icon="mdi-comment-question-outline"
                           @click=""
                       >
-                        FAQ→
+                        {{ t('about.actions.faq') }}
                       </v-btn>
                     </v-col>
                   </v-row>
@@ -145,16 +146,14 @@ onBeforeRouteLeave(navigationGuard)
                           <v-img :src="fav" class="mr-2"
                           style="height: 32px; width: 32px; flex-shrink: 0"
                           ></v-img>
-                          <span class="text-h6 text-blue-grey-darken-2">蓝图站</span>
+                          <span class="text-h6 text-blue-grey-darken-2">{{ t('about.schematicSite.title') }}</span>
                         </div>
                       </v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text class="text-center">
                       <p class="text-body-1 text-grey-darken-2 mb-4">
-                        支持多种蓝图的网站，提供私有和公开多种模式，可以在线预览蓝图
-                        <br>
-                        提供在线的蓝图转换功能，材料统计，可将网站中蓝图快速导入到本地
+                        {{ t('about.schematicSite.description') }}
                       </p>
 
                       <div class="d-flex justify-center">
@@ -165,7 +164,7 @@ onBeforeRouteLeave(navigationGuard)
                             class="px-6"
                         @click="openLink('https://www.mcschematic.top/home/')"
                         >
-                        前往网站→
+                        {{ t('about.schematicSite.visit') }}
                         </v-btn>
                       </div>
                     </v-card-text>
@@ -181,18 +180,18 @@ onBeforeRouteLeave(navigationGuard)
 
                     <div>
                       <p class="text-body-1 mb-1">
-                        <span class="font-weight-medium">Tauri 2.0</span>
+                        <span class="font-weight-medium">{{ t('about.tauri.title') }}</span>
                         <v-tooltip location="top">
                           <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" size="16" class="ml-1 ">mdi-information-outline</v-icon>
                           </template>
-                          <span>软件基于tauri 2.0开发制作</span>
+                          <span>{{ t('about.tauri.tooltip') }}</span>
                         </v-tooltip>
                       </p>
 
                       <div class="d-flex align-center flex-wrap">
                         <span class="text-caption text-grey-darken-1 mr-2">
-                          © 当前版本: {{ appData.tauriVersion }}
+                          {{ t('about.tauri.currentVersion', { version: appData.tauriVersion }) }}
                         </span>
                       </div>
                     </div>
@@ -210,19 +209,19 @@ onBeforeRouteLeave(navigationGuard)
 
                     <div>
                       <p class="text-body-1 mb-1">
-                        <span class="font-weight-medium">GNU Affero General Public License</span>
+                        <span class="font-weight-medium">{{ t('about.license.title') }}</span>
                         <v-tooltip location="top">
                           <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" size="16" class="ml-1 ">
                               mdi-information-outline
                             </v-icon>
                           </template>
-                          <span>允许修改和分发，但必须开源修改后的代码并保留版权声明，禁止未经授权商业使用</span>
+                          <span>{{ t('about.license.tooltip') }}</span>
                         </v-tooltip>
                       </p>
                       <div class="d-flex align-center flex-wrap">
                         <span class="text-caption text-grey-darken-1 mr-2">
-                          © 2025 MCS Tools. All rights licensed under AGPL-3.0
+                          {{ t('about.license.copyright') }}
                         </span>
                         <v-btn
                             variant="text"
@@ -231,7 +230,7 @@ onBeforeRouteLeave(navigationGuard)
                             class="px-1"
                             @click="openLink('https://www.gnu.org/licenses/agpl-3.0.en.html')"
                         >
-                          <span class="text-caption">查看完整协议</span>
+                          <span class="text-caption">{{ t('about.license.viewLicense') }}</span>
                           <v-icon icon="mdi-open-in-new" size="14" class="ml-1"></v-icon>
                         </v-btn>
                       </div>
@@ -247,12 +246,12 @@ onBeforeRouteLeave(navigationGuard)
                     </div>
                     <div>
                       <p class="text-body-1 mb-1">
-                        <span class="font-weight-medium">核心开发人员</span>
+                        <span class="font-weight-medium">{{ t('about.developers.title') }}</span>
                         <v-tooltip location="top">
                           <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" size="16" color="grey" class="ml-1">mdi-information-outline</v-icon>
                           </template>
-                          <span>参与开发及代表明确遵守AGPL V3协议,改版 转发请注明所有开发人员和协议</span>
+                          <span>{{ t('about.developers.tooltip') }}</span>
                         </v-tooltip>
                       </p>
                       <v-row>
@@ -266,7 +265,7 @@ onBeforeRouteLeave(navigationGuard)
                                 <span class="text-h6 font-weight-medium">Guapi</span>
                               </div>
                             </template>
-                            <span>作者</span>
+                            <span>{{ t('about.developers.author') }}</span>
                           </v-tooltip>
                         </v-col>
                       </v-row>

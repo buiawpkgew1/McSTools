@@ -9,7 +9,11 @@
     border-color: #2196F3;
     background: rgba(33, 150, 243, 0.05);
 }
-
+.upload-area.drag-active {
+    border-color: #2196F3;
+    background: rgba(33, 150, 243, 0.30);
+    transform: scale(1.02);
+}
 .custom-file-input {
     transition: all 0.3s ease;
 }

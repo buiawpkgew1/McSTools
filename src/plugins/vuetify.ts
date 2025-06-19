@@ -76,7 +76,7 @@ const vuetify = createVuetify({
                     outline: '#7e8592',
                     'outline-variant': '#303a49',
                     primary: '#000000',
-                    'on-primary': '#384349',
+                    'on-primary': '#ffffff',
                     'primary-container': '#3f4c54',
                     'on-primary-container': '#cbd4d9',
                     'inverse-primary': '#485963',
@@ -113,7 +113,7 @@ const vuetify = createVuetify({
             },
             blue: {
                 colors: {
-                    background: '#ebeef1',
+                    background: 'rgba(255,255,255,0)',
                     surface: '#f0f1f4',
                     'surface-dim': '#e0e3e9',
                     'surface-bright': '#f0f1f4',
