@@ -8,7 +8,7 @@ import AboutViews from "../src/views/aboutViews.vue";
 import EmptyViews from "../src/views/EmptyViews.vue"
 import OthersViews from "../src/views/othersViews.vue";
 import SettingViews from "../src/views/settingViews.vue";
-import WebDAVSettings from '../views/WebDAVSettings.vue';
+import WebDAVSettings from '../src/views/WebDAVSettings.vue';
 
 const routes = [
     {
