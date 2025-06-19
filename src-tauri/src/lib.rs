@@ -10,6 +10,7 @@ pub mod modules;
 pub mod utils;
 mod word_edit;
 mod split_schematic;
+mod webdav_settings;
 
 use crate::database::db_control;
 use crate::litematica::lm_schematic::LmSchematic;
@@ -39,6 +40,7 @@ use utils::minecraft_data::versions_data::VersionData;
 use CMS::get_cms_data::perform_search;
 use utils::open_dev::open_dev;
 use data_files::data_flies::clear_app_data;
+use webdav_settings::save_webdav_settings;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
