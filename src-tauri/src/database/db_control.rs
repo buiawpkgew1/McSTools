@@ -125,6 +125,14 @@ pub fn init_db(app_handle: &AppHandle) -> Result<DatabaseState> {
             cloud INTEGER DEFAULT 0
         );
 
+        CREATE TABLE IF NOT EXISTS webdav_settings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            url TEXT NOT NULL,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+
         INSERT INTO user_data (id, nickname, avatar, qq, accessToken, openid, schematics, cloud)
         SELECT 1, '', '', '', '', '', 0, 0
         WHERE NOT EXISTS (SELECT 1 FROM user_data WHERE id = 1);

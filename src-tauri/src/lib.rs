@@ -95,6 +95,7 @@ pub fn run() {
             get_schematic_str,
             get_schematic_data,
             get_schematic_convert_data
+            save_webdav_settings,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

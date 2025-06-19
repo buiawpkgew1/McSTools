@@ -8,6 +8,9 @@ import AboutViews from "../src/views/aboutViews.vue";
 import EmptyViews from "../src/views/EmptyViews.vue"
 import OthersViews from "../src/views/othersViews.vue";
 import SettingViews from "../src/views/settingViews.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import WebDAVSettings from '../views/WebDAVSettings.vue';
+
 const routes = [
     {
         path: '/',
@@ -97,7 +100,12 @@ const routes = [
         path: '/empty',
         name: 'emptyRoute',
         component: EmptyViews
-    }
+    },
+    {
+        path: '/webdav-settings',
+        name: 'WebDAVSettings',
+        component: WebDAVSettings
+    },
 ]
 
 const router = createRouter({
