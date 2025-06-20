@@ -137,10 +137,7 @@ const refreshImage = async () => {
 
     ctx.drawImage(resultCanvas, 0, 0)
   }catch (error) {
-    console.log(error)
-    hasImage.value = false
-    mapImg.value = undefined
-    toast.error(`像素画生成失败:${error}`, {
+    toast.error(`像素画预览生成失败:${error}`, {
       timeout: 3000
     });
   } finally {
@@ -152,8 +149,8 @@ const uploadImage = async(file: File | undefined) => {
     isProcessing.value = true
     hasImage.value = true
     image_data.value = await encode_image(file);
-    exportSettings.height = image_data.value.height
-    exportSettings.width = image_data.value.width
+    exportSettings.height = Math.round(image_data.value.height)
+    exportSettings.width = Math.round(image_data.value.width)
     if (exportSettings.height*16 * exportSettings.width*16 >= 16384* 16384) resize.value = 0.5
     imageBuild.value.updateBlocksData(selectedBlocks.value)
     await updateSize()
@@ -167,9 +164,7 @@ const uploadImage = async(file: File | undefined) => {
 
     ctx.drawImage(resultCanvas, 0, 0)
   } catch (error) {
-    hasImage.value = false
-    mapImg.value = undefined
-    toast.error(`像素画生成失败:${error}`, {
+    toast.error(`像素画预览生成失败:${error}`, {
       timeout: 3000
     });
   } finally {
@@ -177,8 +172,8 @@ const uploadImage = async(file: File | undefined) => {
   }
 }
 const updateSize = async() => {
-  exportSettings.width = image_data.value.width * resize.value;
-  exportSettings.height = image_data.value.height * resize.value
+  exportSettings.width = Math.round(image_data.value.width * resize.value);
+  exportSettings.height = Math.round(image_data.value.height * resize.value)
 }
 const exportSchematicData = async() => {
   exportLoading.value = true
