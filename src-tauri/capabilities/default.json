@@ -40,6 +40,7 @@
     {
       "identifier": "http:default",
       "allow": [
+        { "url": "https://mcschematic.top" },
         { "url": "https://*.mcschematic.top" },
         { "url": "https://*.creativemechanicserver.com" },
         { "url": "https://*.qlogo.cn" }
