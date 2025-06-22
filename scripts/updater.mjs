@@ -3,7 +3,7 @@ import { context, getOctokit } from "@actions/github";
 import { readFile } from "node:fs/promises";
 
 // 定义镜像代理前缀
-const MIRROR_PREFIX = "http://ghcr.mcschematic.top:5000/";
+const MIRROR_PREFIX = "https://ghcr.mcschematic.top/";
 
 // 在容器中可以通过env环境变量来获取参数
 const octokit = getOctokit(process.env.GITHUB_TOKEN);
