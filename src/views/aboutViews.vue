@@ -24,7 +24,7 @@ onBeforeRouteLeave(navigationGuard)
           class="mx-auto"
           elevation="4"
           :style="{ '--surface-alpha': opacity }"
-          hover>
+          >
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-2 text-medium-emphasis" :style="{ '--surface-alpha': opacity + 0.2 }">
           <v-toolbar-title>
             <v-icon icon="mdi-information-outline" class="mr-2"></v-icon>
@@ -74,7 +74,6 @@ onBeforeRouteLeave(navigationGuard)
                     </v-col>
                     <v-col cols="auto">
                       <v-btn
-                          color="secondary"
                           variant="outlined"
                           prepend-icon="mdi-text-box"
                           @click="openLink('https://github.com/guapi-exe/McSTools/commits/master/')"
@@ -104,7 +103,6 @@ onBeforeRouteLeave(navigationGuard)
                     <v-col cols="auto">
                       <v-btn
                           density="default"
-                          color="secondary"
                           variant="outlined"
                           prepend-icon="mdi-web"
                           @click="openLink('https://www.mcschematic.top/home/')"
@@ -115,7 +113,6 @@ onBeforeRouteLeave(navigationGuard)
                     <v-col cols="auto">
                       <v-btn
                           density="default"
-                          color="secondary"
                           variant="outlined"
                           @click="openLink('https://ifdian.net/a/guapi-exe')"
                       >
@@ -128,7 +125,6 @@ onBeforeRouteLeave(navigationGuard)
                     <v-col cols="auto">
                       <v-btn
                           density="default"
-                          color="secondary"
                           variant="outlined"
                           prepend-icon="mdi-comment-question-outline"
                           @click=""

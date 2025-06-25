@@ -69,7 +69,16 @@
     "createUpdaterArtifacts": true,
     "resources": [
       "./data/*"
-    ]
+    ],
+    "windows": {
+      "wix": {
+        "language": "zh-CN"
+      },
+      "nsis": {
+        "languages": ["SimpChinese", "English"],
+        "displayLanguageSelector": true
+      }
+    }
   },
   "plugins": {
     "updater": {

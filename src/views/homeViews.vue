@@ -125,7 +125,6 @@ onBeforeRouteLeave(navigationGuard)
           class="mx-auto v-theme--custom text-primary"
           :style="{ '--surface-alpha': opacity }"
           elevation="4"
-          hover
           transition="slide-x-transition"
       >
         <v-toolbar density="compact" class="bg-blue-grey-lighten-5 pa-3" :style="{ '--surface-alpha': opacity + 0.2 }">
