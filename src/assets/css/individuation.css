@@ -82,7 +82,11 @@ button:hover {
 }
 
 .preview-layout {
-  height: 300px;
+  height: 310px;
+}
+
+.font-layout {
+  height: 260px;
 }
 
 .image-column, .info-column {
@@ -93,6 +97,12 @@ button:hover {
 
 .image-preview {
   height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.font-preview {
+  height: 240px;
   display: flex;
   flex-direction: column;
 }

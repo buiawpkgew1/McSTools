@@ -281,6 +281,26 @@ export default {
         refresh: '刷新背景',
         select: '选择背景文件'
       }
+    },
+    font: {
+      title: '自定义字体设置',
+      fontInfo: '字体信息',
+      fileName: '文件名',
+      fileSize: '文件大小',
+      actions: {
+        clear: '清除字体',
+        refresh: '刷新字体',
+        select: '选择字体文件'
+      },
+      effect: {
+        title: '字体效果展示',
+        content1: '中文字体演示',
+        content2: '加粗效果：中文字体演示',
+        content3: 'The quick brown fox jumps over the lazy dog.',
+        content4: 'Italic style shows elegance in typography.',
+        content5: '常规：0123456789',
+        content6: '特殊样式：① 𝟙𝟚𝟛₄₅₆ ⓺⓻⓼⓽',
+      }
     }
   }
 } 

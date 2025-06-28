@@ -1,6 +1,5 @@
 <template >
-  <v-app :style="backgroundStyle">
-
+  <v-app :style="backgroundStyle" id="custom-font-style">
     <v-theme-provider>
       <div class="layout-container">
         <app-layout class="app-layout" />
@@ -218,7 +217,6 @@ onMounted(async () => {
 
   appData.value = await getAppVersion()
   jeBlocks.value = await fetchJeBlocks()
-  console.log(jeBlocks.value)
   mapArtData.value = await fetchMapArtsData()
   try{
     await resources_Init()
@@ -246,3 +244,4 @@ onMounted(async () => {
 <style lang="css" src="./assets/css/card.css"></style>
 <style lang="css" src="./assets/css/views.css"></style>
 <style lang="css" src="./assets/css/loading.css"></style>
+<style lang="css" src="./assets/css/fonts.css"></style>

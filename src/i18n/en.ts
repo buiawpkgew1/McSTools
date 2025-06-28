@@ -244,7 +244,27 @@ export default {
         refresh: 'Refresh Background Image',
         select: 'Select Background Image'
       }
-    }
+    },
+    font: {
+      title: 'Font Settings',
+      fontInfo: 'Font Information',
+      fileName: 'File Name',
+      fileSize: 'File Size',
+      actions: {
+        clear: 'Clear Font',
+        refresh: 'Refresh Font',
+        select: 'Select Font File'
+      },
+      effect: {
+        title: 'Font Preview',
+        content1: 'English font demonstration',
+        content2: 'Bold effect: English font demonstration',
+        content3: 'The quick brown fox jumps over the lazy dog.',
+        content4: 'Italic style shows elegance in typography.',
+        content5: 'Regular: 0123456789',
+        content6: 'Special styles: ① 𝟙𝟚𝟛₄₅₆ ⓺⓻⓼⓽',
+      }
+    },
   },
   about: {
     title: 'About',

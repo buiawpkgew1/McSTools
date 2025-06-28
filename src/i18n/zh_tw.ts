@@ -281,6 +281,26 @@ export default {
                 refresh: '重新整理背景',
                 select: '選擇背景檔案'
             }
+        },
+        font: {
+            title: '字型設定',
+            fontInfo: '字型資訊',
+            fileName: '檔案名稱',
+            fileSize: '檔案大小',
+            actions: {
+                clear: '清除字型',
+                refresh: '重新整理字型',
+                select: '選擇字型檔案'
+            },
+            effect: {
+                title: '字型效果展示',
+                content1: '繁體中文字型演示',
+                content2: '加粗效果：繁體中文字型演示',
+                content3: 'The quick brown fox jumps over the lazy dog.',
+                content4: 'Italic style shows elegance in typography.',
+                content5: '常規：0123456789',
+                content6: '特殊樣式：① 𝟙𝟚𝟛₄₅₆ ⓺⓻⓼⓽',
+            }
         }
     }
 }

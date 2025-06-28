@@ -244,6 +244,26 @@ export default {
         refresh: '背景を更新',
         select: '背景ファイルを選択'
       }
+    },
+    font: {
+      title: 'フォント設定',
+      fontInfo: 'フォント情報',
+      fileName: 'ファイル名',
+      fileSize: 'ファイルサイズ',
+      actions: {
+        clear: 'フォントをクリア',
+        refresh: 'フォントを更新',
+        select: 'フォントファイルを選択'
+      },
+      effect: {
+        title: 'フォントプレビュー',
+        content1: '日本語フォントデモ',
+        content2: '太字効果：日本語フォントデモ',
+        content3: 'The quick brown fox jumps over the lazy dog.',
+        content4: 'Italic style shows elegance in typography.',
+        content5: '標準：0123456789',
+        content6: '特殊スタイル：① 𝟙𝟚𝟛₄₅₆ ⓺⓻⓼⓽',
+      }
     }
   },
   about: {

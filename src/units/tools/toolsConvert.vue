@@ -325,7 +325,7 @@ const convertSchematic = async (schematicType: number) => {
                           @click="dialogVersions2 = true;"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
-                        转换到改格式
+                        转换到该格式
                       </v-btn>
 
                     </v-col>
@@ -456,7 +456,7 @@ const convertSchematic = async (schematicType: number) => {
                           @click="dialogVersions1 = true"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
-                        转换到改格式
+                        转换到该格式
                       </v-btn>
                     </v-col>
                   </v-col>
@@ -587,7 +587,7 @@ const convertSchematic = async (schematicType: number) => {
                           @click="dialogVersions3 = true; weVersion = 0"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
-                        转换到改格式
+                        转换到该格式
                       </v-btn>
                     </v-col>
                   </v-col>
@@ -626,7 +626,7 @@ const convertSchematic = async (schematicType: number) => {
                           @click="dialogVersions3 = true; weVersion = 1"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
-                        转换到改格式
+                        转换到该格式
                       </v-btn>
                     </v-col>
                   </v-col>
@@ -757,7 +757,7 @@ const convertSchematic = async (schematicType: number) => {
                           @click="dialogVersions4 = true; bgVersion = 0"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
-                        转换到改格式
+                        转换到该格式
                       </v-btn>
                     </v-col>
                   </v-col>
@@ -796,7 +796,7 @@ const convertSchematic = async (schematicType: number) => {
                           @click="dialogVersions4 = true; bgVersion = 1"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
-                        转换到改格式
+                        转换到该格式
                       </v-btn>
                     </v-col>
                   </v-col>
@@ -835,7 +835,7 @@ const convertSchematic = async (schematicType: number) => {
                           @click="dialogVersions4 = true; bgVersion = 2"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
-                        转换到改格式
+                        转换到该格式
                       </v-btn>
                     </v-col>
                   </v-col>
@@ -967,7 +967,7 @@ const convertSchematic = async (schematicType: number) => {
                           @click="dialogVersions5 = true"
                       >
                         <v-icon icon="mdi-autorenew" class="mr-1"></v-icon>
-                        转换到改格式
+                        转换到该格式
                       </v-btn>
                     </v-col>
                   </v-col>
