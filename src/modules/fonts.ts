@@ -78,3 +78,40 @@ export const getFontUrl = async (path: string) => {
         return null;
     }
 };
+
+export const getFontBase64Url = async (path: string) => {
+    try {
+        const fileExists = await exists(path, {
+            baseDir: BaseDirectory.AppData
+        });
+
+        if (!fileExists) return null;
+
+        const buffer = await readFile(path, {
+            baseDir: BaseDirectory.AppData
+        });
+
+        const base64String = arrayBufferToBase64(buffer);
+
+        return `data:${getMimeType(path)};base64,${base64String}`;
+
+    } catch (error) {
+        console.error('字体加载失败:', error);
+        toast.error(`发生了一个错误:${error}`, {
+            timeout: 3000
+        });
+        return null;
+    }
+};
+
+const arrayBufferToBase64 = (buffer: Uint8Array) => {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+
+    return window.btoa(binary);
+};

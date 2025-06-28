@@ -29,7 +29,6 @@ export const detectTheme = async(theme: ThemeInstance) => {
         darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
         darkModeMatcher.addEventListener('change', async (e) => {
             let autoTheme = await appStore.get('autoTheme', false)
-            console.log(autoTheme)
             if (!autoTheme) return;
             if (e.matches) {
                 await appStore.set('selectedTheme', 'grey_dark')
@@ -38,7 +37,6 @@ export const detectTheme = async(theme: ThemeInstance) => {
                 await initTheme();
             }else {
                 let newTheme = await appStore.get('oldTheme', 'blue')
-                console.log(newTheme)
                 await appStore.set('selectedTheme', newTheme)
                 theme.global.name.value = newTheme
                 await initTheme();
