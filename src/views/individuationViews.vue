@@ -88,6 +88,12 @@ const clearFont = async () => {
   await appStore.set('fontPath', 'null');
   await appStore.set('fontSize', 0)
   await appStore.set('fontName', 'null')
+  document.fonts.forEach(font => {
+    if (font.family === 'CustomFont') {
+      document.fonts.delete(font);
+    }
+  });
+  document.body.style.fontFamily = '';
   await router.push({name: 'emptyRoute'});
   await initTheme();
 }

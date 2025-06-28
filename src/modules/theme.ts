@@ -15,7 +15,7 @@ export const initTheme = async () => {
     backgroundOpacity.value = await appStore.get('backgroundOpacity', 0.9);
     layoutMode.value = await appStore.get('layoutMode', 'cover');
     opacity.value = await appStore.get('opacity', 0.8);
-    if (bgPath) {
+    if (bgPath != 'null' && bgPath != '') {
         try {
             backgroundStr.value = await getBackgroundBase64Url(bgPath)
         } catch (error) {
@@ -26,7 +26,7 @@ export const initTheme = async () => {
             backgroundStr.value = 'null'
         }
     }
-    if (fontPath) {
+    if (fontPath != 'null' && fontPath != '') {
         try {
             const fontName = 'CustomFont';
             let fontUrl = await getFontUrl(fontPath);
