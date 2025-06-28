@@ -421,7 +421,7 @@ watch(backgroundOpacity, (val) => appStore.set('backgroundOpacity', val))
                   {{ t('individuation.font.effect.content5') }}
                 </p>
                 <p class="sample-text numbers transformed">
-                  {{ t('individuation.font.effect.content5') }}
+                  {{ t('individuation.font.effect.content6') }}
                 </p>
               </div>
             </v-col>
