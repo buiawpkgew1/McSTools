@@ -2,7 +2,7 @@ import {ref} from "vue";
 import {appStore} from "./store.ts";
 import {getBackgroundBase64Url} from "./uploadImage.ts";
 import {toast} from "./others.ts";
-import {getFontBase64Url} from "./fonts.ts";
+import {getFontUrl} from "./fonts.ts";
 
 export const opacity = ref(1)
 export const backgroundOpacity = ref(1);
@@ -29,12 +29,13 @@ export const initTheme = async () => {
     if (fontPath) {
         try {
             const fontName = 'CustomFont';
-            let fontUrl = await getFontBase64Url(fontPath);
+            let fontUrl = await getFontUrl(fontPath);
             const fontFace = new FontFace(fontName, `url('${fontUrl}')`);
             await fontFace.load();
             document.fonts.add(fontFace);
             document.body.style.fontFamily = 'CustomFont, sans-serif !important';
         } catch (e) {
+            toast.error(`字体加载失败:${e}`, {timeout: 3000});
             console.error('字体加载失败', e);
         }
     }
