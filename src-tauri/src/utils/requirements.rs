@@ -4,7 +4,7 @@ use crate::utils::schematic_data::SchematicError;
 use rayon::iter::IntoParallelRefIterator;
 use rayon::iter::ParallelIterator;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::sync::Arc;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -119,7 +119,14 @@ impl RequirementStr {
 }
 
 pub fn get_requirements(blocks: &BlockStatePosList) -> Result<Requirements, SchematicError> {
-    let air = Arc::from("minecraft:air");
+    let lava = Arc::from("minecraft:lava");
+    let water = Arc::from("minecraft:water");
+    let excluded_blocks: HashSet<Arc<str>> = [
+        Arc::from("minecraft:air"),
+        Arc::from("minecraft:cave_air"),
+        Arc::from("minecraft:void_air"),
+        Arc::from("minecraft:piston_head"),
+    ].into_iter().collect();
     let requirements_map = blocks
         .elements
         .par_iter()
@@ -127,10 +134,28 @@ pub fn get_requirements(blocks: &BlockStatePosList) -> Result<Requirements, Sche
             || HashMap::new(),
             |mut acc, block| {
                 let data = Arc::as_ref(&block.block);
-                if data.id.name == air {
+                if data.id.name == lava || data.id.name == water {
+                    let palette = data.properties.get("level");
+                    if let Some(palette) = palette {
+                        if palette.to_string()  != "0" { return acc };
+                    }
+                }
+                if excluded_blocks.contains(&data.id.name) {
                     return acc;
                 }
-                let block_id = data.id.clone();
+                let mut block_id = data.id.clone();
+                if data.id.name.to_string().contains("wall_") {
+                    let renamed_name = data.id.name.replace("wall_", "");
+
+                    block_id = BlockId {
+                        name: Arc::from(renamed_name),
+                    };
+                }
+                if data.id.name.to_string() == "minecraft:redstone_wire" {
+                    block_id = BlockId {
+                        name: Arc::from("minecraft:redstone"),
+                    };
+                }
                 *acc.entry(block_id).or_insert(0) += 1;
                 acc
             },

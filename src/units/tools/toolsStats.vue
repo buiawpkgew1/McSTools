@@ -2,6 +2,8 @@
 import { defineProps, computed, ref, watch, nextTick, onBeforeUnmount } from "vue";
 import type { RequirementStatistics } from "../../modules/requirements.ts";
 import * as echarts from 'echarts';
+import {exportRequirementsStatsToCsv} from "../../modules/exportRequirements.ts";
+import {schematicData} from "../../modules/tools_data.ts";
 
 const props = defineProps<{
   data: RequirementStatistics | undefined;
@@ -70,7 +72,9 @@ const initOrUpdateChart = async () => {
     window.addEventListener('resize', () => chartInstance?.resize());
   }
 };
-
+const exportRequirement = async() => {
+  await exportRequirementsStatsToCsv(schematicData.value.name, sortedItems.value)
+}
 watch(viewMode, (newVal) => {
   if (newVal === 'chart') {
     nextTick(() => {
@@ -93,6 +97,7 @@ onBeforeUnmount(() => {
     window.removeEventListener('resize', () => chartInstance?.resize());
   }
 });
+
 </script>
 
 <template>
@@ -100,13 +105,23 @@ onBeforeUnmount(() => {
     <div class="text-caption text-medium-emphasis mr-auto">
       共 {{ data?.total || 0 }} 个材料
     </div>
-
+    <v-btn-toggle
+        mandatory
+        density="compact"
+        class="view-toggle"
+    >
+      <v-btn size="small" @click="exportRequirement">
+        <v-icon start><svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 16 16"><path fill="none" stroke="#000000" stroke-linejoin="round" d="M7 7.5H5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2m3.5-4h-2A.5.5 0 0 0 8 8v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2m4-4.5c0 .5 1 4.5 1 4.5h1s1-4 1-4.5M11 13.5v1H2v-13h6m0 0v3h3m-3-3h.5L11 4v.5m0 0V6"/></svg></v-icon>
+        导出csv
+      </v-btn>
+    </v-btn-toggle>
     <v-btn-toggle
         v-model="viewMode"
         mandatory
         density="compact"
         class="view-toggle"
     >
+
       <v-btn value="list" size="small">
         <v-icon icon="mdi-format-list-bulleted" start></v-icon>
         列表
