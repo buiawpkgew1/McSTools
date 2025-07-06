@@ -258,7 +258,7 @@ onBeforeUnmount(() => {
 }
 
 .table-header {
-  background-color: rgb(250, 250, 250);
+  background: rgba(var(--v-theme-surface), var(--surface-alpha, 1)) !important;
 }
 
 .table-header th {
@@ -267,7 +267,7 @@ onBeforeUnmount(() => {
 }
 
 .table-row:hover {
-  background-color: #f5f5f5 !important;
+  background: rgba(var(--v-theme-surface), var(--surface-alpha, 1)) !important;
 }
 .scroll-container {
   overflow-y: auto;
