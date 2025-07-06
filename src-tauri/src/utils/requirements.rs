@@ -156,6 +156,12 @@ pub fn get_requirements(blocks: &BlockStatePosList) -> Result<Requirements, Sche
                         name: Arc::from("minecraft:redstone"),
                     };
                 }
+                if data.id.name.to_string() == "minecraft:big_dripleaf_stem" {
+                    block_id = BlockId {
+                        name: Arc::from("minecraft:big_dripleaf"),
+                    };
+                }
+
                 *acc.entry(block_id).or_insert(0) += 1;
                 acc
             },
