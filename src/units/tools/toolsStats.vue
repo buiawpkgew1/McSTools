@@ -11,6 +11,7 @@ const props = defineProps<{
 
 const viewMode = ref<'list' | 'chart'>('list');
 let chartInstance: echarts.ECharts | null = null;
+let chartInstance2: echarts.ECharts | null = null;
 
 const sortedItems = computed(() => {
   return props.data?.items?.slice().sort((a, b) => b.count - a.count) || [];
@@ -23,7 +24,7 @@ const getBlockIcon = (blockId: string) => {
 const initOrUpdateChart = async () => {
   await nextTick();
   const chartDom = document.getElementById('chart-container');
-
+  const chartDom2 = document.getElementById('chart-container2');
   if (chartDom) {
     if (chartInstance) {
       chartInstance.dispose();
@@ -39,9 +40,11 @@ const initOrUpdateChart = async () => {
             `${data.name}<br/>数量: ${data.value} (${data.percentage}%)`
       },
       legend: {
+        type: 'scroll',
         orient: 'vertical',
         right: 0,
         top: 'middle',
+
         formatter: (name: string) => {
           const item = sortedItems.value.find(i => i.zh_cn === name);
           return `${ name.indexOf(":") == -1? name : name.split(":")[1] }  ${item?.count}`;
@@ -50,7 +53,7 @@ const initOrUpdateChart = async () => {
       series: [{
         type: 'pie',
         radius: ['35%', '80%'],
-        center: ['15%', '45%'],
+        center: ['20%', '45%'],
         itemStyle: {
           borderRadius: 5,
           borderColor: '#fff',
@@ -70,6 +73,57 @@ const initOrUpdateChart = async () => {
 
     chartInstance.setOption(option);
     window.addEventListener('resize', () => chartInstance?.resize());
+  }
+  if (chartDom2) {
+    if (chartInstance2) {
+      chartInstance2.dispose();
+      chartInstance2 = null;
+    }
+    chartInstance2 = echarts.init(chartDom2);
+
+    const option = {
+      tooltip: {
+        trigger: 'item',
+        formatter: ({ data }: any) =>
+            `${data.name}<br/>数量: ${data.value} (${data.percentage}%)`
+      },
+      dataset: [
+        {
+          dimensions: ['name', 'value', 'percentage'],
+          source: sortedItems.value.map(item => ({
+            name: item.zh_cn,
+            value: item.count,
+            percentage: item.percentage.toFixed(1)
+          }))
+        },
+        {
+          transform: {
+            type: 'sort',
+            config: { dimension: 'value', order: 'desc' }
+          }
+        }
+      ],
+      dataZoom: [
+        {
+          type: 'inside'
+        }
+      ],
+      xAxis: {
+        type: 'category',
+        axisLabel: { interval: 0, rotate: 30 }
+      },
+      yAxis: {
+
+      },
+      series: {
+        type: 'bar',
+        encode: { x: 'name', y: 'value' },
+        datasetIndex: 1
+      }
+    };
+
+    chartInstance2.setOption(option);
+    window.addEventListener('resize', () => chartInstance2?.resize());
   }
 };
 const exportRequirement = async() => {
@@ -233,7 +287,13 @@ onBeforeUnmount(() => {
     <div
         v-if="sortedItems.length"
         id="chart-container"
-        style="height: 400px; width: 100%"
+        style="height: 450px; width: 100%"
+    ></div>
+
+    <div
+        v-if="sortedItems.length"
+        id="chart-container2"
+        style="height: 450px; width: 100%"
     ></div>
 
     <v-alert
@@ -289,7 +349,7 @@ onBeforeUnmount(() => {
 
 .chart-container {
   position: relative;
-  height: 450px;
+  height: 1000px;
 }
 
 </style>

@@ -129,6 +129,7 @@ const clearData = async () => {
                 <v-combobox
                     v-model="selectedSource"
                     :items="updateSources"
+                    :disabled="true"
                     :label="$t('settings.update.sourcePlaceholder')"
                     variant="outlined"
                     density="compact"
